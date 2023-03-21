@@ -1,0 +1,24 @@
+view osserva il modello
+
+eventi catturati dal controller che modifica il modello
+
+virtual model --> riferimento al modello del server, dentro il client
+virtual view --> riferimento alla view del client nel sever
+
+networking: gerarchia di messaggi --> strategy pattern (un messaggio semplice estendibile con sottotipologie di messaggi) , decorator
+
+client/server
+es: giocatore sceglie da plancia celle poi le posiziona
+--> protocollo per gestire scambio messaggi
+--> chiedo entrabe cose lato client subito e invio mex
+
+view
+design pattern per generare gerarchie per eventi custom: decorator e strategy
+per gestire gerarchia eventi --> visitor patttern
+
+
+
++ game con una board ciascuno
++
+in base a num giocatori board2 o board3 o board4
+

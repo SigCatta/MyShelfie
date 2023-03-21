@@ -9,16 +9,15 @@ import java.util.HashMap;
 public class Bag {
 
     private final int NUMBER_OF_COLORS;
-
-    private int tilesLeft = 132;
+    private final int TILES_PER_COLOR = 22;
+    private int tilesLeft;
     private final HashMap<Color, Integer> colorNumber = new HashMap<>();
 
     public Bag(){
-
         NUMBER_OF_COLORS = Color.values().length;
-
+        tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
         for(Color color : Color.values()){
-            colorNumber.put(color, tilesLeft/NUMBER_OF_COLORS);
+            colorNumber.put(color, TILES_PER_COLOR);
         }
     }
 
@@ -77,6 +76,6 @@ public class Bag {
             }
         }
 
-        return Color.BLUE;
+        return Color.BLUE; //TODO update after clasrifitaion of the rules
     }
 }
