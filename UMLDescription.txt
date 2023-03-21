@@ -2,7 +2,7 @@ La classe Game gestisce le richieste provenienti dal server e si occupa di crear
  di gioco e di assegnare le carte personalGoal e commonGoal ai giocatori.
 
  La classe Board tiene traccia delle informazioni di gioco e funge da intermediario
- tra Game e gli altri componenti.
+ tra Game e gli altri componenti
 
 La classe PersonalCardDealer crea istanze di PersonalGoal e restituisce una lista di
 queste in base al numero di giocatori nella partita. Durante la creazione dei personalGoal,
