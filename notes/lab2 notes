@@ -15,3 +15,10 @@ es: giocatore sceglie da plancia celle poi le posiziona
 view
 design pattern per generare gerarchie per eventi custom: decorator e strategy
 per gestire gerarchia eventi --> visitor patttern
+
+
+
++ game con una board ciascuno
++
+in base a num giocatori board2 o board3 o board4
+
