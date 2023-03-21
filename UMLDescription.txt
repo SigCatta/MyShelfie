@@ -1,0 +1,20 @@
+La classe Game gestisce le richieste provenienti dal server e si occupa di creare la Board
+ di gioco e di assegnare le carte personalGoal e commonGoal ai giocatori.
+
+ La classe Board tiene traccia delle informazioni di gioco e funge da intermediario
+ tra Game e gli altri componenti
+
+La classe PersonalCardDealer crea istanze di PersonalGoal e restituisce una lista di
+queste in base al numero di giocatori nella partita. Durante la creazione dei personalGoal,
+ la classe sorteggia dei file dal database in modo da garantire una distribuzione casuale
+ dei tipi di carte per ogni giocatore.
+
+La classe CommonCardDealer crea istanze di CommonGoal e le restituisce in una lista di
+ CommonGoal (classe astratta). Per creare istanze di CommonGoal usa un sorteggio casuale
+ tra tutte le sue sottoclassi in modo da delegare l'esecuzione del metodo astratto calculateScore()
+ ad ognuna di esse. Se questo metodo risultasse troppo lento si può implementare attraverso uno ù
+ switch e generazione di un numero casuale.
+
+La classe Bag viene utilizzata per generare gli ItemTile sulla Board e richiede le immagini
+dal database tramite la classe ItemTile. Bag contiene una mappa che è formata da coppie
+colore-numero_di_tiles_rimaste_nel_box in modo da istanziare le tiles solo quando servono.
