@@ -39,7 +39,6 @@ public class PickUpValidator {
 
 
     static boolean ArePointsAdjacent(ArrayList<Point> points) {
-
         // get the row and column of the first point in the list
         int row = points.get(0).x;
         int col = points.get(0).y;
