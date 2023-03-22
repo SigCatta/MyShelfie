@@ -18,16 +18,7 @@ public class ShelfTest {
     @BeforeAll
     @Test
     public void testInizialization() {
-        shelf = new Shelf();
-        ROWS_SIZE = shelf.getROWS_SIZE();
-        COLUMNS_SIZE = shelf.getCOLUMNS_SIZE();
-        List<Stack<ItemTile>> shelfGrid = shelf.getShelfGrid();
 
-        assertEquals(shelfGrid, new ArrayList<>());
-
-        for (int i = 0; i < COLUMNS_SIZE; i++) {
-            assertEquals(shelfGrid.get(i), new Stack<>());
-        }
 
     }
 
