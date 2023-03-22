@@ -39,4 +39,16 @@ public class Shelf {
     public Stack<ItemTile> getShelfGridColumn(int column) {
         return shelfGrid.get(column);
     }
+
+    public List<Stack<ItemTile>> getShelfGrid() {
+        return shelfGrid;
+    }
+
+    public int getCOLUMNS_SIZE() {
+        return COLUMNS_SIZE;
+    }
+
+    public int getROWS_SIZE() {
+        return ROWS_SIZE;
+    }
 }
