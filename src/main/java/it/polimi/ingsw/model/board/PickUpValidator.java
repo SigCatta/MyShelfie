@@ -10,39 +10,35 @@ public class PickUpValidator {
 
 
     /**
-     * check if the player asked for more tiles than possible
-     * check if the player asked for consecutive cells
+     * check if the player asked for more tiles than possible then
+     * check if the player asked for consecutive cells then
      * check if the player asked for an empty cell
      * @param chosenPositions, list of the tiles
      * @return if the player can take the tiles
      */
     public static boolean isValid(ItemTile[][] boardGrid, ArrayList<Point> chosenPositions) {
 
-        int currentRow = chosenPositions.get(0).x;
-        int currentCol = chosenPositions.get(1).y;
-
-        //max number of tiles that the player can take from
-        //the board in a single turn
+        //max number of tiles that the player can take from the board in a single turn
         final int MAX_TILES = 3;
 
-        if(MAX_TILES > chosenPositions.size()) return false;
+        if(chosenPositions.size() > MAX_TILES || chosenPositions.size() == 0) return false;
 
-        if(ArePointsAdjacent(chosenPositions)) return false;
+        if(!ArePointsAdjacent(chosenPositions)) return false;
 
         for (Point position : chosenPositions) {
 
             //impossible to pick up an empty cell
             if(boardGrid[position.x][position.y] == null) return false;
 
-            if (!hasFreeAdjacentNeighbor(boardGrid, position)) {
-                return false;
-            }
+            if (!hasFreeAdjacentNeighbor(boardGrid, position)) return false;
+
         }
+
         return true;
     }
 
 
-    private static boolean ArePointsAdjacent(ArrayList<Point> points) {
+    static boolean ArePointsAdjacent(ArrayList<Point> points) {
 
         // get the row and column of the first point in the list
         int row = points.get(0).x;
@@ -50,38 +46,42 @@ public class PickUpValidator {
 
         String movingDirection = "";
 
-        for (int i = 1; i < points.size(); i++) {
-            Point currPoint = points.get(i);
+        for (Point currPoint : points) {
+
             int currRow = currPoint.x;
             int currCol = currPoint.y;
 
             if(currRow != row){
-                movingDirection = "col";
+                //rows are changing
+                movingDirection = "row";
                 break;
             }else if (currCol != col){
-                movingDirection = "row";
+                //columns are changing
+                movingDirection = "col";
                 break;
             }
         }
 
-        if(movingDirection.equals("col")){
+        if(movingDirection.equals("row")){
             points.sort(Comparator.comparingInt(p -> p.x));
 
-            int prevValue = points.get(0).y;
+            int prevValue = points.get(0).x;
             for(int i = 1; i < points.size(); i++){
                 if(points.get(i).x != prevValue + i){
                     return false;
                 }
+                if(points.get(i).y != col) return false;
             }
 
         }else{
             points.sort(Comparator.comparingInt(p -> p.y));
 
-            int prevValue = points.get(0).x;
+            int prevValue = points.get(0).y;
             for(int i = 1; i < points.size(); i++){
                 if(points.get(i).y != prevValue + i){
                     return false;
                 }
+                if(points.get(i).x != row) return false;
             }
         }
         return true;
@@ -103,14 +103,17 @@ public class PickUpValidator {
         int row = position.x;
         int col = position.y;
 
+        if(position.x == 0 || position.x == BOARD_DIMENSION-1
+                || position.y == 0 || position.y == BOARD_DIMENSION-1) return true;
 
-        if(boardGrid[Math.min(0, row-1)][col] == null){
+
+        if(boardGrid[row-1][col] == null){
             return true;
-        } else if (boardGrid[Math.max(BOARD_DIMENSION, row+1)][col] == null) {
+        } else if (boardGrid[row+1][col] == null) {
             return true;
-        } else if (boardGrid[row][Math.min(0, col-1)] == null){
+        } else if (boardGrid[row][col-1] == null){
             return true;
-        } else return boardGrid[row][Math.max(0, col + 1)] == null;
+        } else return boardGrid[row][col + 1] == null;
 
     }
 }
