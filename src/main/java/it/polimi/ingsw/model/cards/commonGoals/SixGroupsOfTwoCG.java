@@ -51,12 +51,9 @@ public class SixGroupsOfTwoCG extends CommonGoal{
         // Check if there are at least six distinct groups
         int groupCount = 0;
         for (Set<ItemTile> group : groups.values()) {
-            if (group.size() >= 1) {
-                groupCount++;
-            }
-            if (groupCount >= 6) {
-                return true;
-            }
+            if (group.size() >= 1) groupCount++;
+
+            if (groupCount >= 6)  return true;
         }
         return false;
     }
