@@ -7,30 +7,44 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class PersonalGoal {
-    HashMap<Color, Point> achievements;
+    private final HashMap<Color, Point> achievements;
     private final Player player;
+    private final Stack<Integer> points;
 
-    protected PersonalGoal(Player player){
-        //TODO implement map fillout from json
-
+    PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points) {
         this.player = player;
+        this.achievements = achievements;
+        this.points = points;
     }
 
-    public int calculateScore(){
+    public int calculateScore() {
         int score = 0;
-        if (!achievements.isEmpty()){
-            for(Color color : Color.values()){
+        if (!points.isEmpty()) {
+            for (Color color : Color.values()) {
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
-                if (tileAtPoint.getColor() == color){
-                    //TODO score += non mi ricordooo
+                if (tileAtPoint.getColor() == color) {
+                    score += getPoints();
                     achievements.remove(color);
                 }
             }
         }
         return score;
+    }
+
+    private int getPoints() {
+        return points.pop();
+    }
+
+    public HashMap<Color, Point> getAchievements() {
+        return achievements;
+    }
+
+    public Stack<Integer> getPointStack() {
+        return points;
     }
 }
