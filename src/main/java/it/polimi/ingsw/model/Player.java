@@ -47,7 +47,7 @@ public class Player {
     }
 
     public void sortHeldTiles() {
-        //to do once server&client logic is set up
+        //TODO once server&client logic is set up
     }
 
     public void updateScore(int points) {
