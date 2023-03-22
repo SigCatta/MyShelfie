@@ -1,5 +1,6 @@
-import model.gameItems.Tiles.Color;
-import model.gameItems.Tiles.ItemTile;
+
+import it.polimi.ingsw.model.entities.Color;
+import it.polimi.ingsw.model.entities.ItemTile;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
