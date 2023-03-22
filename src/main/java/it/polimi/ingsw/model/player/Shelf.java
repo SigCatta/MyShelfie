@@ -30,10 +30,12 @@ public class Shelf {
         return getNumOfBoxLeftInCol(column)==0;
     }
 
-    public ItemTile getTileAtLocation(Point location) {
-        if(shelfGrid.get(location.y).size() <= location.x)  return null;
+    public int getCOLUMNS_SIZE() {
+        return COLUMNS_SIZE;
+    }
 
-        return shelfGrid.get(location.y).get(location.x);
+    public int getROWS_SIZE() {
+        return ROWS_SIZE;
     }
 
     public Stack<ItemTile> getShelfGridColumn(int column) {
@@ -44,11 +46,10 @@ public class Shelf {
         return shelfGrid;
     }
 
-    public int getCOLUMNS_SIZE() {
-        return COLUMNS_SIZE;
+    public ItemTile getTileAtLocation(Point location) {
+        if(shelfGrid.get(location.y).size() <= location.x)  return null;
+
+        return shelfGrid.get(location.y).get(location.x);
     }
 
-    public int getROWS_SIZE() {
-        return ROWS_SIZE;
-    }
 }
