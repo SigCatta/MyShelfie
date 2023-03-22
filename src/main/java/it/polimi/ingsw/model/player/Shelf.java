@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.Point;
@@ -8,8 +9,8 @@ import java.util.List;
 import java.util.Stack;
 
 public class Shelf {
-    private final int COLUMNS_SIZE = 5;
-    private final int ROWS_SIZE = 6;
+    private final int COLUMNS = 5;
+    private final int ROWS = 6;
     private List<Stack<ItemTile>> shelfGrid;
 
     public Shelf() {
@@ -18,24 +19,22 @@ public class Shelf {
 
     private void initializeShelfGrid() {
         shelfGrid = new ArrayList<>();
-        for (int i = 0; i < COLUMNS_SIZE; i++) {
+        for (int i = 0; i < COLUMNS; i++) {
             shelfGrid.add(new Stack<>());
         }
     }
 
     public int getNumOfBoxLeftInCol(int column) {
-        return ROWS_SIZE - shelfGrid.get(column).size();
+        return ROWS - shelfGrid.get(column).size();
     }
     public boolean isColumnFull(int column) {
         return getNumOfBoxLeftInCol(column)==0;
     }
 
-    public int getCOLUMNS_SIZE() {
-        return COLUMNS_SIZE;
-    }
+    public ItemTile getTileAtLocation(Point location) {
+        if(shelfGrid.get(location.y).size() <= location.x)  return null;
 
-    public int getROWS_SIZE() {
-        return ROWS_SIZE;
+        return shelfGrid.get(location.y).get(location.x);
     }
 
     public Stack<ItemTile> getShelfGridColumn(int column) {
@@ -46,10 +45,11 @@ public class Shelf {
         return shelfGrid;
     }
 
-    public ItemTile getTileAtLocation(Point location) {
-        if(shelfGrid.get(location.y).size() <= location.x)  return null;
-
-        return shelfGrid.get(location.y).get(location.x);
+    public int getCOLUMNS() {
+        return COLUMNS;
     }
 
+    public int getROWS() {
+        return ROWS;
+    }
 }
