@@ -12,8 +12,6 @@ public class SixGroupsOfTwoCG extends CommonGoal{
     }
 
     public boolean sixGrouppsFound(List<Stack<ItemTile>> shelfGrid) {
-        //TODO check if tile is null
-
         // Create a map to keep track of groups of adjacent tiles with the same color
         Map<ItemTile, Set<ItemTile>> groups = new HashMap<>();
 
@@ -37,6 +35,7 @@ public class SixGroupsOfTwoCG extends CommonGoal{
             Stack<ItemTile> stack1 = shelfGrid.get(i);
             Stack<ItemTile> stack2 = shelfGrid.get(i+1);
             for (int j = 0; j < stack1.size(); j++) {
+                if(stack1.size()<=j || stack2.size()<=j)    continue;
                 ItemTile tile1 = stack1.get(j);
                 ItemTile tile2 = stack2.get(j);
                 if (tile1.getColor() == tile2.getColor()) {
