@@ -21,7 +21,7 @@ public class ShelfManagerTest {
     public void insertTilesTest(){
         List<ItemTile> itemTiles = new ArrayList<>();
         for (int i = 0; i < shelfManager.getShelf().getROWS(); i++) {
-            itemTiles.add(new ItemTile( Color.BLUE));
+            itemTiles.add(new ItemTile(Color.BLUE));
         }
         assertTrue(shelfManager.insertTiles(0, itemTiles));
         assertFalse(shelfManager.insertTiles(0, itemTiles));
