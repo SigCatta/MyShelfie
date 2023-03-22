@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model.entities;
+package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.ModelLogic.itemCreation.ShelfManager;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package it.polimi.ingsw.model.ModelLogic.itemCreation;
+package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.entities.ItemTile;
-import it.polimi.ingsw.model.entities.Shelf;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.List;
 import java.util.Stack;

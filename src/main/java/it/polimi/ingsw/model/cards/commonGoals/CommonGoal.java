@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.entities.commonGoals;
+package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.model.entities.Player;
+import it.polimi.ingsw.model.player.Player;
 
 import java.util.List;
 import java.util.Stack;

@@ -1,6 +1,4 @@
-package it.polimi.ingsw.model.ModelLogic.itemCreation;
-
-import it.polimi.ingsw.model.entities.commonGoals.CommonGoal;
+package it.polimi.ingsw.model.cards.commonGoals;
 
 import java.util.ArrayList;
 import java.util.List;

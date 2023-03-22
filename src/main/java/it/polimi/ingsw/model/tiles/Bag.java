@@ -1,7 +1,7 @@
-package it.polimi.ingsw.model.ModelLogic.itemCreation;
+package it.polimi.ingsw.model.tiles;
 
-import it.polimi.ingsw.model.entities.Color;
-import it.polimi.ingsw.model.entities.ItemTile;
+import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.entities;
+package it.polimi.ingsw.model.tiles;
 
 public enum Color {
     GREEN, YELLOW, BLUE,

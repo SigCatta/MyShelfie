@@ -1,6 +1,4 @@
-package it.polimi.ingsw.model.entities;
-
-import it.polimi.ingsw.model.entities.Color;
+package it.polimi.ingsw.model.tiles;
 
 public class ItemTile {
     private final Color COLOR;

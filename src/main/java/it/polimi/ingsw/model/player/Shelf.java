@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model.entities;
+package it.polimi.ingsw.model.player;
+
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.Point;
 import java.util.ArrayList;

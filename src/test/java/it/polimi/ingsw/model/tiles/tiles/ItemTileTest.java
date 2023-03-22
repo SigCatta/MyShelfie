@@ -1,7 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.tiles.tiles;
 
-import it.polimi.ingsw.model.gameItems.Tiles.Color;
-import it.polimi.ingsw.model.gameItems.Tiles.ItemTile;
+import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
