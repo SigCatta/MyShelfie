@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gameItems.Tiles;
+package it.polimi.ingsw.model.tiles;
 
 public class ItemTile {
     private final Color COLOR;

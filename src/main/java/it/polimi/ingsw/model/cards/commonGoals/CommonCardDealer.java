@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cardCreation;
+package it.polimi.ingsw.model.cards.commonGoals;
 
 import java.util.ArrayList;
 import java.util.List;
