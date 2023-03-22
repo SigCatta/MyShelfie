@@ -28,6 +28,7 @@ public class ShelfTest {
         for (int i = 0; i < COLUMNS_SIZE; i++) {
             assertEquals(shelfGrid.get(i), new Stack<>());
         }
+
     }
 
     @Test
