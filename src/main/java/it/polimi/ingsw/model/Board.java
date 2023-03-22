@@ -1,6 +1,4 @@
 package it.polimi.ingsw.model;
 
-public class CommonGoal {
-
-
+public class Board {
 }
