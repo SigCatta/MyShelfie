@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Stack;
 
 public class FourAnglesCG extends CommonGoal{
+    /*
+    Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
+     */
+
     public boolean checkColor(Color color, ItemTile itemTile){
         if(itemTile==null)   return false;
         return  itemTile.getColor().equals(color);
