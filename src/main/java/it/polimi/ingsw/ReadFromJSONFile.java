@@ -17,7 +17,6 @@ public class ReadFromJSONFile {
     public void readJSON(String fileName) throws IOException, ParseException {
         FileReader fileReader = new FileReader(fileName);
         Object obj = jsonParser.parse(fileReader);
-
     }
 
 }
