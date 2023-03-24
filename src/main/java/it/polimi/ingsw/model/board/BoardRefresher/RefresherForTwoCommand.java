@@ -22,8 +22,8 @@ public class RefresherForTwoCommand extends RefresherCommand {
     public void refillBoard() {
         //TODO set all the tiles possible following the rules
 
-        for (int r = 0; r < boardSize / 2; r++) {
-            for (int c = 0; c < boardSize / 2; c++) {
+        for (int r = 0; r <= boardSize / 2; r++) {
+            for (int c = 0; c <= boardSize / 2; c++) {
                 if (boardGrid[r][c] != null || (r + c < 5 && !(r == 1 && c == 3) ) ) {
                     continue;
                 }

@@ -2,17 +2,21 @@ package it.polimi.ingsw.model.board.BoardRefresher;
 
 import it.polimi.ingsw.Game;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
+
+import java.util.ArrayList;
 
 
 public class BoardRefresher {
-    private final int PLAYERS_NUMBER;
 
     private Board board;
     private Bag bag;
 
+    private ArrayList<Player> players;
+
     public BoardRefresher(Game game) {
-        PLAYERS_NUMBER = game.getPlayers().size();
+        players = game.getPlayers();
 
         board = game.getBoard();
         bag = game.getBag();
@@ -24,10 +28,10 @@ public class BoardRefresher {
         RefresherCommandHandler handler = new RefresherCommandHandler();
 
         handler.addCommand(new RefresherForTwoCommand(board, bag));
-        if(PLAYERS_NUMBER >= 3){
+        if(players.size() >= 3){
             handler.addCommand(new RefresherForThreeCommand(board, bag));
         }
-        if(PLAYERS_NUMBER >= 4){
+        if(players.size() >= 4){
             handler.addCommand(new RefresherForFourCommand(board, bag));
         }
 

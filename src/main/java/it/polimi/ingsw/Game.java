@@ -11,20 +11,25 @@ public class Game {
 
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
+    private final int MAX_PLAYER_NUMBER = 4;
+    private final int TILES_PER_COLOR = 22;
 
     private int gameID;
+    private final Bag bag;
     private Board board;
 
     private BoardRefresher boardRefresher;
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private Player activePlayer;
     private Player firstPlayer;
 
-    private Bag bag;
 
     public Game(){
         //TODO create instances of the classes used here
+        bag = new Bag(TILES_PER_COLOR);
+        board = new Board(BOARD_DIMENSION);
+        boardRefresher = new BoardRefresher(this);
     }
 
 
@@ -58,5 +63,17 @@ public class Game {
 
     public int getMAX_TILES_FROM_BOARD() {
         return MAX_TILES_FROM_BOARD;
+    }
+
+
+    public void addPlayer(Player player){
+
+        if(players.size() > MAX_PLAYER_NUMBER) return;
+
+        players.add(player);
+    }
+
+    public BoardRefresher getBoardRefresher() {
+        return boardRefresher;
     }
 }
