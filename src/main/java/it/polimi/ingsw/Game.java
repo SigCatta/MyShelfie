@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class Game {
 
+    private final int BOARD_DIMENSION = 9;
+    private final int MAX_TILES_FROM_BOARD = 3;
+
     private int gameID;
     private Board board;
 
@@ -47,5 +50,13 @@ public class Game {
 
     public Bag getBag() {
         return bag;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public int getMAX_TILES_FROM_BOARD() {
+        return MAX_TILES_FROM_BOARD;
     }
 }

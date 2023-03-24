@@ -49,7 +49,7 @@ public class Bag {
         return itemTileList;
     }
 
-    public ItemTile drawSingleTiles(){
+    public ItemTile drawSingleTile(){
         return new ItemTile(randomColor());
     }
 

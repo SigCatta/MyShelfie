@@ -11,15 +11,11 @@ public class BoardRefresher {
     private Board board;
     private Bag bag;
 
-    private int missingTilesNumber;
-
     public BoardRefresher(Game game) {
         PLAYERS_NUMBER = game.getPlayers().size();
 
         board = game.getBoard();
         bag = game.getBag();
-
-        missingTilesNumber = (new MissingTilesCounter(board)).countMissingTiles();
 
     }
 
@@ -27,12 +23,12 @@ public class BoardRefresher {
 
         RefresherCommandHandler handler = new RefresherCommandHandler();
 
-        handler.addCommand(new RefresherForTwoCommand());
+        handler.addCommand(new RefresherForTwoCommand(board, bag));
         if(PLAYERS_NUMBER >= 3){
-            handler.addCommand(new RefresherForThreeCommand());
+            handler.addCommand(new RefresherForThreeCommand(board, bag));
         }
         if(PLAYERS_NUMBER >= 4){
-            handler.addCommand(new RefresherForFourCommand());
+            handler.addCommand(new RefresherForFourCommand(board, bag));
         }
 
         handler.executeCommands();
