@@ -27,7 +27,6 @@ public class RefresherCommandHandler {
         }
     }
 
-    // Execute every method refillBoard of the instances in the list
     public void executeCommands() {
         for (int r = 0; r < pointsToBeFilled.length; r++) {
             for (int c = 0; c < pointsToBeFilled.length; c++) {
