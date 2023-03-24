@@ -25,14 +25,14 @@ public class BoardRefresher {
 
     public void refillBoard(){
 
-        RefresherCommandHandler handler = new RefresherCommandHandler();
+        RefresherCommandHandler handler = new RefresherCommandHandler(board, bag);
 
-        handler.addCommand(new RefresherForTwoCommand(board, bag));
+        handler.addPointsInformation(new BoardLookUpTableTwo());
         if(players.size() >= 3){
-            handler.addCommand(new RefresherForThreeCommand(board, bag));
+            handler.addPointsInformation(new BoardLookUpTableThree());
         }
         if(players.size() >= 4){
-            handler.addCommand(new RefresherForFourCommand(board, bag));
+            handler.addPointsInformation(new BoardLookUpTableFour());
         }
 
         handler.executeCommands();
