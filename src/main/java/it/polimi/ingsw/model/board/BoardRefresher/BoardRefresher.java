@@ -23,9 +23,15 @@ public class BoardRefresher {
 
     }
 
+    /**
+     * modified version of COMMAND design pattern
+     * the handler merges the previous lookup table
+     * with the lookup table that is added with the
+     * method addPointsInformation
+     */
     public void refillBoard(){
 
-        RefresherCommandHandler handler = new RefresherCommandHandler(board, bag);
+        RefresherHandler handler = new RefresherHandler(board, bag);
 
         handler.addPointsInformation(new BoardLookUpTableTwo());
         if(players.size() >= 3){

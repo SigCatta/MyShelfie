@@ -4,13 +4,13 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Bag;
 
 
-public class RefresherCommandHandler {
+public class RefresherHandler {
     private final boolean[][] pointsToBeFilled;
     private final Board board;
     private final int BOARD_SIZE;
     private final Bag bag;
 
-    RefresherCommandHandler(Board board, Bag bag){
+    RefresherHandler(Board board, Bag bag){
         this.board = board;
         this.bag = bag;
 
@@ -35,6 +35,9 @@ public class RefresherCommandHandler {
         }
     }
 
+    /**
+     * fill the board
+     */
     public void executeCommands() {
         for (int r = 0; r < BOARD_SIZE; r++) {
             for (int c = 0; c < BOARD_SIZE; c++) {
