@@ -14,11 +14,22 @@ public class PersonalGoal {
     private final Player player;
     private final Stack<Integer> points;
 
+    /**
+     * Contructs a new personal goal
+     * @author Luca Cattani
+     */
     PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points) {
         this.player = player;
         this.achievements = achievements;
         this.points = points;
     }
+
+    /**
+     * Checks if the player has completed any of the goals set by the personal card and returns the total earned
+     *
+     * @return the sum of points that the player earned from a personal goal card
+     * @author Luca Cattani
+     */
 
     public int calculateScore() {
         int score = 0;
@@ -36,13 +47,27 @@ public class PersonalGoal {
         return score;
     }
 
+    /**
+     * @return the number of points that the player gets because of completing the objective
+     * @author Luca Cattani
+     */
+
     private int getPoints() {
         return points.pop();
     }
 
+    /**
+     * @return a map of the goals that are not completed yet
+     * @author Luca Cattani
+     */
     public HashMap<Color, Point> getAchievements() {
         return achievements;
     }
+
+    /**
+     * @return a stack containing the points that the player can still collect from completing the remaining objectives from the personal card
+     * @author Luca Cattani
+     */
 
     public Stack<Integer> getPointStack() {
         return points;

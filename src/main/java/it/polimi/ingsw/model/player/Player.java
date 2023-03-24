@@ -38,6 +38,10 @@ public class Player {
         return personalGoal;
     }
 
+    public void setPersonalGoal(PersonalGoal personalGoal) {
+        if (this.personalGoal != null) this.personalGoal = personalGoal;
+    }
+
     public String getNickname() {
         return nickname;
     }
