@@ -8,13 +8,26 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.awt.*;
 import java.util.List;
 import java.util.Stack;
-
+/**
+ * Rule: Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
+ */
 public class FourAnglesCG extends CommonGoal{
+    /**
+     * @param color The Color to check.
+     * @param itemTile The ItemTile to check.
+     * @return True if the ItemTile is not null and has the given color. False otherwise.
+     */
     public boolean checkColor(Color color, ItemTile itemTile){
         if(itemTile==null)   return false;
         return  itemTile.getColor().equals(color);
     }
 
+    /**
+     * Checks if the goal of having all tiles on the corners with the same color is achieved.
+     *
+     * @param shelf the shelf to check
+     * @return true if the goal is achieved or false if not
+     */
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         int ROWS = shelf.getROWS();
