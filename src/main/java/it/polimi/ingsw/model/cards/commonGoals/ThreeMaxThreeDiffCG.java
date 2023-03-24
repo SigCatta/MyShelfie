@@ -50,7 +50,7 @@ public class ThreeMaxThreeDiffCG extends CommonGoal{
     /**
      * @param colorMat the Color matrix to check
      * @param col the column of the Color matrix to check
-     * @return the number of non-null cells with different colors in a column
+     * @return the number of non-null cells
      */
     private int numOfNotNullCell(Color[][] colorMat, int col) {
         int count = 0;

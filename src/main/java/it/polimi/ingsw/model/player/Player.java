@@ -6,51 +6,99 @@ import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 
 import java.util.List;
 
+/**
+ * Represents a player in the game.
+ */
 public class Player {
+
+    /**
+     * The board where items can be picked up from.
+     */
     private Board board;
+
+    /**
+     * The shelf manager that controls the shelves owned by the player.
+     */
     private ShelfManager shelfManager;
+
+    /**
+     * The personal goal of the player.
+     */
     private PersonalGoal personalGoal;
+
+    /**
+     * The nickname of the player.
+     */
     private String nickname;
+
+    /**
+     * The score of the player.
+     */
     private int score;
+
+    /**
+     * The list of item tiles held by the player.
+     */
     private List<ItemTile> heldTiless;
 
+    /**
+     * @return the score of the player
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * @return the board of the player
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * @return the shelf of the player
+     */
     public Shelf getShelf() {
         return shelfManager.getShelf();
     }
 
+    /**
+     * @return the held tiles of the player
+     */
     public List<ItemTile> getHeldTiless() {
         return heldTiless;
     }
 
+    /**
+     * @param heldTiless the new held tiles of the player
+     */
     public void setHeldTiless(List<ItemTile> heldTiless) {
         this.heldTiless = heldTiless;
     }
 
+    /**
+     * @return the personal goal of the player
+     */
     public PersonalGoal getPersonalGoal() {
         return personalGoal;
     }
 
+    /**
+     * @return the nickname of the player
+     */
     public String getNickname() {
         return nickname;
     }
+
 
     @Override
     public String toString() {
         return nickname;
     }
 
-    public void sortHeldTiles() {
-        //TODO once server&client logic is set up
-    }
-
+    /**
+     * @param points the points to add  to the score
+     */
     public void updateScore(int points) {
         score += points;
     }
