@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * a class that represent a particular kind of common goal card
+ */
 public abstract class CommonGoal {
     protected Stack<Integer> pointsStack;
     protected List<Player> playersWhoCompleted;

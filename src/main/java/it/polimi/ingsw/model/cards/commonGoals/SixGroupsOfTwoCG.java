@@ -6,19 +6,23 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.*;
 
+/**
+ * Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo.
+ * Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
+ */
 public class SixGroupsOfTwoCG extends CommonGoal{
-    /*
-    Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo.
-    Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
-     */
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         Color[][] colorMat = generateColMat(shelf.getShelfGrid(), shelf.getROWS(), shelf.getCOLUMNS());
         return checkForGroups(colorMat);
     }
 
-    private static boolean checkForGroups(Color[][] colorMat) {
-        // Initialize variables to keep track of the groups found
+    /**
+     * Checks if there are at least 6 groups of adjacent cells with the same color in a matrix.
+     * @param colorMat the matrix to be checked, represented as a 2D array of Color objects
+     * @return true if there are at least 6 groups of adjacent cells with the same color, false otherwise
+     */
+    public boolean checkForGroups(Color[][] colorMat) {
         int numGroups = 0;
         Color lastColor = null;
 
@@ -30,13 +34,12 @@ public class SixGroupsOfTwoCG extends CommonGoal{
                     Color currentColor = colorMat[i][j];
 
                     // If the current color is the same as the last one,
-                    // we are still inside the same group, so continue.
+                    // we are still inside the same group, so we skip to the next cell.
                     if (currentColor.equals(lastColor)) {
                         continue;
                     }
 
-                    // Otherwise, we have just found a new group,
-                    // so increment the counter and store the current color.
+                    // Otherwise, we have just found a new group
                     numGroups++;
                     lastColor = currentColor;
 
@@ -48,7 +51,6 @@ public class SixGroupsOfTwoCG extends CommonGoal{
             }
         }
 
-        // If we haven't found enough groups, return false.
         return false;
     }
 }

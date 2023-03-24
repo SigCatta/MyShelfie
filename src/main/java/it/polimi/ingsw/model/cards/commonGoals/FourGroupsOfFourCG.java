@@ -3,11 +3,17 @@ package it.polimi.ingsw.model.cards.commonGoals;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
-
+/**
+  * Quattro gruppi separati formati ciascuno da quattro tessere adiacenti dello stesso tipo.
+  * Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
+    */
 public class FourGroupsOfFourCG extends CommonGoal{
-    /*
-    Quattro gruppi separati formati ciascuno da quattro tessere adiacenti dello stesso tipo.
-    Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
+    /**
+     * Checks if the given matrix of colors has at least four groups of colors with size
+     * greater or equal to four.
+     *
+     * @param colorMat the matrix of colors to check, represented as a 2D array of Color objects
+     * @return true if the matrix has at least four groups with size >= 4, false otherwise
      */
     public boolean checkMatrix(Color[][] colorMat) {
         int rows = colorMat.length;
@@ -38,8 +44,17 @@ public class FourGroupsOfFourCG extends CommonGoal{
         return false;
     }
 
-    private int dfs(Color[][] colorMat, boolean[][] visited, int i, int j, Color
-            cellColor) {
+    /**
+     * Recursive helper method for DFS algorithm to count adjacent cells with the same color.
+     *
+     * @param colorMat the matrix of colors to check
+     * @param visited boolean matrix to mark visited cells
+     * @param i current row index
+     * @param j current column index
+     * @param cellColor the color of the cell being visited
+     * @return the count of adjacent cells with the same color
+     */
+    private int dfs(Color[][] colorMat, boolean[][] visited, int i, int j, Color cellColor) {
         int count = 1;
         visited[i][j] = true;
 
