@@ -16,6 +16,9 @@ public class PersonalGoal {
 
     /**
      * Contructs a new personal goal
+     * @param player the player who drew the card
+     * @param achievements the list of objectives that have to be completed
+     * @param points stack of points the player will get after completing objectives
      * @author Luca Cattani
      */
     PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points) {
