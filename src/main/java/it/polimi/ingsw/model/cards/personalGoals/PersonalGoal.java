@@ -9,6 +9,10 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Stack;
 
+/**
+ * A class describing the personal goals a certain player has to complete to earn points,
+ * it contains a map containing where the player needs to put a tile of a certain color to earn points
+ */
 public class PersonalGoal {
     private final HashMap<Color, Point> achievements;
     private final Player player;
@@ -16,9 +20,10 @@ public class PersonalGoal {
 
     /**
      * Contructs a new personal goal
-     * @param player the player who drew the card
+     *
+     * @param player       the player who drew the card
      * @param achievements the list of objectives that have to be completed
-     * @param points stack of points the player will get after completing objectives
+     * @param points       stack of points the player will get after completing objectives
      */
     PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points) {
         this.player = player;

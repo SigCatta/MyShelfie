@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Stack;
 
+/**
+ * Used for anything reguarding reading data from a json file
+ */
+
 public class ReadFromJSONFile {
     private final JSONParser jsonParser;
     private final String PATH = "src/data/";
@@ -34,7 +38,7 @@ public class ReadFromJSONFile {
      * @throws ParseException if an incorrect JSON is being parsed
      */
 
-    public HashMap<Color, Point> getItemTiles(String fileName) throws IOException, ParseException {
+    public HashMap<Color, Point> getPersonalGoalsData(String fileName) throws IOException, ParseException {
         HashMap<Color, Point> map = new HashMap<>();
         FileReader fileReader = new FileReader(PATH + "personal_cards/" + fileName);
         JSONObject JSONobj = (JSONObject) jsonParser.parse(fileReader);

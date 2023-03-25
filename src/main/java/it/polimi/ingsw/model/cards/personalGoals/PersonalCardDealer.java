@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import it.polimi.ingsw.NoPlayersException;
+import exceptions.NoPlayersException;
 import it.polimi.ingsw.ReadFromJSONFile;
-import it.polimi.ingsw.TooManyPlayersException;
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 
@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
+/**
+ * This class is used to draw a number of {@link PersonalGoal} cards from
+ * the deck and assign each card to a different player
+ */
 public class PersonalCardDealer {
-
     private static final File personalCardsDirectory = new File("src/data/personal_cards");
 
     /**
@@ -31,7 +34,7 @@ public class PersonalCardDealer {
 
         HashSet<String> cards = new HashSet<>();
         do {
-            cards.add(String.valueOf((int)( Math.random() * numOfFiles) + 1));
+            cards.add(String.valueOf((int) (Math.random() * numOfFiles) + 1));
         } while (cards.size() < numOfFiles);
 
         ReadFromJSONFile JSONreader = new ReadFromJSONFile();
@@ -39,7 +42,7 @@ public class PersonalCardDealer {
         int i = 0;
         for (String card : cards) {
             Player player = players.get(i);
-            PersonalGoal personalGoal = new PersonalGoal(player, JSONreader.getItemTiles(card + ".json"), points);
+            PersonalGoal personalGoal = new PersonalGoal(player, JSONreader.getPersonalGoalsData(card + ".json"), points);
             players.get(i).setPersonalGoal(personalGoal);
             i++;
         }
