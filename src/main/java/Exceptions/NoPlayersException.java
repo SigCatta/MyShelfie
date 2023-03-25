@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package Exceptions;
 
 public class NoPlayersException extends Exception{
     public NoPlayersException(){super();}

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import it.polimi.ingsw.NoPlayersException;
-import it.polimi.ingsw.TooManyPlayersException;
+import Exceptions.*;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
@@ -43,7 +42,7 @@ public class PersonalCardDealerTest {
     }
 
     @Test
-    public void allCardsTest() throws TooManyPlayersException, IOException, ParseException, NoPlayersException {
+    public void allCardsTest() throws IOException, ParseException {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards; i++) {
             players.add(new Player());
