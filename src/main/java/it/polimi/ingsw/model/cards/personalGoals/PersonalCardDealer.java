@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
+import it.polimi.ingsw.NoPlayersException;
 import it.polimi.ingsw.ReadFromJSONFile;
+import it.polimi.ingsw.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 
@@ -18,18 +20,18 @@ public class PersonalCardDealer {
      * the method is intended to be executed at the beginning of each game
      *
      * @param players a list of the players whom will be assigned a personal goal card
-     * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
-     * @throws ParseException if an incorrect JSON is being parsed
+     * @throws IOException             if the file does not exist or, for any other reason cannot be opened for reading
+     * @throws TooManyPlayersException if there are more players than available cards
+     * @throws ParseException          if an incorrect JSON is being parsed
      */
-    public static void getCards(List<Player> players) throws IOException, ParseException {
+    public static void getCards(List<Player> players) throws IOException, ParseException, TooManyPlayersException, NoPlayersException {
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
-        if (numOfFiles < players.size()) {
-            //TODO throw exception
-        }
+        if (numOfFiles < players.size()) throw new TooManyPlayersException();
+        if (players.size() == 0) throw new NoPlayersException();
 
         HashSet<String> cards = new HashSet<>();
         do {
-            cards.add(String.valueOf(Math.random() * numOfFiles));
+            cards.add(String.valueOf((int)( Math.random() * numOfFiles) + 1));
         } while (cards.size() < numOfFiles);
 
         ReadFromJSONFile JSONreader = new ReadFromJSONFile();
@@ -37,7 +39,7 @@ public class PersonalCardDealer {
         int i = 0;
         for (String card : cards) {
             Player player = players.get(i);
-            PersonalGoal personalGoal = new PersonalGoal(player, JSONreader.getItemTiles(card), points);
+            PersonalGoal personalGoal = new PersonalGoal(player, JSONreader.getItemTiles(card + ".json"), points);
             players.get(i).setPersonalGoal(personalGoal);
             i++;
         }
