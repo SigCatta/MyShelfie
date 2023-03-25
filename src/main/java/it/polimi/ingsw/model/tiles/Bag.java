@@ -79,6 +79,6 @@ public class Bag {
             }
         }
 
-        return Color.BLUE; //TODO update after clasrifitaion of the rules
+        return Color.BLUE; //TODO update after clarification of the rules
     }
 }

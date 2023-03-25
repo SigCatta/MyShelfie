@@ -90,7 +90,16 @@ public class Player {
         return personalGoal;
     }
 
-    /**
+     /**
+     * Assigns a personal goal to a player if the player has not personal goals assigned yet
+     *
+     * @param personalGoal the personal goal which is going to be assigned to the player
+     */
+    public void setPersonalGoal(PersonalGoal personalGoal) {
+        if (this.personalGoal == null) this.personalGoal = personalGoal;
+    }
+
+     /**
      * @return the nickname of the player
      */
     public String getNickname() {
