@@ -10,7 +10,6 @@ import java.util.List;
  * Represents a player in the game.
  */
 public class Player {
-
     /**
      * The board where items can be picked up from.
      */
@@ -19,7 +18,7 @@ public class Player {
     /**
      * The shelf manager that controls the shelves owned by the player.
      */
-    private ShelInserter shelInserter;
+    private Shelf shelf;
 
     /**
      * The personal goal of the player.
@@ -41,11 +40,19 @@ public class Player {
      */
     private List<ItemTile> heldTiless;
 
+    public Player() {
+        shelf = new Shelf();
+    }
+
     /**
      * @return the score of the player
      */
     public int getScore() {
         return score;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     /**
@@ -59,7 +66,7 @@ public class Player {
      * @return the shelf of the player
      */
     public Shelf getShelf() {
-        return shelInserter.getShelf();
+        return shelf;
     }
 
     /**

@@ -1,23 +1,25 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.model.player.ShelInserter;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.ShelfBuffer;
+import it.polimi.ingsw.model.player.ShelfInserter;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class FourAnglesCGTest {
-    private ShelInserter shelInserter;
     private FourAnglesCG cg;
 
     @Test
     public void checkColorTest() {
         cg = new FourAnglesCG();
-        shelInserter = new ShelInserter();
         ItemTile tile = new ItemTile(Color.BLUE);
         assertTrue(cg.checkColor(Color.BLUE, tile));
         assertFalse(cg.checkColor(Color.PINK, tile));
@@ -25,23 +27,27 @@ public class FourAnglesCGTest {
     }
 
     @Test
-    public void isGoalAchievedTest() {
+    public void hasEdgesWithSameColTest() {
         cg = new FourAnglesCG();
-        shelInserter = new ShelInserter();
-        shelInserter.insertTiles(0, Arrays.asList(new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), new ItemTile(Color.GREEN)));
-        shelInserter.insertTiles(1, Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)));
-        shelInserter.insertTiles(2, Arrays.asList(new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)));
-        shelInserter.insertTiles(3, Arrays.asList(new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW)));
-        shelInserter.insertTiles(4, Arrays.asList(new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW)));
-        assertFalse(cg.isGoalAchieved(shelInserter.getShelf()));
+        Color[][] matrix1 = {
+                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+        };
+        assertFalse(cg.hasEdgesWithSameCol(matrix1));
 
-        shelInserter = new ShelInserter();
-        shelInserter.insertTiles(0, Arrays.asList(new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), new ItemTile(Color.PINK)));
-        shelInserter.insertTiles(1, Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)));
-        shelInserter.insertTiles(2, Arrays.asList(new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)));
-        shelInserter.insertTiles(3, Arrays.asList(new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW)));
-        shelInserter.insertTiles(4, Arrays.asList(new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.PINK)));
-        //assertTrue(cg.isGoalAchieved(shelInserter.getShelf()));
+        Color[][] matrix2 = {
+                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+                {Color.PINK, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+        };
+        assertTrue(cg.hasEdgesWithSameCol(matrix2));
     }
 
 }
