@@ -1,15 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.ShelfBuffer;
-import it.polimi.ingsw.model.player.ShelfInserter;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

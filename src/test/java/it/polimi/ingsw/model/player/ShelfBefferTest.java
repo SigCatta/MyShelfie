@@ -1,15 +1,15 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
-        import it.polimi.ingsw.model.tiles.Color;
-        import it.polimi.ingsw.model.tiles.ItemTile;
+import org.junit.jupiter.api.Test;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-        import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ShelfBufferTest {
 
@@ -24,16 +24,16 @@ class ShelfBufferTest {
     void getTilesToBeInserted() {
         List<ItemTile> expectedTiles = new ArrayList<>();
         expectedTiles.add(new ItemTile(Color.BLUE));
-        buffer.setUnorderedTilesToBeInserted(expectedTiles);
-        assertEquals(expectedTiles, buffer.getTilesToBeInserted());
+        buffer.setTiles(expectedTiles);
+        assertEquals(expectedTiles, buffer.getTiles());
     }
 
     @Test
     void setUnorderedTilesToBeInserted() {
         List<ItemTile> expectedTiles = new ArrayList<>();
         expectedTiles.add(new ItemTile(Color.BLUE));
-        buffer.setUnorderedTilesToBeInserted(expectedTiles);
-        assertEquals(expectedTiles, buffer.getTilesToBeInserted());
+        buffer.setTiles(expectedTiles);
+        assertEquals(expectedTiles, buffer.getTiles());
     }
 
     @Test
@@ -45,7 +45,7 @@ class ShelfBufferTest {
         sortedColors.add(Color.PINK);
         sortedColors.add(Color.GREEN);
 
-        buffer.setUnorderedTilesToBeInserted(unorderedTiles);
+        buffer.setTiles(unorderedTiles);
         buffer.sortTiles(sortedColors);
 
         List<ItemTile> expectedTiles = new ArrayList<>();
@@ -53,7 +53,7 @@ class ShelfBufferTest {
         expectedTiles.add(unorderedTiles.get(2));
         expectedTiles.add(unorderedTiles.get(1));
 
-        assertEquals(expectedTiles, buffer.getTilesToBeInserted());
+        assertEquals(expectedTiles, buffer.getTiles());
     }
 
     @Test
@@ -63,9 +63,9 @@ class ShelfBufferTest {
         unorderedTiles.add(new ItemTile(Color.GREEN));
         unorderedTiles.add(new ItemTile(Color.PINK));
 
-        assertFalse(buffer.areTilesOrdered());
-        buffer.setUnorderedTilesToBeInserted(unorderedTiles);
-        assertFalse(buffer.areTilesOrdered());
+        assertFalse(buffer.isOrdered());
+        buffer.setTiles(unorderedTiles);
+        assertFalse(buffer.isOrdered());
 
         List<Color> sortedColors = new ArrayList<>();
         sortedColors.add(Color.BLUE);
@@ -73,6 +73,6 @@ class ShelfBufferTest {
         sortedColors.add(Color.GREEN);
 
         buffer.sortTiles(sortedColors);
-        assertTrue(buffer.areTilesOrdered());
+        assertTrue(buffer.isOrdered());
     }
 }

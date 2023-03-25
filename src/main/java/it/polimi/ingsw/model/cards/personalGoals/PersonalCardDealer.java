@@ -1,15 +1,17 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import exceptions.NoPlayersException;
-import it.polimi.ingsw.ReadFromJSONFile;
+import exceptions.NullPlayersException;
 import exceptions.TooManyPlayersException;
+import it.polimi.ingsw.ReadFromJSONFile;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Stack;
 
 /**
  * This class is used to draw a number of {@link PersonalGoal} cards from
@@ -27,10 +29,10 @@ public class PersonalCardDealer {
      * @throws TooManyPlayersException if there are more players than available cards
      * @throws ParseException          if an incorrect JSON is being parsed
      */
-    public static void getCards(List<Player> players) throws IOException, ParseException, TooManyPlayersException, NoPlayersException {
+    public static void getCards(List<Player> players) throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
         if (numOfFiles < players.size()) throw new TooManyPlayersException();
-        if (players.size() == 0) throw new NoPlayersException();
+        if (players.size() == 0) throw new NullPlayersException();
 
         HashSet<String> cards = new HashSet<>();
         do {

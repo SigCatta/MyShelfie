@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Stack;
 
