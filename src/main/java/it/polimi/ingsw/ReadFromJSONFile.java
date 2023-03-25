@@ -32,7 +32,6 @@ public class ReadFromJSONFile {
      * @return a map containing the coordinates of each objective, by colour
      * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
      * @throws ParseException if an incorrect JSON is being parsed
-     * @author Luca Cattani
      */
 
     public HashMap<Color, Point> getItemTiles(String fileName) throws IOException, ParseException {
@@ -59,7 +58,6 @@ public class ReadFromJSONFile {
      * @return a stack containing the points that is player is going to get for completing each objective
      * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
      * @throws ParseException if an incorrect JSON is being parsed
-     * @author Luca Cattani
      */
     public Stack<Integer> getPointStack() throws IOException, ParseException {
         Stack<Integer> pointStack = new Stack<>();

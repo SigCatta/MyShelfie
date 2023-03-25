@@ -7,7 +7,6 @@ public class ItemTile {
      * Contructs a new item tile given the color
      *
      * @param color the color of the tile
-     * @author Luca Cattani
      */
     public ItemTile(Color color) {
         this.COLOR = color;
@@ -16,7 +15,6 @@ public class ItemTile {
 
     /**
      * @return the color of the tile
-     * @author Luca Cattani
      */
     public Color getColor() {
         return COLOR;

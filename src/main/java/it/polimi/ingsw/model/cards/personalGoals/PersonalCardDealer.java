@@ -20,7 +20,6 @@ public class PersonalCardDealer {
      * @param players a list of the players whom will be assigned a personal goal card
      * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
      * @throws ParseException if an incorrect JSON is being parsed
-     * @author Luca Cattani
      */
     public static void getCards(List<Player> players) throws IOException, ParseException {
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
