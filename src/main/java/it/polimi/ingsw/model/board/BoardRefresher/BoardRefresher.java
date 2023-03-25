@@ -33,11 +33,13 @@ public class BoardRefresher {
 
         RefresherHandler handler = new RefresherHandler(board, bag);
 
-        handler.addPointsInformation(new BoardLookUpTableTwo());
-        if(players.size() >= 3){
+        if(players.size() <= 2){
+            handler.addPointsInformation(new BoardLookUpTableTwo());
+        }
+        else if(players.size() == 3){
             handler.addPointsInformation(new BoardLookUpTableThree());
         }
-        if(players.size() >= 4){
+        else{
             handler.addPointsInformation(new BoardLookUpTableFour());
         }
 

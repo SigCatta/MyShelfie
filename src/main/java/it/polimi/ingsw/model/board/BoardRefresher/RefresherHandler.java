@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.tiles.Bag;
 
 
 public class RefresherHandler {
-    private final boolean[][] pointsToBeFilled;
+    private boolean[][] pointsToBeFilled;
     private final Board board;
     private final int BOARD_SIZE;
     private final Bag bag;
@@ -34,6 +34,7 @@ public class RefresherHandler {
 
             }
         }
+
     }
 
     /**

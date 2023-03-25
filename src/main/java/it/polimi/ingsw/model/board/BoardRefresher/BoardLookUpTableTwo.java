@@ -14,7 +14,6 @@ public class BoardLookUpTableTwo extends BoardLookUpTable {
             {false, false, false, false, false, false, false, false, false}
     };
 
-
     @Override
     boolean[][] getPointsToBeFilled() {
         return pointsToBeFilled;
