@@ -35,7 +35,7 @@ public class ShelfInserterTest {
         assertFalse(shelFInserter.insertTiles(0));
 
         for (int i = 0; i < shelFInserter.getShelf().getROWS(); i++) {
-            assertEquals(itemTiles.get(i), shelFInserter.getShelfGridColumn(0).get(i));
+            assertEquals(itemTiles.get(i), shelFInserter.getShelfGridTilesAtColumn(0).get(i));
         }
 
 
