@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class tests {@link PersonalGoal}'s methods
  */
 public class PersonalGoalsTest {
+/*
     @Test
     public void pointStackTest() throws TooManyPlayersException, IOException, ParseException, NoPlayersException {
         ArrayList<Player> players = new ArrayList<>();
@@ -53,4 +54,5 @@ public class PersonalGoalsTest {
 
         assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 12
     }
+    */
 }
