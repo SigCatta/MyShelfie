@@ -9,11 +9,14 @@ import java.util.HashMap;
 public class Bag {
 
     private final int NUMBER_OF_COLORS;
-    private final int TILES_PER_COLOR = 22;
+    private final int TILES_PER_COLOR;
     private int tilesLeft;
     private final HashMap<Color, Integer> colorNumber = new HashMap<>();
 
-    public Bag(){
+    public Bag(int TILES_PER_COLOR){
+
+        this.TILES_PER_COLOR = TILES_PER_COLOR;
+
         NUMBER_OF_COLORS = Color.values().length;
         tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
         for(Color color : Color.values()){
@@ -49,7 +52,7 @@ public class Bag {
         return itemTileList;
     }
 
-    public ItemTile drawSingleTiles(){
+    public ItemTile drawSingleTile(){
         return new ItemTile(randomColor());
     }
 

@@ -1,62 +1,53 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.model.player.ShelfUtils;
+import it.polimi.ingsw.model.tiles.Color;
 
-import java.util.*;
-
+/**
+ * Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo.
+ * Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
+ */
 public class SixGroupsOfTwoCG extends CommonGoal{
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        return sixGrouppsFound(shelf.getShelfGrid());
+        return checkForGroups(shelf.generateColorMat());
     }
 
-    public boolean sixGrouppsFound(List<Stack<ItemTile>> shelfGrid) {
-        // Create a map to keep track of groups of adjacent tiles with the same color
-        Map<ItemTile, Set<ItemTile>> groups = new HashMap<>();
+    /**
+     * Checks if there are at least 6 groups of adjacent cells with the same color in a matrix.
+     * @param colorMat the matrix to be checked, represented as a 2D array of Color objects
+     * @return true if there are at least 6 groups of adjacent cells with the same color, false otherwise
+     */
+    public boolean checkForGroups(Color[][] colorMat) {
+        int numGroups = 0;
+        Color lastColor = null;
 
-        // Check for adjacent tiles with the same color horizontally
-        for (Stack<ItemTile> stack : shelfGrid) {
-            ItemTile prevTile = null;
-            for (ItemTile tile : stack) {
-                if (prevTile != null && prevTile.getColor() == tile.getColor()) {
-                    // Found two adjacent tiles with the same color
-                    if (!groups.containsKey(prevTile)) {
-                        groups.put(prevTile, new HashSet<>());
-                    }
-                    groups.get(prevTile).add(tile);
-                }
-                prevTile = tile;
-            }
-        }
+        // Loop through the matrix
+        for (int i = 0; i < colorMat.length; i++) {
+            for (int j = 0; j < colorMat[i].length; j++) {
+                // Check if the current cell is not null
+                if (colorMat[i][j] != null) {
+                    Color currentColor = colorMat[i][j];
 
-        // Check for adjacent tiles with the same color vertically
-        for (int i = 0; i < shelfGrid.size() - 1; i++) {
-            Stack<ItemTile> stack1 = shelfGrid.get(i);
-            Stack<ItemTile> stack2 = shelfGrid.get(i+1);
-            for (int j = 0; j < stack1.size(); j++) {
-                if(stack1.size()<=j || stack2.size()<=j)    continue;
-                ItemTile tile1 = stack1.get(j);
-                ItemTile tile2 = stack2.get(j);
-                if (tile1.getColor() == tile2.getColor()) {
-                    // Found two adjacent tiles with the same color
-                    if (!groups.containsKey(tile1)) {
-                        groups.put(tile1, new HashSet<>());
+                    // If the current color is the same as the last one,
+                    // we are still inside the same group, so we skip to the next cell.
+                    if (currentColor.equals(lastColor)) {
+                        continue;
                     }
-                    groups.get(tile1).add(tile2);
+
+                    // Otherwise, we have just found a new group
+                    numGroups++;
+                    lastColor = currentColor;
+
+                    // If we have found at least 6 groups, return true.
+                    if (numGroups >= 6) {
+                        return true;
+                    }
                 }
             }
         }
 
-        // Check if there are at least six distinct groups
-        int groupCount = 0;
-        for (Set<ItemTile> group : groups.values()) {
-            if (group.size() >= 1) groupCount++;
-
-            if (groupCount >= 6)  return true;
-        }
         return false;
     }
-
-
 }
