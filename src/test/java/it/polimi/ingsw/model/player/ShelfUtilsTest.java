@@ -1,5 +1,8 @@
-package it.polimi.ingsw.model.cards.commonGoals;
+package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoal;
+import it.polimi.ingsw.model.cards.commonGoals.FourAnglesCG;
+import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
@@ -10,7 +13,7 @@ import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommonGoalTest {
+public class ShelfUtilsTest {
     @Test
     public void testGenerateColMat() {
         CommonGoal cg = new FourAnglesCG();
@@ -23,7 +26,7 @@ public class CommonGoalTest {
         stack2.push(new ItemTile(Color.YELLOW));
         shelfGrid.add(stack1);
         shelfGrid.add(stack2);
-        Color[][] colMat = cg.generateColMat(shelfGrid, 2, 2);
+        Color[][] colMat = ShelfUtils.generateColMat(shelfGrid, 2, 2);
         assertEquals(Color.PINK, colMat[0][0]);
         assertEquals(Color.BLUE, colMat[1][0]);
         assertEquals(Color.GREEN, colMat[0][1]);

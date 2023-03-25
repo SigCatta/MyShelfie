@@ -19,7 +19,7 @@ public class Player {
     /**
      * The shelf manager that controls the shelves owned by the player.
      */
-    private ShelfManager shelfManager;
+    private ShelInserter shelInserter;
 
     /**
      * The personal goal of the player.
@@ -59,7 +59,7 @@ public class Player {
      * @return the shelf of the player
      */
     public Shelf getShelf() {
-        return shelfManager.getShelf();
+        return shelInserter.getShelf();
     }
 
     /**

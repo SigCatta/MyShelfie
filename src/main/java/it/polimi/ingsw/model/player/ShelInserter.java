@@ -8,18 +8,18 @@ import java.util.Stack;
 /**
  * A class that manages the logic to fill the player's shelf.
  */
-public class ShelfManager {
+public class ShelInserter {
     private Shelf shelf;
 
     /**
-     * Constructs a new ShelfManager object and initializes the shelf field with a new instance of the Shelf class.
+     * Constructs a new ShelInserter object and initializes the shelf field with a new instance of the Shelf class.
      */
-    public ShelfManager(){
+    public ShelInserter(){
         shelf = new Shelf();
     }
 
     /**
-     * @return the Shelf object managed by this ShelfManager instance.
+     * @return the Shelf object managed by this ShelInserter instance.
      */
     public Shelf getShelf() {
         return shelf;

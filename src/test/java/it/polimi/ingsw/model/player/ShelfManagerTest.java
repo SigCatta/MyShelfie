@@ -11,23 +11,23 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ShelfManagerTest {
-    private ShelfManager shelfManager;
+    private ShelInserter shelInserter;
 
     @BeforeEach
     public void setUp(){
-        shelfManager = new ShelfManager();
+        shelInserter = new ShelInserter();
     }
     @Test
     public void insertTilesTest(){
         List<ItemTile> itemTiles = new ArrayList<>();
-        for (int i = 0; i < shelfManager.getShelf().getROWS(); i++) {
+        for (int i = 0; i < shelInserter.getShelf().getROWS(); i++) {
             itemTiles.add(new ItemTile(Color.BLUE));
         }
-        assertTrue(shelfManager.insertTiles(0, itemTiles));
-        assertFalse(shelfManager.insertTiles(0, itemTiles));
+        assertTrue(shelInserter.insertTiles(0, itemTiles));
+        assertFalse(shelInserter.insertTiles(0, itemTiles));
 
-        for (int i = 0; i < shelfManager.getShelf().getROWS(); i++) {
-            assertEquals(itemTiles.get(i), shelfManager.getShelfGridTilesAtColumn(0).get(i));
+        for (int i = 0; i < shelInserter.getShelf().getROWS(); i++) {
+            assertEquals(itemTiles.get(i), shelInserter.getShelfGridTilesAtColumn(0).get(i));
         }
 
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
+import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
 
 import java.util.HashSet;
@@ -12,8 +13,7 @@ import java.util.Set;
 public class SixDiffColorsCG extends CommonGoal{
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        Color[][] colorMat = generateColMat(shelf.getShelfGrid(), shelf.getROWS(), shelf.getCOLUMNS());
-        return hasTwoColumnsOfSixDifferentColors(colorMat);
+        return hasTwoColumnsOfSixDifferentColors(shelf.generateColorMat());
     }
 
     /**

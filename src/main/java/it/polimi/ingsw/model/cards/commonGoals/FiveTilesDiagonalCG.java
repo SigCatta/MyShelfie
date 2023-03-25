@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
+import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
@@ -9,8 +10,7 @@ import it.polimi.ingsw.model.tiles.Color;
 public class FiveTilesDiagonalCG extends CommonGoal{
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        Color[][] colorMat = generateColMat(shelf.getShelfGrid(), shelf.getROWS(), shelf.getCOLUMNS());
-        return hasFiveDiagonalCellsOfSameCol(colorMat);
+        return hasFiveDiagonalCellsOfSameCol(shelf.generateColorMat());
     }
 
     /**

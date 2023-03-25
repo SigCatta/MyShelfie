@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player;
 
 
+import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.Point;
@@ -75,22 +76,10 @@ public class Shelf {
     }
 
     /**
-     * Sets the ItemTile at the specified location in the shelf grid.
-     * @param point The Point representing the location of the ItemTile.
-     * @param itemTile The ItemTile to be set.
+     * @return colorMat: a Color matrix representing the shelGrid
      */
-    private void setTileAtLocation(Point point, ItemTile itemTile) {
-        if (point.y >= 0 && point.y < COLUMNS) {
-            Stack<ItemTile> columnStack = shelfGrid.get(point.y);
-            if (point.x < columnStack.size()) {
-                columnStack.set(point.x, itemTile);
-            } else {
-                while (columnStack.size() < point.x) {
-                    columnStack.push(null);
-                }
-                columnStack.push(itemTile);
-            }
-        }
+    public Color[][] generateColorMat() {
+        return ShelfUtils.generateColMat(getShelfGrid(), getROWS(), getCOLUMNS());
     }
 
     /**
