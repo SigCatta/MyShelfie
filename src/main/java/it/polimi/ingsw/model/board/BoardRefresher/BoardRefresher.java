@@ -25,9 +25,8 @@ public class BoardRefresher {
 
     /**
      * modified version of COMMAND design pattern
-     * the handler merges the previous lookup table
-     * with the lookup table that is added with the
-     * method addPointsInformation
+     * the handler is used to set the board as the
+     * blueprint contained in the class added
      */
     public void refillBoard(){
 
