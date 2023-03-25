@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoal;
 import it.polimi.ingsw.model.cards.commonGoals.FourAnglesCG;
-import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ShelfUtilsTest {
     @Test
     public void testGenerateColMat() {
-        CommonGoal cg = new FourAnglesCG();
+        CommonGoal commonGoal = new FourAnglesCG();
         List<Stack<ItemTile>> shelfGrid = new ArrayList<>();
         Stack<ItemTile> stack1 = new Stack<>();
         stack1.push(new ItemTile(Color.PINK));

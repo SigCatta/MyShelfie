@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.List;
 
@@ -106,11 +106,6 @@ public class Player {
         return nickname;
     }
 
-
-    @Override
-    public String toString() {
-        return nickname;
-    }
 
     /**
      * @param points the points to add  to the score

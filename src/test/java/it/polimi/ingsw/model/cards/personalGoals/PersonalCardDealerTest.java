@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import exceptions.*;
+import exceptions.NullPlayersException;
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * This class tests {@link PersonalCardDealer}
@@ -42,11 +44,11 @@ public class PersonalCardDealerTest {
     public void noPlayersTest() {
         ArrayList<Player> players = new ArrayList<>();
 
-        assertThrows(NoPlayersException.class, () -> PersonalCardDealer.getCards(players));
+        assertThrows(NullPlayersException.class, () -> PersonalCardDealer.getCards(players));
     }
 
     @Test
-    public void allCardsTest() throws IOException, ParseException, TooManyPlayersException, NoPlayersException {
+    public void allCardsTest() throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards; i++) {
             players.add(new Player());

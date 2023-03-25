@@ -2,14 +2,15 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.tiles.Color;
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Stack;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReadFromJSONFileTest {
     /**

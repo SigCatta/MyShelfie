@@ -4,7 +4,7 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -30,16 +30,9 @@ public class Shelf {
     private List<Stack<ItemTile>> shelfGrid;
 
     /**
-     * Constructs a new Shelf object and initializes the shelf grid.
+     * Constructs a new Shelf object
      */
     public Shelf() {
-        initializeShelfGrid();
-    }
-
-    /**
-     * Initializes the shelf grid by creating a stack for each column.
-     */
-    private void initializeShelfGrid() {
         shelfGrid = new ArrayList<>();
         for (int i = 0; i < COLUMNS; i++) {
             shelfGrid.add(new Stack<>());

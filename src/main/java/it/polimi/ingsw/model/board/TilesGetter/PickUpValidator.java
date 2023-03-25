@@ -30,7 +30,7 @@ public class PickUpValidator {
 
         if(chosenPositions.size() > MAX_TILES || chosenPositions.size() == 0) return false;
 
-        if(!ArePointsAdjacent(chosenPositions)) return false;
+        if(!arePointsAdjacent(chosenPositions)) return false;
 
         for (Point singlePosition : chosenPositions) {
 
@@ -45,7 +45,7 @@ public class PickUpValidator {
     }
 
 
-    boolean ArePointsAdjacent(ArrayList<Point> chosenPositions) {
+    boolean arePointsAdjacent(ArrayList<Point> chosenPositions) {
         // get the row and column of the first point in the list
         int row = chosenPositions.get(0).x;
         int col = chosenPositions.get(0).y;
