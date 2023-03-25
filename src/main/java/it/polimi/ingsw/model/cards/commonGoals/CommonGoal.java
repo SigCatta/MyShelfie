@@ -24,8 +24,7 @@ public abstract class CommonGoal {
      * @return the point achieved by the player
      */
     public int calculateScore(Player player) {
-        if(isGoalAchieved(player.getShelf()))    return getPoints();
-        else    return 0;
+        return isGoalAchieved(player.getShelf()) ? getPoints() : 0;
     }
 
     /**
@@ -36,10 +35,11 @@ public abstract class CommonGoal {
 
     /**
      * Gets the number of points awarded for achieving the goal.
+     *
      * @return the number of points awarded
      */
     public int getPoints() {
-        return pointsStack.get(0);
+        return pointsStack.pop();
     }
 }
 

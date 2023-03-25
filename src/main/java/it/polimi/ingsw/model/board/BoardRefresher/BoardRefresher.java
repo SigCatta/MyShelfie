@@ -24,7 +24,7 @@ public class BoardRefresher {
     }
 
     /**
-     * modified version of COMMAND design pattern
+     * modified version of COMMAND design pattern,
      * the handler merges the previous lookup table
      * with the lookup table that is added with the
      * method addPointsInformation

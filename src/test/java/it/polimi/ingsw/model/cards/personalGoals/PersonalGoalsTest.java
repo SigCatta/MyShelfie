@@ -1,21 +1,5 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import exceptions.NoPlayersException;
-import exceptions.TooManyPlayersException;
-import it.polimi.ingsw.ReadFromJSONFile;
-import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.tiles.Color;
-import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Test;
-
-import java.awt.Point;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * This class tests {@link PersonalGoal}'s methods

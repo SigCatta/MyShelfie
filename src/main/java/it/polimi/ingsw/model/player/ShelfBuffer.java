@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class ShelfBuffer {
     /**
      * @return the list of ItemTiles to be inserted.
      */
-    public List<ItemTile> getTilesToBeInserted() {
+    public List<ItemTile> getTiles() {
         return tilesToBeInserted;
     }
 
@@ -39,7 +38,7 @@ public class ShelfBuffer {
      * This method sets the list of ItemTiles to be inserted.
      * @param tilesToBeInserted the list of ItemTiles to be inserted.
      */
-    public void setUnorderedTilesToBeInserted(List<ItemTile> tilesToBeInserted) {
+    public void setTiles(List<ItemTile> tilesToBeInserted) {
         this.tilesToBeInserted = new ArrayList<>(tilesToBeInserted);
         ordered = false;
     }
@@ -61,7 +60,7 @@ public class ShelfBuffer {
         };
 
         // Sort the tiles using the Comparator
-        Collections.sort(tilesToBeInserted, colorComparator);
+        tilesToBeInserted.sort(colorComparator);
 
         ordered = true;
     }
@@ -69,7 +68,7 @@ public class ShelfBuffer {
     /**
      * @return true if the list is ordered, false otherwise.
      */
-    public boolean areTilesOrdered() {
+    public boolean isOrdered() {
         return ordered;
     }
 }

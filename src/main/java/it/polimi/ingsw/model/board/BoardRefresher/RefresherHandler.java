@@ -10,7 +10,7 @@ public class RefresherHandler {
     private final int BOARD_SIZE;
     private final Bag bag;
 
-    RefresherHandler(Board board, Bag bag){
+    RefresherHandler(Board board, Bag bag) {
         this.board = board;
         this.bag = bag;
 
@@ -21,29 +21,30 @@ public class RefresherHandler {
     /**
      * uses the lookUpTable to change the pointsToBeFilled matrix,
      * this it holds true only in the positions where the tile is needed
+     *
      * @param lookUpTable matrix
      */
     public void addPointsInformation(BoardLookUpTable lookUpTable) {
-        if(lookUpTable.getPointsToBeFilled().length != pointsToBeFilled.length) return;
+        if (lookUpTable.getPointsToBeFilled().length != pointsToBeFilled.length) return;
 
-        for (int r = 0; r < BOARD_SIZE; r++) {
-            for (int c = 0; c < BOARD_SIZE; c++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int column = 0; column < BOARD_SIZE; column++) {
 
-                pointsToBeFilled[r][c] = pointsToBeFilled[r][c] || lookUpTable.getPointsToBeFilled()[r][c];
+                pointsToBeFilled[row][column] = pointsToBeFilled[row][column] || lookUpTable.getPointsToBeFilled()[row][column];
 
             }
         }
     }
 
     /**
-     * fill the board
+     * fills the board
      */
     public void executeCommands() {
-        for (int r = 0; r < BOARD_SIZE; r++) {
-            for (int c = 0; c < BOARD_SIZE; c++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int column = 0; column < BOARD_SIZE; column++) {
 
-                if(pointsToBeFilled[r][c]){
-                    board.getBoardGrid()[r][c] = bag.drawSingleTile();
+                if (pointsToBeFilled[row][column]) {
+                    board.getBoardGrid()[row][column] = bag.drawSingleTile();
                 }
 
             }

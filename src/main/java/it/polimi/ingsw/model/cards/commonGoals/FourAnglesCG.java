@@ -4,25 +4,20 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Rule: Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
  */
-public class FourAnglesCG extends CommonGoal{
+public class FourAnglesCG extends CommonGoal {
     /**
-     * @param color The Color to check.
+     * @param color    The Color to check.
      * @param itemTile The ItemTile to check.
      * @return True if the ItemTile is not null and has the given color. False otherwise.
      */
-    public boolean checkColor(Color color, ItemTile itemTile){
-        if(itemTile==null) {
-            //TODO: throw exception
-            return false;
-        }
-        return  itemTile.getColor().equals(color);
+    public boolean checkColor(Color color, ItemTile itemTile) {
+        return itemTile != null && itemTile.getColor().equals(color);
     }
 
     /**
@@ -47,11 +42,11 @@ public class FourAnglesCG extends CommonGoal{
         int cols = colorMat[0].length;
         Set<Color> colorSet = new HashSet<>();
         // check the edges
-        if(colorMat[0][0]!=null)    colorSet.add(colorMat[0][0]);
-        if(colorMat[0][cols-1]!=null)    colorSet.add(colorMat[0][cols-1]);
-        if(colorMat[rows-1][cols-1]!=null)    colorSet.add(colorMat[rows-1][cols-1]);
-        if(colorMat[rows-1][0]!=null)    colorSet.add(colorMat[rows-1][0]);
+        if (colorMat[0][0] != null) colorSet.add(colorMat[0][0]);
+        if (colorMat[0][cols - 1] != null) colorSet.add(colorMat[0][cols - 1]);
+        if (colorMat[rows - 1][cols - 1] != null) colorSet.add(colorMat[rows - 1][cols - 1]);
+        if (colorMat[rows - 1][0] != null) colorSet.add(colorMat[rows - 1][0]);
 
-        return colorSet.size()==1;
+        return colorSet.size() == 1;
     }
 }
