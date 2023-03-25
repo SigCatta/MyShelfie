@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.tiles.Bag;
 
 
 public class RefresherHandler {
-    private final boolean[][] pointsToBeFilled;
+    private boolean[][] pointsToBeFilled;
     private final Board board;
     private final int BOARD_SIZE;
     private final Bag bag;
@@ -26,13 +26,7 @@ public class RefresherHandler {
     public void addPointsInformation(BoardLookUpTable lookUpTable) {
         if(lookUpTable.getPointsToBeFilled().length != pointsToBeFilled.length) return;
 
-        for (int r = 0; r < BOARD_SIZE; r++) {
-            for (int c = 0; c < BOARD_SIZE; c++) {
-
-                pointsToBeFilled[r][c] = pointsToBeFilled[r][c] || lookUpTable.getPointsToBeFilled()[r][c];
-
-            }
-        }
+        pointsToBeFilled = lookUpTable.getPointsToBeFilled();
     }
 
     /**
