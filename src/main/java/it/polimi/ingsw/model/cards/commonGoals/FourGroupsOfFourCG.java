@@ -76,7 +76,6 @@ public class FourGroupsOfFourCG extends CommonGoal{
 
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        Color[][] colorMat = generateColMat(shelf.getShelfGrid(), shelf.getROWS(), shelf.getCOLUMNS());
-        return checkMatrix(colorMat);
+        return checkMatrix(shelf.generateColorMat());
     }
 }
