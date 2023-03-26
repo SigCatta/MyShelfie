@@ -36,6 +36,8 @@ public class RefresherHandler {
         for (int r = 0; r < BOARD_SIZE; r++) {
             for (int c = 0; c < BOARD_SIZE; c++) {
 
+                if(board.getBoardGrid()[r][c] != null) continue;
+
                 if(pointsToBeFilled[r][c]){
                     board.getBoardGrid()[r][c] = bag.drawSingleTile();
                 }
@@ -43,5 +45,4 @@ public class RefresherHandler {
             }
         }
     }
-
 }
