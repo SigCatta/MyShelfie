@@ -1,13 +1,12 @@
 package it.polimi.ingsw.model.player;
 
 
-import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.List;
 import java.util.Stack;
 

@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model.player;
 
 
+import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -29,16 +30,9 @@ public class Shelf {
     private List<Stack<ItemTile>> shelfGrid;
 
     /**
-     * Constructs a new Shelf object and initializes the shelf grid.
+     * Constructs a new Shelf object
      */
     public Shelf() {
-        initializeShelfGrid();
-    }
-
-    /**
-     * Initializes the shelf grid by creating a stack for each column.
-     */
-    private void initializeShelfGrid() {
         shelfGrid = new ArrayList<>();
         for (int i = 0; i < COLUMNS; i++) {
             shelfGrid.add(new Stack<>());
@@ -75,22 +69,10 @@ public class Shelf {
     }
 
     /**
-     * Sets the ItemTile at the specified location in the shelf grid.
-     * @param point The Point representing the location of the ItemTile.
-     * @param itemTile The ItemTile to be set.
+     * @return colorMat: a Color matrix representing the shelGrid
      */
-    private void setTileAtLocation(Point point, ItemTile itemTile) {
-        if (point.y >= 0 && point.y < COLUMNS) {
-            Stack<ItemTile> columnStack = shelfGrid.get(point.y);
-            if (point.x < columnStack.size()) {
-                columnStack.set(point.x, itemTile);
-            } else {
-                while (columnStack.size() < point.x) {
-                    columnStack.push(null);
-                }
-                columnStack.push(itemTile);
-            }
-        }
+    public Color[][] generateColorMat() {
+        return ShelfUtils.generateColMat(getShelfGrid(), getROWS(), getCOLUMNS());
     }
 
     /**

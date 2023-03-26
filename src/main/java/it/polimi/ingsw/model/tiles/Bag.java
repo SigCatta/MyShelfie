@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model.tiles;
 
-import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -79,6 +76,6 @@ public class Bag {
             }
         }
 
-        return Color.BLUE; //TODO update after clasrifitaion of the rules
+        return Color.BLUE; //TODO update after clarification of the rules
     }
 }
