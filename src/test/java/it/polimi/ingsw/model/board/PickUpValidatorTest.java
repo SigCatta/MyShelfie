@@ -2,6 +2,13 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.model.board.TilesGetter.PickUpValidator;
+import org.junit.jupiter.api.Test;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PickUpValidatorTest {
 
@@ -273,6 +280,5 @@ public class PickUpValidatorTest {
 
         assertFalse(PickUpValidator.isValid(leftHalfGrid, points));
     }
-     */
-
+*/
 }
