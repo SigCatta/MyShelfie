@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.JSONReader;
 
 import it.polimi.ingsw.model.tiles.Color;
 import org.json.simple.JSONArray;
