@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.board;
 
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
