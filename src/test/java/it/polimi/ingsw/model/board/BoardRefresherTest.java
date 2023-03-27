@@ -17,8 +17,9 @@ public class BoardRefresherTest {
     }
 
     @Test
-    public void testHalf1_2(){
+    public void testHalf1_2() throws IOException, ParseException {
         game.getBoardRefresher().refillBoard();
+
     }
 
 }

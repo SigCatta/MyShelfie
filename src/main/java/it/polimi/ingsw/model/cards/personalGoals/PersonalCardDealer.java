@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.personalGoals;
 
 import exceptions.NullPlayersException;
 import exceptions.TooManyPlayersException;
-import it.polimi.ingsw.ReadFromJSONFile;
+import it.polimi.ingsw.JSONReader.ReadFromJSONFile;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 

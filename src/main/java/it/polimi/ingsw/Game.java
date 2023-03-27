@@ -30,7 +30,7 @@ public class Game {
     public Game() throws IOException, ParseException {
         //TODO create instances of the classes used here
         bag = new Bag(TILES_PER_COLOR);
-        board = new Board(BOARD_DIMENSION, players.size());
+        board = new Board(BOARD_DIMENSION);
         boardRefresher = new BoardRefresher(this);
     }
 
