@@ -29,8 +29,8 @@ public class BoardRefresher {
     }
 
     /**
-     *  it uses the class BoardLookUpTableJSON to get the lookUpTable from the json database
-     *  Once it get the matrix it stores it in the local variable, so it will not be
+     *  it uses the class BoardLookUpTableJSON to get the lookUpTable from the json database.
+     *  Once it gets the matrix, it stores it in the local variable, so it will not be
      *  necessary to query the database multiple times.
      *  Using the lookup table, refillBoard draws tiles from the bag and refills the board
      */

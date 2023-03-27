@@ -22,7 +22,7 @@ public class BoardLookUpTableJSON extends JSONReader{
      * how many players are playing, allowing more tile for bigger games
      *
      * @param numOfPlayers indicates how many players will be playing
-     * @return a boolean matrix contain true if the square is playable
+     * @return a boolean matrix contain true in the position that has to be filled
      */
     public boolean[][] getLookUpTable(int numOfPlayers) {
 
