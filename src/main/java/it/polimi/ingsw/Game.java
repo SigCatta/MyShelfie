@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
@@ -25,10 +27,10 @@ public class Game {
     private Player firstPlayer;
 
 
-    public Game(){
+    public Game() throws IOException, ParseException {
         //TODO create instances of the classes used here
         bag = new Bag(TILES_PER_COLOR);
-        board = new Board(BOARD_DIMENSION);
+        board = new Board(BOARD_DIMENSION, players.size());
         boardRefresher = new BoardRefresher(this);
     }
 

@@ -37,7 +37,6 @@ public class ReadFromJSONFile {
      * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
      * @throws ParseException if an incorrect JSON is being parsed
      */
-
     public HashMap<Color, Point> getPersonalGoalsData(String fileName) throws IOException, ParseException {
         HashMap<Color, Point> map = new HashMap<>();
         FileReader fileReader = new FileReader(PATH + "personal_cards/" + fileName);
@@ -74,6 +73,35 @@ public class ReadFromJSONFile {
         }
 
         return pointStack;
+    }
+
+    /**
+     * Reads the src/data/boards folder to get which spots on the board a playable, reads the files based on
+     * how many players are playing, allowing more tile for bigger games
+     *
+     * @param numOfPlayers indicats how many players will be playing
+     * @param boardSize    indicats how big the board is going to be
+     * @return a boolean matrix containg true if the square is playable
+     * @throws IOException    if the file does not exist or, for any other reason cannot be opened for reading
+     * @throws ParseException if an incorrect JSON is being parsed
+     */
+    public boolean[][] getPlayableSquares(int numOfPlayers, int boardSize) throws IOException, ParseException {
+        boolean[][] board = new boolean[boardSize][boardSize];
+
+        for (int i = 2; i <= numOfPlayers; i++) {
+            String filename = i + ".json";
+            FileReader fileReader = new FileReader(PATH + "boards/" + filename);
+            JSONObject JSONobj = (JSONObject) jsonParser.parse(fileReader);
+            int numOfPoints = (int) JSONobj.get("numOfPoints");
+            for (int j = 0; j < numOfPoints; j++) {
+
+                JSONArray arr = (JSONArray) JSONobj.get("Point" + j);
+                Object x = arr.get(0);
+                Object y = arr.get(1);
+                board[Integer.parseInt(x.toString())][Integer.parseInt(y.toString())] = true;
+            }
+        }
+        return board;
     }
 
 }

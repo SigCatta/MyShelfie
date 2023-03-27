@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.tiles.Bag;
 
 
 public class RefresherHandler {
-    private boolean[][] pointsToBeFilled;
     private final Board board;
     private final int BOARD_SIZE;
     private final Bag bag;
@@ -15,31 +14,19 @@ public class RefresherHandler {
         this.bag = bag;
 
         BOARD_SIZE = board.getBoardGrid().length;
-        pointsToBeFilled = new boolean[BOARD_SIZE][BOARD_SIZE];
     }
 
     /**
-     * uses the lookUpTable to change the pointsToBeFilled matrix,
-     * this it holds true only in the positions where the tile is needed
-     * @param lookUpTable matrix
+     * fills the board
      */
-    public void addPointsInformation(BoardLookUpTable lookUpTable) {
-        if(lookUpTable.getPointsToBeFilled().length != pointsToBeFilled.length) return;
+    public void refillBoard(boolean[][] playableSquares) {
 
-        pointsToBeFilled = lookUpTable.getPointsToBeFilled();
-    }
-
-    /**
-     * fill the board
-     */
-    public void executeCommands() {
         for (int r = 0; r < BOARD_SIZE; r++) {
             for (int c = 0; c < BOARD_SIZE; c++) {
 
-                if(pointsToBeFilled[r][c]){
+                if(playableSquares[r][c] && board.getBoardGrid()[r][c] != null) {
                     board.getBoardGrid()[r][c] = bag.drawSingleTile();
                 }
-
             }
         }
     }
