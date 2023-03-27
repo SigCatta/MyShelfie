@@ -13,7 +13,7 @@ public class BoardLookUpTableJSONTest {
     BoardLookUpTableJSON boardLookUpTableJSON = new BoardLookUpTableJSON();
 
     @Test
-    public void test2() throws IOException, ParseException {
+    public void test2() {
 
         boolean[][] expectedTable = {
                 {false, false, false, false, false, false, false, false, false},

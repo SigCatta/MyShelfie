@@ -8,12 +8,5 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 public class BoardRefresherTest {
-    Game game = new Game();
-
-    public BoardRefresherTest() throws IOException, ParseException {
-        game.addPlayer(new Player());
-        game.addPlayer(new Player());
-        game.addPlayer(new Player());
-    }
 
 }

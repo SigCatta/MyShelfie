@@ -27,11 +27,12 @@ public class Game {
     private Player firstPlayer;
 
 
-    public Game() throws IOException, ParseException {
+    public Game() {
         //TODO create instances of the classes used here
         bag = new Bag(TILES_PER_COLOR);
         board = new Board(BOARD_DIMENSION);
-        boardRefresher = new BoardRefresher(this);
+        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        boardRefresher = new BoardRefresher(board, bag, players.size());
     }
 
 

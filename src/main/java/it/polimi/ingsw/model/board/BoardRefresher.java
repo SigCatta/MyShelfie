@@ -20,11 +20,11 @@ public class BoardRefresher {
      */
     private boolean[][] lookUpTable = null;
 
-    public BoardRefresher(Game game) {
+    public BoardRefresher(Board board, Bag bag, int numberOfPlayers) {
 
-        board = game.getBoard();
-        BAG = game.getBag();
-        NUMBER_OF_PLAYERS = game.getPlayers().size();
+        this.board = board;
+        BAG = bag;
+        NUMBER_OF_PLAYERS = numberOfPlayers;
 
     }
 
