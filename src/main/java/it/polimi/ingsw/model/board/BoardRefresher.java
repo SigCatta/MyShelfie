@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.board.BoardRefresher;
+package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.Game;
 import it.polimi.ingsw.JSONReader.BoardLookUpTableJSON;
