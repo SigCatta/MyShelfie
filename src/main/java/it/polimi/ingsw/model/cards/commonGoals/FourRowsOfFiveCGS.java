@@ -7,13 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi
  * differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.
  */
-public class FourRowsOfFiveCG extends CommonGoal{
+public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasFourRowsOfFive(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
     }
 
     /**

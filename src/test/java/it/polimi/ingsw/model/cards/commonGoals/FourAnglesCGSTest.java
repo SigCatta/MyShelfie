@@ -7,12 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FourAnglesCGTest {
-    private FourAnglesCG cg;
+public class FourAnglesCGSTest {
+    private FourAnglesCGS cg;
 
     @Test
     public void checkColorTest() {
-        cg = new FourAnglesCG();
+        cg = new FourAnglesCGS();
         ItemTile tile = new ItemTile(Color.BLUE);
         assertTrue(cg.checkColor(Color.BLUE, tile));
         assertFalse(cg.checkColor(Color.PINK, tile));
@@ -21,7 +21,7 @@ public class FourAnglesCGTest {
 
     @Test
     public void hasEdgesWithSameColTest() {
-        cg = new FourAnglesCG();
+        cg = new FourAnglesCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},

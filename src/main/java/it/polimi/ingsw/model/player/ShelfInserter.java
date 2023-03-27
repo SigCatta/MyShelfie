@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.player;
 
+import exceptions.NullItemTileException;
+import exceptions.NullPlayersException;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.List;
@@ -34,8 +36,8 @@ public class ShelfInserter {
     /**
      * @return the Shelf object managed by this ShelfInserter instance.
      */
-    public Shelf getShelf() {
-        if(activePlayer.equals(null))    return null;
+    public Shelf getShelf() throws NullPlayersException {
+        if(activePlayer.equals(null))    throw new NullPlayersException();
         return activePlayer.getShelf();
     }
 
@@ -44,12 +46,11 @@ public class ShelfInserter {
      * @param column the column on which to insert the tiles.
      * @return true if the tiles were successfully inserted, false otherwise.
      */
-    public boolean insertTiles(int column){
+    public boolean insertTiles(int column) throws NullItemTileException {
         //the list of ItemTile objects to insert.
         List<ItemTile> tiles = shelfBuffer.getTiles();
         if(tiles.equals(null)) {
-            //TODO throw exception
-            return false;
+            throw new NullItemTileException();
         }
 
         if(shelfBuffer.isOrdered()) {

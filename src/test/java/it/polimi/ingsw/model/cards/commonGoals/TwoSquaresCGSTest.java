@@ -7,10 +7,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TwoSquaresCGTest {
+public class TwoSquaresCGSTest {
     @Test
     public void testHasTwoGroupsOfFour() {
-        TwoSquaresCG cg = new TwoSquaresCG();
+        TwoSquaresCGS cg = new TwoSquaresCGS();
         Color[][] mat1 = {
                 {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
                 {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},

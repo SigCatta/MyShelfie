@@ -7,12 +7,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Due righe formate ciascuna da 5 diversi tipi di tessere.
  */
-public class TwoRowsWithFiveDiffCG extends CommonGoal{
+public class TwoRowsWithFiveDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasTwoRowsWithFiveDiff(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Due righe formate ciascuna da 5 diversi tipi di tessere.";
     }
 
     /**

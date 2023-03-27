@@ -4,13 +4,19 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+ * Rule:
  * Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo.
  * Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
  */
-public class SixGroupsOfTwoCG extends CommonGoal{
+public class SixGroupsOfTwoCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return checkForGroups(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo. Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.";
     }
 
     /**
