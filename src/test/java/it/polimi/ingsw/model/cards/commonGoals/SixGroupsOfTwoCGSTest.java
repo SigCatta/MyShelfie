@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SixGroupsOfTwoCGTest {
+public class SixGroupsOfTwoCGSTest {
 
     @Test
     public void testCheckForGroups() {
-        SixGroupsOfTwoCG cg = new SixGroupsOfTwoCG();
+        SixGroupsOfTwoCGS cg = new SixGroupsOfTwoCGS();
         // Test case 1: 6 groups of the same color
         Color[][] mat1 = {
                 {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},

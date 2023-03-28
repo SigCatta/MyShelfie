@@ -4,16 +4,22 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+ * Rule:
  * Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna
  * a sinistra o a destra, ogni colonna successiva deve essere formata da una tessera in più.
  * Le tessere possono essere di qualsiasi tipo.
  */
-public class ScaleCG extends CommonGoal{
+public class ScaleCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         Color[][] colorMat = shelf.generateColorMat();
 
         return hasIncreasingColumns(colorMat, true) || hasIncreasingColumns(colorMat, false);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna a sinistra o a destra, ogni colonna successiva deve essere formata da una tessera in più. \nLe tessere possono essere di qualsiasi tipo. ";
     }
 
     /**

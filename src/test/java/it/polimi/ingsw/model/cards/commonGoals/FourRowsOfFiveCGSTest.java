@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FourRowsOfFiveTestCG {
+public class FourRowsOfFiveCGSTest {
     @Test
     public void hasFourRowsOfFiveTest() {
-        FourRowsOfFiveCG cg = new FourRowsOfFiveCG();
+        FourRowsOfFiveCGS cg = new FourRowsOfFiveCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},

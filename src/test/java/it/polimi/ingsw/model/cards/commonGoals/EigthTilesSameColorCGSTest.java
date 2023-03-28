@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class EigthTilesSameColorCGTest {
+public class EigthTilesSameColorCGSTest {
     @Test
     public void testHasAtLeastEightCellsOfSameColor() {
-        EigthTilesSameColorCG cg = new EigthTilesSameColorCG();
+        EigthTilesSameColorCGS cg = new EigthTilesSameColorCGS();
         Color[][] matrix = new Color[][]{
                 {null, null, null, null},
                 {Color.PINK, Color.PINK, Color.PINK, Color.PINK},

@@ -4,10 +4,11 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+  * Rule:
   * Quattro gruppi separati formati ciascuno da quattro tessere adiacenti dello stesso tipo.
   * Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.
     */
-public class FourGroupsOfFourCG extends CommonGoal{
+public class FourGroupsOfFourCGS extends CommonGoalStrategy {
     /**
      * Checks if the given matrix of colors has at least four groups of colors with size
      * greater or equal to four.
@@ -77,5 +78,10 @@ public class FourGroupsOfFourCG extends CommonGoal{
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return checkMatrix(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Quattro gruppi separati formati ciascuno da quattro tessere adiacenti dello stesso tipo. Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.";
     }
 }

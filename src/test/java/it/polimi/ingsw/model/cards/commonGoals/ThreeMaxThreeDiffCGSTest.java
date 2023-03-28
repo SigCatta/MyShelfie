@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class ThreeMaxThreeDiffCGTest {
+public class ThreeMaxThreeDiffCGSTest {
     @Test
     public void testHasThreeColumns() {
-        ThreeMaxThreeDiffCG cg = new ThreeMaxThreeDiffCG();
+        ThreeMaxThreeDiffCGS cg = new ThreeMaxThreeDiffCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},

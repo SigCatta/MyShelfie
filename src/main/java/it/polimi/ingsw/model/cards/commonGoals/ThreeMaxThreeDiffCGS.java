@@ -7,13 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti.
- * Colonne diverse possono avere combinazioni diverse di tipi di tessere
+ * Colonne diverse possono avere combinazioni diverse di tipi di tessere.
  */
-public class ThreeMaxThreeDiffCG extends CommonGoal{
+public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasThreeColumns(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti. Colonne diverse possono avere combinazioni diverse di tipi di tessere.";
     }
 
     /**

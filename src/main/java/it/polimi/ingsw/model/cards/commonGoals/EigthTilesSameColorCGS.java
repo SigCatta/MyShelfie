@@ -7,13 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Rule:
  * Otto tessere dello stesso tipo. Non ci
  * sono restrizioni sulla posizione di queste tessere.
  */
-public class EigthTilesSameColorCG extends CommonGoal{
+public class EigthTilesSameColorCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasAtLeastEightCellsOfSameColor(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Otto tessere dello stesso tipo. Non ci sono restrizioni sulla posizione di queste tessere.";
     }
 
     /**

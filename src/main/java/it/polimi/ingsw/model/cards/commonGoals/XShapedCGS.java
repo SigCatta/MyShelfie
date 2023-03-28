@@ -4,12 +4,18 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+ * Rule:
  * Cinque tessere dello stesso tipo che formano una X.
  */
-public class XShapedCG extends CommonGoal{
+public class XShapedCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasFiveCellsFormingX(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Cinque tessere dello stesso tipo che formano una X.";
     }
 
     /**

@@ -72,7 +72,7 @@ public class Shelf {
      * @return colorMat: a Color matrix representing the shelGrid
      */
     public Color[][] generateColorMat() {
-        return ShelfUtils.generateColMat(getShelfGrid(), getROWS(), getCOLUMNS());
+        return ShelfUtils.generateColorMat(getShelfGrid(), getROWS(), getCOLUMNS());
     }
 
     /**

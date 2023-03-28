@@ -14,7 +14,7 @@ public class ShelfUtils {
      * @param cols the number of columns in the shelf grid
      * @return the color matrix representing the shelf grid
      */
-    public static Color[][] generateColMat(List<Stack<ItemTile>> shelfGrid, int rows, int cols) {
+    public static Color[][] generateColorMat(List<Stack<ItemTile>> shelfGrid, int rows, int cols) {
         Color[][] colorMat = new Color[rows][cols];
         for (int i = 0; i < rows; i++) {
             colorMat[i] = new Color[cols];

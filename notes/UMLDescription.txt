@@ -1,5 +1,5 @@
 La classe Game gestisce le richieste provenienti dal server e si occupa di creare la Board
- di gioco e di assegnare le carte personalGoal e commonGoal ai giocatori.
+ di gioco e di assegnare le carte personalGoal e commonGoalStrategy ai giocatori.
 
  La classe Board tiene traccia delle informazioni di gioco e funge da intermediario
  tra Game e gli altri componenti

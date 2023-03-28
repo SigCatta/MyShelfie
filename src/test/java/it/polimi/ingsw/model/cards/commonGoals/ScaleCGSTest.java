@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class ScaleCGTest {
+public class ScaleCGSTest {
     @Test
     public void testHasFiveColumnsOfIncreasingHeight() {
-        ScaleCG cg = new ScaleCG();
+        ScaleCGS cg = new ScaleCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.YELLOW, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
                 {null, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
