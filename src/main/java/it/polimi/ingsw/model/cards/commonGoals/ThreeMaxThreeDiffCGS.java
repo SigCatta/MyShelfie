@@ -43,13 +43,12 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
                     colorSet.add(colorMat[row][col]);
                 }
             }
-            if (colorSet.size() > 3) {
-                continue; // column has more than 3 different colors
+            if (colorSet.size() <= 3) {
+                countCol++;
             }
-
-            countCol++;
+            if(countCol>=3)     return true;
         }
-        return countCol>=3;
+        return false;
     }
 
     /**
