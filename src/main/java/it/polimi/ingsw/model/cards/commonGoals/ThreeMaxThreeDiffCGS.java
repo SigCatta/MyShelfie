@@ -7,13 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti.
- * Colonne diverse possono avere combinazioni diverse di tipi di tessere
+ * Colonne diverse possono avere combinazioni diverse di tipi di tessere.
  */
-public class ThreeMaxThreeDiffCG extends CommonGoal{
+public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasThreeColumns(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti. Colonne diverse possono avere combinazioni diverse di tipi di tessere.";
     }
 
     /**
@@ -37,13 +43,12 @@ public class ThreeMaxThreeDiffCG extends CommonGoal{
                     colorSet.add(colorMat[row][col]);
                 }
             }
-            if (colorSet.size() > 3) {
-                continue; // column has more than 3 different colors
+            if (colorSet.size() <= 3) {
+                countCol++;
             }
-
-            countCol++;
+            if(countCol>=3)     return true;
         }
-        return countCol>=3;
+        return false;
     }
 
     /**

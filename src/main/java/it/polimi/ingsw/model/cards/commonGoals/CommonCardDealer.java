@@ -1,13 +1,62 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import org.reflections.Reflections;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CommonCardDealer {
-    static List<CommonGoal> getCards() {
-        List<CommonGoal> commonGoals = new ArrayList<>();
+    /**
+     * @return a list of all the instances of the classes that extend CommonGoalStrategy.
+     */
+    public static List<CommonGoalStrategy> getCardStrategies() {
+        Reflections reflections = new Reflections("it.polimi.ingsw.model.cards.commonGoals");
+        Set<Class<? extends CommonGoalStrategy>> subTypes =  reflections.getSubTypesOf(CommonGoalStrategy.class);
 
+        List<CommonGoalStrategy> instances = new ArrayList<>();
+        for (Class<? extends CommonGoalStrategy> subclass : subTypes) {
+            try {
+                instances.add(subclass.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 
-        return commonGoals;
+        return instances;
+    }
+
+    /**
+     * @param number: the number of CommonGoalStrategy  needed
+     * @return a list of {@param number} of the instances of the classes that extend CommonGoalStrategy.
+     */
+    public static List<CommonGoalStrategy> pickCardStrategies(int number) {
+        List<CommonGoalStrategy> strategyDeck = getCardStrategies();
+        List<CommonGoalStrategy> gameCGStrategies = new ArrayList<>();
+        //arrayList that contains the indexes of the strategies already picked
+        List<Integer> indexes = new ArrayList<>();
+        int randomNumber = (int) (Math.random() * strategyDeck.size());
+
+        for (int i = 0; i < number; i++) {
+            while (indexes.contains(randomNumber)) {
+                randomNumber = (int) (Math.random() * strategyDeck.size());
+            }
+            gameCGStrategies.add(strategyDeck.get(randomNumber));
+            indexes.add(randomNumber);
+        }
+
+        return gameCGStrategies;
+    }
+
+    public static List<CommonGoalCard> pickCommonGoalCards(int number) {
+        List<CommonGoalCard> commonGoalCards = new ArrayList<>();
+        List<CommonGoalStrategy> gameCGStrategies = pickCardStrategies(number);
+
+        for (int i = 0; i < number; i++) {
+            CommonGoalCard cg = new CommonGoalCard(gameCGStrategies.get(i));
+            commonGoalCards.add(cg);
+        }
+        return commonGoalCards;
     }
 }
+

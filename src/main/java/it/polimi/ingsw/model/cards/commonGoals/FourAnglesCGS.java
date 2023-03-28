@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Rule: Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
+ * Rule:
+ * Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
  */
-public class FourAnglesCG extends CommonGoal {
+public class FourAnglesCGS extends CommonGoalStrategy {
     /**
      * @param color    The Color to check.
      * @param itemTile The ItemTile to check.
@@ -29,6 +30,11 @@ public class FourAnglesCG extends CommonGoal {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasEdgesWithSameCol(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Quattro tessere dello stesso tipo ai quattro angoli della Libreria.";
     }
 
     /**

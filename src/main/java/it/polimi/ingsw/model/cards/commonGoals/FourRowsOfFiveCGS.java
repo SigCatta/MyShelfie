@@ -7,13 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi
  * differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.
  */
-public class FourRowsOfFiveCG extends CommonGoal{
+public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasFourRowsOfFive(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
     }
 
     /**
@@ -21,6 +27,7 @@ public class FourRowsOfFiveCG extends CommonGoal{
      * @return true if f a colorMat has at least four rows, each made up of at least 5 cells and with at most 3 different colors.
      */
     public boolean hasFourRowsOfFive(Color[][] colorMat) {
+        int validRows = 0;
         for (int i = 0; i < colorMat.length; i++) {
             // Check if row has at least five cells
             if (numOfNotNullCell(colorMat, i) < 5) {
@@ -36,14 +43,13 @@ public class FourRowsOfFiveCG extends CommonGoal{
             }
 
             // If row has more than three colors, move on to next row
-            if (colors.size() > 3) {
-                continue;
+            if (colors.size() <= 3) {
+                validRows++;
             }
+            if(validRows>=4)    return true;
 
-            return true;
         }
 
-        // If no rows meet criteria, return false
         return false;
     }
 

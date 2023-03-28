@@ -4,12 +4,18 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+ * Rule:
  * Cinque tessere dello stesso tipo che formano una diagonale.
  */
-public class FiveTilesDiagonalCG extends CommonGoal{
+public class FiveTilesDiagonalCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasFiveDiagonalCellsOfSameCol(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Cinque tessere dello stesso tipo che formano una diagonale.";
     }
 
     /**

@@ -4,13 +4,19 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
 /**
+ * Rule:
  * Due gruppi separati di 4 tessere dello stesso tipo che formano un quadrato 2x2.
  * Le tessere dei due gruppi devono essere dello stesso tipo.
  */
-public class TwoSquaresCG extends CommonGoal{
+public class TwoSquaresCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasTwoGroupsOfFour(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Due gruppi separati di 4 tessere dello stesso tipo che formano un quadrato 2x2. Le tessere dei due gruppi devono essere dello stesso tipo.";
     }
 
     /**

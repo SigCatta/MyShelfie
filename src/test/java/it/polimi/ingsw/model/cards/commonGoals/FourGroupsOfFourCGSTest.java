@@ -1,15 +1,16 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FourGroupsOfFourCGTest {
+public class FourGroupsOfFourCGSTest {
     @Test
     public void testCheckMatrix() {
-        FourGroupsOfFourCG cg = new FourGroupsOfFourCG();
+        FourGroupsOfFourCGS cg = new FourGroupsOfFourCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
@@ -18,21 +19,21 @@ public class FourGroupsOfFourCGTest {
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
                 {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
         };
-        assertTrue(cg.checkMatrix(matrix1));
+        assertTrue(ShelfUtils.checkMatrixWithDFS(matrix1, 4, 4));
 
         Color[][] matrix2 = {
                 {Color.PINK, Color.PINK, Color.BLUE},
                 {Color.BLUE, Color.GREEN, Color.BLUE},
                 {Color.GREEN, Color.GREEN, Color.GREEN},
         };
-        assertFalse(cg.checkMatrix(matrix2));
+        assertFalse(ShelfUtils.checkMatrixWithDFS(matrix2, 4, 4));
 
         Color[][] matrix3 = {
                 {Color.PINK, Color.PINK, null},
                 {Color.BLUE, Color.GREEN, Color.BLUE},
                 {Color.GREEN, Color.GREEN, Color.BLUE},
         };
-        assertFalse(cg.checkMatrix(matrix3));
+        assertFalse(ShelfUtils.checkMatrixWithDFS(matrix3, 4, 4));
     }
 
 }

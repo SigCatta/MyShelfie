@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.player;
 
 import exceptions.NullItemTileException;
+import exceptions.NullPlayersException;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ public class ShelfInserterTest {
         shelFInserter = new ShelfInserter();
     }
     @Test
-    public void insertTilesTest() throws NullItemTileException {
+    public void insertTilesTest() throws NullItemTileException, NullPlayersException {
         Player player = new Player();
         shelFInserter.setActivePlayer(player);
         ShelfBuffer shelfBuffer = shelFInserter.getShelfBuffer();
@@ -35,10 +36,7 @@ public class ShelfInserterTest {
         assertFalse(shelFInserter.insertTiles(0));
 
         for (int i = 0; i < shelFInserter.getShelf().getROWS(); i++) {
-            assertEquals(itemTiles.get(i), shelFInserter.getShelfGridColumn(0).get(i));
+            assertEquals(itemTiles.get(i), shelFInserter.getShelfGridTilesAtColumn(0).get(i));
         }
-
-
     }
-
 }

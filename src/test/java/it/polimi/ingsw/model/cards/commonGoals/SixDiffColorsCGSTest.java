@@ -6,10 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SixDiffColorsCGTest {
+public class SixDiffColorsCGSTest {
     @Test
     public void testHasTwoColumnsOfSixDifferentColors() {
-        SixDiffColorsCG cg = new SixDiffColorsCG();
+        SixDiffColorsCGS cg = new SixDiffColorsCGS();
         Color[][] matrix1 = {
                 {Color.PINK, Color.BLUE, Color.LIGHTBLUE, Color.WHITE, Color.YELLOW, Color.GREEN},
                 {Color.PINK, Color.BLUE, Color.LIGHTBLUE, Color.WHITE, Color.YELLOW, Color.GREEN},

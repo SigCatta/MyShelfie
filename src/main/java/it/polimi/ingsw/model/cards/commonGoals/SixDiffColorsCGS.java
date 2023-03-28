@@ -7,12 +7,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Rule:
  * Due colonne formate ciascuna da 6 diversi tipi di tessere.
  */
-public class SixDiffColorsCG extends CommonGoal{
+public class SixDiffColorsCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         return hasTwoColumnsOfSixDifferentColors(shelf.generateColorMat());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Due colonne formate ciascuna da 6 diversi tipi di tessere.";
     }
 
     /**
