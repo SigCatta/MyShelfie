@@ -37,7 +37,7 @@ public class ShelfInserter {
      * @return the Shelf object managed by this ShelfInserter instance.
      */
     public Shelf getShelf() throws NullPlayersException {
-        if(activePlayer.equals(null))    throw new NullPlayersException();
+        if(activePlayer == null)    throw new NullPlayersException();
         return activePlayer.getShelf();
     }
 
@@ -49,7 +49,7 @@ public class ShelfInserter {
     public boolean insertTiles(int column) throws NullItemTileException {
         //the list of ItemTile objects to insert.
         List<ItemTile> tiles = shelfBuffer.getTiles();
-        if(tiles.equals(null)) {
+        if(tiles == null) {
             throw new NullItemTileException();
         }
 
@@ -58,9 +58,7 @@ public class ShelfInserter {
             if(shelf.getNumOfBoxLeftInCol(column) < tiles.size()) return false;     //no more room in column
 
             Stack<ItemTile> tilesStack = getShelfGridTilesAtColumn(column);
-            for (int i = 0; i < tiles.size(); i++) {
-                tilesStack.add(tiles.get(i));
-            }
+            tilesStack.addAll(tiles);
             return true;
         } else {
             return false;
