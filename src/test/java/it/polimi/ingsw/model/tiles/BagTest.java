@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
-
 public class BagTest {
     private Bag bag;
 
@@ -19,7 +16,10 @@ public class BagTest {
 
     @Test
     void drawItemTiles() {
-        ArrayList<ItemTile> itemTiles = bag.drawItemTiles(10);
+        ArrayList<ItemTile> itemTiles = new ArrayList<>();
+        for (int i = 0; i<10; i++){
+            itemTiles.add(bag.drawTile());
+        }
         Assertions.assertEquals(10, itemTiles.size());
         for(ItemTile itemTile : itemTiles){
             Assertions.assertNotNull(itemTile);
@@ -28,7 +28,7 @@ public class BagTest {
 
     @Test
     void drawSingleTile() {
-        ItemTile itemTile = bag.drawSingleTile();
+        ItemTile itemTile = bag.drawTile();
         Assertions.assertNotNull(itemTile);
     }
 

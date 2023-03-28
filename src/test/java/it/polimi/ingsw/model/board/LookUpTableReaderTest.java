@@ -1,16 +1,13 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.JSONReader.BoardLookUpTableJSON;
-import org.json.simple.parser.ParseException;
+import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BoardLookUpTableJSONTest {
-    BoardLookUpTableJSON boardLookUpTableJSON = new BoardLookUpTableJSON();
+public class LookUpTableReaderTest {
+    LookUpTableReader lookUpTableReader = new LookUpTableReader();
 
     @Test
     public void test2() {
@@ -27,7 +24,7 @@ public class BoardLookUpTableJSONTest {
                 {false, false, false, false, false, false, false, false, false}
         };
 
-        boolean[][] gottenTable = boardLookUpTableJSON.getLookUpTable(2);
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(2);
 
         for(int i = 0; i < expectedTable.length; i++){
             for(int j = 0; j < expectedTable.length; j++){
@@ -52,7 +49,7 @@ public class BoardLookUpTableJSONTest {
                 {false, false, false, false, false, true , false, false, false}
         };
 
-        boolean[][] gottenTable = boardLookUpTableJSON.getLookUpTable(3);
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(3);
 
         for(int i = 0; i < expectedTable.length; i++){
             for(int j = 0; j < expectedTable.length; j++){
@@ -77,7 +74,7 @@ public class BoardLookUpTableJSONTest {
                 {false, false, false, false, true , true , false, false, false}
         };
 
-        boolean[][] gottenTable = boardLookUpTableJSON.getLookUpTable(4);
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(4);
 
         for(int i = 0; i < expectedTable.length; i++){
             for(int j = 0; j < expectedTable.length; j++){

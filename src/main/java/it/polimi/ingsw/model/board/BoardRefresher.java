@@ -1,12 +1,7 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.Game;
-import it.polimi.ingsw.JSONReader.BoardLookUpTableJSON;
-import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.tiles.Bag;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 
 
 public class BoardRefresher {
@@ -37,7 +32,7 @@ public class BoardRefresher {
     public void refillBoard() {
 
         if(lookUpTable == null){
-            lookUpTable = new BoardLookUpTableJSON().getLookUpTable(NUMBER_OF_PLAYERS);
+            lookUpTable = new LookUpTableReader().getLookUpTable(NUMBER_OF_PLAYERS);
         }
 
         for(int i = 0; i < board.getSize(); i++){
@@ -46,7 +41,7 @@ public class BoardRefresher {
                 if(board.getBoardGrid()[i][j] != null) continue;
 
                 if(lookUpTable[i][j]){
-                    board.getBoardGrid()[i][j] = BAG.drawSingleTile();
+                    board.getBoardGrid()[i][j] = BAG.drawTile();
                 }
             }
         }

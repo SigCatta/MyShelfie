@@ -24,8 +24,7 @@ public class EigthTilesSameColorCGS extends CommonGoalStrategy {
 
     /**
      * @param colorMat the Color matrix to be checked
-     * @return true if at least eight cells with the same color are found, false
-    otherwise
+     * @return true if at least eight cells with the same color are found, false otherwise
      */
     public boolean hasAtLeastEightCellsOfSameColor(Color[][] colorMat) {
         Map<Color, Integer> colorsCount = new HashMap<>();

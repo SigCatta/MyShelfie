@@ -16,14 +16,14 @@ import java.util.Stack;
  * Used for anything regarding reading data from a json file
  */
 
-public class ReadFromJSONFile {
+public class PersonalGoalReader implements JSONFileReader{
     private final JSONParser jsonParser;
     private final String PATH = "src/data/";
 
     /**
      * Contracts a new JSON file reader
      */
-    public ReadFromJSONFile() {
+    public PersonalGoalReader() {
         this.jsonParser = new JSONParser();
     }
 

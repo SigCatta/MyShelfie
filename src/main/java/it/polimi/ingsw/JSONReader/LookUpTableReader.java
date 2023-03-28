@@ -2,18 +2,19 @@ package it.polimi.ingsw.JSONReader;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
 
-public class BoardLookUpTableJSON extends JSONReader{
+public class LookUpTableReader implements JSONFileReader{
 
-
+    protected final JSONParser jsonParser;
     private final String PATH;
 
-    public BoardLookUpTableJSON(){
-        super();
+    public LookUpTableReader(){
+        this.jsonParser = new JSONParser();
         PATH = "src/data/boards/";
     }
 

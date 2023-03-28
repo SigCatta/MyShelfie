@@ -4,9 +4,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
@@ -21,7 +19,7 @@ public class Game {
 
     private BoardRefresher boardRefresher;
 
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players;
     private Player activePlayer;
     private Player firstPlayer;
 
@@ -30,6 +28,7 @@ public class Game {
         //TODO create instances of the classes used here
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
+        players = new ArrayList<>();
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
         boardRefresher = new BoardRefresher(board, bag, players.size());
     }
