@@ -14,7 +14,6 @@ public class Game {
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER = 4;
-    private final int TILES_PER_COLOR = 22;
 
     private int gameID;
     private final Bag bag;
@@ -29,7 +28,7 @@ public class Game {
 
     public Game() {
         //TODO create instances of the classes used here
-        bag = new Bag(TILES_PER_COLOR);
+        bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
         boardRefresher = new BoardRefresher(board, bag, players.size());
