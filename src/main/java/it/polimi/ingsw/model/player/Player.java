@@ -77,10 +77,10 @@ public class Player {
     }
 
     /**
-     * @param heldTiless the new held tiles of the player
+     * @param heldTiles the new held tiles of the player
      */
-    public void setHeldTiless(List<ItemTile> heldTiless) {
-        this.heldTiless = heldTiless;
+    public void setHeldTiless(List<ItemTile> heldTiles) {
+        this.heldTiless = heldTiles;
     }
 
     /**

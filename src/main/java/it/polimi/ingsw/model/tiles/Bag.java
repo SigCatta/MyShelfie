@@ -6,19 +6,19 @@ import java.util.HashMap;
 public class Bag {
 
     private final int NUMBER_OF_COLORS;
-    private final int TILES_PER_COLOR;
+    private final int TILES_PER_COLOR = 22;
     private int tilesLeft;
     private final HashMap<Color, Integer> colorNumber = new HashMap<>();
 
-    public Bag(int TILES_PER_COLOR){
-
-        this.TILES_PER_COLOR = TILES_PER_COLOR;
+    public Bag(){
 
         NUMBER_OF_COLORS = Color.values().length;
         tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
+
         for(Color color : Color.values()){
             colorNumber.put(color, TILES_PER_COLOR);
         }
+
     }
 
 
@@ -60,7 +60,7 @@ public class Bag {
      * reaches the random variable, in that case it returns the current color
      * @return random color
      */
-    private Color randomColor(){
+    Color randomColor(){
 
         double random = Math.random() * tilesLeft;
         tilesLeft--;

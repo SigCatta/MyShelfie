@@ -1,8 +1,13 @@
 {
-  "numOfPoints": 5,
-  "Point0": [0,3],
-  "Point1": [2,2],
-  "Point2": [5,0],
-  "Point3": [6,3],
-  "Point4": [8,5]
+  "lookUpTable" : [
+    [false, false, false, true , false, false, false, false, false],
+    [false, false, false, true , true , false, false, false, false],
+    [false, false, true , true , true , true , true , false, false],
+    [false, false, true , true , true , true , true , true , false],
+    [false, true , true , true , true , true , true , true , false],
+    [true , true , true , true , true , true , true , false, false],
+    [false, false, true , true , true , true , true , false, false],
+    [false, false, false, false, true , true , false, false, false],
+    [false, false, false, false, false, true , false, false, false]
+    ]
 }

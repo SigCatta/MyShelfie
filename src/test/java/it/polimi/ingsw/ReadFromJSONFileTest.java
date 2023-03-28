@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.JSONReader.ReadFromJSONFile;
 import it.polimi.ingsw.model.tiles.Color;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;

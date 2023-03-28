@@ -1,7 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.board.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 import org.json.simple.parser.ParseException;
@@ -14,7 +14,6 @@ public class Game {
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER = 4;
-    private final int TILES_PER_COLOR = 22;
 
     private int gameID;
     private final Bag bag;
@@ -27,11 +26,12 @@ public class Game {
     private Player firstPlayer;
 
 
-    public Game() throws IOException, ParseException {
+    public Game() {
         //TODO create instances of the classes used here
-        bag = new Bag(TILES_PER_COLOR);
-        board = new Board(BOARD_DIMENSION, players.size());
-        boardRefresher = new BoardRefresher(this);
+        bag = new Bag();
+        board = new Board(BOARD_DIMENSION);
+        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        boardRefresher = new BoardRefresher(board, bag, players.size());
     }
 
 
