@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class ShelfUtilsTest {
     @Test
-    public void test(){
+    public void checkMatrixTest(){
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
@@ -34,6 +34,19 @@ public class ShelfUtilsTest {
         };
         shelf = new Shelf(matrix2);
         assertTrue(ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 4, 2));
+    }
+
+    @Test
+    public void testGenerateColMat() {
+        ItemTile[][] shelfGrid = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN),},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW),},
+        };
+        Color[][] colMat = ShelfUtils.generateColorMat(shelfGrid, 2, 2);
+        assertEquals(Color.PINK, colMat[0][0]);
+        assertEquals(Color.BLUE, colMat[1][0]);
+        assertEquals(Color.GREEN, colMat[0][1]);
+        assertEquals(Color.YELLOW, colMat[1][1]);
     }
 
 }

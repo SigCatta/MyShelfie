@@ -111,4 +111,8 @@ public class Shelf {
     public int getROWS() {
         return ROWS;
     }
+
+    public Color[][] generateColorMat(){
+        return ShelfUtils.generateColorMat(shelfGrid, getROWS(), getCOLUMNS());
+    }
 }
