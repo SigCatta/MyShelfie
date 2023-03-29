@@ -54,6 +54,9 @@ public class BoardRefresher implements EndOfTurnObserver {
 
     @Override
     public void update() {
+
+        if(board == null) throw new NullPointerException();
+
         if(RefreshTrigger.isBoardRefreshable(board)){
             refillBoard();
         }

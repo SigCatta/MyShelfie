@@ -73,4 +73,6 @@ public class BagTest {
         Assertions.assertEquals(22, whiteCount);
 
     }
+
+
 }
