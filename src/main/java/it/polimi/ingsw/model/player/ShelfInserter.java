@@ -71,7 +71,7 @@ public class ShelfInserter {
                     shelf.setTileAtLocation(location, tiles.get(tileIndex)) ;
                     tileIndex++;
                 }
-                if(tileIndex == tiles.size() - 1)   break;
+                if(tileIndex == tiles.size())   break;
             }
             return true;
         } else {
