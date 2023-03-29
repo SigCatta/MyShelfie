@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.personalGoals;
 
 import exceptions.NullPlayersException;
 import exceptions.TooManyPlayersException;
-import it.polimi.ingsw.ReadFromJSONFile;
+import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 
@@ -39,7 +39,7 @@ public class PersonalCardDealer {
             cards.add(String.valueOf((int) (Math.random() * numOfFiles) + 1));
         } while (cards.size() < numOfFiles);
 
-        ReadFromJSONFile JSONreader = new ReadFromJSONFile();
+        PersonalGoalReader JSONreader = new PersonalGoalReader();
         Stack<Integer> points = JSONreader.getPointStack();
         int i = 0;
         for (String card : cards) {

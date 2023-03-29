@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.model.tiles.Color;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,17 +13,17 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReadFromJSONFileTest {
+public class PersonalGoalReaderTest {
     /**
-     * This class Tests {@link ReadFromJSONFile}
+     * This class Tests {@link PersonalGoalReader}
      */
 
-    private static ReadFromJSONFile reader;
+    private static PersonalGoalReader reader;
 
 
     @BeforeAll
     public static void init() {
-        reader = new ReadFromJSONFile();
+        reader = new PersonalGoalReader();
     }
 
     @Test

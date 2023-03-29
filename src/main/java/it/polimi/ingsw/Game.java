@@ -1,7 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.board.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -12,7 +12,6 @@ public class Game {
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER = 4;
-    private final int TILES_PER_COLOR = 22;
 
     private int gameID;
     private final Bag bag;
@@ -20,16 +19,18 @@ public class Game {
 
     private BoardRefresher boardRefresher;
 
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players;
     private Player activePlayer;
     private Player firstPlayer;
 
 
-    public Game(){
+    public Game() {
         //TODO create instances of the classes used here
-        bag = new Bag(TILES_PER_COLOR);
+        bag = new Bag();
         board = new Board(BOARD_DIMENSION);
-        boardRefresher = new BoardRefresher(this);
+        players = new ArrayList<>();
+        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        boardRefresher = new BoardRefresher(board, bag, players.size());
     }
 
 
