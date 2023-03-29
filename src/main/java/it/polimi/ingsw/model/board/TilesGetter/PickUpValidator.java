@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board.TilesGetter;
 
-import it.polimi.ingsw.Game;
+import it.polimi.ingsw.model.Game.Game;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;

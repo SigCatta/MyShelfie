@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
+import it.polimi.ingsw.model.Game.EndOfTurnObserver;
+import it.polimi.ingsw.model.Game.Game;
 import it.polimi.ingsw.model.tiles.Bag;
 
 
-public class BoardRefresher {
+public class BoardRefresher implements EndOfTurnObserver {
 
     private final Board board;
     private final Bag BAG;
@@ -15,13 +17,15 @@ public class BoardRefresher {
      */
     private boolean[][] lookUpTable = null;
 
-    public BoardRefresher(Board board, Bag bag, int numberOfPlayers) {
+    public BoardRefresher(Game game) {
 
-        this.board = board;
-        BAG = bag;
-        NUMBER_OF_PLAYERS = numberOfPlayers;
+        this.board = game.getBoard();
+        BAG = game.getBag();
+        NUMBER_OF_PLAYERS = game.getPlayers().size();
+        game.attachEndOfTurn(this);
 
     }
+
 
     /**
      *  it uses the class BoardLookUpTableJSON to get the lookUpTable from the json database.
@@ -31,6 +35,7 @@ public class BoardRefresher {
      */
     public void refillBoard() {
 
+        //lookUpTable is initialized once
         if(lookUpTable == null){
             lookUpTable = new LookUpTableReader().getLookUpTable(NUMBER_OF_PLAYERS);
         }
@@ -47,4 +52,10 @@ public class BoardRefresher {
         }
     }
 
+    @Override
+    public void update() {
+        if(RefreshTrigger.isBoardRefreshable(board)){
+            refillBoard();
+        }
+    }
 }

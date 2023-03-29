@@ -1,27 +1,101 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.Game;
+import it.polimi.ingsw.JSONReader.LookUpTableReader;
+import it.polimi.ingsw.model.Game.Game;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.tiles.Bag;
-import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class BoardRefresherTest {
 
-    private Board board;
-    private Bag bag;
-    private int numberOfPlayers;
     private BoardRefresher boardRefresher;
+    private Game game;
+
+    private int boardSize;
 
     @BeforeEach
     public void setUp() {
-        board = new Board(5);
-        bag = new Bag();
-        numberOfPlayers = 3;
-        boardRefresher = new BoardRefresher(board, bag, numberOfPlayers);
+        game = new Game();
+        game.addPlayer(new Player());
+        game.addPlayer(new Player());
+
+        boardSize = game.getBoard().getSize();
+
     }
+
+    @Test
+    void testItemTilePlacement4() {
+        boolean[][] table = new boolean[boardSize][boardSize];
+
+        game.addPlayer(new Player());
+        game.addPlayer(new Player());
+
+        boardRefresher = new BoardRefresher(game);
+
+        boardRefresher.refillBoard();
+
+        LookUpTableReader lookUpTableReader = new LookUpTableReader();
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
+
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(gottenTable[i][j]){
+                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
+                }else{
+                    assertNull(game.getBoard().getBoardGrid()[i][j]);
+                }
+            }
+        }
+    }
+
+    @Test
+    void testItemTilePlacement3() {
+        boolean[][] table = new boolean[boardSize][boardSize];
+
+        game.addPlayer(new Player());
+
+        boardRefresher = new BoardRefresher(game);
+
+        boardRefresher.refillBoard();
+
+        LookUpTableReader lookUpTableReader = new LookUpTableReader();
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
+
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(gottenTable[i][j]){
+                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
+                }else{
+                    assertNull(game.getBoard().getBoardGrid()[i][j]);
+                }
+            }
+        }
+    }
+
+    @Test
+    void testItemTilePlacement2() {
+        boolean[][] table = new boolean[boardSize][boardSize];
+
+        boardRefresher = new BoardRefresher(game);
+
+        boardRefresher.refillBoard();
+
+        LookUpTableReader lookUpTableReader = new LookUpTableReader();
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
+
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(gottenTable[i][j]){
+                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
+                }else{
+                    assertNull(game.getBoard().getBoardGrid()[i][j]);
+                }
+            }
+        }
+    }
+
 
 }
