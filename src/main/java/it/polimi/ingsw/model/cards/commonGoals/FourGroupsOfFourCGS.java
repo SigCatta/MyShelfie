@@ -12,7 +12,7 @@ import it.polimi.ingsw.model.tiles.Color;
 public class FourGroupsOfFourCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        return ShelfUtils.checkMatrixWithDFS(shelf.generateColorMat(), 4, 4);
+        return ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 4, 4);
     }
 
     @Override

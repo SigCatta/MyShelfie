@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,33 +13,25 @@ import java.util.Set;
  * differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.
  */
 public class FourRowsOfFiveCGS extends CommonGoalStrategy {
-    @Override
-    public boolean isGoalAchieved(Shelf shelf) {
-        return hasFourRowsOfFive(shelf.generateColorMat());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
-    }
-
     /**
-     * @param colorMat the matrix to be checked, represented as a 2D array of Color objects
+     * @param shel the shelf to be checked
      * @return true if f a colorMat has at least four rows, each made up of at least 5 cells and with at most 3 different colors.
      */
-    public boolean hasFourRowsOfFive(Color[][] colorMat) {
+    @Override
+    public boolean isGoalAchieved(Shelf shelf) {
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
         int validRows = 0;
-        for (int i = 0; i < colorMat.length; i++) {
+        for (int i = 0; i < shelfGrid.length; i++) {
             // Check if row has at least five cells
-            if (numOfNotNullCell(colorMat, i) < 5) {
+            if (numOfNotNullCell(shelfGrid, i) < 5) {
                 continue;
             }
 
             // Count number of different colors in the row
             Set<Color> colors = new HashSet<>();
-            for (int j = 0; j < colorMat[i].length; j++) {
-                if (colorMat[i][j] != null) {
-                    colors.add(colorMat[i][j]);
+            for (int j = 0; j < shelfGrid[i].length; j++) {
+                if (shelfGrid[i][j] != null) {
+                    colors.add(shelfGrid[i][j].getColor());
                 }
             }
 
@@ -53,15 +46,20 @@ public class FourRowsOfFiveCGS extends CommonGoalStrategy {
         return false;
     }
 
+    @Override
+    public String getDescription() {
+        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
+    }
+
     /**
-     * @param colorMat the Color matrix to check
+     * @param shelfGrid the Color matrix to check
      * @param row the row of the Color matrix to check
      * @return the number of non-null cells
      */
-    private int numOfNotNullCell(Color[][] colorMat, int row) {
+    private int numOfNotNullCell(ItemTile[][] shelfGrid, int row) {
         int count = 0;
-        for (int col = 0; col < colorMat[0].length; col++) {
-            if (colorMat[row][col] != null ) {
+        for (int col = 0; col < shelfGrid[0].length; col++) {
+            if (shelfGrid[row][col] != null ) {
                 count++;
             }
         }

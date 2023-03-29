@@ -51,16 +51,17 @@ public class ShelfBuffer {
         if (sortedColor.size() != tilesToBeInserted.size()) {
             return;
         }
+        if(sortedColor.size()>1) {
+            // Create a Comparator based on the sorted colors
+            Comparator<ItemTile> colorComparator = (tile1, tile2) -> {
+                int index1 = sortedColor.indexOf(tile1.getColor());
+                int index2 = sortedColor.indexOf(tile2.getColor());
+                return Integer.compare(index1, index2);
+            };
 
-        // Create a Comparator based on the sorted colors
-        Comparator<ItemTile> colorComparator = (tile1, tile2) -> {
-            int index1 = sortedColor.indexOf(tile1.getColor());
-            int index2 = sortedColor.indexOf(tile2.getColor());
-            return Integer.compare(index1, index2);
-        };
-
-        // Sort the tiles using the Comparator
-        tilesToBeInserted.sort(colorComparator);
+            // Sort the tiles using the Comparator
+            tilesToBeInserted.sort(colorComparator);
+        }
 
         ordered = true;
     }

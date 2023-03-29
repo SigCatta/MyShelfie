@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -10,27 +12,49 @@ public class ScaleCGSTest {
     @Test
     public void testHasFiveColumnsOfIncreasingHeight() {
         ScaleCGS cg = new ScaleCGS();
-        Color[][] matrix1 = {
-                {Color.PINK, Color.YELLOW, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
-                {null, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {null, null, Color.BLUE, Color.WHITE, Color.WHITE},
-                {null, null, null, Color.WHITE, Color.WHITE},
-                {null, null, null, null, Color.WHITE},
+        ItemTile[][] matrix1 = {
                 {null, null, null, null, null},
+                {new ItemTile(Color.WHITE), null, null, null, null, },
+                {new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), null, null, null, },
+                {new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), null, null, },
+                {new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), null, },
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
         };
-        assertTrue(cg.hasIncreasingColumns(matrix1, true));
-        assertFalse(cg.hasIncreasingColumns(matrix1, false));
+        Shelf shelf = new Shelf(matrix1);
+        assertTrue(cg.isGoalAchieved(shelf));
 
-        Color[][] matrix2 = {
-                {Color.PINK, Color.YELLOW, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, null},
-                {Color.PINK, Color.PINK, Color.BLUE, null, null},
-                {Color.PINK, Color.YELLOW, null, null, null},
-                {Color.GREEN, null, null, null, null},
+        ItemTile[][] matrix2 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), null, null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), null, null, null},
+                {new ItemTile(Color.GREEN), null, null, null, null},
         };
-        assertTrue(cg.hasIncreasingColumns(matrix2, false));
-        assertFalse(cg.hasIncreasingColumns(matrix2, true));
+        shelf = new Shelf(matrix2);
+        assertTrue(cg.isGoalAchieved(shelf));
+
+        ItemTile[][] matrix3 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), null, null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), null, null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), null, null, null},
+                {new ItemTile(Color.GREEN), null, null, null, null},
+        };
+        shelf = new Shelf(matrix3);
+        assertFalse(cg.isGoalAchieved(shelf));
+
+        ItemTile[][] matrix4 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), null, null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), null, null, null},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), null, null, null},
+                {new ItemTile(Color.GREEN), null, null, null, null},
+        };
+        shelf = new Shelf(matrix4);
+        assertFalse(cg.isGoalAchieved(shelf));
     }
 
 }

@@ -25,11 +25,21 @@ public class FourAnglesCGS extends CommonGoalStrategy {
      * Checks if the goal of having all tiles on the corners with the same color is achieved.
      *
      * @param shelf the shelf to check
-     * @return true if the goal is achieved or false if not
+     * @return true if the goal of having all tiles on the corners with the same color is achieved.
      */
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        return hasEdgesWithSameCol(shelf.generateColorMat());
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
+        int rows = shelfGrid.length;
+        int cols = shelfGrid[0].length;
+        Set<Color> colorSet = new HashSet<>();
+        // check the edges
+        if (shelfGrid[0][0] != null) colorSet.add(shelfGrid[0][0].getColor());
+        if (shelfGrid[0][cols - 1] != null) colorSet.add(shelfGrid[0][cols - 1].getColor());
+        if (shelfGrid[rows - 1][cols - 1] != null) colorSet.add(shelfGrid[rows - 1][cols - 1].getColor());
+        if (shelfGrid[rows - 1][0] != null) colorSet.add(shelfGrid[rows - 1][0].getColor());
+
+        return colorSet.size() == 1;
     }
 
     @Override
@@ -37,22 +47,4 @@ public class FourAnglesCGS extends CommonGoalStrategy {
         return "Quattro tessere dello stesso tipo ai quattro angoli della Libreria.";
     }
 
-    /**
-     * Checks if the goal of having all tiles on the corners with the same color is achieved.
-     *
-     * @param colorMat the Color matrix to check
-     * @return true if the matrix meets the specifics, false otherwise
-     */
-    public boolean hasEdgesWithSameCol(Color[][] colorMat) {
-        int rows = colorMat.length;
-        int cols = colorMat[0].length;
-        Set<Color> colorSet = new HashSet<>();
-        // check the edges
-        if (colorMat[0][0] != null) colorSet.add(colorMat[0][0]);
-        if (colorMat[0][cols - 1] != null) colorSet.add(colorMat[0][cols - 1]);
-        if (colorMat[rows - 1][cols - 1] != null) colorSet.add(colorMat[rows - 1][cols - 1]);
-        if (colorMat[rows - 1][0] != null) colorSet.add(colorMat[rows - 1][0]);
-
-        return colorSet.size() == 1;
-    }
 }

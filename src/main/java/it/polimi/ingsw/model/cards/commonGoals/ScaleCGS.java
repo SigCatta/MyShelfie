@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
@@ -12,9 +13,9 @@ import it.polimi.ingsw.model.tiles.Color;
 public class ScaleCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
-        Color[][] colorMat = shelf.generateColorMat();
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
 
-        return hasIncreasingColumns(colorMat, true) || hasIncreasingColumns(colorMat, false);
+        return hasIncreasingColumns(shelfGrid, true) || hasIncreasingColumns(shelfGrid, false);
     }
 
     @Override
@@ -23,16 +24,16 @@ public class ScaleCGS extends CommonGoalStrategy {
     }
 
     /**
-     * @param colorMat The matrix to be analyzed
+     * @param shelfGrid The matrix to be analyzed
      * @param leftToRight A boolean indicating whether to start from the left or right
      * @return True if the matrix has at least five columns of increasing height, starting from
      *          the first column on the left or right
      */
-    public boolean hasIncreasingColumns(Color[][] colorMat, boolean leftToRight) {
-        int startCol = (leftToRight) ? 0 : colorMat[0].length - 1;
-        int endCol = (leftToRight) ? colorMat[0].length - 1 : 0;
+    public boolean hasIncreasingColumns(ItemTile[][] shelfGrid, boolean leftToRight) {
+        int startCol = (leftToRight) ? 0 : shelfGrid[0].length - 1;
+        int endCol = (leftToRight) ? shelfGrid[0].length - 1 : 0;
         int startRow = 0;
-        int endRow = colorMat.length - 1;
+        int endRow = shelfGrid.length - 1;
 
         int nonNullCells = 0;
         int prevNonNullCells = 0;
@@ -40,11 +41,11 @@ public class ScaleCGS extends CommonGoalStrategy {
         for (int col = startCol; leftToRight ? col <= endCol : col >= endCol;
              col += leftToRight ? 1 : -1) {
             for (int row = startRow; row <= endRow; row++) {
-                if (colorMat[row][col] != null) {
+                if (shelfGrid[row][col] != null) {
                     nonNullCells++;
                 }
             }
-            if (prevNonNullCells > nonNullCells) {
+            if (prevNonNullCells >= nonNullCells) {
                 return false;
             }
             prevNonNullCells = nonNullCells;

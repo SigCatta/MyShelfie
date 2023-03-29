@@ -10,25 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ShelfUtilsTest {
     @Test
-    public void testGenerateColMat() {
-        CommonGoalStrategy commonGoalStrategy = new FourAnglesCGS();
-        List<Stack<ItemTile>> shelfGrid = new ArrayList<>();
-        Stack<ItemTile> stack1 = new Stack<>();
-        stack1.push(new ItemTile(Color.PINK));
-        stack1.push(new ItemTile(Color.BLUE));
-        Stack<ItemTile> stack2 = new Stack<>();
-        stack2.push(new ItemTile(Color.GREEN));
-        stack2.push(new ItemTile(Color.YELLOW));
-        shelfGrid.add(stack1);
-        shelfGrid.add(stack2);
-        Color[][] colMat = ShelfUtils.generateColorMat(shelfGrid, 2, 2);
-        assertEquals(Color.PINK, colMat[0][0]);
-        assertEquals(Color.BLUE, colMat[1][0]);
-        assertEquals(Color.GREEN, colMat[0][1]);
-        assertEquals(Color.YELLOW, colMat[1][1]);
+    public void test(){
+        ItemTile[][] matrix1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.GREEN)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.GREEN)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.GREEN)},
+        };
+        Shelf shelf = new Shelf(matrix1);
+        assertFalse(ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 8, 4));
+
+        ItemTile[][] matrix2 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE)},
+        };
+        shelf = new Shelf(matrix2);
+        assertTrue(ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 4, 2));
     }
+
 }

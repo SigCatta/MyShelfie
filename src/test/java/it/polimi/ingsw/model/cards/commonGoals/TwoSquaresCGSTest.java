@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -11,34 +13,37 @@ public class TwoSquaresCGSTest {
     @Test
     public void testHasTwoGroupsOfFour() {
         TwoSquaresCGS cg = new TwoSquaresCGS();
-        Color[][] mat1 = {
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
+        ItemTile[][] mat1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
         };
-        assertFalse(cg.hasTwoGroupsOfFour(mat1));
+        Shelf shelf = new Shelf(mat1);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] mat2 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.BLUE, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.BLUE, null},
+        ItemTile[][] mat2 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null},
         };
-        assertFalse(cg.hasTwoGroupsOfFour(mat2));
+        shelf = new Shelf(mat2);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] mat3 = {
-                {Color.BLUE, Color.BLUE, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.BLUE, Color.BLUE, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.BLUE, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.BLUE, null},
+        ItemTile[][] mat3 = {
+                {new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null},
         };
-        assertTrue(cg.hasTwoGroupsOfFour(mat3));
+        shelf = new Shelf(mat3);
+        assertTrue(cg.isGoalAchieved(shelf));
     }
 }
