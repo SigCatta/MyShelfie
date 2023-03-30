@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.board.ScoreCalculation;
+package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
-import it.polimi.ingsw.Game;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;

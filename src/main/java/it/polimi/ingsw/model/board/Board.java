@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 public class Board {
@@ -15,6 +16,11 @@ public class Board {
 
     public int getSize(){
         return BOARD_GRID.length;
+    }
+
+    public void setItemTile(Color color, int row, int col){
+        if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
+        BOARD_GRID[row][col] = new ItemTile(color);
     }
 
 }

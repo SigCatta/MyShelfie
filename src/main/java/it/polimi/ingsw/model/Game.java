@@ -1,7 +1,8 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -23,14 +24,16 @@ public class Game {
     private Player activePlayer;
     private Player firstPlayer;
 
+    private TurnHandler turnHandler;
+
 
     public Game() {
         //TODO create instances of the classes used here
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
+        turnHandler = new TurnHandler(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
-        boardRefresher = new BoardRefresher(board, bag, players.size());
     }
 
 
@@ -76,5 +79,10 @@ public class Game {
 
     public BoardRefresher getBoardRefresher() {
         return boardRefresher;
+    }
+
+
+    public TurnHandler getTurnHandler() {
+        return turnHandler;
     }
 }

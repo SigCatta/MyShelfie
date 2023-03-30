@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board.TilesGetter;
 
-import it.polimi.ingsw.Game;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.Player;
 
