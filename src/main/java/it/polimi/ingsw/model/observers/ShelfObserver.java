@@ -17,6 +17,7 @@ public class ShelfObserver {
         game.getScoreBoard().setFirstPlayerToFinish(game.getActivePlayer());
 
         //TODO: call controller to modify the view
+        //TODO: control that after the end of the last player turn, the game ends
     }
 
 
