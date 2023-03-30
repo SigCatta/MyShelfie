@@ -18,7 +18,7 @@ public class Board {
         return BOARD_GRID.length;
     }
 
-    void setItemTile(Color color, int row, int col){
+    public void setItemTile(Color color, int row, int col){
         if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
     }

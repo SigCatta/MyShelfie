@@ -1,8 +1,9 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
-import it.polimi.ingsw.model.Game.EndOfTurnObserver;
-import it.polimi.ingsw.model.Game.Game;
+import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Bag;
 
 
@@ -22,7 +23,8 @@ public class BoardRefresher implements EndOfTurnObserver {
         this.board = game.getBoard();
         BAG = game.getBag();
         NUMBER_OF_PLAYERS = game.getPlayers().size();
-        game.attachEndOfTurn(this);
+
+        game.getTurnHandler().attachEndOfTurn(this);
 
     }
 

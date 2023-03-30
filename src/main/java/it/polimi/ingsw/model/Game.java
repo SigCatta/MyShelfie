@@ -1,14 +1,14 @@
-package it.polimi.ingsw.model.Game;
+package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Game implements EndOfTurnObservable {
+public class Game {
 
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
@@ -24,8 +24,7 @@ public class Game implements EndOfTurnObservable {
     private Player activePlayer;
     private Player firstPlayer;
 
-    private List<EndOfTurnObserver> endOfTurnObservers = new ArrayList<>();
-
+    private TurnHandler turnHandler;
 
 
     public Game() {
@@ -33,6 +32,7 @@ public class Game implements EndOfTurnObservable {
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
+        turnHandler = new TurnHandler(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
@@ -81,20 +81,8 @@ public class Game implements EndOfTurnObservable {
         return boardRefresher;
     }
 
-    @Override
-    public void attachEndOfTurn(EndOfTurnObserver observer) {
-        endOfTurnObservers.add(observer);
-    }
 
-    @Override
-    public void detachEndOfTurn(EndOfTurnObserver observer) {
-        endOfTurnObservers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for(EndOfTurnObserver observer : endOfTurnObservers){
-            observer.update();
-        }
+    public TurnHandler getTurnHandler() {
+        return turnHandler;
     }
 }

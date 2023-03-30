@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.Game;
+package it.polimi.ingsw.model.EndOfTurn;
 
-public interface EndOfTurnObservable {
+public interface EndOfTurnSubject {
     void attachEndOfTurn(EndOfTurnObserver observer);
     void detachEndOfTurn(EndOfTurnObserver observer);
     void notifyObservers();

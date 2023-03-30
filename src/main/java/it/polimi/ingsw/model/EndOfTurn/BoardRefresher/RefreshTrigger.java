@@ -1,13 +1,16 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 public class RefreshTrigger {
 
+    /**
+     * Checks if the board has only isolated tiles
+     */
     public static boolean isBoardRefreshable(Board board){
         ItemTile[][] boardGrid = board.getBoardGrid();
 
-        // Check if the board has only isolated tiles
         for(int i=0; i<boardGrid.length; i++){
             for(int j=0; j<boardGrid[i].length; j++){
 

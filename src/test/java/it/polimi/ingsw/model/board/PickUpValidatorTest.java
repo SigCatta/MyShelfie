@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.Game.Game;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.PickUpValidator;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
