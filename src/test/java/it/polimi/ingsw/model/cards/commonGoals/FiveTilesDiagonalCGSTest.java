@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -10,33 +12,37 @@ public class FiveTilesDiagonalCGSTest {
     @Test
     public void testDiagonal() {
         FiveTilesDiagonalCGS cg = new FiveTilesDiagonalCGS();
-        Color[][] mat1 = new Color[][] {
+        ItemTile[][] mat1 = {
                 { null, null, null, null, null, null },
                 { null, null, null, null, null, null },
-                { null, null, Color.BLUE, null, null, null },
-                { null, null, null, Color.BLUE, null, null },
-                { null, null, null, null, Color.BLUE, null },
+                { null, null, new ItemTile(Color.BLUE), null, null, null },
+                { null, null, null, new ItemTile(Color.BLUE), null, null },
+                { null, null, null, null, new ItemTile(Color.BLUE), null },
                 { null, null, null, null, null, null }
         };
-        assertFalse(cg.hasFiveDiagonalCellsOfSameCol(mat1));
-        Color[][] mat2 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-        };
-        assertFalse(cg.hasFiveDiagonalCellsOfSameCol(mat2));
+        Shelf shelf = new Shelf(mat1);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] mat3 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.YELLOW, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.YELLOW, Color.WHITE, Color.PINK},
-                {Color.PINK, Color.PINK, Color.YELLOW, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.YELLOW, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.YELLOW, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+        ItemTile[][] mat2 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
         };
-        assertTrue(cg.hasFiveDiagonalCellsOfSameCol(mat3));
+        shelf = new Shelf(mat2);
+        assertFalse(cg.isGoalAchieved(shelf));
+
+        ItemTile[][] mat3 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+        };
+        shelf = new Shelf(mat3);
+        assertTrue(cg.isGoalAchieved(shelf));
     }
 }

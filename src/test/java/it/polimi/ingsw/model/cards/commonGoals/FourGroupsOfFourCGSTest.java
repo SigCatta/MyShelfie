@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -11,27 +12,27 @@ public class FourGroupsOfFourCGSTest {
     @Test
     public void testCheckMatrix() {
         FourGroupsOfFourCGS cg = new FourGroupsOfFourCGS();
-        Color[][] matrix1 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE, Color.PINK},
+        ItemTile[][] matrix1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
         };
         assertTrue(ShelfUtils.checkMatrixWithDFS(matrix1, 4, 4));
 
-        Color[][] matrix2 = {
-                {Color.PINK, Color.PINK, Color.BLUE},
-                {Color.BLUE, Color.GREEN, Color.BLUE},
-                {Color.GREEN, Color.GREEN, Color.GREEN},
+        ItemTile[][] matrix2 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.GREEN)},
         };
         assertFalse(ShelfUtils.checkMatrixWithDFS(matrix2, 4, 4));
 
-        Color[][] matrix3 = {
-                {Color.PINK, Color.PINK, null},
-                {Color.BLUE, Color.GREEN, Color.BLUE},
-                {Color.GREEN, Color.GREEN, Color.BLUE},
+        ItemTile[][] matrix3 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), null},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE)},
         };
         assertFalse(ShelfUtils.checkMatrixWithDFS(matrix3, 4, 4));
     }

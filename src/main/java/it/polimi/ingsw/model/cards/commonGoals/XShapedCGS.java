@@ -1,40 +1,32 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
  * Cinque tessere dello stesso tipo che formano una X.
  */
 public class XShapedCGS extends CommonGoalStrategy {
-    @Override
-    public boolean isGoalAchieved(Shelf shelf) {
-        return hasFiveCellsFormingX(shelf.generateColorMat());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Cinque tessere dello stesso tipo che formano una X.";
-    }
-
     /**
-     * @param colorMat the matrix to be checked
+     * @param shelf the shelf to be checked
      * @return true if there are at least five cells of the same color that form an X, false otherwise
      */
-    public boolean hasFiveCellsFormingX(Color[][] colorMat) {
-        for (int i = 1; i < colorMat.length - 1; i++) {
-            for (int j = 1; j < colorMat[i].length - 1; j++) {
-                if (colorMat[i][j] == null || colorMat[i - 1][j - 1] == null || colorMat[i + 1][j + 1] == null
-                        || colorMat[i - 1][j + 1] == null || colorMat[i + 1][j - 1] == null)
+    @Override
+    public boolean isGoalAchieved(Shelf shelf) {
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
+        for (int i = 1; i < shelfGrid.length - 1; i++) {
+            for (int j = 1; j < shelfGrid[i].length - 1; j++) {
+                if (shelfGrid[i][j] == null || shelfGrid[i - 1][j - 1] == null || shelfGrid[i + 1][j + 1] == null
+                        || shelfGrid[i - 1][j + 1] == null || shelfGrid[i + 1][j - 1] == null)
                     continue;
 
                 // Check for main diagonal
-                if (colorMat[i - 1][j - 1].equals(colorMat[i][j])
-                        && colorMat[i + 1][j + 1].equals(colorMat[i][j]) ) {
+                if (shelfGrid[i - 1][j - 1].getColor().equals(shelfGrid[i][j].getColor())
+                        && shelfGrid[i + 1][j + 1].getColor().equals(shelfGrid[i][j].getColor()) ) {
                     // Check for secondary diagonal
-                    if (colorMat[i - 1][j + 1].equals(colorMat[i][j])
-                            && colorMat[i + 1][j - 1].equals(colorMat[i][j])) {
+                    if (shelfGrid[i - 1][j + 1].getColor().equals(shelfGrid[i][j].getColor())
+                            && shelfGrid[i + 1][j - 1].getColor().equals(shelfGrid[i][j].getColor())) {
                         return true;
                     }
                 }
@@ -42,6 +34,11 @@ public class XShapedCGS extends CommonGoalStrategy {
         }
 
         return false;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Cinque tessere dello stesso tipo che formano una X.";
     }
 
 }

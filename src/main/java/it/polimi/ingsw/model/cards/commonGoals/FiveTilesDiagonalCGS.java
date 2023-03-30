@@ -2,49 +2,42 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
  * Cinque tessere dello stesso tipo che formano una diagonale.
  */
 public class FiveTilesDiagonalCGS extends CommonGoalStrategy {
-    @Override
-    public boolean isGoalAchieved(Shelf shelf) {
-        return hasFiveDiagonalCellsOfSameCol(shelf.generateColorMat());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Cinque tessere dello stesso tipo che formano una diagonale.";
-    }
-
     /**
-     * @param colorMat the Color matrix to be checked
+     * @param shelf the shelf to be checked
      * @return true if at least five cells of the same color are positioned diagonally, false otherwise
      */
-    public boolean hasFiveDiagonalCellsOfSameCol(Color[][] colorMat) {
-        int rows = colorMat.length;
-        int cols = colorMat[0].length;
+    @Override
+    public boolean isGoalAchieved(Shelf shelf) {
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
+        int rows = shelfGrid.length;
+        int cols = shelfGrid[0].length;
 
         for (int i = 0; i < rows - 4; i++) {
             for (int j = 0; j < cols - 4; j++) {
-                if(colorMat[i][j] != null && colorMat[i+1][j+1] != null && colorMat[i+2][j+2] != null &&
-                    colorMat[i+3][j+3] != null && colorMat[i+4][j+4] != null) {
-                    if (colorMat[i][j].equals(colorMat[i+1][j+1])
-                            && colorMat[i][j].equals(colorMat[i+2][j+2])
-                            && colorMat[i][j].equals(colorMat[i+3][j+3])
-                            && colorMat[i][j].equals(colorMat[i+4][j+4])) {
+                if(shelfGrid[i][j] != null && shelfGrid[i+1][j+1] != null && shelfGrid[i+2][j+2] != null &&
+                        shelfGrid[i+3][j+3] != null && shelfGrid[i+4][j+4] != null) {
+                    if (shelfGrid[i][j].getColor().equals(shelfGrid[i+1][j+1].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+2][j+2].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+3][j+3].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+4][j+4].getColor())) {
                         return true;
                     }
                 }
             }
             for (int j = 4; j < cols; j++) {
-                if(colorMat[i][j] != null && colorMat[i+1][j-1] != null && colorMat[i+2][j-2] != null &&
-                        colorMat[i+3][j-3] != null && colorMat[i+4][j-4] != null) {
-                    if ( colorMat[i][j] == colorMat[i+1][j-1]
-                            && colorMat[i][j] == colorMat[i+2][j-2]
-                            && colorMat[i][j] == colorMat[i+3][j-3]
-                            && colorMat[i][j] == colorMat[i+4][j-4]) {
+                if(shelfGrid[i][j] != null && shelfGrid[i+1][j-1] != null && shelfGrid[i+2][j-2] != null &&
+                        shelfGrid[i+3][j-3] != null && shelfGrid[i+4][j-4] != null) {
+                    if ( shelfGrid[i][j].getColor().equals(shelfGrid[i+1][j-1].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+2][j-2].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+3][j-3].getColor())
+                            && shelfGrid[i][j].getColor().equals(shelfGrid[i+4][j-4].getColor())) {
                         return true;
                     }
                 }
@@ -53,5 +46,11 @@ public class FiveTilesDiagonalCGS extends CommonGoalStrategy {
 
         return false;
     }
+
+    @Override
+    public String getDescription() {
+        return "Cinque tessere dello stesso tipo che formano una diagonale.";
+    }
+
 }
 

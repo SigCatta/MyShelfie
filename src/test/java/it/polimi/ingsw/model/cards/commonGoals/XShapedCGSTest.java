@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;
@@ -10,24 +12,26 @@ public class XShapedCGSTest {
     @Test
     public void testhasFiveCellsFormingX() {
         XShapedCGS cg = new XShapedCGS();
-        Color[][] matrix1 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.YELLOW, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
+        ItemTile[][] matrix1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        assertFalse(cg.hasFiveCellsFormingX(matrix1));
+        Shelf shelf = new Shelf(matrix1);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] matrix2 = {
-                {Color.LIGHTBLUE, Color.YELLOW, Color.LIGHTBLUE, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.LIGHTBLUE, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.LIGHTBLUE, Color.GREEN, Color.LIGHTBLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.YELLOW, Color.BLUE, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
+        ItemTile[][] matrix2 = {
+                {new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.GREEN), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        assertTrue(cg.hasFiveCellsFormingX(matrix2));
+        shelf = new Shelf(matrix2);
+        assertTrue(cg.isGoalAchieved(shelf));
     }
 }

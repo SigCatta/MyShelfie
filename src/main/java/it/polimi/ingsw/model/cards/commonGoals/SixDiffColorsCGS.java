@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,31 +12,23 @@ import java.util.Set;
  * Due colonne formate ciascuna da 6 diversi tipi di tessere.
  */
 public class SixDiffColorsCGS extends CommonGoalStrategy {
-    @Override
-    public boolean isGoalAchieved(Shelf shelf) {
-        return hasTwoColumnsOfSixDifferentColors(shelf.generateColorMat());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Due colonne formate ciascuna da 6 diversi tipi di tessere.";
-    }
-
     /**
-     * @param colorMat The Color matrix to check.
+     * @param shelf The shelf to check.
      * @return True if the matrix has at least two columns formed by cells of 6 different colors, false otherwise.
      */
-    public boolean hasTwoColumnsOfSixDifferentColors(Color[][] colorMat) {
-        int rows = colorMat.length;
-        int cols = colorMat[0].length;
+    @Override
+    public boolean isGoalAchieved(Shelf shelf) {
+        ItemTile[][] shelfGrid = shelf.getShelfGrid();
+        int rows = shelfGrid.length;
+        int cols = shelfGrid[0].length;
         int countCol = 0;
 
         for (int i = 0; i < rows; i++) {
             Set<Color> colorSet = new HashSet<>();
             for (int j = 0; j < cols; j++) {
 
-                if(colorMat[i][j] != null) {
-                    colorSet.add(colorMat[i][j]);
+                if(shelfGrid[i][j] != null) {
+                    colorSet.add(shelfGrid[i][j].getColor());
                 }
             }
             if(colorSet.size() >= 6)    countCol++;
@@ -43,5 +36,10 @@ public class SixDiffColorsCGS extends CommonGoalStrategy {
         }
 
         return false;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Due colonne formate ciascuna da 6 diversi tipi di tessere.";
     }
 }

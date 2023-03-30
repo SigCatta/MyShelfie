@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model.player;
 
 
+import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.awt.*;
 import java.util.List;
@@ -13,70 +15,86 @@ import java.util.Stack;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ShelfTest {
-    private Shelf shelf;
+    private Shelf testShelf;
+
     private int ROWS;
     private int COLUMNS;
 
     @BeforeEach
     public void setUp(){
-        shelf = new Shelf();
-        ROWS = shelf.getROWS();
-        COLUMNS = shelf.getCOLUMNS();
+        testShelf = new Shelf();
+        ROWS = testShelf.getROWS();
+        COLUMNS = testShelf.getCOLUMNS();
     }
     @Test
     public void inizializationTest() {
-        List<Stack<ItemTile>> shelfGrid = shelf.getShelfGrid();
+        ItemTile[][] shelfGrid = testShelf.getShelfGrid();
 
-        for (int i = 0; i < COLUMNS; i++) {
-            assertEquals(new Stack<>(), shelfGrid.get(i));
-        }
-    }
-
-    @Test
-    public void getNumOfBoxLeftInColTest() {
-        List<Stack<ItemTile>> shelfGrid = shelf.getShelfGrid();
-        for (int i = 0; i < COLUMNS; i++) {
-            assertEquals(ROWS, shelf.getNumOfBoxLeftInCol(i));
-        }
-
-        for (int i = 0; i < COLUMNS; i++) {
-            shelfGrid.add(new Stack<>());
-            for (int j = 0; j < Math.max((ROWS - i), 0); j++) {
-                shelfGrid.get(i).add(new ItemTile(Color.BLUE));
-            }
-            assertEquals(Math.max((ROWS - i), 0), shelfGrid.get(i).size());
-            assertEquals(ROWS- Math.max((ROWS - i), 0), shelf.getNumOfBoxLeftInCol(i));
-        }
-    }
-
-    @Test
-    public void isColumnFulTestl() {
-        List<Stack<ItemTile>> shelfGrid = shelf.getShelfGrid();
-
-        for (int i = 0; i < COLUMNS; i++) {
-            assertFalse(shelf.isColumnFull(i));
-        }
-        for (int j = 0; j < ROWS; j++) {
-            shelfGrid.get(0).add(new ItemTile(Color.BLUE));
-        }
-        assertTrue(shelf.isColumnFull(0));
-    }
-
-    @Test
-    public void getTileAtLocationTest() {
-        List<Stack<ItemTile>> shelfGrid = shelf.getShelfGrid();
-
-        for (int i = 0; i < COLUMNS; i++) {
-            shelfGrid.add(new Stack<>());
-            for (int j = 0; j < Math.max((ROWS - i), 0); j++) {
-                ItemTile itemTile = new ItemTile(Color.BLUE);
-                shelfGrid.get(i).add(itemTile);
-                Point pos = new Point(j, i);
-                assertEquals(itemTile, shelf.getTileAtLocation(pos));
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                assertNull(shelfGrid[i][j]);
             }
         }
-        Point pos = new Point(ROWS+1, 0);
-        assertNull(shelf.getTileAtLocation(pos));
+    }
+
+    @Test
+    public void testSetTileAtLocation()  {
+        // Test getting tile from non-empty location
+        ItemTile testTile = new ItemTile(Color.BLUE);
+        Point nonEmptyLocation = new Point(2,4);
+        testShelf.setTileAtLocation(nonEmptyLocation, testTile);
+        assertEquals(testTile, testShelf.getTileAtLocation(nonEmptyLocation));
+    }
+
+    @Test
+    public void testGetTileAtLocation()  {
+        // Test getting tile from empty location
+        Point emptyLocation = new Point(3,3);
+        assertEquals(null,testShelf.getTileAtLocation(emptyLocation) );
+
+
+        // Test getting tile from non-empty location
+        ItemTile testTile = new ItemTile(Color.BLUE);
+        Point nonEmptyLocation = new Point(2,4);
+        testShelf.getShelfGrid()[2][4] = testTile;
+        assertEquals(testTile, testShelf.getTileAtLocation(nonEmptyLocation));
+    }
+
+    @Test
+    public void testGetNumOfBoxLeftInCol() {
+        // Test getting number of boxes in empty column
+        int emptyColumn = 1;
+        assertEquals(ROWS, testShelf.getNumOfBoxLeftInCol(emptyColumn));
+
+        // Test getting number of boxes in partially filled column
+        ItemTile testTile = new ItemTile(Color.BLUE);
+        testShelf.getShelfGrid()[4][0] = testTile;
+        testShelf.getShelfGrid()[2][0] = testTile;
+        assertEquals(4, testShelf.getNumOfBoxLeftInCol(0));
+
+        // Test getting number of boxes in completely filled column
+        for (int i = 0; i < ROWS; i++) {
+            testShelf.getShelfGrid()[i][2] = testTile;
+        }
+        assertEquals(0, testShelf.getNumOfBoxLeftInCol(2));
+    }
+
+    @Test
+    public void testIsColumnFull() {
+        // Test empty column
+        int emptyColumn = 3;
+        assertFalse(testShelf.isColumnFull(emptyColumn));
+
+        // Test partially filled column
+        ItemTile testTile = new ItemTile(Color.BLUE);
+        testShelf.getShelfGrid()[3][1] = testTile;
+        assertFalse(testShelf.isColumnFull(1));
+
+        // Test completely filled column
+        for (int i = 0; i < ROWS; i++) {
+            testShelf.getShelfGrid()[i][4] = testTile;
+        }
+        assertTrue(testShelf.isColumnFull(4));
     }
 
 }

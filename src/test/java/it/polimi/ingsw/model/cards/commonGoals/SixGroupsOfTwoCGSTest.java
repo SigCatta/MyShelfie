@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.ShelfUtils;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -13,31 +14,31 @@ public class SixGroupsOfTwoCGSTest {
     public void testCheckForGroups() {
         SixGroupsOfTwoCGS cg = new SixGroupsOfTwoCGS();
         // Test case 1: 6 groups of the same color
-        Color[][] mat1 = {
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.LIGHTBLUE, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
-                {Color.PINK, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK},
+        ItemTile[][] mat1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
         };
         assertTrue("Test case 1 failed", ShelfUtils.checkMatrixWithDFS(mat1, 6, 2));
 
         // Test case 2: 5 groups of the same color
-        Color[][] mat2 = {
-                {Color.YELLOW, Color.BLUE, Color.GREEN, Color.PINK, null},
-                {Color.YELLOW, Color.BLUE, Color.GREEN, Color.PINK, null},
-                {Color.LIGHTBLUE, Color.LIGHTBLUE, Color.GREEN, null, null},
-                {Color.YELLOW, Color.BLUE, null, null, null},
-                {Color.YELLOW, null, null, null, null},
+        ItemTile[][] mat2 = {
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), null},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.GREEN), new ItemTile(Color.PINK), null},
+                {new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.GREEN), null, null},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), null, null, null},
+                {new ItemTile(Color.YELLOW), null, null, null, null},
                 {null, null, null, null, null},
         };
         assertTrue("Test case 2 failed", ShelfUtils.checkMatrixWithDFS(mat2, 6, 2));
 
         // Test case 3: Less than 6 groups
-        Color[][] mat3 = {
-                {Color.PINK, Color.PINK, Color.PINK, Color.PINK, null},
-                {Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, null},
+        ItemTile[][] mat3 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), null},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},

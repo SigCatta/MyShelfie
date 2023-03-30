@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -10,43 +12,47 @@ public class FourRowsOfFiveCGSTest {
     @Test
     public void hasFourRowsOfFiveTest() {
         FourRowsOfFiveCGS cg = new FourRowsOfFiveCGS();
-        Color[][] matrix1 = {
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
+        ItemTile[][] matrix1 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        assertTrue(cg.hasFourRowsOfFive(matrix1));
+        Shelf shelf = new Shelf(matrix1);
+        assertTrue(cg.isGoalAchieved(shelf));
 
-        Color[][] matrix2 = {
-                {Color.PINK, null, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, null, Color.BLUE, Color.WHITE, null},
-                {Color.GREEN, null, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, null, Color.BLUE, null, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, null},
+        ItemTile[][] matrix2 = {
+                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
+                {new ItemTile(Color.GREEN), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
         };
-        assertFalse(cg.hasFourRowsOfFive(matrix2));
+        shelf = new Shelf(matrix2);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] matrix3 = {
-                {Color.PINK, Color.LIGHTBLUE, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.YELLOW, Color.LIGHTBLUE, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.BLUE, Color.BLUE, null, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.PINK, Color.BLUE, null, Color.WHITE},
-                {null, Color.YELLOW, Color.PINK, Color.LIGHTBLUE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, null},
+        ItemTile[][] matrix3 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE)},
+                {null, new ItemTile(Color.YELLOW), new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
         };
-        assertFalse(cg.hasFourRowsOfFive(matrix3));
+        shelf = new Shelf(matrix3);
+        assertFalse(cg.isGoalAchieved(shelf));
 
-        Color[][] matrix4 = {
-                {Color.PINK, Color.LIGHTBLUE, Color.BLUE, Color.YELLOW, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.PINK, Color.PINK, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.BLUE, Color.WHITE, Color.WHITE},
-                {Color.GREEN, Color.GREEN, Color.WHITE, null, null},
+        ItemTile[][] matrix4 = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN),new ItemTile( Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.WHITE), null, null},
         };
-        assertTrue(cg.hasFourRowsOfFive(matrix4));
+        shelf = new Shelf(matrix4);
+        assertTrue(cg.isGoalAchieved(shelf));
     }
 }
