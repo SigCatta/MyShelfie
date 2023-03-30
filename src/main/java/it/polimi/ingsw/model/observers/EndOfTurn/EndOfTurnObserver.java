@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.EndOfTurn;
+package it.polimi.ingsw.model.observers.EndOfTurn;
 
 public interface EndOfTurnObserver {
     void update();

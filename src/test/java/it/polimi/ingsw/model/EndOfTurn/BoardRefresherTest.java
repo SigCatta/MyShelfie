@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;

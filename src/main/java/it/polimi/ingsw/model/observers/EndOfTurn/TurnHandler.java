@@ -1,8 +1,7 @@
-package it.polimi.ingsw.model.EndOfTurn;
+package it.polimi.ingsw.model.observers.EndOfTurn;
 
 import it.polimi.ingsw.model.Game;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,8 @@ public class TurnHandler implements EndOfTurnSubject{
 
     public void changeTurn(){
         notifyObservers();
-        //TODO change player turn
+        //TODO: change player turn
+        //TODO: update Game activePlayer
     }
 
     @Override

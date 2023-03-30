@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
+import it.polimi.ingsw.model.observers.EndOfTurn.ScoreCalculation.ScoreBoard;
+import it.polimi.ingsw.model.observers.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
+import it.polimi.ingsw.model.observers.ShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -18,8 +21,12 @@ public class Game {
     private final Bag bag;
     private Board board;
 
-    private BoardRefresher boardRefresher;
+    private ScoreBoard scoreBoard;
 
+    private BoardRefresher boardRefresher;
+    private TilesGetter tilesGetter;
+
+    ShelfObserver shelfObserver;
     private ArrayList<Player> players;
     private Player activePlayer;
     private Player firstPlayer;
@@ -33,6 +40,9 @@ public class Game {
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
         turnHandler = new TurnHandler(this);
+        tilesGetter = new TilesGetter(this);
+        scoreBoard = new ScoreBoard(this);
+        shelfObserver = new ShelfObserver(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
@@ -51,6 +61,7 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
+        tilesGetter.setActivePlayer(activePlayer);
     }
 
     public Player getFirstPlayer() {
@@ -75,6 +86,10 @@ public class Game {
         if(players.size() > MAX_PLAYER_NUMBER) return;
 
         players.add(player);
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
     }
 
     public BoardRefresher getBoardRefresher() {

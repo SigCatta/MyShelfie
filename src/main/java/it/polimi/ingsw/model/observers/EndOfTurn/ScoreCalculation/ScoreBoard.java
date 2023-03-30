@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
+package it.polimi.ingsw.model.observers.EndOfTurn.ScoreCalculation;
 
-import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
+import it.polimi.ingsw.model.observers.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -25,5 +25,9 @@ public class ScoreBoard implements EndOfTurnObserver {
     @Override
     public void update() {
         updateScore();
+    }
+
+    public void setFirstPlayerToFinish(Player activePlayer) {
+        //TODO: assign 1 point to the player for being the first one to complete his shelf
     }
 }
