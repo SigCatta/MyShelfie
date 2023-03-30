@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model.cards.personalGoals;
 
 import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.model.tiles.Color;
