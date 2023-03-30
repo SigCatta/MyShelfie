@@ -24,6 +24,7 @@ public class TilesGetter {
     public TilesGetter(Game game){
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
+        tilesToBeInserted = new ArrayList<>();
     }
 
     public void setActivePlayer(Player activePlayer) {
