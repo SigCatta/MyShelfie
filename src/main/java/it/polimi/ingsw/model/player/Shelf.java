@@ -3,15 +3,11 @@ package it.polimi.ingsw.model.player;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import exceptions.TooManyTilesException;
-import it.polimi.ingsw.model.observers.ShelfObserver;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.observers.FullShelfObserver;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * A class representing the player's shelf.
@@ -40,7 +36,7 @@ public class Shelf {
      */
     private ItemTile[][] shelfGrid;
 
-    private ArrayList<ShelfObserver> observers = new ArrayList<>();
+    private ArrayList<FullShelfObserver> observers = new ArrayList<>();
 
     /**
      * Constructs a new Shelf object
@@ -58,11 +54,11 @@ public class Shelf {
         shelfGrid = matrix;
     }
 
-    public void registerObserver(ShelfObserver observer) {
+    public void registerObserver(FullShelfObserver observer) {
         observers.add(observer);
     }
 
-    public void removeObserver(ShelfObserver observer) {
+    public void removeObserver(FullShelfObserver observer) {
         observers.remove(observer);
     }
 
@@ -162,7 +158,7 @@ public class Shelf {
     }
 
     private void notifyObservers() {
-        for (ShelfObserver observer : observers) {
+        for (FullShelfObserver observer : observers) {
             observer.shelfFull();
         }
     }

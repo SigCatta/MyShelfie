@@ -4,10 +4,10 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
 
-public class ShelfObserver {
+public class FullShelfObserver {
     private Game game;
 
-    public ShelfObserver(Game game) {
+    public FullShelfObserver(Game game) {
         this.game = game;
         for(Player player: game.getPlayers()) {
             player.getShelf().registerObserver(this);

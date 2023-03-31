@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.observers.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
-import it.polimi.ingsw.model.observers.ShelfObserver;
+import it.polimi.ingsw.model.observers.FullShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -26,7 +26,7 @@ public class Game {
     private BoardRefresher boardRefresher;
     private TilesGetter tilesGetter;
 
-    ShelfObserver shelfObserver;
+    FullShelfObserver fullShelfObserver;
     private ArrayList<Player> players;
     private Player activePlayer;
     private Player firstPlayer;
@@ -42,7 +42,7 @@ public class Game {
         turnHandler = new TurnHandler(this);
         tilesGetter = new TilesGetter(this);
         scoreBoard = new ScoreBoard(this);
-        shelfObserver = new ShelfObserver(this);
+        fullShelfObserver = new FullShelfObserver(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
