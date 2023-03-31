@@ -1,26 +1,19 @@
 package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static java.lang.Math.min;
+
 public class AdjacencyScoreCalculation {
-    //TODO it might be useful to have an interface for the classes that calculate the score
-
-    private final int POINTS_FOR_THREE = 2;
-    private final int POINTS_FOR_FOUR  = 3;
-    private final int POINTS_FOR_FIVE  = 5;
-    private final int POINTS_FOR_SIX   = 8;
-
-    private final Game GAME;
-    private Player activePlayer;
-    private Shelf activeShelf;
 
 
-    public AdjacencyScoreCalculation(Game game){
-        GAME = game;
-    }
 
     /**
      * calculate the points gained from the adjacency of tiles
@@ -28,46 +21,84 @@ public class AdjacencyScoreCalculation {
      * then the player should gain points
      * @return points
      */
-    public int calculateScore() {
-        // These variables are set here, so they can change with the player turn
-        activePlayer = GAME.getActivePlayer();
-        activeShelf = activePlayer.getShelf();
+    public static int calculateScore(Player activePlayer) {
 
-        Color[][] shelfColorRepresentation = activeShelf.generateColorMat();
+        final int POINTS_FOR_THREE = 2;
+        final int POINTS_FOR_FOUR = 3;
+        final int POINTS_FOR_FIVE = 5;
+        final int POINTS_FOR_SIX = 8;
 
-        int[] pointsForAdjacency = {0, 0, POINTS_FOR_THREE, POINTS_FOR_FOUR, POINTS_FOR_FIVE, POINTS_FOR_SIX};
+        Shelf activeShelf = activePlayer.getShelf();
+        Color[][] shelfColor = activeShelf.generateColorMat();
+
+        int[] pointsForAdjacency = {0, 0, 0, POINTS_FOR_THREE, POINTS_FOR_FOUR, POINTS_FOR_FIVE, POINTS_FOR_SIX};
+
         int points = 0;
 
-        // Iterate over each tile in the shelf
-        for (int i = 0; i < shelfColorRepresentation.length; i++) {
-            for (int j = 0; j < shelfColorRepresentation[i].length; j++) {
-                Color currentColor = shelfColorRepresentation[i][j];
-                if (currentColor == null) {
-                    continue; // Skip empty tiles
-                }
+        List<List<int[]>> clusters = findClusters(shelfColor);
 
-                // Check if there are at least three tiles of the same color adjacent to the current tile
-                int adjacentTiles = 0;
-                if (i > 0 && shelfColorRepresentation[i - 1][j] == currentColor) {
-                    adjacentTiles++;
-                }
-                if (i < shelfColorRepresentation.length - 1 && shelfColorRepresentation[i + 1][j] == currentColor) {
-                    adjacentTiles++;
-                }
-                if (j > 0 && shelfColorRepresentation[i][j - 1] == currentColor) {
-                    adjacentTiles++;
-                }
-                if (j < shelfColorRepresentation[i].length - 1 && shelfColorRepresentation[i][j + 1] == currentColor) {
-                    adjacentTiles++;
-                }
+        for (List<int[]> cluster : clusters) {
 
-                if (adjacentTiles >= 3) {
-                    points += pointsForAdjacency[adjacentTiles];
+            int tilesInClusterCount = min(cluster.size(), pointsForAdjacency.length - 1);
+            points += pointsForAdjacency[tilesInClusterCount];
+
+        }
+
+        return points;
+    }
+
+
+    /**
+     * @param colorShelf the shelf of the player
+     * @return a list containing the list of points in each cluster
+     */
+    private static List<List<int[]>> findClusters(Color[][] colorShelf) {
+        List<List<int[]>> clusters = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+
+        for (int row = 0; row < colorShelf.length; row++) {
+            for (int col = 0; col < colorShelf[0].length; col++) {
+
+                Color currentColor = colorShelf[row][col];
+                String key = row + "," + col;
+                if (!seen.contains(key)) {
+                    List<int[]> cluster = dfs(colorShelf, row, col, currentColor, seen);
+                    if (!cluster.isEmpty()) {
+                        clusters.add(cluster);
+                    }
                 }
             }
         }
 
-        return points;
+        return clusters;
+    }
+
+    /**
+     *
+     * @param colorShelf the shelf representation with colors instead of tiles
+     * @param row current row
+     * @param col current column
+     * @param currentColor color of the current cluster
+     * @param seen positions already visited
+     * @return a list containing the positions where the tiles are adjacent and same color
+     */
+    private static List<int[]> dfs(Color[][] colorShelf, int row, int col, Color currentColor, Set<String> seen) {
+        if (row < 0 || row >= colorShelf.length || col < 0 || col >= colorShelf[0].length
+                || colorShelf[row][col] != currentColor || currentColor == null) {
+            return new ArrayList<>();
+        }
+        String key = row + "," + col;
+        if (seen.contains(key)) {
+            return new ArrayList<>();
+        }
+        seen.add(key);
+        List<int[]> colorCluster = new ArrayList<>();
+        colorCluster.add(new int[]{row, col});
+        int[][] neighbors = {{row - 1, col}, {row + 1, col}, {row, col - 1}, {row, col + 1}};
+        for (int[] neighbor : neighbors) {
+            colorCluster.addAll(dfs(colorShelf, neighbor[0], neighbor[1], currentColor, seen));
+        }
+        return colorCluster;
     }
 
 

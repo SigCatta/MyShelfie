@@ -10,7 +10,6 @@ public class ItemTile {
      */
     public ItemTile(Color color) {
         this.COLOR = color;
-        //request for the tile image from database
     }
 
     /**

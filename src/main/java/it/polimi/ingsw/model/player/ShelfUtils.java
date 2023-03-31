@@ -19,6 +19,7 @@ public class ShelfUtils {
         for (int i = 0; i < rows; i++) {
             colorMat[i] = new Color[cols];
             for (int j = 0; j < cols; j++) {
+                if(shelfGrid[i][j] == null) continue;
                 colorMat[i][j] = shelfGrid[i][j].getColor();
             }
         }

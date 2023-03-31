@@ -26,7 +26,13 @@ public class Bag {
      * @return a single ItemTile
      */
     public ItemTile drawTile(){
-        return new ItemTile(randomColor());
+        Color randomColor = randomColor();
+
+        if(randomColor != null)
+            return new ItemTile(randomColor);
+        else
+            return null;
+
     }
 
 
@@ -53,6 +59,6 @@ public class Bag {
             }
         }
 
-        return Color.BLUE; //TODO update after clarification of the rules
+        return null;
     }
 }
