@@ -37,6 +37,7 @@ public class Game {
         turnHandler = new TurnHandler(this);
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        new FullShelfObserver(this);
     }
 
 
