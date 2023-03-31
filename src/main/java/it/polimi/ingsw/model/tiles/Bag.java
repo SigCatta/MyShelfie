@@ -26,13 +26,7 @@ public class Bag {
      * @return a single ItemTile
      */
     public ItemTile drawTile(){
-        Color randomColor = randomColor();
-
-        if(randomColor != null)
-            return new ItemTile(randomColor);
-        else
-            return null;
-
+        return new ItemTile(randomColor());
     }
 
 
@@ -44,8 +38,6 @@ public class Bag {
      * @return random color
      */
     Color randomColor(){
-
-        if(tilesLeft == 0) return null;
 
         double random = Math.random() * tilesLeft;
         tilesLeft--;
@@ -61,7 +53,6 @@ public class Bag {
             }
         }
 
-
-        return null;
+        return Color.BLUE; //TODO update after clarification of the rules
     }
 }
