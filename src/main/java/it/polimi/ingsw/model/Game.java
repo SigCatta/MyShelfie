@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
@@ -32,7 +33,12 @@ public class Game {
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
+
         turnHandler = new TurnHandler(this);
+        //end of turn observers
+        new ScoreBoard(this);
+        new BoardRefresher(this);
+
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
