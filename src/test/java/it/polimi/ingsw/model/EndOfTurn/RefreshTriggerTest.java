@@ -18,7 +18,6 @@ public class RefreshTriggerTest {
     @BeforeEach
     void setUp(){
         game = new Game();
-        BoardRefresher boardRefresher = new BoardRefresher(game);
         board1 = game.getBoard();
     }
 
