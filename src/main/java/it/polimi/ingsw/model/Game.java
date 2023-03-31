@@ -21,9 +21,6 @@ public class Game {
     private final Bag bag;
     private Board board;
 
-    private ScoreBoard scoreBoard;
-
-    private BoardRefresher boardRefresher;
     private TilesGetter tilesGetter;
 
     FullShelfObserver fullShelfObserver;
@@ -41,8 +38,6 @@ public class Game {
         players = new ArrayList<>();
         turnHandler = new TurnHandler(this);
         tilesGetter = new TilesGetter(this);
-        scoreBoard = new ScoreBoard(this);
-        fullShelfObserver = new FullShelfObserver(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
@@ -87,15 +82,6 @@ public class Game {
 
         players.add(player);
     }
-
-    public ScoreBoard getScoreBoard() {
-        return scoreBoard;
-    }
-
-    public BoardRefresher getBoardRefresher() {
-        return boardRefresher;
-    }
-
 
     public TurnHandler getTurnHandler() {
         return turnHandler;
