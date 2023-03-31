@@ -1,44 +1,31 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
-import org.junit.jupiter.api.BeforeEach;
+import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
+public class EndOfTurnObserverTest {
 
-public class BoardRefresherTest {
+    Game game = new Game();
+    int boardSize;
 
-    private BoardRefresher boardRefresher;
-    private Game game;
-
-    private int boardSize;
 
     @BeforeEach
-    public void setUp() throws TooManyPlayersException {
-        game = new Game();
+    public void setUp(){
         game.addPlayer(new Player());
         game.addPlayer(new Player());
-
         boardSize = game.getBoard().getSize();
-
     }
 
     @Test
-    void testItemTilePlacement4() {
-    void testItemTilePlacement4() throws TooManyPlayersException {
-        boolean[][] table = new boolean[boardSize][boardSize];
-
-        game.addPlayer(new Player());
-        game.addPlayer(new Player());
-
-        boardRefresher = new BoardRefresher(game);
-
-        boardRefresher.refillBoard();
+    public void test2Players(){
+        //the board should be refilled
+        game.getTurnHandler().notifyObservers();
 
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
@@ -55,15 +42,12 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement3() {
-    void testItemTilePlacement3() throws TooManyPlayersException {
-        boolean[][] table = new boolean[boardSize][boardSize];
+    public void test3Players(){
 
         game.addPlayer(new Player());
 
-        boardRefresher = new BoardRefresher(game);
-
-        boardRefresher.refillBoard();
+        //the board should be refilled
+        game.getTurnHandler().notifyObservers();
 
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
@@ -80,11 +64,13 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement2() {
+    public void test4Players(){
 
-        boardRefresher = new BoardRefresher(game);
+        game.addPlayer(new Player());
+        game.addPlayer(new Player());
 
-        boardRefresher.refillBoard();
+        //the board should be refilled
+        game.getTurnHandler().notifyObservers();
 
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
@@ -100,5 +86,32 @@ public class BoardRefresherTest {
         }
     }
 
+    @Test
+    public void test1Tile(){
+
+        game.addPlayer(new Player());
+        game.addPlayer(new Player());
+
+        game.getBoard().getBoardGrid()[3][5] = new ItemTile(Color.WHITE);
+
+        //the board should be refilled
+        game.getTurnHandler().notifyObservers();
+
+        LookUpTableReader lookUpTableReader = new LookUpTableReader();
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
+
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(gottenTable[i][j]){
+                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
+                }else{
+                    assertNull(game.getBoard().getBoardGrid()[i][j]);
+                }
+            }
+        }
+
+        assertEquals(game.getBoard().getBoardGrid()[3][5].getColor(), Color.WHITE);
+
+    }
 
 }
