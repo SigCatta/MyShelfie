@@ -16,6 +16,7 @@ public class TurnHandler implements EndOfTurnSubject{
 
     public TurnHandler(Game game){
         this.game = game;
+        //TODO set the observer
     }
 
     public void changeTurn(){

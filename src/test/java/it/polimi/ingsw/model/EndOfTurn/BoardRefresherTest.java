@@ -29,7 +29,6 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement4() {
     void testItemTilePlacement4() throws TooManyPlayersException {
         boolean[][] table = new boolean[boardSize][boardSize];
 
@@ -55,7 +54,6 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement3() {
     void testItemTilePlacement3() throws TooManyPlayersException {
         boolean[][] table = new boolean[boardSize][boardSize];
 
@@ -81,6 +79,7 @@ public class BoardRefresherTest {
 
     @Test
     void testItemTilePlacement2() {
+        boolean[][] table = new boolean[boardSize][boardSize];
 
         boardRefresher = new BoardRefresher(game);
 
