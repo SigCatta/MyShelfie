@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import exceptions.TooManyCardsRequestedException;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,9 +34,11 @@ public class CommonCardDealer {
      * @param number: the number of CommonGoalStrategy  needed
      * @return a list of {@param number} of the instances of the classes that extend CommonGoalStrategy.
      */
-    public static List<CommonGoalStrategy> pickCardStrategies(int number) {
+    public static List<CommonGoalStrategy> pickCardStrategies(int number) throws TooManyCardsRequestedException {
         List<CommonGoalStrategy> strategyDeck = getCardStrategies();
         List<CommonGoalStrategy> gameCGStrategies = new ArrayList<>();
+
+        if(number > strategyDeck.size())    throw new TooManyCardsRequestedException();
         //arrayList that contains the indexes of the strategies already picked
         List<Integer> indexes = new ArrayList<>();
         int randomNumber = (int) (Math.random() * strategyDeck.size());
@@ -51,7 +54,7 @@ public class CommonCardDealer {
         return gameCGStrategies;
     }
 
-    public static List<CommonGoalCard> pickCommonGoalCards(int number) {
+    public static List<CommonGoalCard> pickCommonGoalCards(int number) throws TooManyCardsRequestedException {
         List<CommonGoalCard> commonGoalCards = new ArrayList<>();
         List<CommonGoalStrategy> gameCGStrategies = pickCardStrategies(number);
 
