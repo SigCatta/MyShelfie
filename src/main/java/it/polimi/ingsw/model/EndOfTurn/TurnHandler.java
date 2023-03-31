@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.Game;
 
 import java.util.ArrayList;
@@ -15,7 +17,6 @@ public class TurnHandler implements EndOfTurnSubject{
     public TurnHandler(Game game){
         this.game = game;
         //TODO set the observer
-        new FullShelfObserver(game);
     }
 
     public void changeTurn(){

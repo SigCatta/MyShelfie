@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import org.reflections.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,9 +18,11 @@ public class CommonCardDealer {
         List<CommonGoalStrategy> instances = new ArrayList<>();
         for (Class<? extends CommonGoalStrategy> subclass : subTypes) {
             try {
-                instances.add(subclass.newInstance());
+                instances.add(subclass.getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
+            } catch (InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
             }
         }
 

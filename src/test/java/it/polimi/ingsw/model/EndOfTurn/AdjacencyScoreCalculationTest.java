@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.model.EndOfTurn;
 
 import it.polimi.ingsw.model.player.Shelf;
 
