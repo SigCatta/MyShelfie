@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.Game;
 
 import java.util.ArrayList;
