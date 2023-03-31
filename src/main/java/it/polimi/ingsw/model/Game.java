@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
+import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -19,7 +21,7 @@ public class Game {
     private final Bag bag;
     private Board board;
 
-    private BoardRefresher boardRefresher;
+    private TilesGetter tilesGetter;
 
     private ArrayList<Player> players;
     private Player activePlayer;
@@ -39,6 +41,7 @@ public class Game {
         new ScoreBoard(this);
         new BoardRefresher(this);
 
+        tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
@@ -57,6 +60,7 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
+        tilesGetter.setActivePlayer(activePlayer);
     }
 
     public Player getFirstPlayer() {
@@ -76,17 +80,12 @@ public class Game {
     }
 
 
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) throws TooManyPlayersException {
 
-        if(players.size() > MAX_PLAYER_NUMBER) return;
+        if(players.size() == MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
 
         players.add(player);
     }
-
-    public BoardRefresher getBoardRefresher() {
-        return boardRefresher;
-    }
-
 
     public TurnHandler getTurnHandler() {
         return turnHandler;

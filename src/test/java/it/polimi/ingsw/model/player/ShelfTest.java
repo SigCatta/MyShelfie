@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.player;
 
 
+import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import exceptions.NullPlayersException;
+import exceptions.TooManyTilesException;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -97,4 +101,30 @@ public class ShelfTest {
         assertTrue(testShelf.isColumnFull(4));
     }
 
+    @Test
+    public void testInsertTilesFullColumn() throws NullItemTileException {
+        // Fill column 0 of the shelf grid
+        for (int i = 0; i < testShelf.getROWS(); i++) {
+            ItemTile tile = new ItemTile(Color.PINK);
+            testShelf.getShelfGrid()[i][0] = tile;
+        }
+
+        // Insert a tile in column 0 of the buffer
+
+        try {
+            testShelf.insertTile(new ItemTile(Color.YELLOW), 0);
+        } catch (FullColumnException e) {
+            assertEquals(FullColumnException.class, e.getClass());
+        }
+    }
+
+    @Test
+    public void testInsertTiles() throws NullItemTileException, FullColumnException, TooManyTilesException, NullPlayersException {
+        // Insert tiles and verify that they were inserted correctly
+        assertTrue(testShelf.insertTile(new ItemTile(Color.YELLOW), 1));
+        assertTrue(testShelf.insertTile(new ItemTile(Color.BLUE), 1));
+
+        assertEquals(Color.YELLOW, testShelf.getTileAtLocation(new Point(0, 1)).getColor());
+        assertEquals(Color.BLUE, testShelf.getTileAtLocation(new Point(1, 1)).getColor());
+    }
 }

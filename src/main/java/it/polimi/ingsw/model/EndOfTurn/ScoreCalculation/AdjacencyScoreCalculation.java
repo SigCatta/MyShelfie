@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,16 +27,41 @@ public class AdjacencyScoreCalculation {
         final int POINTS_FOR_FIVE = 5;
         final int POINTS_FOR_SIX = 8;
 
+
         Shelf activeShelf = activePlayer.getShelf();
         Color[][] shelfColor = activeShelf.generateColorMat();
 
         int[] pointsForAdjacency = {0, 0, 0, POINTS_FOR_THREE, POINTS_FOR_FOUR, POINTS_FOR_FIVE, POINTS_FOR_SIX};
+        ItemTile[][] shelfGrid = activeShelf.getShelfGrid();
+
 
         int points = 0;
 
         List<List<int[]>> clusters = findClusters(shelfColor);
 
         for (List<int[]> cluster : clusters) {
+        // Iterate over each tile in the shelf
+        for (int i = 0; i < shelfGrid.length; i++) {
+            for (int j = 0; j < shelfGrid[i].length; j++) {
+                Color currentColor = shelfGrid[i][j].getColor();
+                if (currentColor == null) {
+                    continue; // Skip empty tiles
+                }
+
+                // Check if there are at least three tiles of the same color adjacent to the current tile
+                int adjacentTiles = 0;
+                if (i > 0 && shelfGrid[i - 1][j].getColor() == currentColor) {
+                    adjacentTiles++;
+                }
+                if (i < shelfGrid.length - 1 && shelfGrid[i + 1][j].getColor() == currentColor) {
+                    adjacentTiles++;
+                }
+                if (j > 0 && shelfGrid[i][j - 1].getColor() == currentColor) {
+                    adjacentTiles++;
+                }
+                if (j < shelfGrid[i].length - 1 && shelfGrid[i][j + 1].getColor() == currentColor) {
+                    adjacentTiles++;
+                }
 
             int tilesInClusterCount = min(cluster.size(), pointsForAdjacency.length - 1);
             points += pointsForAdjacency[tilesInClusterCount];
