@@ -14,7 +14,7 @@ public class TurnHandler implements EndOfTurnSubject{
 
     public TurnHandler(Game game){
         this.game = game;
-        new FullShelfObserver(game);
+
         //TODO set the observer
     }
 
