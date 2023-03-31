@@ -26,4 +26,8 @@ public class ScoreBoard implements EndOfTurnObserver {
     public void update() {
         updateScore();
     }
+
+    public void setFirstPlayerToFinish(Player activePlayer) {
+        //TODO: assign 1 point to the player for being the first one to complete his shelf
+    }
 }

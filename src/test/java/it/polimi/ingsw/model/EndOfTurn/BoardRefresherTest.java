@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.Game;
@@ -18,7 +19,7 @@ public class BoardRefresherTest {
     private int boardSize;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws TooManyPlayersException {
         game = new Game();
         game.addPlayer(new Player());
         game.addPlayer(new Player());
@@ -28,7 +29,7 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement4() {
+    void testItemTilePlacement4() throws TooManyPlayersException {
         boolean[][] table = new boolean[boardSize][boardSize];
 
         game.addPlayer(new Player());
@@ -53,7 +54,7 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement3() {
+    void testItemTilePlacement3() throws TooManyPlayersException {
         boolean[][] table = new boolean[boardSize][boardSize];
 
         game.addPlayer(new Player());

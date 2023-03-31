@@ -1,14 +1,13 @@
 package it.polimi.ingsw.model.player;
 
 
+import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * A class representing the player's shelf.
@@ -37,6 +36,8 @@ public class Shelf {
      */
     private ItemTile[][] shelfGrid;
 
+    private ArrayList<FullShelfObserver> observers = new ArrayList<>();
+
     /**
      * Constructs a new Shelf object
      */
@@ -51,6 +52,14 @@ public class Shelf {
     }
     public Shelf(ItemTile[][] matrix) {
         shelfGrid = matrix;
+    }
+
+    public void registerObserver(FullShelfObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(FullShelfObserver observer) {
+        observers.remove(observer);
     }
 
     /**
@@ -112,7 +121,45 @@ public class Shelf {
         return ROWS;
     }
 
-    public Color[][] generateColorMat(){
-        return ShelfUtils.generateColorMat(shelfGrid, getROWS(), getCOLUMNS());
+    /**
+     * Inserts a list of ItemTile objects onto a specified column of the shelf grid.
+     * @param tile the tile to insert
+     * @param column the column on which to insert the tiles.
+     * @return true if the tiles were successfully inserted, false otherwise.
+     * @exception NullItemTileException: if the buffer is empty
+     * @exception FullColumnException : if the column selected is already full
+     */
+    public boolean insertTile(ItemTile tile, int column) throws NullItemTileException, FullColumnException {
+        if(tile == null) {
+            throw new NullItemTileException();
+        }
+        if(isColumnFull(column))  throw  new FullColumnException();
+
+        for (int i = 0; i < ROWS; i++) {
+            Point location = new Point(i, column);
+            if(getTileAtLocation(location) == null) {
+                setTileAtLocation(location, tile) ;
+                break;
+            }
+        }
+        if (isShelfFull()) {
+            notifyObservers();
+        }
+        return true;
+    }
+
+    private boolean isShelfFull() {
+        for (int i = 0; i < COLUMNS; i++) {
+            if (!isColumnFull(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void notifyObservers() {
+        for (FullShelfObserver observer : observers) {
+            observer.shelfFull();
+        }
     }
 }
