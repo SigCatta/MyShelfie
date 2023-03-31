@@ -85,6 +85,9 @@ public class BagTest {
 
         for(int i = 0; i < 300; i++){
             Color color = bag.randomColor();
+            if(color == null) {
+                continue;
+            }
 
             switch (color){
                 case BLUE:

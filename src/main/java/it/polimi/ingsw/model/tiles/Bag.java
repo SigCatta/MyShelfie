@@ -45,6 +45,8 @@ public class Bag {
      */
     Color randomColor(){
 
+        if(tilesLeft == 0) return null;
+
         double random = Math.random() * tilesLeft;
         tilesLeft--;
 
@@ -58,6 +60,7 @@ public class Bag {
                 return color;
             }
         }
+
 
         return null;
     }

@@ -13,8 +13,6 @@ import static java.lang.Math.min;
 
 public class AdjacencyScoreCalculation {
 
-
-
     /**
      * calculate the points gained from the adjacency of tiles
      * in the shelf, if three or more colors touch each other,
