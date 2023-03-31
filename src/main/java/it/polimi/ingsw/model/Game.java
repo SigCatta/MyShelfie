@@ -76,7 +76,7 @@ public class Game {
 
     public void addPlayer(Player player) throws TooManyPlayersException {
 
-        if(players.size() > MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
+        if(players.size() == MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
 
         players.add(player);
     }
