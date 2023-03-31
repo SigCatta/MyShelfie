@@ -24,18 +24,17 @@ public class GameTest {
     }
 
     @Test
-    public void testAddPlayer() throws TooManyPlayersException {
+    public void testAddPlayer() {
 
         game.addPlayer(player1);
         assertEquals(1, game.getPlayers().size());
 
-        game.addPlayer(player2);
-        game.addPlayer(player3);
-        game.addPlayer(player4);
+        assertTrue(game.addPlayer(player2));
+        assertTrue(game.addPlayer(player3));
+        assertTrue(game.addPlayer(player4));
 
         assertEquals(4, game.getPlayers().size());
 
-        assertThrows(TooManyPlayersException.class, () -> game.addPlayer(new
-                Player()));
+        assertFalse(game.addPlayer(new Player()));
     }
 }

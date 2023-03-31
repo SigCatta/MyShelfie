@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import exceptions.TooManyPlayersException;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -38,6 +39,7 @@ public class Game {
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
         new FullShelfObserver(this);
+        new BoardRefresher(this);
     }
 
 
@@ -75,11 +77,15 @@ public class Game {
     }
 
 
-    public void addPlayer(Player player) throws TooManyPlayersException {
+    public boolean addPlayer(Player player)  {
 
-        if(players.size() == MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
+        if(players.size() == MAX_PLAYER_NUMBER) {
+            //TODO: controller that modifies view and alerts new player that he can't partecipate
+            return false;
+        }
 
         players.add(player);
+        return true;
     }
 
     public TurnHandler getTurnHandler() {

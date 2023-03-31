@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -7,8 +8,10 @@ import it.polimi.ingsw.model.player.Player;
 public class FullShelfObserver  implements EndOfTurnObserver{
     private Game game;
     private boolean firstShelfFull;
+    private ScoreBoard scoreBoard;
 
     public FullShelfObserver(Game game) {
+        scoreBoard = new ScoreBoard(game);
         firstShelfFull = false;
         this.game = game;
         for(Player player: game.getPlayers()) {
@@ -17,11 +20,12 @@ public class FullShelfObserver  implements EndOfTurnObserver{
         game.getTurnHandler().attachEndOfTurn(this);
     }
     public void shelfFull() {
-        firstShelfFull = true;
-        //game.getScoreBoard().setFirstPlayerToFinish(game.getActivePlayer());
+        if(!firstShelfFull){
+            firstShelfFull = true;
+            //TODO: call method in scoreBoard to add point to the active player
 
-        //TODO: call controller to modify the view
-        //TODO: control that after the end of the last player turn, the game ends
+            //TODO: call controller to modify the view
+        }
     }
 
     @Override
