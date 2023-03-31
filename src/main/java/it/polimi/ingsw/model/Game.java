@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
@@ -34,7 +35,12 @@ public class Game {
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
+
         turnHandler = new TurnHandler(this);
+        //end of turn observers
+        new ScoreBoard(this);
+        new BoardRefresher(this);
+
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }

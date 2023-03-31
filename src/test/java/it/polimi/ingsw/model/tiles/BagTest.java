@@ -74,5 +74,51 @@ public class BagTest {
 
     }
 
+    @Test
+    void randomColorTooMuchTiles() {
+        int blueCount = 0;
+        int greenCount = 0;
+        int yellowCount = 0;
+        int lightBlueCount = 0;
+        int pinkCount = 0;
+        int whiteCount = 0;
+
+        for(int i = 0; i < 300; i++){
+            Color color = bag.randomColor();
+            if(color == null) {
+                continue;
+            }
+
+            switch (color){
+                case BLUE:
+                    blueCount++;
+                    break;
+                case GREEN:
+                    greenCount++;
+                    break;
+                case YELLOW:
+                    yellowCount++;
+                    break;
+                case LIGHTBLUE:
+                    lightBlueCount++;
+                    break;
+                case PINK:
+                    pinkCount++;
+                    break;
+                case WHITE:
+                    whiteCount++;
+                    break;
+            }
+        }
+
+        Assertions.assertEquals(22, blueCount);
+        Assertions.assertEquals(22, greenCount);
+        Assertions.assertEquals(22, yellowCount);
+        Assertions.assertEquals(22, lightBlueCount);
+        Assertions.assertEquals(22, pinkCount);
+        Assertions.assertEquals(22, whiteCount);
+
+    }
+
 
 }
