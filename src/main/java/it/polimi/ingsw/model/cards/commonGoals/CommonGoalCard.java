@@ -19,9 +19,16 @@ public class CommonGoalCard {
     private CommonGoalStrategy commonGoalStrategy;
 
     public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
+        initStackPoints();
         this.commonGoalStrategy = commonGoalStrategy;
     }
 
+    private void initStackPoints() {
+        pointsStack = new Stack<>();
+        for (int i = 1; i <= 4 ; i++) {
+            pointsStack.push(i*2);
+        }
+    }
 
     /**
      * @param player the player whose score is being calculated

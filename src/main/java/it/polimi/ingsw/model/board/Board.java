@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
+import java.awt.*;
+
 public class Board {
     private final ItemTile[][] BOARD_GRID;
 
@@ -21,6 +23,12 @@ public class Board {
     public void setItemTile(Color color, int row, int col){
         if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
+    }
+
+    public ItemTile removeItemTile(Point location) {
+        ItemTile pickedUpTile = BOARD_GRID[location.x][location.y];
+        BOARD_GRID[location.x][location.y] = null;
+        return pickedUpTile;
     }
 
 }
