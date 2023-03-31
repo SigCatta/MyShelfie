@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.board;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
@@ -26,7 +27,7 @@ class TilesGetterTest {
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws TooManyPlayersException {
         game = new Game();
         board = game.getBoard();
         player = new Player();
@@ -93,27 +94,6 @@ class TilesGetterTest {
     }
 
 }
-
-/*
-    @Test
-    public void testInsertTilesTooManyTiles() throws NullItemTileException, FullColumnException {
-        // Fill column 0 of the shelf grid except for the bottom cell
-        for (int i = 0; i < testShelf.getROWS() - 1; i++) {
-            ItemTile tile = new ItemTile(Color.PINK);
-            testShelf.getShelfGrid()[i][0] = tile;
-        }
-        assertEquals(Color.PINK, testShelf.getTileAtLocation(new Point(0, 0)).getColor());
-
-        // Insert two tiles in column 0 of the buffer
-        List<ItemTile> tiles = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE));
-        try {
-            testShelf.insertTiles(0);
-        } catch (TooManyTilesException e) {
-            assertEquals(TooManyTilesException.class, e.getClass());
-        }
-    }
-
- */
 
 
 

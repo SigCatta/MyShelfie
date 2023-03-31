@@ -1,7 +1,7 @@
-package it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher;
+package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
-import it.polimi.ingsw.model.observers.EndOfTurn.EndOfTurnObserver;
+import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Bag;

@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.player;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import it.polimi.ingsw.model.observers.FullShelfObserver;
+import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;

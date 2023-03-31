@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.observers.EndOfTurn.ScoreCalculation.ScoreBoard;
-import it.polimi.ingsw.model.observers.EndOfTurn.TurnHandler;
+import exceptions.TooManyPlayersException;
+import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
-import it.polimi.ingsw.model.observers.FullShelfObserver;
+import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -23,7 +22,6 @@ public class Game {
 
     private TilesGetter tilesGetter;
 
-    FullShelfObserver fullShelfObserver;
     private ArrayList<Player> players;
     private Player activePlayer;
     private Player firstPlayer;
@@ -76,9 +74,9 @@ public class Game {
     }
 
 
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) throws TooManyPlayersException {
 
-        if(players.size() > MAX_PLAYER_NUMBER) return;
+        if(players.size() > MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
 
         players.add(player);
     }

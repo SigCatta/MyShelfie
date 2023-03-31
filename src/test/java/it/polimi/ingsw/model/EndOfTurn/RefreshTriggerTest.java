@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.BoardRefresher;
-import it.polimi.ingsw.model.observers.EndOfTurn.BoardRefresher.RefreshTrigger;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.RefreshTrigger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Color;

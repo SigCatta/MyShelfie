@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.observers.EndOfTurn.ScoreCalculation;
+package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
-import it.polimi.ingsw.model.observers.EndOfTurn.EndOfTurnObserver;
+import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 

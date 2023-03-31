@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.observers.EndOfTurn;
+package it.polimi.ingsw.model.EndOfTurn;
 
 import it.polimi.ingsw.model.Game;
 
@@ -14,6 +14,7 @@ public class TurnHandler implements EndOfTurnSubject{
 
     public TurnHandler(Game game){
         this.game = game;
+        new FullShelfObserver(game);
     }
 
     public void changeTurn(){
