@@ -86,7 +86,6 @@ public class AdjacencyScoreCalculation {
      */
     private static List<Integer> dfs(ItemTile[][] shelf, int row, int col, Color currentColor, Set<String> seen) {
 
-
         if (row < 0 || row >= shelf.length || col < 0 || col >= shelf[0].length || currentColor == null) {
             return new ArrayList<>();
         }
