@@ -38,7 +38,7 @@ public class Player {
     /**
      * The list of item tiles held by the player.
      */
-    private List<ItemTile> heldTiless;
+    private List<ItemTile> heldTiles;
 
     public Player() {
         shelf = new Shelf();
@@ -72,15 +72,15 @@ public class Player {
     /**
      * @return the held tiles of the player
      */
-    public List<ItemTile> getHeldTiless() {
-        return heldTiless;
+    public List<ItemTile> getHeldTiles() {
+        return heldTiles;
     }
 
     /**
      * @param heldTiles the new held tiles of the player
      */
-    public void setHeldTiless(List<ItemTile> heldTiles) {
-        this.heldTiless = heldTiles;
+    public void setHeldTiles(List<ItemTile> heldTiles) {
+        this.heldTiles = heldTiles;
     }
 
     /**
