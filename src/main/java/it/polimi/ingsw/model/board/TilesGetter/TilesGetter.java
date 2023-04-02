@@ -59,12 +59,12 @@ public class TilesGetter {
     }
 
     public boolean enoughFreeCellsInCol(int column) {
-        //TODO: maybe to move to a cotroller
+        //TODO: maybe to move to a controller
         return activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= tilesToBeInserted.size();
     }
 
     public boolean sendTilesToShelf(ItemTile tileToInsert, int column) throws NullItemTileException, FullColumnException {
-        //TODO maybe move method in a cotroller
+        //TODO maybe move method in a controller
         return activePlayer.getShelf().insertTile(tileToInsert, column);
     }
 

@@ -31,9 +31,9 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
             }
             // count different colors in the column
             Set<Color> colorSet = new HashSet<>();
-            for (int row = 0; row < shelfGrid.length; row++) {
-                if (shelfGrid[row][col] != null) {
-                    colorSet.add(shelfGrid[row][col].getColor());
+            for (ItemTile[] itemTiles : shelfGrid) {
+                if (itemTiles[col] != null) {
+                    colorSet.add(itemTiles[col].getColor());
                 }
             }
             if (colorSet.size() <= 3) {
@@ -58,8 +58,8 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
 
         //TODO: USELESS
         int count = 0;
-        for (int row = 0; row < shelfGrid.length; row++) {
-            if (shelfGrid[row][col] != null ) {
+        for (ItemTile[] itemTiles : shelfGrid) {
+            if (itemTiles[col] != null) {
                 count++;
             }
         }
