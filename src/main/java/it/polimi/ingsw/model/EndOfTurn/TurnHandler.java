@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
-import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
+import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.Game;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class TurnHandler implements EndOfTurnSubject{
         //TODO set the observer
     }
 
-    public void changeTurn(){
+    public void changeTurn() throws NullItemTileException {
         notifyObservers();
         //TODO: change player turn
         //TODO: update Game activePlayer
@@ -36,7 +35,7 @@ public class TurnHandler implements EndOfTurnSubject{
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers() throws NullItemTileException {
         for(EndOfTurnObserver observer : observers){
             observer.update();
         }
