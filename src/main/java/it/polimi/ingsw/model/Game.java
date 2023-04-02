@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -19,7 +20,7 @@ public class Game {
     private int gameID;
     private final Bag bag;
     private Board board;
-
+    private ScoreBoard scoreBoard;
     private TilesGetter tilesGetter;
 
     private ArrayList<Player> players;
@@ -88,5 +89,13 @@ public class Game {
 
     public TurnHandler getTurnHandler() {
         return turnHandler;
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
+    }
+
+    public void setScoreBoard(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
     }
 }

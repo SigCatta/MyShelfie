@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,8 +24,6 @@ public class ScoreBoard implements EndOfTurnObserver {
         this.players = game.getPlayers();
         this.activePlayer = game.getActivePlayer();
         this.isFirstPointAssigned = false;
-
-        game.getTurnHandler().attachEndOfTurn(this);
     }
 
 
@@ -76,8 +73,8 @@ public class ScoreBoard implements EndOfTurnObserver {
         }
     }
 
-    public Player getWinnter() throws NoSuchElementException {
-        return players.stream().max(Comparator.comparingInt(Player::getScore)).get();
+    public Player getWinner() throws NoSuchElementException {
+        return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
     }
 
 }
