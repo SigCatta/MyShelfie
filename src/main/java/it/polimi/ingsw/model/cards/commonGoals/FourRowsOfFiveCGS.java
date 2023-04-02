@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     /**
-     * @param shel the shelf to be checked
+     * @param shelf the shelf to be checked
      * @return true if f a colorMat has at least four rows, each made up of at least 5 cells and with at most 3 different colors.
      */
     @Override

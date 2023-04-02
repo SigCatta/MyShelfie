@@ -11,7 +11,7 @@ public class BoardRefresher implements EndOfTurnObserver {
 
     private final Board board;
     private final Bag BAG;
-    private final int NUMBER_OF_PLAYERS;
+    private final Game GAME;
 
     /**
      * boolean matrix that contains true in the place where there should be a tile
@@ -22,7 +22,7 @@ public class BoardRefresher implements EndOfTurnObserver {
 
         this.board = game.getBoard();
         BAG = game.getBag();
-        NUMBER_OF_PLAYERS = game.getPlayers().size();
+        GAME = game;
 
         game.getTurnHandler().attachEndOfTurn(this);
 
@@ -37,9 +37,11 @@ public class BoardRefresher implements EndOfTurnObserver {
      */
     public void refillBoard() {
 
+        int numberOfPlayers = GAME.getPlayers().size();
+
         //lookUpTable is initialized once
         if(lookUpTable == null){
-            lookUpTable = new LookUpTableReader().getLookUpTable(NUMBER_OF_PLAYERS);
+            lookUpTable = new LookUpTableReader().getLookUpTable(numberOfPlayers);
         }
 
         for(int i = 0; i < board.getSize(); i++){

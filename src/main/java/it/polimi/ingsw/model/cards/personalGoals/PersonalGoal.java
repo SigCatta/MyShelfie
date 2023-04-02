@@ -20,7 +20,7 @@ public class PersonalGoal {
     private final Stack<Integer> points;
 
     /**
-     * Contructs a new personal goal
+     * Constructs a new personal goal
      *
      * @param player       the player who drew the card
      * @param achievements the list of objectives that have to be completed
