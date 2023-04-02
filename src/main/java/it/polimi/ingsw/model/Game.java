@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model;
 
-import exceptions.TooManyPlayersException;
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
-import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -30,7 +29,7 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() {
+    public Game() throws TooManyCardsRequestedException {
         //TODO create instances of the classes used here
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
@@ -38,7 +37,6 @@ public class Game {
         turnHandler = new TurnHandler(this);
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
-        new FullShelfObserver(this);
         new BoardRefresher(this);
     }
 
