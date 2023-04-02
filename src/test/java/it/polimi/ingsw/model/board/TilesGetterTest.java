@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.board;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import exceptions.TooManyCardsRequestedException;
 import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -27,7 +28,7 @@ class TilesGetterTest {
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp() throws TooManyPlayersException {
+    void setUp() throws TooManyPlayersException, TooManyCardsRequestedException {
         game = new Game();
         board = game.getBoard();
         player = new Player();

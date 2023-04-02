@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import exceptions.TooManyCardsRequestedException;
 import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ public class GameTest {
     private Player player4;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         player1 = new Player();
         player2 = new Player();

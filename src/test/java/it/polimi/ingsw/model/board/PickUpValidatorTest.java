@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.PickUpValidator;
 import it.polimi.ingsw.model.tiles.Color;
@@ -18,7 +19,7 @@ public class PickUpValidatorTest {
     private PickUpValidator pickUpValidator;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         board = game.getBoard();
         pickUpValidator = new PickUpValidator(game);
