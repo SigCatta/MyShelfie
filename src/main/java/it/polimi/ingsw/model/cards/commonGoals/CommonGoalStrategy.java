@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.player.Shelf;
 
 /**
  * a class that represent a particular kind of common goal card Strategy.
- * It contains the logic to calculate wether a common goal has been achieved by a player
+ * It contains the logic to calculate weather a common goal has been achieved by a player
  */
 public abstract class CommonGoalStrategy {
     /**
