@@ -74,6 +74,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     }
 
     public Player getWinner() throws NoSuchElementException {
+        //noinspection ComparatorMethodParameterNotUsed
         return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
     }
 
