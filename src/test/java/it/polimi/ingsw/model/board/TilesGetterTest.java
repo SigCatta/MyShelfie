@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.board;
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
 import exceptions.TooManyCardsRequestedException;
-import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +26,7 @@ class TilesGetterTest {
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp() throws TooManyPlayersException, TooManyCardsRequestedException {
+    void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         board = game.getBoard();
         player = new Player();
@@ -46,7 +44,7 @@ class TilesGetterTest {
         chosenPositions.add(goodPosition);
         assertTrue(tilesGetter.pickUpTiles(chosenPositions));
         assertEquals(1, tilesGetter.getTilesToBeInserted().size());
-        assertTrue(tilesGetter.getTilesToBeInserted().get(0).getColor().equals(Color.YELLOW));
+        assertEquals(tilesGetter.getTilesToBeInserted().get(0).getColor(), Color.YELLOW);
         assertFalse(tilesGetter.pickUpTiles(chosenPositions));  //same tiles already picked up
         chosenPositions.remove(goodPosition);
         chosenPositions.add(badPosition);
@@ -83,7 +81,7 @@ class TilesGetterTest {
     }
 
     @Test
-    void testNullTilesSentToShelf() throws NullItemTileException, FullColumnException {
+    void testNullTilesSentToShelf() throws FullColumnException {
         int column = 1;
         ItemTile toInsert = null;
         try {

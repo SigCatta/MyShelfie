@@ -20,7 +20,7 @@ public class BoardRefresherTest {
     private int boardSize;
 
     @BeforeEach
-    public void setUp() throws TooManyPlayersException, TooManyCardsRequestedException {
+    public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         game.addPlayer(new Player());
         game.addPlayer(new Player());
@@ -30,7 +30,7 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement4() throws TooManyPlayersException {
+    void testItemTilePlacement4() {
         boolean[][] table = new boolean[boardSize][boardSize];
 
         game.addPlayer(new Player());
@@ -43,11 +43,11 @@ public class BoardRefresherTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
@@ -55,7 +55,7 @@ public class BoardRefresherTest {
     }
 
     @Test
-    void testItemTilePlacement3() throws TooManyPlayersException {
+    void testItemTilePlacement3() {
         boolean[][] table = new boolean[boardSize][boardSize];
 
         game.addPlayer(new Player());
@@ -67,11 +67,11 @@ public class BoardRefresherTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
@@ -89,11 +89,11 @@ public class BoardRefresherTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
