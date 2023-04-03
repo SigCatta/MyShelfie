@@ -46,7 +46,7 @@ public class TurnHandler implements EndOfTurnSubject{
     }
 
     @Override
-    public void notifyObservers() throws NullItemTileException {
+    public void notifyObservers() {
         for(EndOfTurnObserver observer : observers){
             observer.update();
         }
