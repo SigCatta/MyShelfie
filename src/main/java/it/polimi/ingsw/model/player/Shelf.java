@@ -80,14 +80,14 @@ public class Shelf {
      * @return The number of box left in the column.
      */
     public int getNumOfBoxLeftInCol(int column) {
-        int nullCellcount = 0;
+        int nullCellCount = 0;
 
         for (int i = 0; i < ROWS; i++) {
             if (shelfGrid[i][column] == null)
                 nullCellcount++;
         }
 
-        return nullCellcount;
+        return nullCellCount;
     }
 
     /**

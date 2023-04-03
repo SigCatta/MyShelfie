@@ -39,6 +39,10 @@ public class Game {
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
         new BoardRefresher(this);
+        new ScoreBoard(this);
+
+        tilesGetter = new TilesGetter(this);
+        //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
 
 
@@ -79,7 +83,7 @@ public class Game {
     public boolean addPlayer(Player player)  {
 
         if(players.size() == MAX_PLAYER_NUMBER) {
-            //TODO: controller that modifies view and alerts new player that he can't partecipate
+            //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }
 
