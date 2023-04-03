@@ -41,7 +41,7 @@ public class Player {
     private List<ItemTile> heldTiles;
 
     public Player() {
-        shelf = new Shelf();
+        this.shelf = new Shelf();
     }
 
     /**

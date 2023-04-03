@@ -31,7 +31,6 @@ public class ScoreBoard implements EndOfTurnObserver {
     public ScoreBoard(Game game) throws TooManyCardsRequestedException {
         this.commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
         this.players = game.getPlayers();
-        this.activePlayer = game.getActivePlayer();
         this.isFirstPointAssigned = false;
         this.completedCommonGoal =  new ArrayList<>();
         for (CommonGoalCard commonGoal : commonGoalCards){
@@ -118,6 +117,10 @@ public class ScoreBoard implements EndOfTurnObserver {
     public Player getWinner() throws NoSuchElementException {
         //noinspection ComparatorMethodParameterNotUsed
         return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
+    }
+
+    public void setActivePlayer(Player activePlayer){
+        this.activePlayer = activePlayer;
     }
 
 }

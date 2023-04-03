@@ -40,7 +40,6 @@ public class Game {
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
         new BoardRefresher(this);
         new ScoreBoard(this);
-
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
@@ -60,6 +59,7 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
+        scoreBoard.setActivePlayer(activePlayer);
         tilesGetter.setActivePlayer(activePlayer);
     }
 
