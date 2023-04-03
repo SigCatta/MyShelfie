@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
-import exceptions.NullItemTileException;
 import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
@@ -58,7 +57,7 @@ public class ScoreBoard implements EndOfTurnObserver {
      * assigns points accordingly. It also calculates points for personal goals and tile adjacency if the game is finished
      */
     @Override
-    public void update() throws NullItemTileException {
+    public void update() {
         scoreCommonGoalCards(activePlayer);
 
         if (activePlayer.getShelf().isFull()) {
@@ -90,7 +89,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     /**
      * Assigngs each player of points based on the completion of their personal goal card
      */
-    private void scorePersonalGoals() throws NullItemTileException { // at the end of the game
+    private void scorePersonalGoals() { // at the end of the game
         for (Player player : players) {
             int points = player.getPersonalGoal().calculateScore();
             player.updateScore(points);
