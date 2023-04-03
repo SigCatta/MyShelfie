@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * The purpouse of this class is to calculate the scores and aassign points to the players whenever thei complete
+ * The purpose of this class is to calculate the scores and assign points to the players whenever they complete
  * either a personal or common goal, fill their shelf before the others or place tiles of the same colors
- * adjacently in thei shelf, it is called at the end of each turn to check if a player can earn any points
+ * adjacently in the shelf, it is called at the end of each turn to check if a player can earn any points
  */
 public class ScoreBoard implements EndOfTurnObserver {
 
