@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.RefreshTrigger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
@@ -16,7 +16,7 @@ public class RefreshTriggerTest {
     Game game;
 
     @BeforeEach
-    void setUp(){
+    void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         board1 = game.getBoard();
     }

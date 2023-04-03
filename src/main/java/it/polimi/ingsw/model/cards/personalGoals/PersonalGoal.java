@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;

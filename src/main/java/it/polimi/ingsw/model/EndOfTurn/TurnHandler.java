@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import exceptions.NullItemTileException;
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -11,17 +12,21 @@ import java.util.List;
 public class TurnHandler implements EndOfTurnSubject{
 
 
-    private Game game;
-    private List<EndOfTurnObserver> observers = new ArrayList<>();
+    public Game game;
+    private List<EndOfTurnObserver> observers;
     private List<Player> players;
 
 
-    public TurnHandler(Game game){
+    public TurnHandler(Game game) throws TooManyCardsRequestedException {
         this.game = game;
-        players = game.getPlayers();
+        this.observers = new ArrayList<>();
+        game.setScoreBoard(new ScoreBoard(game));
+        this.observers.add(game.getScoreBoard());
+        this.players = game.getPlayers();
+        //TODO set the observer
     }
 
-    public void changeTurn(){
+    public void changeTurn() throws NullItemTileException {
         notifyObservers();
 
         int nextIndex = players.indexOf(game.getActivePlayer()) + 1;
