@@ -14,6 +14,7 @@ public class TurnHandler implements EndOfTurnSubject{
 
     public Game game;
     private List<EndOfTurnObserver> observers;
+    private List<Player> players;
 
 
     public TurnHandler(Game game) throws TooManyCardsRequestedException {
@@ -21,6 +22,7 @@ public class TurnHandler implements EndOfTurnSubject{
         this.observers = new ArrayList<>();
         game.setScoreBoard(new ScoreBoard(game));
         this.observers.add(game.getScoreBoard());
+        this.players = game.getPlayers();
         //TODO set the observer
     }
 
