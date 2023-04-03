@@ -9,10 +9,10 @@ import java.util.Map;
 
 /**
  * Rule:
- * Otto tessere dello stesso tipo. Non ci
- * sono restrizioni sulla posizione di queste tessere.
+ * Eight tiles of the same type. There’s no restriction about the position of these
+ * tiles.
  */
-public class eightTilesSameColorCGS extends CommonGoalStrategy {
+public class EightTilesSameColorCGS extends CommonGoalStrategy {
     /**
      * @param shelf the shelf to be checked
      * @return true if at least eight cells with the same color are found, false otherwise

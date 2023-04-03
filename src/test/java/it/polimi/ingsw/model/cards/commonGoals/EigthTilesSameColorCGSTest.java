@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class EigthTilesSameColorCGSTest {
     @Test
     public void testHasAtLeastEightCellsOfSameColor() {
-        eightTilesSameColorCGS cg = new eightTilesSameColorCGS();
+        EightTilesSameColorCGS cg = new EightTilesSameColorCGS();
         ItemTile[][] matrix = new ItemTile[][]{
                 {null, null, null, null},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK)},

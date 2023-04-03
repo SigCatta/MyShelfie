@@ -8,10 +8,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SixDiffColorsCGSTest {
+public class TwoColSixDiffTest {
     @Test
     public void testHasTwoColumnsOfSixDifferentColors() {
-        SixDiffColorsCGS cg = new SixDiffColorsCGS();
+        TwoColSixDiff cg = new TwoColSixDiff();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},

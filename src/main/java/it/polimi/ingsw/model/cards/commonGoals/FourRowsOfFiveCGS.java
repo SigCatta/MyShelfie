@@ -9,8 +9,8 @@ import java.util.Set;
 
 /**
  * Rule:
- * Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi
- * differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.
+ * Four lines each formed by 5 tiles of maximum three different types. One
+ * line can show the same or a different combination of another line.
  */
 public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     /**
