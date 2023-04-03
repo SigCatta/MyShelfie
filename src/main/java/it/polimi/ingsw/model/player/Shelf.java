@@ -31,7 +31,7 @@ public class Shelf {
      * 2 |
      * 1 |
      * 0 | _ _ _ _ _
-     * 0 1 2 3 4
+     *     0 1 2 3 4
      */
     private ItemTile[][] shelfGrid;
 
@@ -84,7 +84,7 @@ public class Shelf {
 
         for (int i = 0; i < ROWS; i++) {
             if (shelfGrid[i][column] == null)
-                nullCellcount++;
+                nullCellCount++;
         }
 
         return nullCellCount;
