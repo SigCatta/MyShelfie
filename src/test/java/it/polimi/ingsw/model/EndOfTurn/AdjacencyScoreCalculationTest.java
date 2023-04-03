@@ -7,8 +7,6 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-
 public class AdjacencyScoreCalculationTest {
 
     Player activePlayer = new Player();

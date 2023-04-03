@@ -6,7 +6,6 @@ import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * A class representing the player's shelf.

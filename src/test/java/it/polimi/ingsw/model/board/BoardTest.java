@@ -5,8 +5,7 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-import java.awt.Point;
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

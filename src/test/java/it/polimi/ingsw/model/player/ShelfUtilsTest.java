@@ -1,16 +1,11 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy;
-import it.polimi.ingsw.model.cards.commonGoals.FourAnglesCGS;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ShelfUtilsTest {
     @Test
