@@ -38,13 +38,14 @@ public class PersonalGoal {
      * @return the sum of points that the player earned from a personal goal card
      */
 
-    public int calculateScore() throws NullItemTileException {
+    public int calculateScore() {
         int score = 0;
         if (!points.isEmpty()) {
             for (Color color : Color.values()) {
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
+                if(tileAtPoint == null) continue;
                 if (tileAtPoint.getColor() == color) {
                     score += getPoints();
                     achievements.remove(color);

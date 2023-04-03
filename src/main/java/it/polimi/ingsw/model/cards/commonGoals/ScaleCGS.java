@@ -6,9 +6,9 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
- * Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna
- * a sinistra o a destra, ogni colonna successiva deve essere formata da una tessera in più.
- * Le tessere possono essere di qualsiasi tipo.
+ * Five columns of increasing or decreasing height. Starting from the first column on
+ * the left or on the right, each next column must be made of exactly one more tile.
+ * Tiles can be of any type.
  */
 public class ScaleCGS extends CommonGoalStrategy {
     @Override
