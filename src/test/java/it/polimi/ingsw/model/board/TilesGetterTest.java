@@ -28,6 +28,7 @@ class TilesGetterTest {
     @BeforeEach
     void setUp() throws TooManyCardsRequestedException {
         game = new Game();
+        game.start();
         board = game.getBoard();
         player = new Player();
         game.addPlayer(player);

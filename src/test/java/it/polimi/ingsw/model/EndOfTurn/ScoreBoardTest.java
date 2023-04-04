@@ -29,7 +29,7 @@ public class ScoreBoardTest {
         players.get(1).updateScore(2);
         players.get(2).updateScore(2);
         players.get(3).updateScore(3);
-        assertEquals(game.getScoreBoard().getWinner(), players.get(3));
+        assertEquals(game.getWinner(), players.get(3));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ScoreBoardTest {
         players.get(1).updateScore(2);
         players.get(2).updateScore(3);
         players.get(3).updateScore(3);
-        assertEquals(game.getScoreBoard().getWinner(), players.get(3));
+        assertEquals(game.getWinner(), players.get(3));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class ScoreBoardTest {
         players.get(1).updateScore(3);
         players.get(2).updateScore(3);
         players.get(3).updateScore(3);
-        assertEquals(game.getScoreBoard().getWinner(), players.get(3));
+        assertEquals(game.getWinner(), players.get(3));
     }
 }

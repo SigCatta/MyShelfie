@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Game {
 
@@ -18,9 +19,8 @@ public class Game {
     private final int MAX_PLAYER_NUMBER = 4;
 
     private int gameID;
-    private final Bag bag;
+    private Bag bag;
     private Board board;
-    private ScoreBoard scoreBoard;
     private TilesGetter tilesGetter;
 
     private ArrayList<Player> players;
@@ -30,18 +30,21 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() throws TooManyCardsRequestedException {
-        //TODO create instances of the classes used here
+    public Game() {
+        players = new ArrayList<>();
+    }
+
+    public void start() throws TooManyCardsRequestedException {
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
-        players = new ArrayList<>();
-        turnHandler = new TurnHandler(this);
-        tilesGetter = new TilesGetter(this);
-        //TODO insert players in the list, if it is not done here there boardRefresher won't work
         new BoardRefresher(this);
-        new ScoreBoard(this);
         tilesGetter = new TilesGetter(this);
-        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        turnHandlerInitializer();
+    }
+    public void turnHandlerInitializer() throws TooManyCardsRequestedException {
+        turnHandler = new TurnHandler(this);
+        turnHandler.attachEndOfTurn(new ScoreBoard(this));
+        turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
 
@@ -59,7 +62,6 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
-        scoreBoard.setActivePlayer(activePlayer);
         tilesGetter.setActivePlayer(activePlayer);
     }
 
@@ -80,9 +82,9 @@ public class Game {
     }
 
 
-    public boolean addPlayer(Player player)  {
+    public boolean addPlayer(Player player) {
 
-        if(players.size() == MAX_PLAYER_NUMBER) {
+        if (players.size() == MAX_PLAYER_NUMBER) {
             //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }
@@ -95,11 +97,15 @@ public class Game {
         return turnHandler;
     }
 
-    public ScoreBoard getScoreBoard() {
-        return scoreBoard;
+    /**
+     * Checks which player has the highest score and returns it. If two or more players have the same score,
+     * the winner is the one who played last
+     *
+     * @return the winner of the game
+     */
+    public Player getWinner() throws NoSuchElementException {
+        //noinspection ComparatorMethodParameterNotUsed
+        return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
     }
 
-    public void setScoreBoard(ScoreBoard scoreBoard) {
-        this.scoreBoard = scoreBoard;
-    }
 }

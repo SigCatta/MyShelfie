@@ -19,6 +19,7 @@ public class RefreshTriggerTest {
     @BeforeEach
     void setUp() throws TooManyCardsRequestedException {
         game = new Game();
+        game.start();
         board1 = game.getBoard();
     }
 

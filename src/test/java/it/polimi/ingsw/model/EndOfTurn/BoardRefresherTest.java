@@ -22,6 +22,7 @@ public class BoardRefresherTest {
     @BeforeEach
     public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
+        game.start();
         game.addPlayer(new Player());
         game.addPlayer(new Player());
 

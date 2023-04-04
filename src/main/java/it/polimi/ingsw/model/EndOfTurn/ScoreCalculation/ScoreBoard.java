@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * The purpose of this class is to calculate the scores and assign points to the players whenever they complete
@@ -19,20 +18,21 @@ import java.util.NoSuchElementException;
 public class ScoreBoard implements EndOfTurnObserver {
 
     private final ArrayList<Player> players;
+    private final Game game;
     private final List<CommonGoalCard> commonGoalCards;
     private final List<List<Player>> completedCommonGoal;
-    private Player activePlayer;
     private boolean isFirstPointAssigned;
 
     /**
      * creates a new scoreboard and assigns it a game
      */
     public ScoreBoard(Game game) throws TooManyCardsRequestedException {
+        this.game = game;
         this.commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
         this.players = game.getPlayers();
         this.isFirstPointAssigned = false;
-        this.completedCommonGoal =  new ArrayList<>();
-        for (CommonGoalCard commonGoal : commonGoalCards){
+        this.completedCommonGoal = new ArrayList<>();
+        for (CommonGoalCard commonGoal : commonGoalCards) {
             completedCommonGoal.add(new ArrayList<>());
         }
     }
@@ -41,8 +41,8 @@ public class ScoreBoard implements EndOfTurnObserver {
      * Checks if the player has completed any new common goals and give him points accordingly
      */
     private void scoreCommonGoalCards(Player player) { // at the end of each turn
-        for (int i = 0;i <  commonGoalCards.size(); i++) {
-            if (!completedCommonGoal.get(i).contains(player)){
+        for (int i = 0; i < commonGoalCards.size(); i++) {
+            if (!completedCommonGoal.get(i).contains(player)) {
                 completedCommonGoal.get(i).add(player);
                 CommonGoalCard commonGoal = commonGoalCards.get(i);
                 int points = commonGoal.calculateScore(player);
@@ -58,16 +58,16 @@ public class ScoreBoard implements EndOfTurnObserver {
      */
     @Override
     public void update() {
-        scoreCommonGoalCards(activePlayer);
+        scoreCommonGoalCards(game.getActivePlayer());
 
-        if (activePlayer.getShelf().isFull()) {
+        if (game.getActivePlayer().getShelf().isFull()) {
             if (!isFirstPointAssigned) {
-                scoreFirstCompletedShelf(activePlayer);
+                scoreFirstCompletedShelf(game.getActivePlayer());
                 isFirstPointAssigned = true;
             }
         }
 
-        if (isFirstPointAssigned && activePlayer == players.get(players.size() - 1)) {
+        if (isFirstPointAssigned && game.getActivePlayer() == players.get(players.size() - 1)) {
             scorePersonalGoals();
             scoreAdjacency();
         }
@@ -105,21 +105,6 @@ public class ScoreBoard implements EndOfTurnObserver {
             int points = AdjacencyScoreCalculation.calculateScore(player);
             player.updateScore(points);
         }
-    }
-
-    /**
-     * Checks which player has the highest score and returns it. If two or more players have the same score,
-     * the winner is the one who played last
-     *
-     * @return the winner of the game
-     */
-    public Player getWinner() throws NoSuchElementException {
-        //noinspection ComparatorMethodParameterNotUsed
-        return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
-    }
-
-    public void setActivePlayer(Player activePlayer){
-        this.activePlayer = activePlayer;
     }
 
 }

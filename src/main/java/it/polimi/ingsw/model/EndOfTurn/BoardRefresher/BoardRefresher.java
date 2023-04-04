@@ -24,8 +24,6 @@ public class BoardRefresher implements EndOfTurnObserver {
         BAG = game.getBag();
         GAME = game;
 
-        game.getTurnHandler().attachEndOfTurn(this);
-
     }
 
 
