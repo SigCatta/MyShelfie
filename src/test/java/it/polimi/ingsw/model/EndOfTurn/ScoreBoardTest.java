@@ -33,7 +33,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    public void getWinnerTest2() { // if two or more players have the same ammount of points, the player who played last should be the winner
+    public void getWinnerTest2() { // if two or more players have the same amount of points, the player who played last should be the winner
         players.get(0).updateScore(1);
         players.get(1).updateScore(2);
         players.get(2).updateScore(3);
@@ -42,7 +42,7 @@ public class ScoreBoardTest {
     }
 
     @Test
-    public void getWinnerTest3() { // if all players have the same ammount of points, the player who played last should be the winner
+    public void getWinnerTest3() { // if all players have the same amount of points, the player who played last should be the winner
         players.get(0).updateScore(3);
         players.get(1).updateScore(3);
         players.get(2).updateScore(3);

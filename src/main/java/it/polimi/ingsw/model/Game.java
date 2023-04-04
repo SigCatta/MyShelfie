@@ -1,14 +1,19 @@
 package it.polimi.ingsw.model;
 
+import exceptions.NullPlayersException;
 import exceptions.TooManyCardsRequestedException;
+import exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
+import it.polimi.ingsw.model.cards.personalGoals.PersonalCardDealer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
@@ -30,18 +35,47 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() throws TooManyCardsRequestedException {
+    public Game() {
         //TODO create instances of the classes used here
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
-        turnHandler = new TurnHandler(this);
+
+        addAllPlayers();
+        getPersonalGoals();
+        initializeTurnHandlerModule();
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
-        new BoardRefresher(this);
-        new ScoreBoard(this);
-        tilesGetter = new TilesGetter(this);
-        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+    }
+
+    private void initializeTurnHandlerModule() {
+        try{
+            turnHandler = new TurnHandler(this);
+            new BoardRefresher(this);
+            new ScoreBoard(this);
+        } catch (TooManyCardsRequestedException e) {
+            //TODO call the controller
+        }
+    }
+
+    private void addAllPlayers(){
+        //TODO wait for the players entrance
+        //it stops once the client sends the command to start the game
+        //handles the addPlayer requests
+    }
+
+    private void getPersonalGoals() {
+        try{
+            PersonalCardDealer.getCards(players);
+        }catch(TooManyPlayersException tooManyPlayersException){
+            //TODO call controller
+        }catch (NullPlayersException nullPlayersException){
+            //TODO call controller
+        }catch (IOException ioException){
+            //TODO call controller
+        }catch (ParseException parseException){
+            //TODO call controller
+        }
     }
 
 
@@ -82,7 +116,7 @@ public class Game {
 
     public boolean addPlayer(Player player)  {
 
-        if(players.size() == MAX_PLAYER_NUMBER) {
+        if(players.size() >= MAX_PLAYER_NUMBER) {
             //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }

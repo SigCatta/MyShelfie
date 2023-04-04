@@ -27,7 +27,7 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test2Players() throws NullItemTileException {
+    public void test2Players() {
         //the board should be refilled
         game.setActivePlayer(game.getPlayers().get(0));
         game.getTurnHandler().notifyObservers();
@@ -47,31 +47,8 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test3Players() throws NullItemTileException {
+    public void test3Players() {
         game.setActivePlayer(game.getPlayers().get(0));
-        game.addPlayer(new Player());
-
-        //the board should be refilled
-        game.getTurnHandler().notifyObservers();
-
-        LookUpTableReader lookUpTableReader = new LookUpTableReader();
-        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
-
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
-                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
-                    assertNull(game.getBoard().getBoardGrid()[i][j]);
-                }
-            }
-        }
-    }
-
-    @Test
-    public void test4Players() throws NullItemTileException {
-        game.setActivePlayer(game.getPlayers().get(0));
-        game.addPlayer(new Player());
         game.addPlayer(new Player());
 
         //the board should be refilled
@@ -92,7 +69,30 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test1Tile() throws NullItemTileException {
+    public void test4Players() {
+        game.setActivePlayer(game.getPlayers().get(0));
+        game.addPlayer(new Player());
+        game.addPlayer(new Player());
+
+        //the board should be refilled
+        game.getTurnHandler().notifyObservers();
+
+        LookUpTableReader lookUpTableReader = new LookUpTableReader();
+        boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
+
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(gottenTable[i][j]){
+                    assertNotNull(game.getBoard().getBoardGrid()[i][j]);
+                }else{
+                    assertNull(game.getBoard().getBoardGrid()[i][j]);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void test1Tile() {
         game.setActivePlayer(game.getPlayers().get(0));
         game.addPlayer(new Player());
         game.addPlayer(new Player());
