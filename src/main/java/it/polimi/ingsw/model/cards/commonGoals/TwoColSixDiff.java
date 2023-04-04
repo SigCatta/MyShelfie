@@ -9,9 +9,9 @@ import java.util.Set;
 
 /**
  * Rule:
- * Due colonne formate ciascuna da 6 diversi tipi di tessere.
+ * Two columns each formed by 6 different types of tiles.
  */
-public class SixDiffColorsCGS extends CommonGoalStrategy {
+public class TwoColSixDiff extends CommonGoalStrategy {
     /**
      * @param shelf The shelf to check.
      * @return True if the matrix has at least two columns formed by cells of 6 different colors, false otherwise.

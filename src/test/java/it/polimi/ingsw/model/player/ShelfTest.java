@@ -9,12 +9,8 @@ import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 

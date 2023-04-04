@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
-import exceptions.TooManyPlayersException;
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
@@ -15,7 +16,7 @@ public class GameTest {
     private Player player4;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         player1 = new Player();
         player2 = new Player();
@@ -24,18 +25,17 @@ public class GameTest {
     }
 
     @Test
-    public void testAddPlayer() throws TooManyPlayersException {
+    public void testAddPlayer() {
 
         game.addPlayer(player1);
         assertEquals(1, game.getPlayers().size());
 
-        game.addPlayer(player2);
-        game.addPlayer(player3);
-        game.addPlayer(player4);
+        assertTrue(game.addPlayer(player2));
+        assertTrue(game.addPlayer(player3));
+        assertTrue(game.addPlayer(player4));
 
         assertEquals(4, game.getPlayers().size());
 
-        assertThrows(TooManyPlayersException.class, () -> game.addPlayer(new
-                Player()));
+        assertFalse(game.addPlayer(new Player()));
     }
 }

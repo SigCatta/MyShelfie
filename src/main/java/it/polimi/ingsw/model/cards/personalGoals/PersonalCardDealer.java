@@ -39,12 +39,12 @@ public class PersonalCardDealer {
             cards.add(String.valueOf((int) (Math.random() * numOfFiles) + 1));
         } while (cards.size() < numOfFiles);
 
-        PersonalGoalReader JSONreader = new PersonalGoalReader();
-        Stack<Integer> points = JSONreader.getPointStack();
+        PersonalGoalReader JSONReader = new PersonalGoalReader();
+        Stack<Integer> points = JSONReader.getPointStack();
         int i = 0;
         for (String card : cards) {
             Player player = players.get(i);
-            PersonalGoal personalGoal = new PersonalGoal(player, JSONreader.getPersonalGoalsData(card + ".json"), points);
+            PersonalGoal personalGoal = new PersonalGoal(player, JSONReader.getPersonalGoalsData(card + ".json"), points);
             players.get(i).setPersonalGoal(personalGoal);
             i++;
         }

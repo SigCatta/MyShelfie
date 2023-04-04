@@ -3,11 +3,9 @@ package it.polimi.ingsw.model.player;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * A class representing the player's shelf.
@@ -26,17 +24,15 @@ public class Shelf {
 
     /**
      * The grid of ItemTiles representing the player's shelf.
-     *  5 |
-     *  4 |
-     *  3 |
-     *  2 |
-     *  1 |
-     *  0 | _ _ _ _ _
-     *      0 1 2 3 4
+     * 5 |
+     * 4 |
+     * 3 |
+     * 2 |
+     * 1 |
+     * 0 | _ _ _ _ _
+     *     0 1 2 3 4
      */
     private ItemTile[][] shelfGrid;
-
-    private ArrayList<FullShelfObserver> observers = new ArrayList<>();
 
     /**
      * Constructs a new Shelf object
@@ -50,21 +46,15 @@ public class Shelf {
             }
         }
     }
+
     public Shelf(ItemTile[][] matrix) {
         shelfGrid = matrix;
-    }
-
-    public void registerObserver(FullShelfObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(FullShelfObserver observer) {
-        observers.remove(observer);
     }
 
     /**
      * Returns the ItemTile at the specified location in the shelf grid. Returns null if there
      * is no ItemTile at the specified location.
+     *
      * @param location The Point representing the location of the ItemTile.
      * @return The ItemTile at the specified location or null if there is none.
      */
@@ -89,14 +79,14 @@ public class Shelf {
      * @return The number of box left in the column.
      */
     public int getNumOfBoxLeftInCol(int column) {
-        int nullCellcount = 0;
+        int nullCellCount = 0;
 
         for (int i = 0; i < ROWS; i++) {
-            if(shelfGrid[i][column]==null)
-                nullCellcount++;
+            if (shelfGrid[i][column] == null)
+                nullCellCount++;
         }
 
-        return nullCellcount;
+        return nullCellCount;
     }
 
     /**
@@ -104,7 +94,7 @@ public class Shelf {
      * @return True if the column is full, false otherwise.
      */
     public boolean isColumnFull(int column) {
-        return shelfGrid[ROWS-1][column] != null;
+        return shelfGrid[ROWS - 1][column] != null;
     }
 
     /**
@@ -123,32 +113,30 @@ public class Shelf {
 
     /**
      * Inserts a list of ItemTile objects onto a specified column of the shelf grid.
-     * @param tile the tile to insert
+     *
+     * @param tile   the tile to insert
      * @param column the column on which to insert the tiles.
      * @return true if the tiles were successfully inserted, false otherwise.
-     * @exception NullItemTileException: if the buffer is empty
-     * @exception FullColumnException : if the column selected is already full
+     * @throws NullItemTileException: if the buffer is empty
+     * @throws FullColumnException    : if the column selected is already full
      */
     public boolean insertTile(ItemTile tile, int column) throws NullItemTileException, FullColumnException {
-        if(tile == null) {
+        if (tile == null) {
             throw new NullItemTileException();
         }
-        if(isColumnFull(column))  throw  new FullColumnException();
+        if (isColumnFull(column)) throw new FullColumnException();
 
         for (int i = 0; i < ROWS; i++) {
             Point location = new Point(i, column);
-            if(getTileAtLocation(location) == null) {
-                setTileAtLocation(location, tile) ;
+            if (getTileAtLocation(location) == null) {
+                setTileAtLocation(location, tile);
                 break;
             }
-        }
-        if (isShelfFull()) {
-            notifyObservers();
         }
         return true;
     }
 
-    private boolean isShelfFull() {
+    public boolean isFull() {
         for (int i = 0; i < COLUMNS; i++) {
             if (!isColumnFull(i)) {
                 return false;
@@ -157,9 +145,4 @@ public class Shelf {
         return true;
     }
 
-    private void notifyObservers() {
-        for (FullShelfObserver observer : observers) {
-            observer.shelfFull();
-        }
-    }
 }

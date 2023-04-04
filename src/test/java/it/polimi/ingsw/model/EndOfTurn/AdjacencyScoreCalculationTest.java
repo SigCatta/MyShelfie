@@ -34,6 +34,7 @@ public class AdjacencyScoreCalculationTest {
 
     @Test
     public void test3(){
+
         //3 points
         activePlayer.getShelf().getShelfGrid()[5][0] = new ItemTile(Color.WHITE);
         activePlayer.getShelf().getShelfGrid()[5][1] = new ItemTile(Color.WHITE);

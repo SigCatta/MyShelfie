@@ -9,12 +9,12 @@ import java.util.Set;
 
 /**
  * Rule:
- * Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi
- * differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.
+ * Four lines each formed by 5 tiles of maximum three different types. One
+ * line can show the same or a different combination of another line.
  */
 public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     /**
-     * @param shel the shelf to be checked
+     * @param shelf the shelf to be checked
      * @return true if f a colorMat has at least four rows, each made up of at least 5 cells and with at most 3 different colors.
      */
     @Override

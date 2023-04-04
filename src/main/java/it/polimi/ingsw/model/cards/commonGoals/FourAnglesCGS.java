@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * Rule:
- * Quattro tessere dello stesso tipo ai quattro angoli della Libreria.
+ * Four tiles of the same type in the four corners of the bookshelf.
  */
 public class FourAnglesCGS extends CommonGoalStrategy {
     /**

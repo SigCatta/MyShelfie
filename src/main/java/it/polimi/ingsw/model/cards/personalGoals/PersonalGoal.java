@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
@@ -20,7 +19,7 @@ public class PersonalGoal {
     private final Stack<Integer> points;
 
     /**
-     * Contructs a new personal goal
+     * Constructs a new personal goal
      *
      * @param player       the player who drew the card
      * @param achievements the list of objectives that have to be completed
@@ -38,13 +37,14 @@ public class PersonalGoal {
      * @return the sum of points that the player earned from a personal goal card
      */
 
-    public int calculateScore() throws NullItemTileException {
+    public int calculateScore() {
         int score = 0;
         if (!points.isEmpty()) {
             for (Color color : Color.values()) {
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
+                if(tileAtPoint == null) continue;
                 if (tileAtPoint.getColor() == color) {
                     score += getPoints();
                     achievements.remove(color);

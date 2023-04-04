@@ -3,9 +3,6 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.util.List;
-import java.util.Stack;
-
 public class ShelfUtils {
     /**
      * Generates a color matrix for the given shelf grid.

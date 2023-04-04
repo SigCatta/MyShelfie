@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model;
 
-import exceptions.TooManyPlayersException;
+import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
+import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
-import it.polimi.ingsw.model.EndOfTurn.FullShelfObserver;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -19,7 +20,7 @@ public class Game {
     private int gameID;
     private final Bag bag;
     private Board board;
-
+    private ScoreBoard scoreBoard;
     private TilesGetter tilesGetter;
 
     private ArrayList<Player> players;
@@ -29,12 +30,16 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() {
+    public Game() throws TooManyCardsRequestedException {
         //TODO create instances of the classes used here
         bag = new Bag();
         board = new Board(BOARD_DIMENSION);
         players = new ArrayList<>();
         turnHandler = new TurnHandler(this);
+        tilesGetter = new TilesGetter(this);
+        //TODO insert players in the list, if it is not done here there boardRefresher won't work
+        new BoardRefresher(this);
+        new ScoreBoard(this);
         tilesGetter = new TilesGetter(this);
         //TODO insert players in the list, if it is not done here there boardRefresher won't work
     }
@@ -54,6 +59,7 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
+        scoreBoard.setActivePlayer(activePlayer);
         tilesGetter.setActivePlayer(activePlayer);
     }
 
@@ -74,14 +80,26 @@ public class Game {
     }
 
 
-    public void addPlayer(Player player) throws TooManyPlayersException {
+    public boolean addPlayer(Player player)  {
 
-        if(players.size() == MAX_PLAYER_NUMBER) throw new TooManyPlayersException();
+        if(players.size() == MAX_PLAYER_NUMBER) {
+            //TODO: controller that modifies view and alerts new player that he can't participate
+            return false;
+        }
 
         players.add(player);
+        return true;
     }
 
     public TurnHandler getTurnHandler() {
         return turnHandler;
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
+    }
+
+    public void setScoreBoard(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
     }
 }

@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
- * Cinque tessere dello stesso tipo che formano una X.
+ * Five tiles of the same type forming an X.
  */
 public class XShapedCGS extends CommonGoalStrategy {
     /**

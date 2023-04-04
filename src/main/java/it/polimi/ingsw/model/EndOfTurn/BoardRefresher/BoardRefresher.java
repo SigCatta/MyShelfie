@@ -9,10 +9,9 @@ import it.polimi.ingsw.model.tiles.Bag;
 
 public class BoardRefresher implements EndOfTurnObserver {
 
-    private Game game;
     private final Board board;
     private final Bag BAG;
-    private int numberOfPlayers;
+    private final Game GAME;
 
     /**
      * boolean matrix that contains true in the place where there should be a tile
@@ -21,10 +20,9 @@ public class BoardRefresher implements EndOfTurnObserver {
 
     public BoardRefresher(Game game) {
 
-        this.game = game;
-
         this.board = game.getBoard();
         BAG = game.getBag();
+        GAME = game;
 
         game.getTurnHandler().attachEndOfTurn(this);
 
@@ -39,7 +37,7 @@ public class BoardRefresher implements EndOfTurnObserver {
      */
     public void refillBoard() {
 
-        numberOfPlayers = game.getPlayers().size();
+        int numberOfPlayers = GAME.getPlayers().size();
 
         //lookUpTable is initialized once
         if(lookUpTable == null){

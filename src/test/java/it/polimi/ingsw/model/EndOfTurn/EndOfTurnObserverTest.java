@@ -1,30 +1,35 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import exceptions.NullItemTileException;
+import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EndOfTurnObserverTest {
 
-    Game game = new Game();
+    Game game;
     int boardSize;
 
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws TooManyCardsRequestedException {
+        game = new Game();
         game.addPlayer(new Player());
         game.addPlayer(new Player());
         boardSize = game.getBoard().getSize();
     }
 
     @Test
-    public void test2Players(){
+    public void test2Players() throws NullItemTileException {
         //the board should be refilled
+        game.setActivePlayer(game.getPlayers().get(0));
         game.getTurnHandler().notifyObservers();
 
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
@@ -42,8 +47,8 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test3Players(){
-
+    public void test3Players() throws NullItemTileException {
+        game.setActivePlayer(game.getPlayers().get(0));
         game.addPlayer(new Player());
 
         //the board should be refilled
@@ -64,8 +69,8 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test4Players(){
-
+    public void test4Players() throws NullItemTileException {
+        game.setActivePlayer(game.getPlayers().get(0));
         game.addPlayer(new Player());
         game.addPlayer(new Player());
 
@@ -87,8 +92,8 @@ public class EndOfTurnObserverTest {
     }
 
     @Test
-    public void test1Tile(){
-
+    public void test1Tile() throws NullItemTileException {
+        game.setActivePlayer(game.getPlayers().get(0));
         game.addPlayer(new Player());
         game.addPlayer(new Player());
 

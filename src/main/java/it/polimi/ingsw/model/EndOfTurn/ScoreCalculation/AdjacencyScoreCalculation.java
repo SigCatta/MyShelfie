@@ -14,10 +14,9 @@ import static java.lang.Math.min;
 
 public class AdjacencyScoreCalculation {
 
-    /**
-     * calculate the points gained from the adjacency of tiles
+    /** calculate the points gained from the adjacency of tiles
      * in the shelf, if three or more colors touch each other,
-     * then the player should gain points
+            * then the player should gain points
      * @return points
      */
     public static int calculateScore(Player activePlayer) {
@@ -27,102 +26,90 @@ public class AdjacencyScoreCalculation {
         final int POINTS_FOR_FIVE = 5;
         final int POINTS_FOR_SIX = 8;
 
-
         Shelf activeShelf = activePlayer.getShelf();
-        Color[][] shelfColor = activeShelf.generateColorMat();
+        ItemTile[][] shelf = activeShelf.getShelfGrid();
 
         int[] pointsForAdjacency = {0, 0, 0, POINTS_FOR_THREE, POINTS_FOR_FOUR, POINTS_FOR_FIVE, POINTS_FOR_SIX};
-        ItemTile[][] shelfGrid = activeShelf.getShelfGrid();
-
 
         int points = 0;
 
-        List<List<int[]>> clusters = findClusters(shelfColor);
+        List<Integer> tilesInClusterCount = findClusters(shelf);
 
-        for (List<int[]> cluster : clusters) {
-        // Iterate over each tile in the shelf
-        for (int i = 0; i < shelfGrid.length; i++) {
-            for (int j = 0; j < shelfGrid[i].length; j++) {
-                Color currentColor = shelfGrid[i][j].getColor();
-                if (currentColor == null) {
-                    continue; // Skip empty tiles
-                }
-
-                // Check if there are at least three tiles of the same color adjacent to the current tile
-                int adjacentTiles = 0;
-                if (i > 0 && shelfGrid[i - 1][j].getColor() == currentColor) {
-                    adjacentTiles++;
-                }
-                if (i < shelfGrid.length - 1 && shelfGrid[i + 1][j].getColor() == currentColor) {
-                    adjacentTiles++;
-                }
-                if (j > 0 && shelfGrid[i][j - 1].getColor() == currentColor) {
-                    adjacentTiles++;
-                }
-                if (j < shelfGrid[i].length - 1 && shelfGrid[i][j + 1].getColor() == currentColor) {
-                    adjacentTiles++;
-                }
-
-            int tilesInClusterCount = min(cluster.size(), pointsForAdjacency.length - 1);
-            points += pointsForAdjacency[tilesInClusterCount];
-
+        for (Integer tilesCount : tilesInClusterCount) {
+            points += pointsForAdjacency[min(tilesCount, pointsForAdjacency.length - 1)];
         }
 
         return points;
     }
 
 
-    /**
-     * @param colorShelf the shelf of the player
+    /** @param shelf the shelf of the player
      * @return a list containing the list of points in each cluster
      */
-    private static List<List<int[]>> findClusters(Color[][] colorShelf) {
-        List<List<int[]>> clusters = new ArrayList<>();
+    private static List<Integer> findClusters(ItemTile[][] shelf) {
+        List<Integer> tilesForEachCluster = new ArrayList<>();
         Set<String> seen = new HashSet<>();
 
-        for (int row = 0; row < colorShelf.length; row++) {
-            for (int col = 0; col < colorShelf[0].length; col++) {
+        for (int row = 0; row < shelf.length; row++) {
+            for (int col = 0; col < shelf[0].length; col++) {
 
-                Color currentColor = colorShelf[row][col];
-                String key = row + "," + col;
-                if (!seen.contains(key)) {
-                    List<int[]> cluster = dfs(colorShelf, row, col, currentColor, seen);
-                    if (!cluster.isEmpty()) {
-                        clusters.add(cluster);
-                    }
+
+                ItemTile currentTile = shelf[row][col];
+
+                Color currentColor;
+                if(currentTile == null) currentColor = null;
+                else{
+                    currentColor = currentTile.getColor();
                 }
+
+                String key = row + "," + col;
+
+                if (!seen.contains(key)) {
+                    List<Integer> TilesInCurrentCluster = dfs(shelf, row, col, currentColor, seen);
+                    tilesForEachCluster.add(TilesInCurrentCluster.stream().reduce(0, Integer::sum));
+                }
+
             }
         }
 
-        return clusters;
+        return tilesForEachCluster;
     }
 
     /**
      *
-     * @param colorShelf the shelf representation with colors instead of tiles
+     * @param shelf the shelf representation with colors instead of tiles
      * @param row current row
      * @param col current column
      * @param currentColor color of the current cluster
      * @param seen positions already visited
-     * @return a list containing the positions where the tiles are adjacent and same color
+     * @return a list with the size of tiles in a certain group
      */
-    private static List<int[]> dfs(Color[][] colorShelf, int row, int col, Color currentColor, Set<String> seen) {
-        if (row < 0 || row >= colorShelf.length || col < 0 || col >= colorShelf[0].length
-                || colorShelf[row][col] != currentColor || currentColor == null) {
+    private static List<Integer> dfs(ItemTile[][] shelf, int row, int col, Color currentColor, Set<String> seen) {
+
+        if (row < 0 || row >= shelf.length || col < 0 || col >= shelf[0].length || currentColor == null) {
             return new ArrayList<>();
         }
+        if(shelf[row][col] != null && shelf[row][col].getColor() != currentColor){
+            return new ArrayList<>();
+        }
+
         String key = row + "," + col;
         if (seen.contains(key)) {
             return new ArrayList<>();
         }
         seen.add(key);
-        List<int[]> colorCluster = new ArrayList<>();
-        colorCluster.add(new int[]{row, col});
+
+        if(shelf[row][col] == null) return new ArrayList<>();
+
+        List<Integer> partialCounts = new ArrayList<>();
+        partialCounts.add(1);
+
         int[][] neighbors = {{row - 1, col}, {row + 1, col}, {row, col - 1}, {row, col + 1}};
         for (int[] neighbor : neighbors) {
-            colorCluster.addAll(dfs(colorShelf, neighbor[0], neighbor[1], currentColor, seen));
+            partialCounts.addAll(dfs(shelf, neighbor[0], neighbor[1], currentColor, seen));
         }
-        return colorCluster;
+
+        return partialCounts;
     }
 
 

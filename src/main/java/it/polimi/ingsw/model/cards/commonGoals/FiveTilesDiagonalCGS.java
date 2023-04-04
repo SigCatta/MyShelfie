@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
  * Rule:
- * Cinque tessere dello stesso tipo che formano una diagonale.
+ * Five tiles of the same type forming a diagonal.
  */
 public class FiveTilesDiagonalCGS extends CommonGoalStrategy {
     /**
