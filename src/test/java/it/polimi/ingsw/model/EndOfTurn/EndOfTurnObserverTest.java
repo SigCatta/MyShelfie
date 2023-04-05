@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import exceptions.NullItemTileException;
 import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.Game;
