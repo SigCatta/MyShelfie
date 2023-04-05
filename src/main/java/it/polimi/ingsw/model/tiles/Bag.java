@@ -9,12 +9,12 @@ public class Bag {
     private int tilesLeft;
     private final HashMap<Color, Integer> colorNumber = new HashMap<>();
 
-    public Bag(){
+    public Bag() {
 
         NUMBER_OF_COLORS = Color.values().length;
         tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
 
-        for(Color color : Color.values()){
+        for (Color color : Color.values()) {
             colorNumber.put(color, TILES_PER_COLOR);
         }
 
@@ -25,7 +25,7 @@ public class Bag {
      *
      * @return a single ItemTile
      */
-    public ItemTile drawTile(){
+    public ItemTile drawTile() {
         return new ItemTile(randomColor());
     }
 
@@ -37,17 +37,17 @@ public class Bag {
      *
      * @return random color
      */
-    Color randomColor(){
+    Color randomColor() {
 
         double random = Math.random() * tilesLeft;
         tilesLeft--;
 
         int partialCount = 0;
-        for(Color color : Color.values()){
+        for (Color color : Color.values()) {
 
             partialCount += colorNumber.get(color);
 
-            if(partialCount >= random){
+            if (partialCount >= random) {
                 colorNumber.replace(color, colorNumber.get(color) - 1);
                 return color;
             }

@@ -25,7 +25,6 @@ public class Game {
 
     private ArrayList<Player> players;
     private Player activePlayer;
-    private Player firstPlayer;
 
     private TurnHandler turnHandler;
 
@@ -41,6 +40,7 @@ public class Game {
         tilesGetter = new TilesGetter(this);
         turnHandlerInitializer();
     }
+
     public void turnHandlerInitializer() throws TooManyCardsRequestedException {
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
@@ -63,10 +63,6 @@ public class Game {
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
         tilesGetter.setActivePlayer(activePlayer);
-    }
-
-    public Player getFirstPlayer() {
-        return firstPlayer;
     }
 
     public Bag getBag() {

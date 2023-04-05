@@ -28,28 +28,6 @@ public class PersonalGoalsTest {
         Stack<Integer> pointStack = new ReadFromJSONFile().getPointStack();
         assertEquals(pointStack, personalGoal.getPointStack()); // full Stack
     }
-
-    @Test
-    public void scoreCalculationTest1() throws IOException, ParseException {
-        Player player = new Player();
-        HashMap<Color, Point> achievements = new ReadFromJSONFile().getPersonalGoalsData("1.json");
-        Stack<Integer> pointStack = new ReadFromJSONFile().getPointStack();
-        PersonalGoal personalGoal = new PersonalGoal(player, achievements, pointStack);
-
-        //TODO write test afeter shelf logic is fixed
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 1
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 2
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 4
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 6
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 9
-
-        assertEquals(pointStack.pop(), personalGoal.calculateScore()); // 12
-    }
     */
 
     private PersonalGoal personalGoal;
