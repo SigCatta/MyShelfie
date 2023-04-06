@@ -6,6 +6,7 @@ import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * A class representing the player's shelf.
@@ -32,7 +33,7 @@ public class Shelf {
      * 0 | _ _ _ _ _
      *     0 1 2 3 4
      */
-    private ItemTile[][] shelfGrid;
+    private final ItemTile[][] shelfGrid;
 
     /**
      * Constructs a new Shelf object
@@ -41,9 +42,7 @@ public class Shelf {
         shelfGrid = new ItemTile[ROWS][COLUMNS];
         for (int i = 0; i < ROWS; i++) {
             shelfGrid[i] = new ItemTile[COLUMNS];
-            for (int j = 0; j < COLUMNS; j++) {
-                shelfGrid[i][j] = null;
-            }
+            Arrays.fill(shelfGrid[i], null);
         }
     }
 

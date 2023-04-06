@@ -71,8 +71,6 @@ public class ScoreBoard implements EndOfTurnObserver {
             scorePersonalGoals();
             scoreAdjacency();
         }
-
-        //TODO call the end of the game
     }
 
     /**
@@ -81,6 +79,7 @@ public class ScoreBoard implements EndOfTurnObserver {
      */
     private void scoreFirstCompletedShelf(Player player) { // only the first time a player fills the shelf
         if (!isFirstPointAssigned) {
+            game.getTurnHandler().startLastTurn();
             isFirstPointAssigned = true;
             player.updateScore(1);
         }
