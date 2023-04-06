@@ -44,7 +44,14 @@ public class PickUpValidator {
         return true;
     }
 
-
+    /**
+     * Checks if the points in the given list are adjacent.
+     * The method sorts the points based on their row or column values, depending on the moving direction, and
+     * verifies whether they are consecutive in the sorted order.
+     *
+     * @param chosenPositions the list of points to be checked for adjacency.
+     * @return true, if all points in the list are adjacent, otherwise false.
+     */
     boolean arePointsAdjacent(ArrayList<Point> chosenPositions) {
         // get the row and column of the first point in the list
         int row = chosenPositions.get(0).x;

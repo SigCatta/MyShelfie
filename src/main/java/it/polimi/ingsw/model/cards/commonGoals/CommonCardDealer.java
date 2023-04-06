@@ -54,6 +54,10 @@ public class CommonCardDealer {
         return gameCGStrategies;
     }
 
+    /**
+     * @param number: the number of commonGoal cards requested
+     * @return a list of {@param number} CommonGoal .
+     */
     public static List<CommonGoalCard> pickCommonGoalCards(int number) throws TooManyCardsRequestedException {
         List<CommonGoalCard> commonGoalCards = new ArrayList<>();
         List<CommonGoalStrategy> gameCGStrategies = pickCardStrategies(number);
