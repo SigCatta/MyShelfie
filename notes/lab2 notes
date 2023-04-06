@@ -3,10 +3,20 @@ view osserva il modello
 eventi catturati dal controller che modifica il modello
 
 virtual model --> riferimento al modello del server, dentro il client
-add
+
 virtual view --> riferimento alla view del client nel sever
 
 networking: gerarchia di messaggi --> strategy pattern (un messaggio semplice estendibile con sottotipologie di messaggi) , decorator
+
+MVC:
+- utente modifica view/dà input --> catturato da clientController
+- clientController serializza comando e invia attraverso clientSocket
+- serverSocket riceve messaggio e deserializza comando
+- serverSocket notifica serverController che chiama metodi del model
+- modifiche modello --> catturate da virtual view (observable - observer pattern)
+- observer serializza comando e invia attraverso serverSocket
+- clientSocket riceve messaggio e deserializza comando
+- clientSocket notifica clientController che modifica virtualModel
 
 client/server
 es: giocatore sceglie da plancia celle poi le posiziona
