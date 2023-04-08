@@ -73,6 +73,16 @@ public class Game {
         this.board = board;
     }
 
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+
     public int getMAX_TILES_FROM_BOARD() {
         return MAX_TILES_FROM_BOARD;
     }
@@ -103,5 +113,4 @@ public class Game {
         //noinspection ComparatorMethodParameterNotUsed
         return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
     }
-
 }
