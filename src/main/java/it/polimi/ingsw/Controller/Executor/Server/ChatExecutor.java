@@ -8,7 +8,6 @@ public class ChatExecutor implements Executor {
     public void execute(HashMap<String, String> data) {
         String nickname = data.get("nickname");
         String gameId = data.get("gameID");
-        String command = data.get("command");
 
         String message = data.get("message");
 
