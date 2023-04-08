@@ -19,6 +19,7 @@ public class RefreshTriggerTest {
     @BeforeEach
     void setUp() throws TooManyCardsRequestedException {
         game = new Game();
+        game.getBoard().emptyBoard();
         game.start();
         board1 = game.getBoard();
     }
@@ -42,6 +43,7 @@ public class RefreshTriggerTest {
     @Test
     void testRefreshable() {
 
+        board1.emptyBoard();
         // Create a board with isolated tiles
         board1.setItemTile(Color.BLUE, 0, 0);
         board1.setItemTile(Color.BLUE, 0, 2);

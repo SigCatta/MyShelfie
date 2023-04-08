@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.GameState.GameState;
+import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -35,17 +36,21 @@ public class Game {
     public Game() {
         gameState = new PregameState();
         players = new ArrayList<>();
+        board = new Board(BOARD_DIMENSION);
     }
 
     public void start() throws TooManyCardsRequestedException {
         bag = new Bag();
-        board = new Board(BOARD_DIMENSION);
-        new BoardRefresher(this);
+
         tilesGetter = new TilesGetter(this);
+        gameState = new PickUpTilesState();
+
         turnHandlerInitializer();
+
+        new BoardRefresher(this).refillBoard();
     }
 
-    public void turnHandlerInitializer() throws TooManyCardsRequestedException {
+    private void turnHandlerInitializer() throws TooManyCardsRequestedException {
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
         turnHandler.attachEndOfTurn(new BoardRefresher(this));

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Board {
     private final ItemTile[][] BOARD_GRID;
@@ -29,6 +30,12 @@ public class Board {
         ItemTile pickedUpTile = BOARD_GRID[location.x][location.y];
         BOARD_GRID[location.x][location.y] = null;
         return pickedUpTile;
+    }
+
+    public void emptyBoard(){
+        for (ItemTile[] itemTiles : BOARD_GRID) {
+            Arrays.fill(itemTiles, null);
+        }
     }
 
 }

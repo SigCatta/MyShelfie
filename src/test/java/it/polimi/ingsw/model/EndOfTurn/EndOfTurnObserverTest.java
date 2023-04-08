@@ -21,6 +21,7 @@ public class EndOfTurnObserverTest {
     public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         game.start();
+        game.getBoard().emptyBoard();
         game.addPlayer(new Player());
         game.addPlayer(new Player());
         boardSize = game.getBoard().getSize();
