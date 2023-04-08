@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller.Executer;
+package it.polimi.ingsw.Controller.Executor.Server;
 
 import org.json.simple.JSONObject;
 
