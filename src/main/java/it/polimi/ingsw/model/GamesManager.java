@@ -12,20 +12,18 @@ public class GamesManager {
      */
     private HashMap<Integer, Game> games;
 
-    private GamesManager gamesManagerInstance;
+    private static GamesManager gamesManagerInstance;
 
 
     private GamesManager(){
         games = new HashMap<>();
     }
 
-    public GamesManager getInstance(){
+    public static GamesManager getInstance(){
         if(gamesManagerInstance == null){
-            return new GamesManager();
+            gamesManagerInstance = new GamesManager();
         }
-        else {
-            return gamesManagerInstance;
-        }
+        return gamesManagerInstance;
     }
 
     /**
@@ -51,7 +49,7 @@ public class GamesManager {
         int id = (int)(Math.random()*MAX_VALUE);
 
         while(games.get(id) != null){
-            if(id >= MAX_VALUE){
+            if(id == MAX_VALUE){
                 id = 0;
             }
             id++;
@@ -63,7 +61,11 @@ public class GamesManager {
         games.remove(gameID);
     }
 
-    public void getGame(int gameID){
-        games.get(gameID);
+    public Game getGame(int gameID){
+        return games.get(gameID);
+    }
+
+    public HashMap<Integer, Game> getGames() {
+        return games;
     }
 }
