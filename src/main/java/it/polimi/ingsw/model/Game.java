@@ -4,6 +4,8 @@ import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
+import it.polimi.ingsw.model.GameState.GameState;
+import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
@@ -22,6 +24,7 @@ public class Game {
     private Bag bag;
     private Board board;
     private TilesGetter tilesGetter;
+    private GameState gameState;
 
     private ArrayList<Player> players;
     private Player activePlayer;
@@ -30,6 +33,7 @@ public class Game {
 
 
     public Game() {
+        gameState = new PregameState();
         players = new ArrayList<>();
     }
 
