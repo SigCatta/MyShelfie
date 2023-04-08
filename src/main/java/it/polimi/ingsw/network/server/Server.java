@@ -58,7 +58,7 @@ public class Server {
      * @param commandMap the commandMap to be forwarded.
      */
     public void onCommandReceived(HashMap<String, String> commandMap) {
-        //TODO: sends commandMap to Executor
+        //TODO: sends commandMap to CommandParser
     }
 
     /**

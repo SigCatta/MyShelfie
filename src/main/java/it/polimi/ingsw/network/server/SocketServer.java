@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class SocketServer implements Runnable {
     private final Server server;
     private final int port;
+    //TODO: add CommandParser
     ServerSocket serverSocket;
 
     public SocketServer(Server server, int port) {
