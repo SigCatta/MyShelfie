@@ -89,10 +89,12 @@ public class SocketClient extends Client {
                 socket.close();
                 Client.LOGGER.severe("Client disconnected");
             }
+            Client.LOGGER.severe("The socket wasn't opened when a disconnection was called");
         } catch (IOException e) {
+            Client.LOGGER.severe("Could not disconnect.");
             //notifyObserver("Could not disconnect.");
         }
-        Client.LOGGER.severe("The socket wasn't opened when a disconnection was called");
+
     }
 
 }

@@ -30,6 +30,7 @@ public class ClientApp {
         try {
             client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")));
             client.setNickname(nickname);
+            client.readCommand(); // Starts an asynchronous reading from the server.
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("errore");
