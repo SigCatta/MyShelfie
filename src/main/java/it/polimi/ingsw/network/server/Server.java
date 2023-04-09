@@ -121,7 +121,7 @@ public class Server {
      * @param clientHandler the client handler.
      * @return the corresponding nickname of a ClientHandler.
      */
-    private String getNicknameFromClientHandler(ClientHandler clientHandler) {
+    public String getNicknameFromClientHandler(ClientHandler clientHandler) {
         return clientHandlerMap.entrySet()
                 .stream()
                 .filter(entry -> clientHandler.equals(entry.getValue()))
@@ -136,5 +136,9 @@ public class Server {
 
     public boolean isConnected(String nickname) {
         return clientHandlerMap.get(nickname).isConnected();
+    }
+
+    public Map<String, ClientHandler> getClientHandlerMap() {
+        return clientHandlerMap;
     }
 }

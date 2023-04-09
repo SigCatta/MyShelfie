@@ -25,6 +25,7 @@ public class SocketClient extends Client {
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
         this.inputStm = new ObjectInputStream(socket.getInputStream());
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
+        Client.LOGGER.info("Connection established");
     }
 
     /**
@@ -41,6 +42,7 @@ public class SocketClient extends Client {
                     Client.LOGGER.info("Received: " + commandMap);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
+                    Client.LOGGER.severe("An error occurred while reading the commandMap");
                     disconnect();
                     readExecutionQueue.shutdownNow();
                 }
@@ -58,6 +60,7 @@ public class SocketClient extends Client {
             outputStm.writeObject(commandMap);
             outputStm.reset();
         } catch (IOException e) {
+            Client.LOGGER.severe("An error occurred while sending the commandMap");
             disconnect();
             //notifyObserver("Could not send commandMap.");
         }
@@ -84,10 +87,12 @@ public class SocketClient extends Client {
             if (!socket.isClosed()) {
                 readExecutionQueue.shutdownNow();
                 socket.close();
+                Client.LOGGER.severe("Client disconnected");
             }
         } catch (IOException e) {
             //notifyObserver("Could not disconnect.");
         }
+        Client.LOGGER.severe("The socket wasn't opened when a disconnection was called");
     }
 
 }

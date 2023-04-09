@@ -12,7 +12,7 @@ public class ServerApp {
         int serverPort = 28888; // default value
         int pingTimeout = 10000; //10 seconds
 
-        //TODO: pass controller to server
+        //TODO : pass controller to server
         Server server = new Server(pingTimeout);
         server.getPingController().start();
 
