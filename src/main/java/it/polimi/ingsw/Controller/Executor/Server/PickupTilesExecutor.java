@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Executor.Server;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GamesManager;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 
 import java.awt.Point;
@@ -9,16 +10,17 @@ import java.util.HashMap;
 
 public class PickupTilesExecutor implements Executor {
 
-    Game game;
-    TilesGetter tilesGetter;
+    private GamesManager gamesManager;
 
-    PickupTilesExecutor(Game game) {
-        this.game = game;
-        this.tilesGetter = new TilesGetter(game);
+    PickupTilesExecutor() {
+        this.gamesManager = GamesManager.getInstance();
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
+        Game game =  gamesManager.getGame(Integer.parseInt(data.get("GAME_ID")));
+        TilesGetter tilesGetter = new TilesGetter(game);
+
 
         if (!data.get("NICKNAME").equals(game.getActivePlayer().getNickname())) return;
 
