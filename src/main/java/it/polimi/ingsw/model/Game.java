@@ -107,4 +107,9 @@ public class Game {
     public int getMAX_PLAYER_NUMBER() {
         return MAX_PLAYER_NUMBER;
     }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
 }
