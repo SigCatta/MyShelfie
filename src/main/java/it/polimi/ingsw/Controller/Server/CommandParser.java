@@ -14,9 +14,9 @@ public class CommandParser {
         commandTranslator = new HashMap<>();
         commandTranslator.put("chat", new ChatExecutor());
         commandTranslator.put("can_i_play", new CanIPlayExecutor());
-        commandTranslator.put("insert_to_shelf", new InsertTIlesExecutor());
-        commandTranslator.put("create_game", new NewGameExecutor());
-        commandTranslator.put("pick_up_from_board", new PickupTilesExecutor());
+        commandTranslator.put("insert_tiles", new InsertTIlesExecutor());
+        commandTranslator.put("new_game", new NewGameExecutor());
+        commandTranslator.put("pick_up", new PickupTilesExecutor());
     }
 
     /**
