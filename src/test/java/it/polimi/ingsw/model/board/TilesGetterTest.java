@@ -30,7 +30,7 @@ class TilesGetterTest {
         game = new Game();
         game.start();
         board = game.getBoard();
-        player = new Player();
+        player = new Player("player");
         game.addPlayer(player);
         tilesGetter = new TilesGetter(game);
         tilesGetter.setActivePlayer(player);

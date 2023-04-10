@@ -34,7 +34,7 @@ public class PersonalCardDealerTest {
     public void tooManyTest() {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards + 1; i++) {
-            players.add(new Player());
+            players.add(new Player("player"));
         }
 
         assertThrows(TooManyPlayersException.class, () -> PersonalCardDealer.getCards(players));
@@ -51,7 +51,7 @@ public class PersonalCardDealerTest {
     public void allCardsTest() throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards; i++) {
-            players.add(new Player());
+            players.add(new Player("player"));
         }
 
         PersonalCardDealer.getCards(players);

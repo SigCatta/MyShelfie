@@ -40,7 +40,8 @@ public class Player {
      */
     private List<ItemTile> heldTiles;
 
-    public Player() {
+    public Player(String nickname) {
+        this.nickname = nickname;
         this.shelf = new Shelf();
     }
 

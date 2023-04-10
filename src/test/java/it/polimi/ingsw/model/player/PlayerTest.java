@@ -9,7 +9,7 @@ public class PlayerTest {
 
     @Test
     public void testGetScore() {
-        player = new Player();
+        player = new Player("player");
         assertEquals(0, player.getScore());
         player.updateScore(10);
         assertEquals(10, player.getScore());
@@ -20,7 +20,7 @@ public class PlayerTest {
 
     @Test
     public void testUpdateScore() {
-        player = new Player();
+        player = new Player("player");
         player.updateScore(5);
         assertEquals(5, player.getScore());
         player.updateScore(-3);

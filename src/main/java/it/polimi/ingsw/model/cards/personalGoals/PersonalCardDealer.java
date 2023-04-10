@@ -37,7 +37,7 @@ public class PersonalCardDealer {
         HashSet<String> cards = new HashSet<>();
         do {
             cards.add(String.valueOf((int) (Math.random() * numOfFiles) + 1));
-        } while (cards.size() < numOfFiles);
+        } while (cards.size() < players.size());
 
         PersonalGoalReader JSONReader = new PersonalGoalReader();
         Stack<Integer> points = JSONReader.getPointStack();

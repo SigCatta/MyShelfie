@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class AdjacencyScoreCalculationTest {
 
-    Player activePlayer = new Player();
+    Player activePlayer = new Player("player");
 
     @Test
     public void test1(){
