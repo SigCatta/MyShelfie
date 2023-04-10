@@ -14,11 +14,21 @@ public class SocketServer implements Runnable {
     //TODO: add CommandParser
     ServerSocket serverSocket;
 
+    /**
+     * Constructor for the SocketServer class.
+     *
+     * @param server the server instance to which this socket server belongs
+     * @param port   the port on which the socket server should listen for connections
+     */
     public SocketServer(Server server, int port) {
         this.server = server;
         this.port = port;
     }
 
+    /**
+     * The main method of the SocketServer class that listens for client connections
+     * and spawns a new SocketClientHandler for each connection.
+     */
     @Override
     public void run() {
         try {
@@ -43,28 +53,28 @@ public class SocketServer implements Runnable {
     }
 
     /**
-     * Handles the addition of a new client.
+     * Handles the addition of a new client to the server.
      *
-     * @param nickname      the nickname of the new client.
-     * @param clientHandler the ClientHandler of the new client.
+     * @param nickname      the nickname of the new client
+     * @param clientHandler the ClientHandler representing the new client
      */
     public void addClient(String nickname, ClientHandler clientHandler) {
         server.addClient(nickname, clientHandler);
     }
 
     /**
-     * Forwards a received command from the client to the Server.
+     * Forwards a received commandMap from a client to the main Server class.
      *
-     * @param command the command to be forwarded.
+     * @param commandMap the commandMap to be forwarded
      */
-    public void onCommandReceived(HashMap<String, String> command) {
-        server.onCommandReceived(command);
+    public void onCommandReceived(HashMap<String, String> commandMap) {
+        server.onCommandReceived(commandMap);
     }
 
     /**
-     * Handles a client disconnection.
+     * Handles the disconnection of a client from the server.
      *
-     * @param clientHandler the ClientHandler of the disconnecting client.
+     * @param clientHandler the ClientHandler representing the disconnecting client
      */
     public void onDisconnect(ClientHandler clientHandler) {
         server.onDisconnect(clientHandler);

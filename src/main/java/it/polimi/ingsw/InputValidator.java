@@ -10,7 +10,7 @@ public class InputValidator {
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
-        return ip.matches(regex);
+        return ip.matches(regex) || ip.equals("localhost");
     }
 
     /**

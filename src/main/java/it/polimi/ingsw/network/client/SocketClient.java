@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.PongController;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,13 +21,23 @@ public class SocketClient extends Client {
 
     private static final int SOCKET_TIMEOUT = 10000;
 
-    public SocketClient(String address, int port) throws IOException {
+    public SocketClient(String address, int port, String nickname) throws IOException {
+        this.nickname = nickname;
+        this.pongController = new PongController(this);
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
         this.inputStm = new ObjectInputStream(socket.getInputStream());
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
+        askToPlay();
+    }
+
+    private void askToPlay() {
+        HashMap<String, String> commandMap = new HashMap<>();
+        commandMap.put("NICKNAME", getNickname());
+        commandMap.put("COMMAND_TYPE", "CAN_I_PLAY");
+        sendCommand(commandMap);
     }
 
     /**
@@ -39,7 +51,11 @@ public class SocketClient extends Client {
                 HashMap<String, String> commandMap;
                 try {
                     commandMap = (HashMap<String, String>) inputStm.readObject();
-                    Client.LOGGER.info("Received: " + commandMap);
+                    Client.LOGGER.info("Received: " + commandMap.get("COMMAND_TYPE"));
+
+                    if(commandMap.get("COMMAND_TYPE").equals("PING")) {
+                        pongController.onPingReceived();
+                    }
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
                     Client.LOGGER.severe("An error occurred while reading the commandMap");
@@ -58,6 +74,8 @@ public class SocketClient extends Client {
     public void sendCommand(HashMap<String, String> commandMap) {
         try {
             outputStm.writeObject(commandMap);
+            Client.LOGGER.info("Command sent to the server with COMMAND_TYPE = " + commandMap.get("COMMAND_TYPE") +
+                    " and NICKNAME = " + commandMap.get("NICKNAME"));
             outputStm.reset();
         } catch (IOException e) {
             Client.LOGGER.severe("An error occurred while sending the commandMap");

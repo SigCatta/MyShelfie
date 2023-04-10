@@ -35,7 +35,9 @@ public class Server {
     public void addClient(String nickname, ClientHandler clientHandler) {
         if (!clientHandlerMap.containsKey(nickname)) {
                 clientHandlerMap.put(nickname, clientHandler);
-                pingController.addToPongMap(nickname);
+                pingController.addToClientMap(nickname);
+                Server.LOGGER.info(nickname + " added to the game");
+                //TODO: sends commandMap to CommandParser
         } else {
             clientHandler.disconnect();
         }
@@ -44,11 +46,11 @@ public class Server {
     /**
      * Removes a client given his nickname.
      *
-     * @param nickname      the VirtualView to be removed.
+     * @param nickname  the nickname of the client to be removed
      */
     public void removeClient(String nickname) {
         clientHandlerMap.remove(nickname);
-        pingController.removeFromPongMap(nickname);
+        pingController.removeFromClientMap(nickname);
         LOGGER.info(() -> "Removed " + nickname + " from the client list.");
     }
 
@@ -58,7 +60,12 @@ public class Server {
      * @param commandMap the commandMap to be forwarded.
      */
     public void onCommandReceived(HashMap<String, String> commandMap) {
-        //TODO: sends commandMap to CommandParser
+        if(commandMap.get("COMMAND_TYPE").equals("PONG")) {
+            pingController.onPongReceived(commandMap.get("NICKNAME"));
+        } else {
+            //TODO: sends commandMap to CommandParser
+        }
+
     }
 
     /**
@@ -97,19 +104,30 @@ public class Server {
         }
     }
 
+    /**
+     * Sends a PING message to a specific client.
+     *
+     * @param nickname the nickname of the client to send the PING message to.
+     */
     public void sendPingTo(String nickname) {
-        synchronized (lock) {
-            for (ClientHandler clientHandler: clientHandlerMap.values()) {
-                clientHandler.sendPing();
-            }
-        }
+        clientHandlerMap.get(nickname).sendPing();
     }
 
+    /**
+     * Notifies the server that a PING message sent to a client has failed.
+     *
+     * @param nickname the nickname of the client that failed to respond to the PING message.
+     */
     public void notifyPingFailure(String nickname) {
         clientHandlerMap.get(nickname).setConnected(false);
         broadcastConnectionMessage(nickname, false, true);
     }
 
+    /**
+     * Notifies the server of a reconnection event for a specific client.
+     *
+     * @param nickname the nickname of the client that has reconnected.
+     */
     public void notifyReconnection(String nickname) {
         clientHandlerMap.get(nickname).setConnected(true);
         broadcastConnectionMessage(nickname, true, false);
@@ -134,6 +152,12 @@ public class Server {
         return pingController;
     }
 
+    /**
+     * Checks if a specific client is connected.
+     *
+     * @param nickname the nickname of the client to check.
+     * @return true if the client is connected, false otherwise.
+     */
     public boolean isConnected(String nickname) {
         return clientHandlerMap.get(nickname).isConnected();
     }

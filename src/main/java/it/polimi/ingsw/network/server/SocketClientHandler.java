@@ -69,7 +69,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                         if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY")) {
                             socketServer.addClient(nickname, this);
                         } else {
-                            Server.LOGGER.info(() -> "Received: " + commandMap);
+                            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND_TYPE"));
                             socketServer.onCommandReceived(commandMap);
                         }
                     }
@@ -135,6 +135,9 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         }
     }
 
+    /**
+     * Sends a PING to the client via socket.
+     */
     @Override
     public void sendPing() {
         HashMap<String, String> commandMap = new HashMap<>();
@@ -144,6 +147,14 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         sendCommand(commandMap);
     }
 
+    /**
+     * sends the message regarding the disconnection or reconnection of a client.
+     *
+     * @param nickname the client disconnecting or reconnection
+     * @param reconnection true if the client has reconnected to the game
+     * @param connectionLost true if the client hasn't responded to a PING message
+     *                       false if the client has been disconnected from the game
+     */
     public void sendConnectionMessage(String nickname, boolean reconnection, boolean connectionLost) {
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", nickname);

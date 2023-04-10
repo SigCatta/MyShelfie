@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.PongController;
+
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -8,8 +10,10 @@ import java.util.logging.Logger;
  */
 //TODO: client is observed by the clientControllers
 public abstract class Client  {
-    private String nickname;
+    protected String nickname;
     public static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+
+    protected PongController pongController;
 
     /**
      * Sends a command to the server.
@@ -40,5 +44,9 @@ public abstract class Client  {
     public void setNickname(String nickname) {
         //TODO: Method called by the listener of the GUI or CLI when a new player connects and logs in
         this.nickname = nickname;
+    }
+
+    public PongController getPongController() {
+        return pongController;
     }
 }

@@ -22,12 +22,26 @@ public class InputReader implements Callable<String> {
     @Override
     public String call() throws IOException, InterruptedException {
         String input;
+        // mark the current position in the stream
+        br.mark(1);
+        // wait until there is data to complete a readLine()
+        while (!br.ready()) {
+            Thread.sleep(200);
+        }
+        input = br.readLine();
+        // reset the stream to the marked position
+        br.reset();
+        return input;
+        /*
+        String input;
         // wait until there is data to complete a readLine()
         while (!br.ready()) {
             Thread.sleep(200);
         }
         input = br.readLine();
         return input;
+
+         */
     }
 
     /**

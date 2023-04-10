@@ -13,37 +13,49 @@ public class PingController {
      */
     private int pingTimeout;
     /**
-     * a map tha contains the nicknames of the clients connected to the game as keys
-     * and a boolean as value, that tells wether a PONG message has been received from the client
+     * A map that contains the nicknames of the clients connected to the game as keys
+     * and a boolean as value, that tells whether a PONG message has been received from the client.
      */
-    private Map<String, Boolean> receivedPongMap;
+    private Map<String, Boolean> clientMap;
 
+    /**
+     Creates a new PingController instance.
+     *
+     * @param server the server instance.
+     * @param pingTimeout the timeout in milliseconds.
+     */
     public PingController(Server server, int pingTimeout) {
         this.server = server;
         this.timer = new Timer();
-        this.receivedPongMap = Collections.synchronizedMap(new HashMap<>());
+        this.clientMap = Collections.synchronizedMap(new HashMap<>());
         this.pingTimeout = pingTimeout;
     }
 
-    public void addToPongMap(String nickname) {
-        receivedPongMap.put(nickname, true);
+    public void addToClientMap(String nickname) {
+        clientMap.put(nickname, true);
     }
 
-    public void removeFromPongMap(String nickname) {
-        receivedPongMap.remove(nickname);
+    public void removeFromClientMap(String nickname) {
+        clientMap.remove(nickname);
     }
 
+    /**
+     * Starts the ping-pong communication.
+     */
     public void start() {
+        Server.LOGGER.info("PingController started");
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                for (String nickname: receivedPongMap.keySet()) {
-                    if (receivedPongMap.get(nickname)) {
+                for (String nickname: clientMap.keySet()) {
+                    if (clientMap.get(nickname)) {
                         // send PING message only if the corresponding PONG has been received
                         server.sendPingTo(nickname);
-                        receivedPongMap.replace(nickname, false);
+                        Server.LOGGER.info("PING sent to "+ nickname);
+                        clientMap.replace(nickname, false);
                     } else {
                         // if no PONG message has been received notify the sever
+                        Server.LOGGER.severe("No PONG received from "+ nickname);
                         server.notifyPingFailure(nickname);
                     }
                 }
@@ -53,13 +65,18 @@ public class PingController {
     }
 
     /**
-     * Method called by Executor when it receives a PONG message from the client with nickname = {@param nickname}
+     * Method called by the Server when it receives a PONG message from the client with nickname = {@param nickname}.
+     *
+     @param nickname the nickname of the client that sent the PONG message.
      */
-    public void receivePong(String nickname) {
+    public void onPongReceived(String nickname) {
         if(!server.isConnected(nickname)) {
             server.notifyReconnection(nickname);
         }
-        receivedPongMap.replace(nickname, true);
+        clientMap.replace(nickname, true);
     }
 
+    public Map<String, Boolean> getClientMap() {
+        return clientMap;
+    }
 }
