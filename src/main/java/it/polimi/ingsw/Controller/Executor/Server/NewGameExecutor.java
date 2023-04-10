@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class NewGameExecutor implements Executor{
 
-    private GamesManager gamesManager = GamesManager.getInstance();
+    private GamesManager gamesManager;
 
     public NewGameExecutor(){
         GamesManager gamesManager = GamesManager.getInstance();

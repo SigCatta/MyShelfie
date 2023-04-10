@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class ChatExecutor implements Executor {
 
-    private GamesManager gamesManager = GamesManager.getInstance();
+    private GamesManager gamesManager;
 
     public ChatExecutor(){
         GamesManager gamesManager = GamesManager.getInstance();

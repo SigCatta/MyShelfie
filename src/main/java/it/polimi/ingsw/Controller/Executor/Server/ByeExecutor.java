@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class ByeExecutor implements Executor{
 
-    private GamesManager gamesManager = GamesManager.getInstance();
+    private GamesManager gamesManager;
 
     public ByeExecutor(){
         GamesManager gamesManager = GamesManager.getInstance();
