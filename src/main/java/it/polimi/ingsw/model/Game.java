@@ -28,6 +28,7 @@ public class Game {
     private GameState gameState;
 
     private ArrayList<Player> players;
+    private String gameOwner;
     private Player activePlayer;
 
     private TurnHandler turnHandler;
@@ -39,18 +40,17 @@ public class Game {
         board = new Board(BOARD_DIMENSION);
     }
 
-    public void start() throws TooManyCardsRequestedException {
+    public void start() {
         bag = new Bag();
 
         tilesGetter = new TilesGetter(this);
-        gameState = new PickUpTilesState();
-
         turnHandlerInitializer();
-
         new BoardRefresher(this).refillBoard();
+
+        gameState = new PickUpTilesState();
     }
 
-    private void turnHandlerInitializer() throws TooManyCardsRequestedException {
+    private void turnHandlerInitializer() {
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
@@ -86,6 +86,9 @@ public class Game {
         return MAX_TILES_FROM_BOARD;
     }
 
+    public TilesGetter getTilesGetter(){
+        return tilesGetter;
+    }
 
     public boolean addPlayer(Player player) {
 
@@ -121,4 +124,15 @@ public class Game {
         this.gameID = gameID;
     }
 
+    public String getGameOwner() {
+        return gameOwner;
+    }
+
+    public void setGameOwner(String gameOwner) {
+        this.gameOwner = gameOwner;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

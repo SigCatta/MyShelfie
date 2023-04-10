@@ -5,24 +5,22 @@ import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
 
-public class NewGameExecutor implements Executor{
-
+public class StartGameExecutor implements Executor {
     private GamesManager gamesManager;
 
-    public NewGameExecutor(){
-        gamesManager = GamesManager.getInstance();
+    public StartGameExecutor() {
+        this.gamesManager = GamesManager.getInstance();
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
-
         String nickname = data.get("nickname");
-        String message = data.get("message");
+        String gameID = data.get("GAME_ID");
 
-        int gameID = gamesManager.addGame();
-        gamesManager.getGame(gameID).setGameOwner(nickname);
+        Game game = gamesManager.getGame(Integer.parseInt(gameID));
 
-        //TODO send gameID back to the user
+        if(!game.getGameOwner().equals(nickname)) return;
 
+        game.start();
     }
 }
