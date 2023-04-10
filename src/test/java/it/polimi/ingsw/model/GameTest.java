@@ -18,10 +18,10 @@ public class GameTest {
     @BeforeEach
     public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
-        player1 = new Player();
-        player2 = new Player();
-        player3 = new Player();
-        player4 = new Player();
+        player1 = new Player("player1");
+        player2 = new Player("player2");
+        player3 = new Player("player3");
+        player4 = new Player("player4");
     }
 
     @Test
@@ -36,6 +36,6 @@ public class GameTest {
 
         assertEquals(4, game.getPlayers().size());
 
-        assertFalse(game.addPlayer(new Player()));
+        assertFalse(game.addPlayer(new Player("player")));
     }
 }

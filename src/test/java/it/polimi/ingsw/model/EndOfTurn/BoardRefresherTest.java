@@ -23,8 +23,8 @@ public class BoardRefresherTest {
     public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
         game.start();
-        game.addPlayer(new Player());
-        game.addPlayer(new Player());
+        game.addPlayer(new Player("player1"));
+        game.addPlayer(new Player("player2"));
 
         boardSize = game.getBoard().getSize();
 
@@ -34,8 +34,8 @@ public class BoardRefresherTest {
     void testItemTilePlacement4() {
         boolean[][] table = new boolean[boardSize][boardSize];
 
-        game.addPlayer(new Player());
-        game.addPlayer(new Player());
+        game.addPlayer(new Player("player3"));
+        game.addPlayer(new Player("player4"));
 
         boardRefresher = new BoardRefresher(game);
 
@@ -59,7 +59,7 @@ public class BoardRefresherTest {
     void testItemTilePlacement3() {
         boolean[][] table = new boolean[boardSize][boardSize];
 
-        game.addPlayer(new Player());
+        game.addPlayer(new Player("player3"));
 
         boardRefresher = new BoardRefresher(game);
 

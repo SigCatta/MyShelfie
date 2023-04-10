@@ -1,34 +1,42 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
 
+import exceptions.NullPlayersException;
+import exceptions.TooManyPlayersException;
+import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class tests {@link PersonalGoal}'s methods
  */
 public class PersonalGoalsTest {
-/*
+
     @Test
-    public void pointStackTest() throws TooManyPlayersException, IOException, ParseException, NoPlayersException {
+    public void pointStackTest() throws TooManyPlayersException, IOException, ParseException, NullPlayersException {
         ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player());
+        players.add(new Player("player1"));
         PersonalCardDealer.getCards(players);
 
         PersonalGoal personalGoal = players.get(0).getPersonalGoal();
-        Stack<Integer> pointStack = new ReadFromJSONFile().getPointStack();
+        Stack<Integer> pointStack = new PersonalGoalReader().getPointStack();
         assertEquals(pointStack, personalGoal.getPointStack()); // full Stack
     }
-    */
+
 
     private PersonalGoal personalGoal;
     private Player player;
@@ -37,7 +45,7 @@ public class PersonalGoalsTest {
 
     @BeforeEach
     public void setUp() {
-        player = new Player();
+        player = new Player("player");
         achievements = new HashMap<>();
         achievements.put(Color.PINK, new Point(1, 1));
         achievements.put(Color.GREEN, new Point(2, 2));
@@ -58,7 +66,7 @@ public class PersonalGoalsTest {
         shelf.setTileAtLocation(new Point(1, 1), new ItemTile(Color.PINK));
         shelf.setTileAtLocation(new Point(2, 2), new ItemTile(Color.GREEN));
         int score = personalGoal.calculateScore();
-        Assertions.assertEquals(3, score);
+        assertEquals(3, score);
     }
 
     @Test
@@ -71,7 +79,7 @@ public class PersonalGoalsTest {
         shelf.setTileAtLocation(new Point(1, 3), new ItemTile(Color.YELLOW));
         shelf.setTileAtLocation(new Point(2, 1), new ItemTile(Color.WHITE));
         int score = personalGoal.calculateScore();
-        Assertions.assertEquals(21, score);
+        assertEquals(21, score);
     }
 
     @Test
@@ -81,18 +89,18 @@ public class PersonalGoalsTest {
         shelf.setTileAtLocation(new Point(0, 2), new ItemTile(Color.LIGHTBLUE));
         shelf.setTileAtLocation(new Point(2, 2), new ItemTile(Color.BLUE));
         int score = personalGoal.calculateScore();
-        Assertions.assertEquals(0, score);
+        assertEquals(0, score);
     }
 
     @Test
     public void testGetAchievements() {
         HashMap<Color, Point> achievementsResult = personalGoal.getAchievements();
-        Assertions.assertEquals(achievements, achievementsResult);
+        assertEquals(achievements, achievementsResult);
     }
 
     @Test
     public void testGetPointStack() {
         Stack<Integer> pointsResult = personalGoal.getPointStack();
-        Assertions.assertEquals(points, pointsResult);
+        assertEquals(points, pointsResult);
     }
 }
