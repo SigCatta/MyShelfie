@@ -104,4 +104,7 @@ public class Game {
         return players.stream().max((p1, p2) -> p1.getScore() > p2.getScore() ? 1 : -1).orElse(null);
     }
 
+    public int getMAX_PLAYER_NUMBER() {
+        return MAX_PLAYER_NUMBER;
+    }
 }
