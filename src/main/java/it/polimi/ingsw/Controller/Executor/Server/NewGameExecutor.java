@@ -10,7 +10,7 @@ public class NewGameExecutor implements Executor{
     private GamesManager gamesManager;
 
     public NewGameExecutor(){
-        GamesManager gamesManager = GamesManager.getInstance();
+        gamesManager = GamesManager.getInstance();
     }
 
     @Override

@@ -10,7 +10,7 @@ public class ChatExecutor implements Executor {
     private GamesManager gamesManager;
 
     public ChatExecutor(){
-        GamesManager gamesManager = GamesManager.getInstance();
+        gamesManager = GamesManager.getInstance();
     }
 
     @Override

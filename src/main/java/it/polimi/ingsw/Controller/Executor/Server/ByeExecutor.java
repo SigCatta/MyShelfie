@@ -10,7 +10,7 @@ public class ByeExecutor implements Executor{
     private GamesManager gamesManager;
 
     public ByeExecutor(){
-        GamesManager gamesManager = GamesManager.getInstance();
+        gamesManager = GamesManager.getInstance();
     }
 
     @Override
