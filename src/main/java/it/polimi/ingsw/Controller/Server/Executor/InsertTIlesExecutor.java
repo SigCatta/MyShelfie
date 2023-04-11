@@ -1,7 +1,8 @@
-package it.polimi.ingsw.Controller.Executor.Server;
+package it.polimi.ingsw.Controller.Server.Executor;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import it.polimi.ingsw.Controller.Server.Executor.Executor;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -14,7 +15,7 @@ import java.util.List;
 public class InsertTIlesExecutor implements Executor {
     private GamesManager gamesManager;
 
-    InsertTIlesExecutor() {
+    public InsertTIlesExecutor() {
         gamesManager = GamesManager.getInstance();
     }
 
