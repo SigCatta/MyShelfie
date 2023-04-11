@@ -22,7 +22,7 @@ class PingControllerTest {
         server = new Server(1000);
         socketServer = new SocketServer(server, 5000);
         testClientHandler = new SocketClientHandler(socketServer, new Socket());
-        server.addClient("player1", testClientHandler);
+        server.addClient("player1", testClientHandler, null);
         pingController = server.getPingController();
     }
 
@@ -30,6 +30,7 @@ class PingControllerTest {
     void addToPongMap() {
         pingController.addToClientMap("player1");
         assertTrue(pingController.getClientMap().containsKey("player1"));
+        assertTrue(pingController.getClientMap().get("player1"));
     }
 
     @Test
@@ -38,19 +39,4 @@ class PingControllerTest {
         pingController.removeFromClientMap("player1");
         assertFalse(pingController.getClientMap().containsKey("player1"));
     }
-
-    /*
-    @Test
-    void receivePong() throws InterruptedException {
-        pingController.addToPongMap("player1");
-        pingController.receivePong("player1");
-        assertTrue(pingController.getReceivedPongMap().get("player1"));
-
-        // wait for more than the pingTimeout
-        TimeUnit.MILLISECONDS.sleep(2500);
-
-        assertFalse(pingController.getReceivedPongMap().get("player1"));
-    }
-
-     */
 }

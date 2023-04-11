@@ -23,6 +23,7 @@ public class SocketClient extends Client {
 
     public SocketClient(String address, int port, String nickname) throws IOException {
         this.nickname = nickname;
+        //TODO call method to set Player's nicknames
         this.pongController = new PongController(this);
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
