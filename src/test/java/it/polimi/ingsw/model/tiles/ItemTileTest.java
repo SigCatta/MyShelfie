@@ -8,6 +8,10 @@ public class ItemTileTest {
 
     private static ItemTile itemTile;
 
+    @Test
+    public void string(){
+        System.out.println(Color.GREEN);
+    }
 
     @Test
     public void testGreen() {
