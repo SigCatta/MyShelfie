@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.PongController;
+import it.polimi.ingsw.Controller.PongController;
 
 import java.util.HashMap;
 import java.util.logging.Logger;

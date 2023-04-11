@@ -32,7 +32,7 @@ class TilesGetterTest {
         game = new Game();
         game.start();
         board = game.getBoard();
-        player = new Player();
+        player = new Player("player");
         shelf = player.getShelf();
         game.addPlayer(player);
         tilesGetter = new TilesGetter(game);
@@ -56,7 +56,7 @@ class TilesGetterTest {
     }
 
     @Test
-    void testEnoughFreeCellsInCol() throws NullItemTileException, FullColumnException {
+    void testEnoughFreeCellsInCol()  {
         tilesGetter.setChosenColumn(0);
         int column = 0;
         ItemTile toInsert = new ItemTile(Color.YELLOW);

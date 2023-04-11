@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.PingController;
+import it.polimi.ingsw.Controller.PingController;
 
 import java.util.Collections;
 import java.util.HashMap;

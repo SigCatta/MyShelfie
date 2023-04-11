@@ -2,7 +2,6 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import it.polimi.ingsw.Controller.Server.Executor.Executor;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -30,9 +29,12 @@ public class InsertTIlesExecutor implements Executor {
         List<ItemTile> tiles = tilesGetter.getTilesToBeInserted();
         int column = Integer.parseInt(data.get("COLUMN"));
         int tileIndex = Integer.parseInt(data.get("TILE_INDEX"));
+        if (tileIndex < 0 || tileIndex > tiles.size()) {
+            //TODO send the message "invalid position selected"
+        }
 
         try {
-            tilesGetter.sendTilesToShelf(tiles.get(tileIndex), column);
+            tilesGetter.sendTilesToShelf(tileIndex, column);
         } catch (FullColumnException e) {
             //TODO send the message "invalid column: not enough room"
             return;
