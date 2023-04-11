@@ -34,7 +34,7 @@ public class InsertTilesExecutor implements Executor {
         }
 
         try {
-            tilesGetter.sendTilesToShelf(tiles.get(tileIndex), column);
+            tilesGetter.sendTilesToShelf(tileIndex, column);
         } catch (FullColumnException e) {
             //TODO send the message "invalid column: not enough room"
             return;
