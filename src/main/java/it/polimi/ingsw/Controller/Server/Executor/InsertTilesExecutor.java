@@ -14,7 +14,7 @@ import java.util.List;
 public class InsertTilesExecutor implements Executor {
     private GamesManager gamesManager;
 
-    InsertTilesExecutor() {
+    public InsertTilesExecutor() {
         gamesManager = GamesManager.getInstance();
     }
 
@@ -29,9 +29,12 @@ public class InsertTilesExecutor implements Executor {
         List<ItemTile> tiles = tilesGetter.getTilesToBeInserted();
         int column = Integer.parseInt(data.get("COLUMN"));
         int tileIndex = Integer.parseInt(data.get("TILE_INDEX"));
+        if(tileIndex > tiles.size() || tileIndex < 0) {
+            //TODO send the message "invalid position"
+        }
 
         try {
-            tilesGetter.sendTilesToShelf(tiles.get(tileIndex), column);
+            tilesGetter.sendTilesToShelf(tileIndex, column);
         } catch (FullColumnException e) {
             //TODO send the message "invalid column: not enough room"
             return;

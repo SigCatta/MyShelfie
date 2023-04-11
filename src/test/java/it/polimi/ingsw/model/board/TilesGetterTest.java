@@ -12,8 +12,10 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,14 +24,16 @@ class TilesGetterTest {
     private Board board;
     private Game game;
     private Player player;
+    private Shelf shelf;
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp() throws TooManyCardsRequestedException {
+    void setUp()  {
         game = new Game();
         game.start();
         board = game.getBoard();
         player = new Player("player");
+        shelf = player.getShelf();
         game.addPlayer(player);
         tilesGetter = new TilesGetter(game);
         tilesGetter.setActivePlayer(player);
@@ -52,13 +56,14 @@ class TilesGetterTest {
     }
 
     @Test
-    void testEnoughFreeCellsInCol() throws NullItemTileException, FullColumnException {
+    void testEnoughFreeCellsInCol()  {
+        tilesGetter.setChosenColumn(0);
         int column = 0;
         ItemTile toInsert = new ItemTile(Color.YELLOW);
 
         assertTrue(tilesGetter.enoughFreeCellsInCol(column));
-        for (int i = 0; i < player.getShelf().getROWS(); i++) {
-            tilesGetter.sendTilesToShelf(toInsert, column);
+        for (int i = 0; i < shelf.getROWS(); i++) {
+            shelf.setTileAtLocation(new Point(i, 0), new ItemTile(Color.LIGHTBLUE));
         }
         tilesGetter.getTilesToBeInserted().add(toInsert);
         assertFalse(tilesGetter.enoughFreeCellsInCol(column));
@@ -66,14 +71,25 @@ class TilesGetterTest {
 
     @Test
     void testSendTilesToShelf() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(1);
         int column = 1;
-        ItemTile toInsert = new ItemTile(Color.YELLOW);
-        for (int i = 0; i < player.getShelf().getROWS(); i++) {
-            assertTrue(tilesGetter.sendTilesToShelf(toInsert, column));
-            assertEquals(toInsert, player.getShelf().getTileAtLocation(new Point(0, column)));
+        List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
+        for(ItemTile itemTile: toInsert) {
+            tilesGetter.getTilesToBeInserted().add(itemTile);
+        }
+        for(int i = 0; i < toInsert.size(); i++) {
+            assertEquals(tilesGetter.getTilesToBeInserted().get(i), toInsert.get(i));
+        }
+
+        for (int i = 0; i < shelf.getROWS()-2; i++) {
+            shelf.setTileAtLocation(new Point(i, 1), new ItemTile(Color.LIGHTBLUE));
+        }
+        for (int i = 0; i < 2; i++) {
+            assertTrue(tilesGetter.sendTilesToShelf(i, column));
+            assertEquals(toInsert.get(i).getColor(), player.getShelf().getTileAtLocation(new Point(shelf.getROWS()-2+i, column)).getColor());
         }
         try {
-            tilesGetter.sendTilesToShelf(toInsert, column);
+            tilesGetter.sendTilesToShelf(2, column);
         } catch (FullColumnException e) {
             assertEquals(FullColumnException.class, e.getClass());   //column already full
         }
@@ -81,15 +97,24 @@ class TilesGetterTest {
     }
 
     @Test
-    void testNullTilesSentToShelf() throws FullColumnException {
+    void testWrongColumnSelected() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(0);
         int column = 1;
-        ItemTile toInsert = null;
+        assertFalse(tilesGetter.sendTilesToShelf(0, column));
+    }
+
+    @Test
+    void testNullTilesSentToShelf() throws FullColumnException {
+        tilesGetter.setChosenColumn(1);
+        int column = 1;
+        tilesGetter.getTilesToBeInserted().add(null);
+
         try {
-            tilesGetter.sendTilesToShelf(toInsert, column);
+
+            tilesGetter.sendTilesToShelf(0, column);
         } catch (NullItemTileException e) {
             assertEquals(NullItemTileException.class, e.getClass());
         }
-
     }
 
 }
