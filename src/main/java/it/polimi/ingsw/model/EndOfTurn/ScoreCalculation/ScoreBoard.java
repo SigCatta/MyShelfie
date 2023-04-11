@@ -26,7 +26,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     /**
      * creates a new scoreboard and assigns it a game
      */
-    public ScoreBoard(Game game) throws TooManyCardsRequestedException {
+    public ScoreBoard(Game game){
         this.game = game;
         this.commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
         this.players = game.getPlayers();
@@ -74,7 +74,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     }
 
     /**
-     * Checks if the player who just finished their turn is the first to complete the shlef,
+     * Checks if the player who just finished their turn is the first to complete the shelf,
      * if that is the case, the player wins an extra point and the endgame procedure is activated
      */
     private void scoreFirstCompletedShelf(Player player) { // only the first time a player fills the shelf
@@ -86,7 +86,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     }
 
     /**
-     * Assigngs each player of points based on the completion of their personal goal card
+     * Assigns each player of points based on the completion of their personal goal card
      */
     private void scorePersonalGoals() { // at the end of the game
         for (Player player : players) {
@@ -97,7 +97,7 @@ public class ScoreBoard implements EndOfTurnObserver {
 
 
     /**
-     * Assigngs each player of points based on the adjacency of tiles in their shelf
+     * Assigns each player of points based on the adjacency of tiles in their shelf
      */
     private void scoreAdjacency() { // at the end of the game
         for (Player player : players) {

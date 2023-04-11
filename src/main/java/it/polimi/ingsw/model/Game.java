@@ -4,6 +4,9 @@ import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
+import it.polimi.ingsw.model.GameState.GameState;
+import it.polimi.ingsw.model.GameState.PickUpTilesState;
+import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
@@ -22,6 +25,7 @@ public class Game {
     private Bag bag;
     private Board board;
     private TilesGetter tilesGetter;
+    private GameState gameState;
 
     private ArrayList<Player> players;
     private Player activePlayer;
@@ -30,18 +34,22 @@ public class Game {
 
 
     public Game() {
+        gameState = new PregameState();
         players = new ArrayList<>();
+        board = new Board(BOARD_DIMENSION);
     }
 
-    public void start() throws TooManyCardsRequestedException {
+    public void start() {
         bag = new Bag();
-        board = new Board(BOARD_DIMENSION);
-        new BoardRefresher(this);
+
         tilesGetter = new TilesGetter(this);
         turnHandlerInitializer();
+        new BoardRefresher(this).refillBoard();
+
+        gameState = new PickUpTilesState();
     }
 
-    public void turnHandlerInitializer() throws TooManyCardsRequestedException {
+    private void turnHandlerInitializer() {
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
@@ -77,6 +85,9 @@ public class Game {
         return MAX_TILES_FROM_BOARD;
     }
 
+    public TilesGetter getTilesGetter(){
+        return tilesGetter;
+    }
 
     public boolean addPlayer(Player player) {
 
@@ -112,4 +123,7 @@ public class Game {
         this.gameID = gameID;
     }
 
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

@@ -1,4 +1,5 @@
-package it.polimi.ingsw.Controller.Executor.Server;
+package it.polimi.ingsw.Controller.Server.Executor;
+
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
@@ -12,7 +13,8 @@ public class PickupTilesExecutor implements Executor {
 
     private GamesManager gamesManager;
 
-    PickupTilesExecutor() {
+
+    public PickupTilesExecutor() {
         this.gamesManager = GamesManager.getInstance();
     }
 
