@@ -28,7 +28,6 @@ public class Game {
     private GameState gameState;
 
     private ArrayList<Player> players;
-    private String gameOwner;
     private Player activePlayer;
 
     private TurnHandler turnHandler;
@@ -122,14 +121,6 @@ public class Game {
 
     public void setGameID(int gameID) {
         this.gameID = gameID;
-    }
-
-    public String getGameOwner() {
-        return gameOwner;
-    }
-
-    public void setGameOwner(String gameOwner) {
-        this.gameOwner = gameOwner;
     }
 
     public void setGameState(GameState gameState) {
