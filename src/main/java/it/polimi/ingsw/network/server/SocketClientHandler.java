@@ -11,6 +11,8 @@ import java.util.HashMap;
  */
 public class SocketClientHandler implements ClientHandler, Runnable {
     private final Socket client;
+    private String nickname;
+    private int gameId;
     private final SocketServer socketServer;
 
     private boolean connected;
@@ -65,9 +67,10 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                     HashMap<String, String> commandMap = (HashMap<String, String>) input.readObject();
 
                     if (commandMap != null ) {
-                        String nickname = commandMap.get("NICKNAME");
                         if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
-                            socketServer.addClient(nickname, this, commandMap);
+                            this.nickname = commandMap.get("NICKNAME");
+                            this.gameId = Integer.parseInt(commandMap.get("GAME_ID"));
+                            socketServer.addClient(this.nickname, this, commandMap);
                         } else {
                             Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND_TYPE"));
                             socketServer.onCommandReceived(commandMap);
@@ -173,5 +176,13 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         }
 
         sendCommand(commandMap);
+    }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }
