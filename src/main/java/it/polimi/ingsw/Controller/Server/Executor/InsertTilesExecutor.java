@@ -2,6 +2,7 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import it.polimi.ingsw.Controller.Server.Executor.Executor;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
@@ -11,10 +12,10 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.util.HashMap;
 import java.util.List;
 
-public class InsertTilesExecutor implements Executor {
+public class InsertTIlesExecutor implements Executor {
     private GamesManager gamesManager;
 
-    InsertTilesExecutor() {
+    public InsertTIlesExecutor() {
         gamesManager = GamesManager.getInstance();
     }
 
@@ -38,5 +39,6 @@ public class InsertTilesExecutor implements Executor {
         } catch (NullItemTileException | IndexOutOfBoundsException e){
             //TODO send the message "invalid tile"
         }
+        game.getTurnHandler().changeTurn(); //TODO maybe set a timeout before ending the turn?
     }
 }
