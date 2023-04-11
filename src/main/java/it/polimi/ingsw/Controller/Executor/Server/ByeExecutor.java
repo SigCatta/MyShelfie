@@ -5,11 +5,11 @@ import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
 
-public class ChatExecutor implements Executor {
+public class ByeExecutor implements Executor{
 
     private GamesManager gamesManager;
 
-    public ChatExecutor(){
+    public ByeExecutor(){
         gamesManager = GamesManager.getInstance();
     }
 
@@ -18,11 +18,14 @@ public class ChatExecutor implements Executor {
         String nickname = data.get("NICKNAME");
         String gameId = data.get("GAMEID");
 
-        String message = data.get("MESSAGE");
-
         Game game = gamesManager.getGame(Integer.parseInt(gameId));
 
-        //TODO call the method to push the message in the chat
+        //TODO
+        /*
 
+
+
+         */
+        //TODO deactivate player
     }
 }
