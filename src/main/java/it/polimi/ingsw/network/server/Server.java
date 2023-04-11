@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.Controller.PingController;
 import it.polimi.ingsw.Controller.Server.CommandParser;
-import it.polimi.ingsw.network.client.Client;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,17 +46,21 @@ public class Server {
             clientHandlerMap.put(nickname, clientHandler);
 
             if(pingController.getClientMap().containsKey(nickname)) {
-                Server.LOGGER.info(nickname + " again");
-                if(!pingController.getClientMap().get(nickname)) {
+                if(!pingController.getClientMap().get(nickname) &&
+                        pingController.getGameIdMap().get(nickname) == Integer.parseInt(commandMap.get("GAME_ID"))) {
+                    //this client was already connected to an existing game and wants to reconnect
                     pingController.getClientMap().replace(nickname, true);
-                    notifyReconnection(nickname);
+                    notifyReconnection(nickname, clientHandler.getGameId());
+                    return;
+                } else {
+                    pingController.removeFromClientMap(nickname);
                 }
             }
-             else {
-                pingController.addToClientMap(nickname);
-                Server.LOGGER.info(nickname + " added to the game");
-                //TODO: sends commandMap to CommandParser
-            }
+
+            pingController.addToClientMap(nickname, clientHandler.getGameId());
+            Server.LOGGER.info(nickname + " added to the game " + commandMap.get("GAME_ID"));
+            //TODO: sends commandMap to CommandParser
+
 
         } else {
             clientHandler.disconnect();
@@ -82,7 +85,7 @@ public class Server {
      */
     public void onCommandReceived(HashMap<String, String> commandMap) {
         if(commandMap.get("COMMAND_TYPE").equals("PONG")) {
-            pingController.onPongReceived(commandMap.get("NICKNAME"));
+            pingController.onPongReceived(commandMap.get("NICKNAME"), Integer.parseInt(commandMap.get("GAME_ID")));
         } else {
             //TODO: sends commandMap to CommandParser
         }
@@ -97,13 +100,29 @@ public class Server {
     public void onDisconnect(ClientHandler clientHandler) {
         synchronized (lock) {
             String nickname = getNicknameFromClientHandler(clientHandler);
+            int gameIdToCheck = clientHandler.getGameId();
 
             if (nickname != null) {
                 removeClient(nickname);
-                broadcastConnectionMessage(nickname, false,false);
+                broadcastConnectionMessage(nickname, gameIdToCheck, false, false);
 
-                if(clientHandlerMap.isEmpty()){
-                    pingController.getClientMap().clear();
+                boolean noMorePlayer = true;
+                synchronized (lock) {
+                    for(ClientHandler ch: clientHandlerMap.values()) {
+                        if(ch.getGameId() == gameIdToCheck){
+                            noMorePlayer = false;
+                            break;
+                        }
+                    }
+                }
+
+                if(noMorePlayer){
+                    //the game with gameId==gameIdToCheck must end
+                    for(Map.Entry<String, Integer> entry: pingController.getGameIdMap().entrySet()) {
+                        if(gameIdToCheck == entry.getValue()) {
+                            pingController.removeFromClientMap(entry.getKey());
+                        }
+                    }
                     //TODO : end the game
                 }
             }
@@ -118,10 +137,12 @@ public class Server {
      * @param connectionLost true if the client hasn't responded to a PING message
      *                       false if the client has been disconnected from the game
      */
-    private void broadcastConnectionMessage(String nickname, boolean reconnection, boolean connectionLost) {
+    private void broadcastConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost) {
         synchronized (lock) {
             for (ClientHandler clientHandler: clientHandlerMap.values()) {
-                clientHandler.sendConnectionMessage(nickname, reconnection, connectionLost);
+                if(clientHandler.getGameId() == gameId) {
+                    clientHandler.sendConnectionMessage(nickname, gameId, reconnection, connectionLost);
+                }
             }
         }
     }
@@ -140,13 +161,14 @@ public class Server {
      *
      * @param nickname the nickname of the client that failed to respond to the PING message.
      */
-    public void notifyPingFailure(String nickname) {
+    public void notifyPingFailure(String nickname, int gameId) {
         clientHandlerMap.get(nickname).setConnected(false);
-        broadcastConnectionMessage(nickname, false, true);
+        broadcastConnectionMessage(nickname, gameId, false, true);
 
         //notify the model
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", nickname);
+        commandMap.put("GAME_ID", String.valueOf(gameId));
         commandMap.put("COMMAND_TYPE", "PLAYER_DOWN");
         //TODO send commandMap to decoder
 
@@ -157,10 +179,10 @@ public class Server {
      *
      * @param nickname the nickname of the client that has reconnected.
      */
-    public void notifyReconnection(String nickname) {
+    public void notifyReconnection(String nickname, int gameID) {
         Server.LOGGER.info(nickname + " reconnected");
         clientHandlerMap.get(nickname).setConnected(true);
-        broadcastConnectionMessage(nickname, true, false);
+        broadcastConnectionMessage(nickname, gameID, true, false);
 
         //notify the model
         HashMap<String, String> commandMap = new HashMap<>();

@@ -28,15 +28,18 @@ class PingControllerTest {
 
     @Test
     void addToPongMap() {
-        pingController.addToClientMap("player1");
+        pingController.addToClientMap("player1", 1);
         assertTrue(pingController.getClientMap().containsKey("player1"));
+        assertTrue(pingController.getGameIdMap().containsKey("player1"));
         assertTrue(pingController.getClientMap().get("player1"));
+        assertEquals(1, (int) pingController.getGameIdMap().get("player1"));
     }
 
     @Test
     void removeFromPongMap() {
-        pingController.addToClientMap("player1");
+        pingController.addToClientMap("player1", 1);
         pingController.removeFromClientMap("player1");
         assertFalse(pingController.getClientMap().containsKey("player1"));
+        assertFalse(pingController.getGameIdMap().containsKey("player1"));
     }
 }

@@ -22,8 +22,14 @@ public class PongController {
      *
      */
     public void onPingReceived() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", client.getNickname());
+        commandMap.put("GAME_ID", String.valueOf(client.getGameId()));
         commandMap.put("COMMAND_TYPE", "PONG");
         Client.LOGGER.info("PONG sent to the server");
         client.sendCommand(commandMap);

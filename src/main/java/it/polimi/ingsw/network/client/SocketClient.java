@@ -39,9 +39,11 @@ public class SocketClient extends Client {
         return client_instance;
     }
 
+    //TODO remove method when finished testing
     private void askToPlay() {
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", getNickname());
+        commandMap.put("GAME_ID", String.valueOf(1));
         commandMap.put("COMMAND_TYPE", "CAN_I_PLAY");
         sendCommand(commandMap);
     }
@@ -78,28 +80,19 @@ public class SocketClient extends Client {
      */
     @Override
     public void sendCommand(HashMap<String, String> commandMap) {
+        if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
+            setGameId(Integer.parseInt(commandMap.get("GAME_ID")));
+        }
         try {
             outputStm.writeObject(commandMap);
             Client.LOGGER.info("Command sent to the server with COMMAND_TYPE = " + commandMap.get("COMMAND_TYPE") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME"));
+                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAME_ID"));
             outputStm.reset();
         } catch (IOException e) {
             Client.LOGGER.severe("An error occurred while sending the commandMap");
             disconnect();
             //notifyObserver("Could not send commandMap.");
         }
-    }
-
-    /**
-     * the client answers to a PING message from the server with a PONG
-     */
-    @Override
-    public void sendPong() {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", getNickname());
-        commandMap.put("COMMAND_TYPE", "PONG");
-
-        sendCommand(commandMap);
     }
 
     /**
