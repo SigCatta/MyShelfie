@@ -20,7 +20,6 @@ public class NewGameExecutor implements Executor{
         String message = data.get("message");
 
         int gameID = gamesManager.addGame();
-        gamesManager.getGame(gameID).setGameOwner(nickname);
 
         //TODO send gameID back to the user
 
