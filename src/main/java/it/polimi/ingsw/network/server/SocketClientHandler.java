@@ -66,7 +66,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
 
                     if (commandMap != null ) {
                         String nickname = commandMap.get("NICKNAME");
-                        if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY")) {
+                        if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
                             socketServer.addClient(nickname, this);
                         } else {
                             Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND_TYPE"));

@@ -55,6 +55,8 @@ public class TilesGetter {
      * @return true if there isn't any columns with enough free cells to contain all the new tiles
      */
     private boolean tooManyTilesChosen(int size) {
+        if(size>3)  return true;
+
         Shelf shelf = activePlayer.getShelf();
         for (int i = 0; i < shelf.getCOLUMNS(); i++) {
             if(shelf.getNumOfBoxLeftInCol(i) >= size)   return false;    //there is still enough free cell in at least a column
@@ -63,21 +65,23 @@ public class TilesGetter {
     }
 
     public boolean enoughFreeCellsInCol(int column) {
-        //TODO: maybe to move to a controller
         return activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= tilesToBeInserted.size();
     }
 
     /**
-     * Method called by an observer when the activePlayer cchoses the specific order they want to insert the tiles picke up
+     * Method called by an observer when the activePlayer chooses the specific order they want to insert the tiles picked up
      *
-     * @param tileToInsert the tile the activePLayer has chosen to insert into their Shelf
+     * @param tileIndex the index of the tile in the tilesToBeInserted array the activePLayer has chosen to insert into their Shelf
      * @param column the column selected
      * @return true if it was possible to insert the tile
      */
-    public boolean sendTilesToShelf(ItemTile tileToInsert, int column) throws NullItemTileException, FullColumnException {
+    public boolean sendTilesToShelf(int tileIndex, int column) throws NullItemTileException, FullColumnException {
+
         if(readyToInsert) {
-            if(column == this.chosenColumn)
+            if(column == this.chosenColumn) {
+                ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
                 return activePlayer.getShelf().insertTile(tileToInsert, column);
+            }
         }
         return false;
     }
@@ -87,7 +91,7 @@ public class TilesGetter {
     }
 
     /**
-     * @return the column of the personal Shelf which was chosen by the activeélayer to insert the tiles they picked up from the board
+     * @return the column of the personal Shelf which was chosen by the activePlayer to insert the tiles they picked up from the board
      */
     public int getChosenColumn() {
         return chosenColumn;
