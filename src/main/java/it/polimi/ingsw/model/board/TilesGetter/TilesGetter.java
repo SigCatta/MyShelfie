@@ -16,6 +16,8 @@ public class TilesGetter {
     private Board board;
     private final PickUpValidator PICK_UP_VALIDATOR;
     private Player activePlayer;
+    private boolean readyToInsert;
+    private int chosenColumn;
     /**
      * The list of ItemTiles to be inserted.
      */
@@ -25,9 +27,11 @@ public class TilesGetter {
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
         tilesToBeInserted = new ArrayList<>();
+        readyToInsert = false;
     }
 
     public void setActivePlayer(Player activePlayer) {
+        readyToInsert = false;
         this.activePlayer = activePlayer;
     }
 
@@ -63,12 +67,37 @@ public class TilesGetter {
         return activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= tilesToBeInserted.size();
     }
 
+    /**
+     * Method called by an observer when the activePlayer cchoses the specific order they want to insert the tiles picke up
+     *
+     * @param tileToInsert the tile the activePLayer has chosen to insert into their Shelf
+     * @param column the column selected
+     * @return true if it was possible to insert the tile
+     */
     public boolean sendTilesToShelf(ItemTile tileToInsert, int column) throws NullItemTileException, FullColumnException {
-        //TODO maybe move method in a controller
-        return activePlayer.getShelf().insertTile(tileToInsert, column);
+        if(readyToInsert) {
+            if(column == this.chosenColumn)
+                return activePlayer.getShelf().insertTile(tileToInsert, column);
+        }
+        return false;
     }
 
     public List<ItemTile> getTilesToBeInserted() {
         return tilesToBeInserted;
+    }
+
+    /**
+     * @return the column of the personal Shelf which was chosen by the activeélayer to insert the tiles they picked up from the board
+     */
+    public int getChosenColumn() {
+        return chosenColumn;
+    }
+
+    /**
+     * @param chosenColumn the column of the personal Shelf which was chosen by the activeélayer to insert the tiles they picked up from the board
+     */
+    public void setChosenColumn(int chosenColumn) {
+        this.chosenColumn = chosenColumn;
+        readyToInsert = true;
     }
 }

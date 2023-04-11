@@ -54,6 +54,7 @@ class TilesGetterTest {
 
     @Test
     void testEnoughFreeCellsInCol() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(0);
         int column = 0;
         ItemTile toInsert = new ItemTile(Color.YELLOW);
 
@@ -67,6 +68,7 @@ class TilesGetterTest {
 
     @Test
     void testSendTilesToShelf() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(1);
         int column = 1;
         ItemTile toInsert = new ItemTile(Color.YELLOW);
         for (int i = 0; i < player.getShelf().getROWS(); i++) {
@@ -78,6 +80,15 @@ class TilesGetterTest {
         } catch (FullColumnException e) {
             assertEquals(FullColumnException.class, e.getClass());   //column already full
         }
+
+    }
+
+    @Test
+    void testWrongColumnSelected() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(0);
+        int column = 1;
+        ItemTile toInsert = new ItemTile(Color.YELLOW);
+        assertFalse(tilesGetter.sendTilesToShelf(toInsert, column));
 
     }
 
