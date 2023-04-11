@@ -18,6 +18,8 @@ public class TilesGetter {
     private Board board;
     private final PickUpValidator PICK_UP_VALIDATOR;
     private Player activePlayer;
+    private boolean readyToInsert;
+    private int chosenColumn;
     private Game game;
     /**
      * The list of ItemTiles to be inserted.
@@ -29,9 +31,11 @@ public class TilesGetter {
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
         tilesToBeInserted = new ArrayList<>();
+        readyToInsert = false;
     }
 
     public void setActivePlayer(Player activePlayer) {
+        readyToInsert = false;
         this.activePlayer = activePlayer;
     }
 
@@ -64,6 +68,8 @@ public class TilesGetter {
      * @return true if there isn't any columns with enough free cells to contain all the new tiles
      */
     private boolean tooManyTilesChosen(int size) {
+        if(size>3)  return true;
+
         Shelf shelf = activePlayer.getShelf();
         for (int i = 0; i < shelf.getCOLUMNS(); i++) {
             if(shelf.getNumOfBoxLeftInCol(i) >= size)   return false;    //there is still enough free cell in at least a column
@@ -72,24 +78,48 @@ public class TilesGetter {
     }
 
     public boolean enoughFreeCellsInCol(int column) {
-        //TODO: maybe to move to a controller
         return activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= tilesToBeInserted.size();
     }
 
-    public boolean sendTilesToShelf(ItemTile tileToInsert, int column) throws NullItemTileException, FullColumnException {
-        //TODO maybe move method in a controller
-        if(activePlayer.getShelf().insertTile(tileToInsert, column)){
+    /**
+     * Method called by an observer when the activePlayer chooses the specific order they want to insert the tiles picked up
+     *
+     * @param tileIndex the index of the tile in the tilesToBeInserted array the activePLayer has chosen to insert into their Shelf
+     * @param column the column selected
+     * @return true if it was possible to insert the tile
+     */
+    public boolean sendTilesToShelf(int tileIndex, int column) throws NullItemTileException, FullColumnException {
 
-            //TODO game.getTurnHandler().changeTurn();
-            game.setGameState(new PickUpTilesState());
+        if(readyToInsert) {
+            if(column == this.chosenColumn) {
+                ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
+                if(activePlayer.getShelf().insertTile(tileToInsert, column)) {
+                  //TODO game.getTurnHandler().changeTurn();
+                  game.setGameState(new PickUpTilesState());
 
-            return true;
+                  return true;
+                }
+            }
         }
-        //TODO send a message to tell the user to change column
         return false;
     }
 
     public List<ItemTile> getTilesToBeInserted() {
         return tilesToBeInserted;
+    }
+
+    /**
+     * @return the column of the personal Shelf which was chosen by the activePlayer to insert the tiles they picked up from the board
+     */
+    public int getChosenColumn() {
+        return chosenColumn;
+    }
+
+    /**
+     * @param chosenColumn the column of the personal Shelf which was chosen by the activeélayer to insert the tiles they picked up from the board
+     */
+    public void setChosenColumn(int chosenColumn) {
+        this.chosenColumn = chosenColumn;
+        readyToInsert = true;
     }
 }
