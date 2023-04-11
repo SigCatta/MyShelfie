@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller.Executor.Server;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
