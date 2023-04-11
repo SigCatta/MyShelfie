@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import org.json.simple.JSONObject;
+
 import java.util.HashMap;
 
 public interface Executor {

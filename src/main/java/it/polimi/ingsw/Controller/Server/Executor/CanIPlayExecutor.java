@@ -12,7 +12,7 @@ public class CanIPlayExecutor implements Executor {
     private GamesManager gamesManager;
 
 
-    CanIPlayExecutor() {
+    public CanIPlayExecutor() {
         this.gamesManager = GamesManager.getInstance();
     }
 
