@@ -24,10 +24,11 @@ class TilesGetterTest {
     private Board board;
     private Game game;
     private Player player;
+    private Shelf shelf;
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp() throws TooManyCardsRequestedException {
+    void setUp()  {
         game = new Game();
         game.start();
         board = game.getBoard();
