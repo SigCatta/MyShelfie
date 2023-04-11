@@ -67,7 +67,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                     if (commandMap != null ) {
                         String nickname = commandMap.get("NICKNAME");
                         if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
-                            socketServer.addClient(nickname, this);
+                            socketServer.addClient(nickname, this, commandMap);
                         } else {
                             Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND_TYPE"));
                             socketServer.onCommandReceived(commandMap);
@@ -160,7 +160,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         commandMap.put("NICKNAME", nickname);
 
         if(reconnection) {
-            commandMap.put("COMMAND_TYPE", "PLAYER_RECONNECTED");
+            commandMap.put("COMMAND_TYPE", "RECONNECT");
             commandMap.put("COMMAND_DATA", nickname + " is back online :)");
         } else {
             if(connectionLost) {
