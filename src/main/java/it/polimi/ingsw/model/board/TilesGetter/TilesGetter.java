@@ -25,6 +25,7 @@ public class TilesGetter {
      * The list of ItemTiles to be inserted.
      */
     private List<ItemTile> tilesToBeInserted ;
+    private List<Boolean> positions ;
 
     public TilesGetter(Game game){
         this.game = game;
