@@ -19,7 +19,7 @@ public class Game {
 
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
-    private final int MAX_PLAYER_NUMBER = 4;
+    private final int MAX_PLAYER_NUMBER;
 
     private int gameID;
     private Bag bag;
@@ -33,7 +33,8 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() {
+    public Game(int MAX_PLAYER_NUMBER) {
+        this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
         gameState = new PregameState();
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -85,7 +86,7 @@ public class Game {
         return MAX_TILES_FROM_BOARD;
     }
 
-    public TilesGetter getTilesGetter(){
+    public TilesGetter getTilesGetter() {
         return tilesGetter;
     }
 
@@ -121,6 +122,10 @@ public class Game {
 
     public void setGameID(int gameID) {
         this.gameID = gameID;
+    }
+
+    public int getGameID() {
+        return this.gameID;
     }
 
     public void setGameState(GameState gameState) {

@@ -17,7 +17,7 @@ public class GameTest {
 
     @BeforeEach
     public void setUp() throws TooManyCardsRequestedException {
-        game = new Game();
+        game = new Game(4);
         player1 = new Player("player1");
         player2 = new Player("player2");
         player3 = new Player("player3");

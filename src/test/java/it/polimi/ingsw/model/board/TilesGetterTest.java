@@ -29,7 +29,7 @@ class TilesGetterTest {
 
     @BeforeEach
     void setUp()  {
-        game = new Game();
+        game = new Game(4);
         game.start();
         board = game.getBoard();
         player = new Player("player");
