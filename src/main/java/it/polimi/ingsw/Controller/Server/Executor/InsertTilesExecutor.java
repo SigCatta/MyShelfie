@@ -20,7 +20,7 @@ public class InsertTilesExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAME_ID")));
+        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
         TilesGetter tilesGetter = new TilesGetter(game);
 
         Player activePlayer = game.getActivePlayer();

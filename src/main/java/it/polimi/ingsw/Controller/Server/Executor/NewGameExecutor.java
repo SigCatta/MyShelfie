@@ -16,8 +16,8 @@ public class NewGameExecutor implements Executor {
     @Override
     public void execute(HashMap<String, String> data) {
 
-        String nickname = data.get("nickname");
-        String message = data.get("message");
+        String nickname = data.get("NICKNAME");
+        String message = data.get("MESSAGE");
 
         int gameID = gamesManager.addGame();
 
