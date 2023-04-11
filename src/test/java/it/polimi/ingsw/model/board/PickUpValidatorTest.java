@@ -22,6 +22,7 @@ public class PickUpValidatorTest {
     @BeforeEach
     public void setUp() throws TooManyCardsRequestedException {
         game = new Game();
+        game.getBoard().emptyBoard();
         game.start();
         board = game.getBoard();
         pickUpValidator = new PickUpValidator(game);

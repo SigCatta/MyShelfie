@@ -1,9 +1,9 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import it.polimi.ingsw.Controller.Server.Executor.Executor;
 import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
+
 
 public class NewGameExecutor implements Executor {
 
