@@ -26,11 +26,9 @@ public class CommonCardDealerTest {
     @Disabled
     @Test
     public void overflow1() {
-        try {
-            List<CommonGoalStrategy> commonGoalStrategyList = CommonCardDealer.pickCardStrategies(13);
-        } catch (TooManyCardsRequestedException e){
-            assertEquals(TooManyCardsRequestedException.class, e.getClass());
-        }
+        List<CommonGoalStrategy> commonGoalStrategyList = CommonCardDealer.pickCardStrategies(13);
+
+        assertEquals(commonGoalStrategyList.size(), 12);
     }
 
     @Test

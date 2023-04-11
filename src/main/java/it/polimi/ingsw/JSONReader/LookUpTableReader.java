@@ -29,6 +29,9 @@ public class LookUpTableReader implements JSONFileReader{
 
         boolean[][] lookUpTable = null;
 
+        if(numOfPlayers < 2) numOfPlayers = 2;
+        else if(numOfPlayers > 4) numOfPlayers = 4;
+
         try (FileReader reader = new FileReader(PATH + numOfPlayers + ".json")) {
 
             JSONObject data = (JSONObject) jsonParser.parse(reader);

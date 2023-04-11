@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.board.TilesGetter;
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameState.InsertTilesState;
+import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
@@ -42,14 +44,23 @@ public class TilesGetter {
      * @return true if the positions are valid and there are enough free cell left in the player's shelf
      */
     public boolean pickUpTiles(ArrayList<Point> chosenPositions){
-        if(!PICK_UP_VALIDATOR.isValid(chosenPositions)) return false;
+        if(!PICK_UP_VALIDATOR.isValid(chosenPositions)) {
+            //TODO tell the user to choose
+            return false;
+        }
 
-        if(tooManyTilesChosen(chosenPositions.size()))  return false;
+        if(tooManyTilesChosen(chosenPositions.size()))  {
+            //TODO tell the user to choose less tiles
+            return false;
+        }
 
         //send tiles to the shelf buffer and remove them from the board
         for(Point position : chosenPositions) {
             tilesToBeInserted.add(board.removeItemTile(position));
         }
+
+        game.setGameState(new InsertTilesState());
+
         return true;
     }
 
@@ -82,7 +93,12 @@ public class TilesGetter {
         if(readyToInsert) {
             if(column == this.chosenColumn) {
                 ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
-                return activePlayer.getShelf().insertTile(tileToInsert, column);
+                if(activePlayer.getShelf().insertTile(tileToInsert, column)) {
+                  //TODO game.getTurnHandler().changeTurn();
+                  game.setGameState(new PickUpTilesState());
+
+                  return true;
+                }
             }
         }
         return false;

@@ -121,9 +121,13 @@ public class Shelf {
      */
     public boolean insertTile(ItemTile tile, int column) throws NullItemTileException, FullColumnException {
         if (tile == null) {
-            throw new NullItemTileException();
+            //TODO update the virtual view to send the error message to the user
+            return false;
         }
-        if (isColumnFull(column)) throw new FullColumnException();
+        if (isColumnFull(column)) {
+            //TODO update the virtual view to send the error message to the user
+            return false;
+        }
 
         for (int i = 0; i < ROWS; i++) {
             Point location = new Point(i, column);

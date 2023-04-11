@@ -24,7 +24,6 @@ class TilesGetterTest {
     private Board board;
     private Game game;
     private Player player;
-    private Shelf shelf;
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach

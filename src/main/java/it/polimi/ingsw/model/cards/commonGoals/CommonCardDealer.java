@@ -34,11 +34,11 @@ public class CommonCardDealer {
      * @param number: the number of CommonGoalStrategy  needed
      * @return a list of {@param number} of the instances of the classes that extend CommonGoalStrategy.
      */
-    public static List<CommonGoalStrategy> pickCardStrategies(int number) throws TooManyCardsRequestedException {
+    public static List<CommonGoalStrategy> pickCardStrategies(int number) {
         List<CommonGoalStrategy> strategyDeck = getCardStrategies();
         List<CommonGoalStrategy> gameCGStrategies = new ArrayList<>();
 
-        if(number > strategyDeck.size())    throw new TooManyCardsRequestedException();
+        if(number > strategyDeck.size()) number = strategyDeck.size();
         //arrayList that contains the indexes of the strategies already picked
         List<Integer> indexes = new ArrayList<>();
         int randomNumber = (int) (Math.random() * strategyDeck.size());
@@ -58,7 +58,7 @@ public class CommonCardDealer {
      * @param number: the number of commonGoal cards requested
      * @return a list of {@param number} CommonGoal .
      */
-    public static List<CommonGoalCard> pickCommonGoalCards(int number) throws TooManyCardsRequestedException {
+    public static List<CommonGoalCard> pickCommonGoalCards(int number) {
         List<CommonGoalCard> commonGoalCards = new ArrayList<>();
         List<CommonGoalStrategy> gameCGStrategies = pickCardStrategies(number);
 
