@@ -18,12 +18,14 @@ public class TilesGetter {
     private Player activePlayer;
     private boolean readyToInsert;
     private int chosenColumn;
+    private Game game;
     /**
      * The list of ItemTiles to be inserted.
      */
     private List<ItemTile> tilesToBeInserted ;
 
     public TilesGetter(Game game){
+        this.game = game;
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
         tilesToBeInserted = new ArrayList<>();
