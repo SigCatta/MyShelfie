@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class PickUpTilesMapper implements Mappable{
+public class PickUpTilesMapper implements ClientMappable {
 
     SocketClient socketClient;
     public PickUpTilesMapper(){
@@ -18,6 +18,7 @@ public class PickUpTilesMapper implements Mappable{
      * nickname
      * gameId (Taken from the virtual model)
      */
+    @Override
     public HashMap<String, String> map(Stack<String> strings) {
         HashMap<String, String> commandMap = new HashMap<>();
 
