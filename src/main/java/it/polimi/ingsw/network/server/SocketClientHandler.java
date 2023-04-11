@@ -160,7 +160,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         commandMap.put("NICKNAME", nickname);
 
         if(reconnection) {
-            commandMap.put("COMMAND_TYPE", "PLAYER_RECONNECTED");
+            commandMap.put("COMMAND_TYPE", "RECONNECT");
             commandMap.put("COMMAND_DATA", nickname + " is back online :)");
         } else {
             if(connectionLost) {

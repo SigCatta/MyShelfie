@@ -39,6 +39,7 @@ public class Server {
             clientHandlerMap.put(nickname, clientHandler);
 
             if(pingController.getClientMap().containsKey(nickname)) {
+                Server.LOGGER.info(nickname + " again");
                 if(!pingController.getClientMap().get(nickname)) {
                     pingController.getClientMap().replace(nickname, true);
                     notifyReconnection(nickname);
@@ -94,8 +95,8 @@ public class Server {
                 broadcastConnectionMessage(nickname, false,false);
 
                 if(clientHandlerMap.isEmpty()){
-                    //TODO : end the game
                     pingController.getClientMap().clear();
+                    //TODO : end the game
                 }
             }
         }
