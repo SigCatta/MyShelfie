@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller.Executor.Server;
+package it.polimi.ingsw.Controller.Server.Executor;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
