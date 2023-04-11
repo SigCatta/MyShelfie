@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.Controller.PingController;
 import it.polimi.ingsw.Controller.Server.CommandParser;
+import it.polimi.ingsw.network.client.Client;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,11 +22,18 @@ public class Server {
 
     PingController pingController;
 
+    private static Server server_instance = null;
+
     public Server(int pingTimeout) {
         this.commandParser = new CommandParser();
         this.clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
         this.lock = new Object();
         this.pingController = new PingController(this, pingTimeout);
+        server_instance = this;
+    }
+
+    public static synchronized Server getInstance() {
+        return server_instance;
     }
 
     /**

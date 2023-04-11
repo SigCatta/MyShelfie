@@ -31,7 +31,12 @@ public class SocketClient extends Client {
         this.inputStm = new ObjectInputStream(socket.getInputStream());
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
+        client_instance = this;
         askToPlay();
+    }
+
+    public static synchronized Client getInstance() {
+        return client_instance;
     }
 
     private void askToPlay() {

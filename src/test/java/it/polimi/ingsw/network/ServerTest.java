@@ -61,4 +61,9 @@ public class ServerTest {
         assertNotNull(server.getPingController());
     }
 
+    @Test
+    void getInstanceTest() {
+        assertNotNull(Server.getInstance());
+    }
+
 }

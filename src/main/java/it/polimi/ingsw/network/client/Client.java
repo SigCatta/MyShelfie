@@ -10,6 +10,8 @@ import java.util.logging.Logger;
  */
 //TODO: client is observed by the clientControllers
 public abstract class Client  {
+    protected static Client client_instance = null;
+
     protected String nickname;
     public static final Logger LOGGER = Logger.getLogger(Client.class.getName());
 
