@@ -12,11 +12,11 @@ public class CommandParser {
 
     public CommandParser(){
         commandTranslator = new HashMap<>();
-        commandTranslator.put("chat", new ChatExecutor());
-        commandTranslator.put("can_i_play", new CanIPlayExecutor());
-        commandTranslator.put("insert_tiles", new InsertTilesExecutor());
-        commandTranslator.put("new_game", new NewGameExecutor());
-        commandTranslator.put("pick_up", new PickupTilesExecutor());
+        commandTranslator.put("CHAT", new ChatExecutor());
+        commandTranslator.put("CAN_I_PLAY", new CanIPlayExecutor());
+        commandTranslator.put("INSERT_TILES", new InsertTilesExecutor());
+        commandTranslator.put("NEW_GAME", new NewGameExecutor());
+        commandTranslator.put("PICK_UP_TILES", new PickupTilesExecutor());
     }
 
     /**
@@ -24,10 +24,10 @@ public class CommandParser {
      * @param data object received from the network
      */
     public void parse(HashMap<String, String> data){
-        String instruction = data.get("instruction");
+        String command = data.get("COMMAND");
 
-        if(instruction == null) return; //should never reach
+        if(command == null) return; //should never reach
 
-        commandTranslator.get(instruction).execute(data);
+        commandTranslator.get(command).execute(data);
     }
 }

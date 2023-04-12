@@ -3,35 +3,49 @@ package it.polimi.ingsw.network.server;
 import java.util.HashMap;
 
 /**
- * Interface to handle clients. Every type of connection must implement this interface.
+ * Abstract class that handle clients. Every type of connection must implement this interface.
  */
-public interface ClientHandler {
+public abstract class ClientHandler {
+    protected String nickname;
+    protected int gameId;
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+       this.gameId = gameId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 
     /**
      * Returns the connection status.
      *
      * @return {@code true} if the client is still connected and reachable, {@code false} otherwise.
      */
-    boolean isConnected();
+    public abstract boolean isConnected();
 
-    void setConnected(boolean connected);
+    public abstract void setConnected(boolean connected);
 
     /**
      * Disconnects from the client.
      */
-    void disconnect();
+    public abstract void disconnect();
 
     /**
      * Sends a command to the client.
      *
      * @param commandMap the command to be sent.
      */
-    void sendCommand(HashMap<String, String> commandMap);
+    public abstract void sendCommand(HashMap<String, String> commandMap);
 
     /**
      * The serverSocket sends a PING message to the client to check whether it's still connected
      */
-    void sendPing();
+    public abstract void sendPing();
 
     /**
      * @param nickname       the nickname of the client that has disconnected or reconnected to the game
@@ -39,5 +53,5 @@ public interface ClientHandler {
      * @param connectionLost true if the client hasn't responded to the PING sent by the server,
      *                       false if the client has requested to be disconnect
      */
-    void sendConnectionMessage(String nickname, boolean reconnection, boolean connectionLost);
+    public abstract void sendConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost);
 }

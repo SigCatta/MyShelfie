@@ -76,6 +76,7 @@ class TilesGetterTest {
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
         for(ItemTile itemTile: toInsert) {
             tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getPositionsAlreadySelected().add(false);
         }
         for(int i = 0; i < toInsert.size(); i++) {
             assertEquals(tilesGetter.getTilesToBeInserted().get(i), toInsert.get(i));
@@ -97,6 +98,21 @@ class TilesGetterTest {
     }
 
     @Test
+    void testPositionAlreadySelected() throws NullItemTileException, FullColumnException {
+        tilesGetter.setChosenColumn(1);
+        int column = 1;
+        List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
+        for(ItemTile itemTile: toInsert) {
+            tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getPositionsAlreadySelected().add(false);
+        }
+
+        assertTrue(tilesGetter.sendTilesToShelf(0, column));
+        assertFalse(tilesGetter.sendTilesToShelf(0, column));
+
+    }
+
+    @Test
     void testWrongColumnSelected() throws NullItemTileException, FullColumnException {
         tilesGetter.setChosenColumn(0);
         int column = 1;
@@ -108,6 +124,7 @@ class TilesGetterTest {
         tilesGetter.setChosenColumn(1);
         int column = 1;
         tilesGetter.getTilesToBeInserted().add(null);
+        tilesGetter.getPositionsAlreadySelected().add(false);
 
         try {
 

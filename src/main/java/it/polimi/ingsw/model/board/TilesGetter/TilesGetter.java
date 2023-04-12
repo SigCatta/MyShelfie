@@ -25,12 +25,18 @@ public class TilesGetter {
      * The list of ItemTiles to be inserted.
      */
     private List<ItemTile> tilesToBeInserted ;
+    /**
+     * every item in the list is linked to the ItemTile in the tilesToBeInserted list
+     * and it is true if it has already been sent to the shelf, false otherwise
+     */
+    private List<Boolean> positionsAlreadySelected;
 
     public TilesGetter(Game game){
         this.game = game;
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
         tilesToBeInserted = new ArrayList<>();
+        positionsAlreadySelected = new ArrayList<>();
         readyToInsert = false;
     }
 
@@ -57,6 +63,7 @@ public class TilesGetter {
         //send tiles to the shelf buffer and remove them from the board
         for(Point position : chosenPositions) {
             tilesToBeInserted.add(board.removeItemTile(position));
+            positionsAlreadySelected.add(false);
         }
 
         game.setGameState(new InsertTilesState());
@@ -86,18 +93,21 @@ public class TilesGetter {
      *
      * @param tileIndex the index of the tile in the tilesToBeInserted array the activePLayer has chosen to insert into their Shelf
      * @param column the column selected
-     * @return true if it was possible to insert the tile
+     * @return true if it was possible to insert the tile,
+     *         false if the column selected isn't the corrected one or if the itemTile was already inserted
      */
     public boolean sendTilesToShelf(int tileIndex, int column) throws NullItemTileException, FullColumnException {
 
         if(readyToInsert) {
-            if(column == this.chosenColumn) {
+            if(column == this.chosenColumn && !positionsAlreadySelected.get(tileIndex)) {
                 ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
                 if(activePlayer.getShelf().insertTile(tileToInsert, column)) {
-                  //TODO game.getTurnHandler().changeTurn();
-                  game.setGameState(new PickUpTilesState());
+                    positionsAlreadySelected.set(tileIndex, true);
 
-                  return true;
+                    //TODO game.getTurnHandler().changeTurn();
+                    game.setGameState(new PickUpTilesState());
+
+                    return true;
                 }
             }
         }
@@ -106,6 +116,10 @@ public class TilesGetter {
 
     public List<ItemTile> getTilesToBeInserted() {
         return tilesToBeInserted;
+    }
+
+    public List<Boolean> getPositionsAlreadySelected() {
+        return positionsAlreadySelected;
     }
 
     /**

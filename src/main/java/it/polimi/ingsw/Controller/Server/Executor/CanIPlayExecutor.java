@@ -18,7 +18,7 @@ public class CanIPlayExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAME_ID")));
+        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
 
         ArrayList<Player> players = game.getPlayers();
         String nickname = data.get("NICKNAME");
