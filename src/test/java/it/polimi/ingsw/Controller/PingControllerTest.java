@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,27 +18,35 @@ class PingControllerTest {
     private Server server;
     private SocketServer socketServer;
     private SocketClientHandler testClientHandler;
+    private Map<String, String> commandMap;
 
     @BeforeEach
     void setUp() {
+        commandMap = new HashMap<>();
+        commandMap.put("NICKNAME", "testNickname");
+        commandMap.put("GAME_ID", "1");
         server = new Server(1000);
         socketServer = new SocketServer(server, 5000);
         testClientHandler = new SocketClientHandler(socketServer, new Socket());
-        server.addClient("player1", testClientHandler, null);
+        server.addClient("player1", testClientHandler, commandMap);
         pingController = server.getPingController();
+
     }
 
     @Test
     void addToPongMap() {
-        pingController.addToClientMap("player1");
+        pingController.addToClientMap("player1", 1);
         assertTrue(pingController.getClientMap().containsKey("player1"));
+        assertTrue(pingController.getGameIdMap().containsKey("player1"));
         assertTrue(pingController.getClientMap().get("player1"));
+        assertEquals(1, (int) pingController.getGameIdMap().get("player1"));
     }
 
     @Test
     void removeFromPongMap() {
-        pingController.addToClientMap("player1");
+        pingController.addToClientMap("player1", 1);
         pingController.removeFromClientMap("player1");
         assertFalse(pingController.getClientMap().containsKey("player1"));
+        assertFalse(pingController.getGameIdMap().containsKey("player1"));
     }
 }
