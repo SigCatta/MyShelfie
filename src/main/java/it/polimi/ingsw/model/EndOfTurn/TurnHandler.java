@@ -51,8 +51,12 @@ public class TurnHandler implements EndOfTurnSubject {
         notifyObservers();
 
         int nextIndex = players.indexOf(game.getActivePlayer()) + 1;
+
+        if(lastTurn && nextIndex == 0) game.end();
+
         nextIndex = nextIndex >= players.size() ? 0 : nextIndex;
         game.setActivePlayer(players.get(nextIndex));
+
     }
 
     /**

@@ -33,13 +33,6 @@ public class InsertTilesExecutor implements Executor {
             //TODO send the message "invalid position"
         }
 
-        try {
-            tilesGetter.sendTilesToShelf(tileIndex, column);
-        } catch (FullColumnException e) {
-            //TODO send the message "invalid column: not enough room"
-            return;
-        } catch (NullItemTileException | IndexOutOfBoundsException e){
-            //TODO send the message "invalid tile"
-        }
+        tilesGetter.sendTilesToShelf(tileIndex, column);
     }
 }

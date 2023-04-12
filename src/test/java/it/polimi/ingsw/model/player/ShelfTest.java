@@ -106,12 +106,8 @@ public class ShelfTest {
         }
 
         // Insert a tile in column 0 of the buffer
+        assertFalse(testShelf.insertTile(new ItemTile(Color.YELLOW), 0));
 
-        try {
-            testShelf.insertTile(new ItemTile(Color.YELLOW), 0);
-        } catch (FullColumnException e) {
-            assertEquals(FullColumnException.class, e.getClass());
-        }
     }
 
     @Test
