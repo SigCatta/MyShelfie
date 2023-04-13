@@ -19,7 +19,7 @@ public class GameStateTest {
 
     @Test
     public void stateSuccessionTest(){
-        Game game = new Game();
+        Game game = new Game(999);
         assertTrue(game.getGameState() instanceof PregameState);
 
         game.addPlayer(new Player("a"));
