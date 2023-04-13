@@ -1,11 +1,11 @@
-package it.polimi.ingsw.Controller.Executor.Server;
+package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
 
-public class ByeExecutor implements Executor{
+public class ByeExecutor implements Executor {
 
     private GamesManager gamesManager;
 
