@@ -4,6 +4,7 @@ import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
+import it.polimi.ingsw.model.GameState.EndGameState;
 import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.GameState.PregameState;
@@ -55,6 +56,11 @@ public class Game {
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
+    public void end(){
+        gameState = new EndGameState();
+        //TODO calculate point and send to the view
+    }
+
 
     public Board getBoard() {
         return board;
@@ -70,7 +76,6 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
-        tilesGetter.setActivePlayer(activePlayer);
     }
 
     public Bag getBag() {
@@ -125,5 +130,9 @@ public class Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

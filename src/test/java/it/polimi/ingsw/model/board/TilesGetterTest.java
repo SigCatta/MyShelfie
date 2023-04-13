@@ -36,12 +36,12 @@ class TilesGetterTest {
         shelf = player.getShelf();
         game.addPlayer(player);
         tilesGetter = new TilesGetter(game);
-        tilesGetter.setActivePlayer(player);
+        game.setActivePlayer(player);
         chosenPositions = new ArrayList<>();
     }
 
     @Test
-    void testPickUpTiles() {
+    void testPickUpTiles1() {
         Point goodPosition = new Point(2, 2);
         Point badPosition = new Point(4, 4);
         board.setItemTile(Color.YELLOW, goodPosition.x, goodPosition.y);
@@ -56,22 +56,7 @@ class TilesGetterTest {
     }
 
     @Test
-    void testEnoughFreeCellsInCol()  {
-        tilesGetter.setChosenColumn(0);
-        int column = 0;
-        ItemTile toInsert = new ItemTile(Color.YELLOW);
-
-        assertTrue(tilesGetter.enoughFreeCellsInCol(column));
-        for (int i = 0; i < shelf.getROWS(); i++) {
-            shelf.setTileAtLocation(new Point(i, 0), new ItemTile(Color.LIGHTBLUE));
-        }
-        tilesGetter.getTilesToBeInserted().add(toInsert);
-        assertFalse(tilesGetter.enoughFreeCellsInCol(column));
-    }
-
-    @Test
-    void testSendTilesToShelf() throws NullItemTileException, FullColumnException {
-        tilesGetter.setChosenColumn(1);
+    void testSendTilesToShelf1() {
         int column = 1;
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
         for(ItemTile itemTile: toInsert) {
@@ -85,21 +70,49 @@ class TilesGetterTest {
         for (int i = 0; i < shelf.getROWS()-2; i++) {
             shelf.setTileAtLocation(new Point(i, 1), new ItemTile(Color.LIGHTBLUE));
         }
-        for (int i = 0; i < 2; i++) {
-            assertTrue(tilesGetter.sendTilesToShelf(i, column));
-            assertEquals(toInsert.get(i).getColor(), player.getShelf().getTileAtLocation(new Point(shelf.getROWS()-2+i, column)).getColor());
+        for (int i = 0; i < 3; i++) {
+            assertFalse(tilesGetter.sendTilesToShelf(i, column));
         }
-        try {
-            tilesGetter.sendTilesToShelf(2, column);
-        } catch (FullColumnException e) {
-            assertEquals(FullColumnException.class, e.getClass());   //column already full
-        }
+
+        assertFalse(tilesGetter.sendTilesToShelf(2, column));
 
     }
 
     @Test
-    void testPositionAlreadySelected() throws NullItemTileException, FullColumnException {
-        tilesGetter.setChosenColumn(1);
+    void testSendTilesToShelf2() {
+        int column = 0;
+        List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
+
+        for(ItemTile itemTile: toInsert) {
+            tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getPositionsAlreadySelected().add(false);
+        }
+
+
+        shelf.insertTile(new ItemTile(Color.GREEN), 0);
+        shelf.insertTile(new ItemTile(Color.GREEN), 0);
+        shelf.insertTile(new ItemTile(Color.GREEN), 0);
+        shelf.insertTile(new ItemTile(Color.GREEN), 0);
+        shelf.insertTile(new ItemTile(Color.GREEN), 0);
+
+
+        assertFalse(tilesGetter.sendTilesToShelf(0, column)); //because 3 tiles can't fit in this column
+
+        column = 1;
+
+        for (int i = 0; i < 2; i++) {
+            assertTrue(tilesGetter.sendTilesToShelf(i, column));
+        }
+
+        assertFalse(tilesGetter.sendTilesToShelf(2, 3));
+        assertFalse(tilesGetter.sendTilesToShelf(1, column));
+
+        assertTrue(tilesGetter.sendTilesToShelf(2, column));
+
+    }
+
+    @Test
+    void testPositionAlreadySelected() {
         int column = 1;
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
         for(ItemTile itemTile: toInsert) {
@@ -114,24 +127,17 @@ class TilesGetterTest {
 
     @Test
     void testWrongColumnSelected() throws NullItemTileException, FullColumnException {
-        tilesGetter.setChosenColumn(0);
         int column = 1;
         assertFalse(tilesGetter.sendTilesToShelf(0, column));
     }
 
     @Test
     void testNullTilesSentToShelf() throws FullColumnException {
-        tilesGetter.setChosenColumn(1);
         int column = 1;
         tilesGetter.getTilesToBeInserted().add(null);
         tilesGetter.getPositionsAlreadySelected().add(false);
 
-        try {
-
-            tilesGetter.sendTilesToShelf(0, column);
-        } catch (NullItemTileException e) {
-            assertEquals(NullItemTileException.class, e.getClass());
-        }
+        assertFalse(tilesGetter.sendTilesToShelf(0, column));
     }
 
 }
