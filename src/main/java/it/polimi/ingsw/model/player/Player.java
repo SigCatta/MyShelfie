@@ -29,7 +29,7 @@ public class Player {
      * The nickname of the player.
      */
     private String nickname;
-    private boolean connected;
+    private boolean isConnected;
     /**
      * The score of the player.
      */
@@ -43,7 +43,7 @@ public class Player {
     public Player(String nickname) {
         this.nickname = nickname;
         this.shelf = new Shelf();
-        this.connected = true;
+        this.isConnected = true;
     }
 
     /**
@@ -117,10 +117,10 @@ public class Player {
     }
 
     public void setConnected(boolean connected) {
-        this.connected = connected;
+        this.isConnected = connected;
     }
 
     public boolean isConnected() {
-        return connected;
+        return isConnected;
     }
 }

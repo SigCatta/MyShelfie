@@ -131,4 +131,29 @@ public class Game {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public Player getPlayerByID(String nickname) {
+        for (Player player : players) {
+            if (player.getNickname().equals(nickname)) return player;
+        }
+        return null;// should never reach
+    }
+
+    public void disconnectPlayer(String playerNickname) {
+        Player player = getPlayerByID(playerNickname);
+        if (gameState instanceof PregameState) {
+            players.remove(player);
+            //TODO send PLAYER_DOWN message
+        } else {
+            player.setConnected(false);
+            //TODO send PLAYER_DWON message
+        }
+        //TODO start timeout if there is only one player connected
+    }
+
+    public void reconnectPlayer(String playerNickname) {
+        Player player = getPlayerByID(playerNickname);
+        player.setConnected(true);
+        //TODO stop timeout
+    }
 }
