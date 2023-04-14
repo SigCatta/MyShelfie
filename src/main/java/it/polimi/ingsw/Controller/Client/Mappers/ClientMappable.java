@@ -13,5 +13,5 @@ public interface ClientMappable {
      *
      * @param strings a stack of parameters that will be mapped togather with the corresponding command and sent to the socket
      */
-    HashMap<String, String> map (Stack<String> strings);
+    void map (Stack<String> strings);
 }
