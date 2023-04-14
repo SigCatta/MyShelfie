@@ -31,7 +31,7 @@ public class GamesManager {
      * @return the id of the game
      */
     public int addGame(){
-        Game newGame = new Game();
+        Game newGame = new Game(4);
 
         int gameID = createID();
         newGame.setGameID(gameID);

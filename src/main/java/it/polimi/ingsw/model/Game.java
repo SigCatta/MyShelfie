@@ -20,7 +20,7 @@ public class Game {
 
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
-    private final int MAX_PLAYER_NUMBER = 4;
+    private final int MAX_PLAYER_NUMBER;
 
     private int gameID;
     private Bag bag;
@@ -34,7 +34,8 @@ public class Game {
     private TurnHandler turnHandler;
 
 
-    public Game() {
+    public Game(int MAX_PLAYER_NUMBER) {
+        this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
         gameState = new PregameState();
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -90,7 +91,7 @@ public class Game {
         return MAX_TILES_FROM_BOARD;
     }
 
-    public TilesGetter getTilesGetter(){
+    public TilesGetter getTilesGetter() {
         return tilesGetter;
     }
 
@@ -128,10 +129,39 @@ public class Game {
         this.gameID = gameID;
     }
 
+    public int getGameID() {
+        return this.gameID;
+    }
+
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
+    public Player getPlayerByID(String nickname) {
+        for (Player player : players) {
+            if (player.getNickname().equals(nickname)) return player;
+        }
+        return null;// should never reach
+    }
+
+    public void disconnectPlayer(String playerNickname) {
+        Player player = getPlayerByID(playerNickname);
+        if (gameState instanceof PregameState) {
+            players.remove(player);
+            //TODO send PLAYER_DOWN message
+        } else {
+            player.setConnected(false);
+            //TODO send PLAYER_DWON message
+        }
+        //TODO start timeout if there is only one player connected
+    }
+
+    public void reconnectPlayer(String playerNickname) {
+        Player player = getPlayerByID(playerNickname);
+        player.setConnected(true);
+        //TODO stop timeout
+        }
+        
     public GameState getGameState() {
         return gameState;
     }
