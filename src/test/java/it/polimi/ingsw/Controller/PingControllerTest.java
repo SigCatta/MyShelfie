@@ -18,7 +18,7 @@ class PingControllerTest {
     private Server server;
     private SocketServer socketServer;
     private SocketClientHandler testClientHandler;
-    private Map<String, String> commandMap;
+    private HashMap<String, String> commandMap;
 
     @BeforeEach
     void setUp() {

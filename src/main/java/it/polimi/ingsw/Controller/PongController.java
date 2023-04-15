@@ -29,8 +29,8 @@ public class PongController {
         }
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", client.getNickname());
-        commandMap.put("GAME_ID", String.valueOf(client.getGameId()));
-        commandMap.put("COMMAND_TYPE", "PONG");
+        commandMap.put("GAMEID", String.valueOf(client.getGameId()));
+        commandMap.put("COMMAND", "PONG");
         Client.LOGGER.info("PONG sent to the server");
         client.sendCommand(commandMap);
     }

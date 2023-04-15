@@ -32,16 +32,6 @@ public class InputReader implements Callable<String> {
         // reset the stream to the marked position
         br.reset();
         return input;
-        /*
-        String input;
-        // wait until there is data to complete a readLine()
-        while (!br.ready()) {
-            Thread.sleep(200);
-        }
-        input = br.readLine();
-        return input;
-
-         */
     }
 
     /**
@@ -106,13 +96,18 @@ public class InputReader implements Callable<String> {
     }
 
     public static String askNickname() {
-        System.out.print("Enter your nickname: ");
         String nickname = null;
-        try {
-            nickname = readLine();
-        } catch (ExecutionException e) {
-            System.out.println("User input canceled.");
-        }
+        do {
+            System.out.print("Enter your nickname: ");
+
+
+            try {
+                nickname = readLine();
+            } catch (ExecutionException e) {
+                System.out.println("User input canceled.");
+            }
+        } while (nickname == null || nickname.equals(""));
+
         return nickname;
     }
 

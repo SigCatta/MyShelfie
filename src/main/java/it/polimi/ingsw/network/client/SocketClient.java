@@ -43,8 +43,8 @@ public class SocketClient extends Client {
     private void askToPlay() {
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", getNickname());
-        commandMap.put("GAME_ID", String.valueOf(1));
-        commandMap.put("COMMAND_TYPE", "CAN_I_PLAY");
+        commandMap.put("GAMEID", String.valueOf(1));
+        commandMap.put("COMMAND", "NEW_GAME");
         sendCommand(commandMap);
     }
 
@@ -59,9 +59,9 @@ public class SocketClient extends Client {
                 HashMap<String, String> commandMap;
                 try {
                     commandMap = (HashMap<String, String>) inputStm.readObject();
-                    Client.LOGGER.info("Received: " + commandMap.get("COMMAND_TYPE"));
+                    Client.LOGGER.info("Received: " + commandMap.get("COMMAND"));
 
-                    if(commandMap.get("COMMAND_TYPE").equals("PING")) {
+                    if(commandMap.get("COMMAND").equals("PING")) {
                         pongController.onPingReceived();
                     }
                 } catch (IOException | ClassNotFoundException e) {
@@ -80,13 +80,13 @@ public class SocketClient extends Client {
      */
     @Override
     public void sendCommand(HashMap<String, String> commandMap) {
-        if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
-            setGameId(Integer.parseInt(commandMap.get("GAME_ID")));
+        if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
+            setGameId(Integer.parseInt(commandMap.get("GAMEID")));
         }
         try {
             outputStm.writeObject(commandMap);
-            Client.LOGGER.info("Command sent to the server with COMMAND_TYPE = " + commandMap.get("COMMAND_TYPE") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAME_ID"));
+            Client.LOGGER.info("Command sent to the server with COMMAND = " + commandMap.get("COMMAND") +
+                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAMEID = " + commandMap.get("GAMEID"));
             outputStm.reset();
         } catch (IOException e) {
             Client.LOGGER.severe("An error occurred while sending the commandMap");
