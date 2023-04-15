@@ -29,6 +29,7 @@ public class SendShelfMapper extends ServerMappable {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
 
         HashMap<String, String> map = encodeItemTilesGrid(shelfGrid);
+        map.put("COMMAND", "SEND_SHELF");
         map.put("NICKNAME", activePlayer.getNickname());
         map.put("GAMEID", String.valueOf(game.getGameID()));
 

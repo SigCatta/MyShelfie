@@ -11,6 +11,7 @@ public class NewGameOkMapper extends ServerMappable {
         if (! (o instanceof Game)) return; // should never happen
         Game game = (Game) o;
 
+        map.put("COMMAND", "NEW_GAME_OK");
         map.put("GAMEID", String.valueOf(game.getGameID()));
         map.put("NUM_OF_PLAYERS", String.valueOf(game.getMAX_PLAYER_NUMBER()));
     }

@@ -15,6 +15,7 @@ public class SendBoardMapper extends ServerMappable {
         ItemTile[][] boardGrid = board.getBoardGrid();
 
         HashMap<String, String> map = encodeItemTilesGrid(boardGrid);
+        map.put("COMMAND", "SEND_BOARD");
 
         //TODO send to the server socket
 

@@ -6,12 +6,6 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class PickUpTilesMapper implements ClientMappable {
-
-    SocketClient socketClient;
-    public PickUpTilesMapper(){
-        //this.socketClient = SocketClient.getInstance();
-    }
-
     /**
      * the Stack strings must arrive as follows:
      * Points on the board
@@ -19,7 +13,7 @@ public class PickUpTilesMapper implements ClientMappable {
      * gameId (Taken from the virtual model)
      */
     @Override
-    public HashMap<String, String> map(Stack<String> strings) {
+    public void map(Stack<String> strings) {
         HashMap<String, String> commandMap = new HashMap<>();
 
         int pointPosition = 1;
@@ -34,6 +28,6 @@ public class PickUpTilesMapper implements ClientMappable {
         commandMap.put("COMMAND", "PICK_UP_TILES");
 
         //TODO send map to network
-        return commandMap;
+        SocketClient.getInstance().sendCommand(commandMap);
     }
 }
