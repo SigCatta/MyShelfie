@@ -20,7 +20,7 @@ public class InsertTilesExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAME_ID")));
+        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
         TilesGetter tilesGetter = new TilesGetter(game);
 
         Player activePlayer = game.getActivePlayer();
@@ -33,13 +33,6 @@ public class InsertTilesExecutor implements Executor {
             //TODO send the message "invalid position"
         }
 
-        try {
-            tilesGetter.sendTilesToShelf(tiles.get(tileIndex), column);
-        } catch (FullColumnException e) {
-            //TODO send the message "invalid column: not enough room"
-            return;
-        } catch (NullItemTileException | IndexOutOfBoundsException e){
-            //TODO send the message "invalid tile"
-        }
+        tilesGetter.sendTilesToShelf(tileIndex, column);
     }
 }

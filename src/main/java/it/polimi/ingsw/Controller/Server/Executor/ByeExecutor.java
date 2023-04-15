@@ -1,27 +1,31 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamesManager;
 
 import java.util.HashMap;
 
-
-public class NewGameExecutor implements Executor {
+public class ByeExecutor implements Executor {
 
     private GamesManager gamesManager;
 
-    public NewGameExecutor(){
+    public ByeExecutor(){
         gamesManager = GamesManager.getInstance();
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
-
         String nickname = data.get("NICKNAME");
-        String message = data.get("MESSAGE");
+        String gameId = data.get("GAMEID");
 
-        int gameID = gamesManager.addGame();
+        Game game = gamesManager.getGame(Integer.parseInt(gameId));
 
-        //TODO send gameID back to the user
+        //TODO
+        /*
 
+
+
+         */
+        //TODO deactivate player
     }
 }

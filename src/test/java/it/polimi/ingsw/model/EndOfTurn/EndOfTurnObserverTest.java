@@ -19,7 +19,7 @@ public class EndOfTurnObserverTest {
 
     @BeforeEach
     public void setUp() throws TooManyCardsRequestedException {
-        game = new Game();
+        game = new Game(4);
         game.addPlayer(new Player("player1"));
         game.addPlayer(new Player("player2"));
         boardSize = game.getBoard().getSize();

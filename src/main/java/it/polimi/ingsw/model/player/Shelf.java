@@ -116,10 +116,8 @@ public class Shelf {
      * @param tile   the tile to insert
      * @param column the column on which to insert the tiles.
      * @return true if the tiles were successfully inserted, false otherwise.
-     * @throws NullItemTileException: if the buffer is empty
-     * @throws FullColumnException    : if the column selected is already full
      */
-    public boolean insertTile(ItemTile tile, int column) throws NullItemTileException, FullColumnException {
+    public boolean insertTile(ItemTile tile, int column){
         if (tile == null) {
             //TODO update the virtual view to send the error message to the user
             return false;

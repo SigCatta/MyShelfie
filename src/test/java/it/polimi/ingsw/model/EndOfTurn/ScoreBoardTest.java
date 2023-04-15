@@ -15,7 +15,7 @@ public class ScoreBoardTest {
     List<Player> players;
     @BeforeEach
     public void init() throws TooManyCardsRequestedException {
-        game = new Game();
+        game = new Game(4);
         game.addPlayer(new Player("player1"));
         game.addPlayer(new Player("player2"));
         game.addPlayer(new Player("player3"));

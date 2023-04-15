@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Socket server that handles all the new socket connection.
@@ -58,8 +59,8 @@ public class SocketServer implements Runnable {
      * @param nickname      the nickname of the new client
      * @param clientHandler the ClientHandler representing the new client
      */
-    public void addClient(String nickname, ClientHandler clientHandler) {
-        server.addClient(nickname, clientHandler);
+    public void addClient(String nickname, ClientHandler clientHandler, Map<String, String> commandMap) {
+        server.addClient(nickname, clientHandler, commandMap);
     }
 
     /**
