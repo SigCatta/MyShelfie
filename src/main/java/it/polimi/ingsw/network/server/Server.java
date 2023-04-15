@@ -41,13 +41,13 @@ public class Server {
      * @param nickname      the nickname associated with the client.
      * @param clientHandler the ClientHandler associated with the client.
      */
-    public void addClient(String nickname, ClientHandler clientHandler, Map<String, String> commandMap) {
+    public void addClient(String nickname, ClientHandler clientHandler, HashMap<String, String> commandMap) {
         if (!clientHandlerMap.containsKey(nickname)) {
             clientHandlerMap.put(nickname, clientHandler);
 
             if(pingController.getClientMap().containsKey(nickname)) {
                 if(!pingController.getClientMap().get(nickname) &&
-                        pingController.getGameIdMap().get(nickname) == Integer.parseInt(commandMap.get("GAME_ID"))) {
+                        pingController.getGameIdMap().get(nickname) == Integer.parseInt(commandMap.get("GAMEID"))) {
                     //this client was already connected to an existing game and wants to reconnect
                     pingController.getClientMap().replace(nickname, true);
                     notifyReconnection(nickname, clientHandler.getGameId());
@@ -58,10 +58,8 @@ public class Server {
             }
 
             pingController.addToClientMap(nickname, clientHandler.getGameId());
-            Server.LOGGER.info(nickname + " added to the game " + commandMap.get("GAME_ID"));
-            //TODO: sends commandMap to CommandParser
-
-
+            Server.LOGGER.info(nickname + " added to the game " + commandMap.get("GAMEID"));
+            commandParser.parse(commandMap);
         } else {
             clientHandler.disconnect();
         }
@@ -84,10 +82,10 @@ public class Server {
      * @param commandMap the commandMap to be forwarded.
      */
     public void onCommandReceived(HashMap<String, String> commandMap) {
-        if(commandMap.get("COMMAND_TYPE").equals("PONG")) {
-            pingController.onPongReceived(commandMap.get("NICKNAME"), Integer.parseInt(commandMap.get("GAME_ID")));
+        if(commandMap.get("COMMAND").equals("PONG")) {
+            pingController.onPongReceived(commandMap.get("NICKNAME"), Integer.parseInt(commandMap.get("GAMEID")));
         } else {
-            //TODO: sends commandMap to CommandParser
+            commandParser.parse(commandMap);
         }
 
     }
@@ -168,8 +166,8 @@ public class Server {
         //notify the model
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", nickname);
-        commandMap.put("GAME_ID", String.valueOf(gameId));
-        commandMap.put("COMMAND_TYPE", "PLAYER_DOWN");
+        commandMap.put("GAMEID", String.valueOf(gameId));
+        commandMap.put("COMMAND", "PLAYER_DOWN");
         //TODO send commandMap to decoder
 
     }
@@ -187,7 +185,7 @@ public class Server {
         //notify the model
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", nickname);
-        commandMap.put("COMMAND_TYPE", "RECONNECT");
+        commandMap.put("COMMAND", "RECONNECT");
         //TODO send commandMap to decoder
     }
 

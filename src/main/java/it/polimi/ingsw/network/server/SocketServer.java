@@ -12,7 +12,6 @@ import java.util.Map;
 public class SocketServer implements Runnable {
     private final Server server;
     private final int port;
-    //TODO: add CommandParser
     ServerSocket serverSocket;
 
     /**
@@ -59,7 +58,7 @@ public class SocketServer implements Runnable {
      * @param nickname      the nickname of the new client
      * @param clientHandler the ClientHandler representing the new client
      */
-    public void addClient(String nickname, ClientHandler clientHandler, Map<String, String> commandMap) {
+    public void addClient(String nickname, ClientHandler clientHandler, HashMap<String, String> commandMap) {
         server.addClient(nickname, clientHandler, commandMap);
     }
 
