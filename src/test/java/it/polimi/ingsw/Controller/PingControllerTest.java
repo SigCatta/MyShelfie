@@ -23,11 +23,13 @@ class PingControllerTest {
     @BeforeEach
     void setUp() {
         commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", "testNickname");
-        commandMap.put("GAME_ID", "1");
+        commandMap.put("NICKNAME", "player1");
+        commandMap.put("GAMEID", "1");
         server = new Server(1000);
         socketServer = new SocketServer(server, 5000);
         testClientHandler = new SocketClientHandler(socketServer, new Socket());
+        testClientHandler.setGameId(1);
+        testClientHandler.setNickname("player1");
         server.addClient("player1", testClientHandler, commandMap);
         pingController = server.getPingController();
 
