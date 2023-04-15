@@ -20,12 +20,6 @@ public class ByeExecutor implements Executor {
 
         Game game = gamesManager.getGame(Integer.parseInt(gameId));
 
-        //TODO
-        /*
-
-
-
-         */
-        //TODO deactivate player
+        game.disconnectPlayer(nickname);
     }
 }
