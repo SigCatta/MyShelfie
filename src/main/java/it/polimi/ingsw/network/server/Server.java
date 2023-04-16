@@ -18,7 +18,7 @@ public class Server {
     /**
      * Every nickname must be used by one and only one players
      */
-    private final List<String> nicknameList;
+    private final Set<String> nicknameSet;
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     private final Object lock;
@@ -28,7 +28,7 @@ public class Server {
     private static Server server_instance = null;
 
     public Server(int pingTimeout) {
-        this.nicknameList = new ArrayList<>();
+        this.nicknameSet = Collections.synchronizedSet(new HashSet<>());
         this.commandParser = new CommandParser();
         this.clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
         this.lock = new Object();
@@ -50,8 +50,8 @@ public class Server {
         int gameId = Integer.parseInt(commandMap.get("GAMEID"));
         List<ClientHandler> clientHandlerList = clientHandlerMap.getOrDefault(String.valueOf(gameId), new ArrayList<>());
 
-        if (!nicknameList.contains(nickname)) {
-            nicknameList.add(nickname);
+        if (!nicknameSet.contains(nickname)) {
+            nicknameSet.add(nickname);
             clientHandlerList.add(clientHandler);
             clientHandlerMap.put(String.valueOf(gameId), clientHandlerList);
 
