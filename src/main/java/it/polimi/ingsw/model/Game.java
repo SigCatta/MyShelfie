@@ -103,6 +103,8 @@ public class Game {
         }
 
         players.add(player);
+
+        //TODO send message "connected successfully"
         return true;
     }
 

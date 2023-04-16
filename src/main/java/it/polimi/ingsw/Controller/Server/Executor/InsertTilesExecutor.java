@@ -25,15 +25,12 @@ public class InsertTilesExecutor implements Executor {
 
         TilesGetter tilesGetter = new TilesGetter(game);
 
+        //to insert tiles the player must be the activePlayer of his game
         Player activePlayer = game.getActivePlayer();
         if (!data.get("NICKNAME").equals(activePlayer.getNickname())) return;
 
-        List<ItemTile> tiles = tilesGetter.getTilesToBeInserted();
         int column = Integer.parseInt(data.get("COLUMN"));
         int tileIndex = Integer.parseInt(data.get("TILE_INDEX"));
-        if(tileIndex > tiles.size() || tileIndex < 0) {
-            //TODO send the message "invalid position"
-        }
 
         tilesGetter.sendTilesToShelf(tileIndex, column);
     }
