@@ -15,6 +15,8 @@ public class SendPlayersScore extends ServerMappable{
 
         HashMap<String, String> map = new HashMap<>();
 
+        map.put("COMMAND", "SEND_PLAYER_SCORE");
+
         for(Object objPlayer : list){
             Player player = (Player) objPlayer;
             map.put(player.getNickname(), String.valueOf(player.getScore()));

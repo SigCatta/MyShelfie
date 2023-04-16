@@ -19,7 +19,7 @@ public class ServerTest {
     private static Server server;
     private static SocketServer socketServer;
     private static ClientHandler testClientHandler;
-    private Map<String, String> commandMap;
+    private HashMap<String, String> commandMap;
 
     @BeforeEach
     void setUp() {

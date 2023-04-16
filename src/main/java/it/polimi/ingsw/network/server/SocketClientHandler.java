@@ -66,12 +66,12 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                     HashMap<String, String> commandMap = (HashMap<String, String>) input.readObject();
 
                     if (commandMap != null ) {
-                        if (commandMap.get("COMMAND_TYPE").equals("CAN_I_PLAY") || commandMap.get("COMMAND_TYPE").equals("NEW_GAME")) {
+                        if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
                             this.nickname = commandMap.get("NICKNAME");
-                            this.gameId = Integer.parseInt(commandMap.get("GAME_ID"));
+                            this.gameId = Integer.parseInt(commandMap.get("GAMEID"));
                             socketServer.addClient(this.nickname, this, commandMap);
                         } else {
-                            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND_TYPE"));
+                            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));
                             socketServer.onCommandReceived(commandMap);
                         }
                     }
@@ -129,8 +129,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             synchronized (outputLock) {
                 output.writeObject(commandMap);
                 output.reset();
-                Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND_TYPE = " + commandMap.get("COMMAND_TYPE") +
-                        " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAME_ID"));;
+                Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
+                        " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));;
             }
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
@@ -145,8 +145,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void sendPing() {
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", "SERVER");
-        commandMap.put("GAME_ID", String.valueOf(getGameId()));
-        commandMap.put("COMMAND_TYPE", "PING");
+        commandMap.put("GAMEID", String.valueOf(getGameId()));
+        commandMap.put("COMMAND", "PING");
 
         sendCommand(commandMap);
     }
@@ -162,17 +162,17 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void sendConnectionMessage(String nickname, int gameID, boolean reconnection, boolean connectionLost) {
         HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("NICKNAME", nickname);
-        commandMap.put("GAME_ID", String.valueOf(gameID));
+        commandMap.put("GAMEID", String.valueOf(gameID));
 
         if(reconnection) {
-            commandMap.put("COMMAND_TYPE", "RECONNECT");
+            commandMap.put("COMMAND", "PLAYER_RECONNECTED");
             commandMap.put("COMMAND_DATA", nickname + " is back online :)");
         } else {
             if(connectionLost) {
-                commandMap.put("COMMAND_TYPE", "PLAYER_DOWN");
+                commandMap.put("COMMAND", "PLAYER_DOWN");
                 commandMap.put("COMMAND_DATA", "We've lost conection from " + nickname + " :(");
             } else {
-                commandMap.put("COMMAND_TYPE", "BYE");
+                commandMap.put("COMMAND", "BYE");
                 commandMap.put("COMMAND_DATA", nickname + " has disconnected from the game.");
             }
         }

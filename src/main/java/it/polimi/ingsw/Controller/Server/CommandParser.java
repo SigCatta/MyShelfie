@@ -20,7 +20,7 @@ public class CommandParser {
     }
 
     /**
-     * calls the right executor based on the string with the "instruction" key
+     * calls the right executor based on the string with the "COMMAND" key
      * @param data object received from the network
      */
     public void parse(HashMap<String, String> data){
