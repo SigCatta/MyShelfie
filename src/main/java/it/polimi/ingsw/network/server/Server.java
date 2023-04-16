@@ -72,8 +72,17 @@ public class Server {
             Server.LOGGER.info(nickname + " added to the game " + commandMap.get("GAMEID"));
             commandParser.parse(commandMap);
         } else {
-            //nickname already taken
+            //nickname already
+            notifyNicknameAlreadyTaken(clientHandler);
         }
+    }
+
+    private void notifyNicknameAlreadyTaken(ClientHandler clientHandler) {
+        HashMap<String, String> commandMap = new HashMap<>();
+        commandMap.put("NICKNAME", clientHandler.getNickname());
+        commandMap.put("GAMEID", String.valueOf(clientHandler.gameId));
+        commandMap.put("COMMAND", "NICKNAME_TAKEN");
+        clientHandler.sendCommand(commandMap);
     }
 
     /**
