@@ -30,8 +30,8 @@ public class GamesManager {
      * Adds a game to the map
      * @return the id of the game
      */
-    public int addGame(){
-        Game newGame = new Game(4);
+    public int addGame(int numberOfPlayers){
+        Game newGame = new Game(numberOfPlayers);
 
         int gameID = createID();
         newGame.setGameID(gameID);

@@ -21,6 +21,8 @@ public class PickupTilesExecutor implements Executor {
     @Override
     public void execute(HashMap<String, String> data) {
         Game game =  gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
+
         TilesGetter tilesGetter = new TilesGetter(game);
 
 

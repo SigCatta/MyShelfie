@@ -20,6 +20,8 @@ public class CanIPlayExecutor implements Executor {
     public void execute(HashMap<String, String> data) {
         Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
 
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
+
         ArrayList<Player> players = game.getPlayers();
         String nickname = data.get("NICKNAME");
 

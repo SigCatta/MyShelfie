@@ -13,7 +13,7 @@ public class GamesManagerTest {
     @Test
     public void isSingleton(){
         GamesManager a = GamesManager.getInstance();
-        int id = a.addGame();
+        int id = a.addGame(99);
         GamesManager b = GamesManager.getInstance();
 
         Assertions.assertNotNull(b.getGame(id));
@@ -25,7 +25,7 @@ public class GamesManagerTest {
         Set<Integer> idSet = new HashSet<>();
 
         for(int i = 0; i < 1000; i++){
-            int id = gamesManager.addGame();
+            int id = gamesManager.addGame(99);
             Assertions.assertFalse(idSet.contains(id));
             idSet.add(id);
         }
