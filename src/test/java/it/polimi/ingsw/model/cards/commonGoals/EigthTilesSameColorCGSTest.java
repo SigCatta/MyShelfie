@@ -5,38 +5,43 @@ import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class EigthTilesSameColorCGSTest {
     @Test
-    public void testHasAtLeastEightCellsOfSameColor() {
-        EightTilesSameColorCGS cg = new EightTilesSameColorCGS();
-        ItemTile[][] matrix = new ItemTile[][]{
+    public void isGoalAchieved() {
+        EightTilesSameColorCGS cg1 = new EightTilesSameColorCGS();
+        EightTilesSameColorCGS cg2 = new EightTilesSameColorCGS();
+        EightTilesSameColorCGS cg3 = new EightTilesSameColorCGS();
+
+        ItemTile[][] matrix1 = new ItemTile[][]{
                 {null, null, null, null},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK)},
                 {null, new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.GREEN)},
                 {null, null, null, null}
         };
-        Shelf shelf = new Shelf(matrix);
-        assertFalse(cg.isGoalAchieved(shelf));
+        Shelf shelf1 = new Shelf(matrix1);
 
-        matrix = new ItemTile[][]{
+        ItemTile[][] matrix2 = new ItemTile[][]{
                 {null, null, null, null},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
                 {null, new ItemTile(Color.BLUE), new ItemTile(Color.PINK), new ItemTile(Color.GREEN)},
                 {null, null, null, null}
         };
-        shelf = new Shelf(matrix);
-        assertFalse(cg.isGoalAchieved(shelf));
+        Shelf shelf2 = new Shelf(matrix2);
 
-        matrix = new ItemTile[][]{
+        ItemTile[][] matrix3 = new ItemTile[][]{
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), null, null}
         };
-        shelf = new Shelf(matrix);
-        assertTrue(cg.isGoalAchieved(shelf));
+        Shelf shelf3 = new Shelf(matrix3);
+
+        boolean[] results = {cg1.isGoalAchieved(shelf1),cg2.isGoalAchieved(shelf2),cg3.isGoalAchieved(shelf3)};
+        boolean[] expecteds = {false,false,true};
+        assertArrayEquals(expecteds,results);
+
     }
 }
+

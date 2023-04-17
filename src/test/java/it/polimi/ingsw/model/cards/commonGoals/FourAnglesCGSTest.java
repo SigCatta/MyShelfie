@@ -12,7 +12,7 @@ public class FourAnglesCGSTest {
     private FourAnglesCGS cg;
 
     @Test
-    public void checkColorTest() {
+    public void checkColor() {
         cg = new FourAnglesCGS();
         ItemTile tile = new ItemTile(Color.BLUE);
         assertTrue(cg.checkColor(Color.BLUE, tile));
@@ -21,7 +21,7 @@ public class FourAnglesCGSTest {
     }
 
     @Test
-    public void hasEdgesWithSameColTest() {
+    public void isGoalAchieved() {
         cg = new FourAnglesCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
@@ -47,3 +47,4 @@ public class FourAnglesCGSTest {
     }
 
 }
+
