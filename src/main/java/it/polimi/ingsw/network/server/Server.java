@@ -236,4 +236,16 @@ public class Server {
     public Map<String, List<ClientHandler>> getClientHandlerMap() {
         return clientHandlerMap;
     }
+
+    public void sendCommandTo(int gameId, HashMap<String, String> commandMap) {
+        List<ClientHandler> clientHandlerList = clientHandlerMap.get(String.valueOf(gameId));
+
+        for(ClientHandler c : clientHandlerList) {
+            c.sendCommand(commandMap);
+        }
+    }
+
+    public void sendCommandTo(int gameId, String nickname, HashMap<String, String> commandMap) {
+        getClientHandler(nickname, gameId).sendCommand(commandMap);
+    }
 }
