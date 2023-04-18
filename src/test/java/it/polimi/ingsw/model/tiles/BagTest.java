@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class BagTest {
     private Bag bag;
 
@@ -74,5 +77,24 @@ public class BagTest {
 
     }
 
+
+    @Test
+    void drawTooManyItemTiles() {
+        ArrayList<ItemTile> itemTiles = new ArrayList<>();
+        for (int i = 0; i < 200; i++){
+            itemTiles.add(bag.drawTile());
+        }
+
+        Assertions.assertEquals(200, itemTiles.size());
+
+        int numberOfAddedTiles = 0;
+        for(ItemTile itemTile : itemTiles){
+            if(itemTile == null)continue;
+            numberOfAddedTiles++;
+        }
+
+        assertEquals(132, numberOfAddedTiles);
+
+    }
 
 }
