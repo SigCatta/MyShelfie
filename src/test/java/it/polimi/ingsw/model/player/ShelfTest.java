@@ -1,10 +1,5 @@
 package it.polimi.ingsw.model.player;
 
-
-import exceptions.FullColumnException;
-import exceptions.NullItemTileException;
-import exceptions.NullPlayersException;
-import exceptions.TooManyTilesException;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +22,7 @@ public class ShelfTest {
         COLUMNS = testShelf.getCOLUMNS();
     }
     @Test
-    public void inizializationTest() {
+    public void initializationTest() {
         ItemTile[][] shelfGrid = testShelf.getShelfGrid();
 
         for (int i = 0; i < ROWS; i++) {
@@ -50,7 +45,7 @@ public class ShelfTest {
     public void testGetTileAtLocation()  {
         // Test getting tile from empty location
         Point emptyLocation = new Point(3,3);
-        assertEquals(null,testShelf.getTileAtLocation(emptyLocation) );
+        assertNull(testShelf.getTileAtLocation(emptyLocation));
 
 
         // Test getting tile from non-empty location
@@ -98,7 +93,7 @@ public class ShelfTest {
     }
 
     @Test
-    public void testInsertTilesFullColumn() throws NullItemTileException {
+    public void testInsertTilesFullColumn() {
         // Fill column 0 of the shelf grid
         for (int i = 0; i < testShelf.getROWS(); i++) {
             ItemTile tile = new ItemTile(Color.PINK);
@@ -111,7 +106,7 @@ public class ShelfTest {
     }
 
     @Test
-    public void testInsertTiles() throws NullItemTileException, FullColumnException, TooManyTilesException, NullPlayersException {
+    public void testInsertTiles() {
         // Insert tiles and verify that they were inserted correctly
         assertTrue(testShelf.insertTile(new ItemTile(Color.YELLOW), 1));
         assertTrue(testShelf.insertTile(new ItemTile(Color.BLUE), 1));
