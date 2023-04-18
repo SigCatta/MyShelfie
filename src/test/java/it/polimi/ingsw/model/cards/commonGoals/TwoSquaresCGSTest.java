@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TwoSquaresCGSTest {
     @Test
-    public void testHasTwoGroupsOfFour() {
+    public void isGoalAchievedTest() {
         TwoSquaresCGS cg = new TwoSquaresCGS();
         ItemTile[][] mat1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},

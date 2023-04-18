@@ -21,8 +21,6 @@ public class Server {
     private final Set<String> nicknameSet;
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-    private final Object lock;
-
     PingController pingController;
 
     private static Server server_instance = null;
@@ -31,7 +29,6 @@ public class Server {
         this.nicknameSet = Collections.synchronizedSet(new HashSet<>());
         this.commandParser = new CommandParser();
         this.clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
-        this.lock = new Object();
         this.pingController = new PingController(this, pingTimeout);
         server_instance = this;
     }
@@ -72,18 +69,11 @@ public class Server {
             Server.LOGGER.info(nickname + " added to the game " + commandMap.get("GAMEID"));
             commandParser.parse(commandMap);
         } else {
-            //nickname already
-            notifyNicknameAlreadyTaken(clientHandler);
+            //nickname already taken
+            clientHandler.notifyNicknameAlreadyTaken();
         }
     }
 
-    private void notifyNicknameAlreadyTaken(ClientHandler clientHandler) {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", clientHandler.getNickname());
-        commandMap.put("GAMEID", String.valueOf(clientHandler.gameId));
-        commandMap.put("COMMAND", "NICKNAME_TAKEN");
-        clientHandler.sendCommand(commandMap);
-    }
 
     /**
      * Removes a client given his nickname.
@@ -120,7 +110,7 @@ public class Server {
         int gameIdToCheck = clientHandler.getGameId();
 
         if (nickname != null) {
-            synchronized (lock) {
+            synchronized (clientHandlerMap) {
                 removeClient(clientHandler);
                 broadcastConnectionMessage(nickname, gameIdToCheck, false, false);
 
@@ -147,7 +137,7 @@ public class Server {
      *                       false if the client has been disconnected from the game
      */
     private void broadcastConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost) {
-        synchronized (lock) {
+        synchronized (clientHandlerMap) {
             for (ClientHandler clientHandler: clientHandlerMap.get(String.valueOf(gameId))) {
                     clientHandler.sendConnectionMessage(nickname, gameId, reconnection, connectionLost);
             }

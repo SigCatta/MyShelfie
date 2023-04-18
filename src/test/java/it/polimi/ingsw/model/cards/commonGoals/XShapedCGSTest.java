@@ -10,7 +10,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class XShapedCGSTest {
     @Test
-    public void testHasFiveCellsFormingX() {
+    public void isGoalAchievedTest() {
         XShapedCGS cg = new XShapedCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},

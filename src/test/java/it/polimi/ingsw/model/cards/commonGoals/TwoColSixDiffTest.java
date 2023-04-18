@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TwoColSixDiffTest {
     @Test
-    public void testHasTwoColumnsOfSixDifferentColors() {
+    public void isGoalAchievedTest() {
         TwoColSixDiff cg = new TwoColSixDiff();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN)},
