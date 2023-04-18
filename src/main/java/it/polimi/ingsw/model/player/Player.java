@@ -2,9 +2,6 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
-import it.polimi.ingsw.model.tiles.ItemTile;
-
-import java.util.List;
 
 /**
  * Represents a player in the game.

@@ -133,10 +133,4 @@ public class TilesGetter {
         return positionsAlreadySelected;
     }
 
-    /**
-     * @return the column of the personal Shelf which was chosen by the activePlayer to insert the tiles they picked up from the board
-     */
-    public int getChosenColumn() {
-        return chosenColumn;
-    }
 }
