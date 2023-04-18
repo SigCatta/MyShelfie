@@ -59,7 +59,7 @@ public class PingController {
                     synchronized (clientMap) {
                         if (clientMap.get(nickname)) {
                             // send PING message only if the corresponding PONG has been received
-                            server.sendPingTo(nickname);
+                            server.sendPingTo(nickname, gameIdMap.get(nickname));
                             Server.LOGGER.info("PING sent to "+ nickname);
                             clientMap.replace(nickname, false);
                         } else {
@@ -81,7 +81,7 @@ public class PingController {
      */
     public void onPongReceived(String nickname, int gameId) {
         clientMap.replace(nickname, true);
-        if(!server.isConnected(nickname)) {
+        if(!server.isConnected(nickname, gameId)) {
             server.notifyReconnection(nickname, gameId);
         }
     }

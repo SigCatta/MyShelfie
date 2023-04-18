@@ -82,6 +82,8 @@ public class SocketClient extends Client {
     public void sendCommand(HashMap<String, String> commandMap) {
         if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
             setGameId(Integer.parseInt(commandMap.get("GAMEID")));
+
+            //TODO: new Timer(10)
         }
         try {
             outputStm.writeObject(commandMap);

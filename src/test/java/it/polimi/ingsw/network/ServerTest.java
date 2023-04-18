@@ -26,41 +26,37 @@ public class ServerTest {
         server = new Server(5000);
         socketServer = new SocketServer(server, 5000);
         testClientHandler = new SocketClientHandler(socketServer, new Socket());
+        testClientHandler.setGameId(1);
+        testClientHandler.setNickname("testNickname");
         commandMap = new HashMap<>();
         commandMap.put("NICKNAME", "testNickname");
-        commandMap.put("GAME_ID", "1");
+        commandMap.put("GAMEID", "1");
     }
 
     @Test
     public void addClientTest() {
         assertFalse(server.getClientHandlerMap().containsKey("testNickname"));
         server.addClient("testNickname", testClientHandler, commandMap);
-        assertTrue(server.getClientHandlerMap().containsKey("testNickname"));
-
-        ClientHandler testClientHandler1 = new SocketClientHandler(socketServer, new Socket());
-        server.addClient("testNickname", testClientHandler1, commandMap);
-        assertFalse(testClientHandler1.isConnected());
+        assertTrue(server.getClientHandlerMap().containsKey("1"));
+        assertTrue(server.getClientHandlerMap().get("1").contains(testClientHandler));
+        assertEquals(server.getClientHandler("testNickname", 1), testClientHandler);
     }
 
     @Test
     public void removeClientTest() {
         server.addClient("testNickname", testClientHandler, commandMap);
-        assertTrue(server.getClientHandlerMap().containsKey("testNickname"));
+        assertTrue(server.getClientHandlerMap().containsKey("1"));
         assertTrue(server.getPingController().getClientMap().get("testNickname"));
 
-        server.removeClient("testNickname");
-        assertFalse(server.getClientHandlerMap().containsKey("testNickname"));
+        server.removeClient(testClientHandler);
+        assertNull(server.getClientHandler("testNickname", 1));
         assertFalse(server.getPingController().getClientMap().get("testNickname"));
     }
 
     // TODO: Implement onCommandReceived tests when CommandParser is implemented
 
 
-    @Test
-    void getNicknameFromClientHandler() {
-        server.addClient("test", testClientHandler, commandMap);
-        assertEquals("test", server.getNicknameFromClientHandler(testClientHandler));
-    }
+
 
     @Test
     void getPingController() {

@@ -21,6 +21,10 @@ public abstract class ClientHandler {
         return nickname;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     /**
      * Returns the connection status.
      *
