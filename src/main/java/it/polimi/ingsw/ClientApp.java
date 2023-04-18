@@ -32,7 +32,7 @@ public class ClientApp {
             client.readCommand(); // Starts an asynchronous reading from the server.
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("errore");
+            System.out.println("error");
             //TODO
             return;
         }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
@@ -103,6 +102,8 @@ public class Game {
         }
 
         players.add(player);
+
+        //TODO send message "connected successfully"
         return true;
     }
 
@@ -151,7 +152,7 @@ public class Game {
             //TODO send PLAYER_DOWN message
         } else {
             player.setConnected(false);
-            //TODO send PLAYER_DWON message
+            //TODO send PLAYER_DOWN message
         }
         //TODO start timeout if there is only one player connected
     }

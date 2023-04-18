@@ -51,7 +51,7 @@ public abstract class ClientHandler {
      * @param nickname       the nickname of the client that has disconnected or reconnected to the game
      * @param reconnection true if the client has reconnected to the game
      * @param connectionLost true if the client hasn't responded to the PING sent by the server,
-     *                       false if the client has requested to be disconnect
+     *                       false if the client has requested to be disconnected
      */
     public abstract void sendConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost);
 }

@@ -2,9 +2,6 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
-import it.polimi.ingsw.model.tiles.ItemTile;
-
-import java.util.List;
 
 /**
  * Represents a player in the game.
@@ -35,11 +32,6 @@ public class Player {
      */
     private int score;
 
-    /**
-     * The list of item tiles held by the player.
-     */
-    private List<ItemTile> heldTiles;
-
     public Player(String nickname) {
         this.nickname = nickname;
         this.shelf = new Shelf();
@@ -69,20 +61,6 @@ public class Player {
      */
     public Shelf getShelf() {
         return shelf;
-    }
-
-    /**
-     * @return the held tiles of the player
-     */
-    public List<ItemTile> getHeldTiles() {
-        return heldTiles;
-    }
-
-    /**
-     * @param heldTiles the new held tiles of the player
-     */
-    public void setHeldTiles(List<ItemTile> heldTiles) {
-        this.heldTiles = heldTiles;
     }
 
     /**

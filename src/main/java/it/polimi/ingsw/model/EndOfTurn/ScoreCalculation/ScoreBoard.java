@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
-import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;

@@ -15,10 +15,13 @@ public class ByeExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-        String nickname = data.get("NICKNAME");
+
         String gameId = data.get("GAMEID");
 
         Game game = gamesManager.getGame(Integer.parseInt(gameId));
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
+
+        String nickname = data.get("NICKNAME");
 
         game.disconnectPlayer(nickname);
     }

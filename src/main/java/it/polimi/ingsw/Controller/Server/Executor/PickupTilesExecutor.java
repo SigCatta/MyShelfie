@@ -21,6 +21,8 @@ public class PickupTilesExecutor implements Executor {
     @Override
     public void execute(HashMap<String, String> data) {
         Game game =  gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
+
         TilesGetter tilesGetter = new TilesGetter(game);
 
 
@@ -36,10 +38,6 @@ public class PickupTilesExecutor implements Executor {
             point++;
         }
 
-        if (tilesGetter.pickUpTiles(tileLocations)) {
-            //TODO change state and allow the player to insert tiles in the shelf
-        } else {
-            //TODO send the message "invalid pickup"
-        }
+        tilesGetter.pickUpTiles(tileLocations);
     }
 }

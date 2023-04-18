@@ -130,7 +130,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 output.writeObject(commandMap);
                 output.reset();
                 Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
-                        " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));;
+                        " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
             }
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
@@ -170,7 +170,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         } else {
             if(connectionLost) {
                 commandMap.put("COMMAND", "PLAYER_DOWN");
-                commandMap.put("COMMAND_DATA", "We've lost conection from " + nickname + " :(");
+                commandMap.put("COMMAND_DATA", "We've lost connection from " + nickname + " :(");
             } else {
                 commandMap.put("COMMAND", "BYE");
                 commandMap.put("COMMAND_DATA", nickname + " has disconnected from the game.");

@@ -101,26 +101,27 @@ public class TilesGetter {
         if(tileIndex >= positionsAlreadySelected.size() || tileIndex < 0) return false;
 
         //check if the number of tiles to insert fit in the chosen column
-        if(this.chosenColumn == null && !enoughFreeCellsInCol(column)) return false;
+        if(this.chosenColumn == null && !enoughFreeCellsInCol(column)) return false;//TODO send message
 
 
         //here the chosen column is definitive
         if(this.chosenColumn == null) this.chosenColumn = column;
 
         //check if the player chosen column is the right one and if the tile selected was not selected before
-        if(column != this.chosenColumn || positionsAlreadySelected.get(tileIndex)) return false;
+        if(column != this.chosenColumn || positionsAlreadySelected.get(tileIndex)) return false;//TODO send message
 
         ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
-        if(!activePlayer.getShelf().insertTile(tileToInsert, column)) return false; //should not reach
+        if(!activePlayer.getShelf().insertTile(tileToInsert, column)) return false; //should not reach TODO send error
 
         positionsAlreadySelected.set(tileIndex, true);
 
-        //there are no more tiles to be inserted because the positions are all selected
+        //there are no more tiles to be inserted because the positions are all selected (true)
         if(positionsAlreadySelected.stream().allMatch(val -> val)){
             game.getTurnHandler().changeTurn();
             game.setGameState(new PickUpTilesState());
         }
 
+        //TODO update the virtual view
         return true;
     }
 
@@ -132,10 +133,4 @@ public class TilesGetter {
         return positionsAlreadySelected;
     }
 
-    /**
-     * @return the column of the personal Shelf which was chosen by the activePlayer to insert the tiles they picked up from the board
-     */
-    public int getChosenColumn() {
-        return chosenColumn;
-    }
 }

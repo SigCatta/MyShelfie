@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import exceptions.TooManyCardsRequestedException;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;

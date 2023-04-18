@@ -15,12 +15,13 @@ public class ChatExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-        String nickname = data.get("NICKNAME");
         String gameId = data.get("GAMEID");
+        Game game = gamesManager.getGame(Integer.parseInt(gameId));
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
 
+        String nickname = data.get("NICKNAME");
         String message = data.get("MESSAGE");
 
-        Game game = gamesManager.getGame(Integer.parseInt(gameId));
 
         //TODO call the method to push the message in the chat
 

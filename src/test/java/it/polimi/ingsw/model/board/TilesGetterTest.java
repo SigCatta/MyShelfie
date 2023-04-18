@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.board;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
-import exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;

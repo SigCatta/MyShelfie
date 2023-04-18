@@ -19,23 +19,13 @@ public class CanIPlayExecutor implements Executor {
     @Override
     public void execute(HashMap<String, String> data) {
         Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
+        if(game == null) return;
+
+        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
 
         ArrayList<Player> players = game.getPlayers();
         String nickname = data.get("NICKNAME");
 
-        if (game.getMAX_PLAYER_NUMBER() <= players.size()) {
-            // TODO send message "the game is full"
-            return;
-        }
-
-        for (Player p : players) {
-            if (p.getNickname().equals(nickname)) {
-                //TODO send message "already connected"
-                return;
-            }
-        }
-
-        game.getPlayers().add(new Player(nickname)); // TODO set the players nickname
-        //TODO send message "connections successful"
+        game.addPlayer(new Player(nickname));
     }
 }
