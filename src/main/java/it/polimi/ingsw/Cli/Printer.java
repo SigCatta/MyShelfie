@@ -16,6 +16,15 @@ public class Printer {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
 
+
+    public static void printMyShelfie() {
+        System.out.println( "M   M    Y     Y      SSSSS    H   H    EEEE    L         FFFFFF   III  EEEE\n" +
+                            "MM MM     Y   Y      S         H   H    E       L         F         I   E   \n" +
+                            "M M M      Y Y        SSSSS    HHHHH    EEEE    L         FFFFF     I   EEEE\n" +
+                            "M   M       Y              S   H   H    E       L         F         I   E   \n" +
+                            "M   M       Y         SSSSS    H   H    EEEE    LLLLLL    F        III  EEEE\n");
+    }
+
     public static void printColorMatrix(ItemTile[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             System.out.print(ANSI_RED + "|" + ANSI_RESET);
