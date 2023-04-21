@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GamesManager;
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.model.player.Player;
 
 import java.util.ArrayList;

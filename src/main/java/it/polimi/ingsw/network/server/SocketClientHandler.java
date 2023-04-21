@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.HashMap;
 
 /**
- * Socket implementation of the ClientHandler interface.
+ * One instance for each client in a Thread, useful to direct traffic
  */
 public class SocketClientHandler extends ClientHandler implements Runnable {
     private final Socket client;
@@ -62,19 +62,18 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                synchronized (inputLock) {
-                    HashMap<String, String> commandMap = (HashMap<String, String>) input.readObject();
+                HashMap<String, String> commandMap = (HashMap<String, String>) input.readObject();
 
-                    if (commandMap != null ) {
-                        if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
-                            this.nickname = commandMap.get("NICKNAME");
-                            this.gameId = Integer.parseInt(commandMap.get("GAMEID"));
-                            socketServer.addClient(this.nickname, this, commandMap);
-                        } else {
-                            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));
-                            socketServer.onCommandReceived(commandMap);
-                        }
-                    }
+                if (commandMap == null ) continue;
+
+                if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
+                    this.nickname = commandMap.get("NICKNAME");
+                    //TODO the client does not have the gameid when creating a new game
+                    this.gameId = Integer.parseInt(commandMap.get("GAMEID"));
+                    socketServer.addClient(this.nickname, this, commandMap);
+                } else {
+                    Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));
+                    socketServer.onCommandReceived(commandMap);
                 }
             }
         } catch (ClassCastException | ClassNotFoundException e) {
@@ -103,19 +102,20 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
      */
     @Override
     public void disconnect() {
-        if (connected) {
-            try {
-                if (!client.isClosed()) {
-                    client.close();
-                }
-            } catch (IOException e) {
-                Server.LOGGER.severe(e.getMessage());
-            }
-            connected = false;
-            Thread.currentThread().interrupt();
+        if (!connected) return;
 
-            socketServer.onDisconnect(this);
+        try {
+            if (!client.isClosed()) {
+                client.close();
+            }
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
         }
+        connected = false;
+        Thread.currentThread().interrupt();
+
+        socketServer.onDisconnect(this);
+
     }
 
     /**

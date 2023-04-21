@@ -16,7 +16,7 @@ public class Server {
      */
     private final Map<String, List<ClientHandler>> clientHandlerMap;
     /**
-     * Every nickname must be used by one and only one players
+     * Every nickname must be used by one and only one player
      */
     private final Set<String> nicknameSet;
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
@@ -90,7 +90,7 @@ public class Server {
      *
      * @param clientHandler  the nickname of the client to be removed
      */
-    public void removeClient(ClientHandler clientHandler) {
+    public synchronized void removeClient(ClientHandler clientHandler) {
         clientHandlerMap.get(String.valueOf(clientHandler.getGameId())).remove(clientHandler);
         pingController.getClientMap().replace(clientHandler.getNickname(), false);
         LOGGER.info(() -> "Removed " + clientHandler.getNickname() + " from the client list.");
@@ -119,23 +119,22 @@ public class Server {
         String nickname = clientHandler.getNickname();
         int gameIdToCheck = clientHandler.getGameId();
 
-        if (nickname != null) {
-            synchronized (lock) {
-                removeClient(clientHandler);
-                broadcastConnectionMessage(nickname, gameIdToCheck, false, false);
+        if (nickname == null) return;
 
-                if(clientHandlerMap.get(String.valueOf(gameIdToCheck)).size()==0) {
-                    //the game with gameId==gameIdToCheck must end
-                    clientHandlerMap.remove(String.valueOf(gameIdToCheck));
-                    for(Map.Entry<String, Integer> entry: pingController.getGameIdMap().entrySet()) {
-                        if(gameIdToCheck == entry.getValue()) {
-                            pingController.removeFromClientMap(entry.getKey());
-                        }
-                    }
-                    //TODO : end the game
-                }
+        removeClient(clientHandler);
+        broadcastConnectionMessage(nickname, gameIdToCheck, false, false);
+
+        if(clientHandlerMap.get(String.valueOf(gameIdToCheck)).size()!=0) return;
+
+        //the game with gameId==gameIdToCheck must end
+        clientHandlerMap.remove(String.valueOf(gameIdToCheck));
+        for(Map.Entry<String, Integer> entry: pingController.getGameIdMap().entrySet()) {
+            if(gameIdToCheck == entry.getValue()) {
+                pingController.removeFromClientMap(entry.getKey());
             }
         }
+        //TODO : end the game
+
     }
 
     /**
@@ -146,11 +145,9 @@ public class Server {
      * @param connectionLost true if the client hasn't responded to a PING message
      *                       false if the client has been disconnected from the game
      */
-    private void broadcastConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost) {
-        synchronized (lock) {
-            for (ClientHandler clientHandler: clientHandlerMap.get(String.valueOf(gameId))) {
-                    clientHandler.sendConnectionMessage(nickname, gameId, reconnection, connectionLost);
-            }
+    private synchronized void broadcastConnectionMessage(String nickname, int gameId, boolean reconnection, boolean connectionLost) {
+        for (ClientHandler clientHandler: clientHandlerMap.get(String.valueOf(gameId))) {
+                clientHandler.sendConnectionMessage(nickname, gameId, reconnection, connectionLost);
         }
     }
 
