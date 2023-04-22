@@ -21,7 +21,7 @@ public class FourAnglesCGSTest {
     }
 
     @Test
-    public void hasEdgesWithSameColTest() {
+    public void isGoalAchievedTest() {
         cg = new FourAnglesCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},

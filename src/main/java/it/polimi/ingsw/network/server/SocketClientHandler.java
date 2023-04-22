@@ -151,6 +151,14 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         sendCommand(commandMap);
     }
 
+    public void notifyNicknameAlreadyTaken() {
+        HashMap<String, String> commandMap = new HashMap<>();
+        commandMap.put("NICKNAME", this.getNickname());
+        commandMap.put("GAMEID", String.valueOf(this.gameId));
+        commandMap.put("COMMAND", "NICKNAME_TAKEN");
+        this.sendCommand(commandMap);
+    }
+
     /**
      * sends the message regarding the disconnection or reconnection of a client.
      *

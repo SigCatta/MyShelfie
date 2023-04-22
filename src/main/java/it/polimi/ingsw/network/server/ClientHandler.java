@@ -52,6 +52,11 @@ public abstract class ClientHandler {
     public abstract void sendPing();
 
     /**
+     * The serverSocket sends a message to the client notifying that the nickname they chose is already being used
+     */
+    public void notifyNicknameAlreadyTaken() {};
+
+    /**
      * @param nickname       the nickname of the client that has disconnected or reconnected to the game
      * @param reconnection true if the client has reconnected to the game
      * @param connectionLost true if the client hasn't responded to the PING sent by the server,

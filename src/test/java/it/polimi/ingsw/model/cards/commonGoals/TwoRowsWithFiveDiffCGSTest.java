@@ -11,7 +11,7 @@ import static junit.framework.TestCase.assertTrue;
 public class TwoRowsWithFiveDiffCGSTest {
 
     @Test
-    public void testCheckColorMatrix() {
+    public void isGoalAchievedTest() {
         TwoRowsWithFiveDiffCGS cg = new TwoRowsWithFiveDiffCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},

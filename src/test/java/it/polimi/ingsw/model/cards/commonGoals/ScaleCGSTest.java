@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ScaleCGSTest {
     @Test
-    public void testHasFiveColumnsOfIncreasingHeight() {
+    public void hasIncreasingColumnsTest() {
         ScaleCGS cg = new ScaleCGS();
         ItemTile[][] matrix1 = {
                 {null, null, null, null, null},

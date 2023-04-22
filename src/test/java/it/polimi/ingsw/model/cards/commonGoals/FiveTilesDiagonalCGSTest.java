@@ -17,7 +17,7 @@ public class FiveTilesDiagonalCGSTest {
     }
 
     @Test
-    public void testDiagonal1() {
+    public void isGoalAchievedTest() {
         FiveTilesDiagonalCGS cg = new FiveTilesDiagonalCGS();
         ItemTile[][] mat1 = {
                 {null, null, null, null, null, null},
