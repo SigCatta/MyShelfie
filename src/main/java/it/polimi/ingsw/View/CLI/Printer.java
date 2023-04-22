@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Cli;
+package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;

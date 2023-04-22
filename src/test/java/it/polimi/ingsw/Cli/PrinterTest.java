@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Cli;
 
-import it.polimi.ingsw.model.cards.commonGoals.FourAnglesCGS;
+import it.polimi.ingsw.View.CLI.Printer;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
