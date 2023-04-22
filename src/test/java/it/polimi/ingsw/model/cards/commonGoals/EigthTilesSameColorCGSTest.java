@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class EigthTilesSameColorCGSTest {
     @Test
-    public void testHasAtLeastEightCellsOfSameColor() {
+    public void isGoalAchieved() {
         EightTilesSameColorCGS cg = new EightTilesSameColorCGS();
         ItemTile[][] matrix = new ItemTile[][]{
                 {null, null, null, null},

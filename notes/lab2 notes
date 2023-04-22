@@ -27,9 +27,21 @@ view
 design pattern per generare gerarchie per eventi custom: decorator e strategy
 per gestire gerarchia eventi --> visitor patttern
 
-
-
 + game con una board ciascuno
 +
 in base a num giocatori board2 o board3 o board4
+
+
+
+
+collegare game a virtual view --> observable observer
+
+quando model/sottocomponente model cambiato notifyObservers (4 virtual view dei client)
+ogni sottocomponente è obseervable e notifica virtualview
+
+virtual view
+writer per scrivere su rete oggetti e metodi per essere notificata
+
+
+view
 
