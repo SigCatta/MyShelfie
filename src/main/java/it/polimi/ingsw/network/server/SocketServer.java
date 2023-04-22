@@ -57,7 +57,7 @@ public class SocketServer implements Runnable {
      * @param nickname      the nickname of the new client
      * @param clientHandler the ClientHandler representing the new client
      */
-    public void addClient(String nickname, ClientHandler clientHandler, HashMap<String, String> commandMap) {
+    public synchronized void addClient(String nickname, ClientHandler clientHandler, HashMap<String, String> commandMap) {
         server.addClient(nickname, clientHandler, commandMap);
     }
 
