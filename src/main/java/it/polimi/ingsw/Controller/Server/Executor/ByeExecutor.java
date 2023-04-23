@@ -1,28 +1,27 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.Controller.Server.GamesManager;
 
 import java.util.HashMap;
 
 public class ByeExecutor implements Executor {
 
-    private GamesManager gamesManager;
+    private Game game;
 
-    public ByeExecutor(){
-        gamesManager = GamesManager.getInstance();
+    public ByeExecutor(Game game){
+        this.game = game;
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
 
-        String gameId = data.get("GAMEID");
+        String command = data.get("COMMAND");
 
-        Game game = gamesManager.getGame(Integer.parseInt(gameId));
-        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
+        if(!game.getGameState().isCommandPossible(command))return;
 
         String nickname = data.get("NICKNAME");
 
         game.disconnectPlayer(nickname);
+        //TODO disconnect the player from the gamesManager list
     }
 }

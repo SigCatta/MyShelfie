@@ -1,22 +1,44 @@
 package it.polimi.ingsw.Controller.Server;
 
 import it.polimi.ingsw.Controller.Server.Executor.*;
+import it.polimi.ingsw.model.Game;
 
 import java.util.HashMap;
 
 /**
  * translates the messages into an action executor
+ * it is associate to only one game
  */
 public class CommandParser {
     private HashMap<String, Executor> commandTranslator;
 
+    /**
+     * game associated with the command parser
+     */
+    private Game game;
+
+    /**
+     * it is possible to choose between creating the command parser
+     * that is already linked with its game or assign it later
+     */
+    public CommandParser(Game game){
+        this.game = game;
+
+        commandInit();
+    }
+
     public CommandParser(){
+        commandInit();
+    }
+
+    private void commandInit(){
         commandTranslator = new HashMap<>();
-        commandTranslator.put("CHAT", new ChatExecutor());
-        commandTranslator.put("CAN_I_PLAY", new CanIPlayExecutor());
-        commandTranslator.put("INSERT_TILES", new InsertTilesExecutor());
-        commandTranslator.put("NEW_GAME", new NewGameExecutor());
-        commandTranslator.put("PICK_UP_TILES", new PickupTilesExecutor());
+        commandTranslator.put("CHAT", new ChatExecutor(game));
+        commandTranslator.put("CAN_I_PLAY", new CanIPlayExecutor(game));
+        commandTranslator.put("INSERT_TILES", new InsertTilesExecutor(game));
+        commandTranslator.put("NEW_GAME", new NewGameExecutor(game));
+        commandTranslator.put("PICK_UP_TILES", new PickupTilesExecutor(game));
+        commandTranslator.put("DISCONNECT_PLAYER", new DisconnectPlayerExecutor(game));
     }
 
     /**
@@ -29,5 +51,9 @@ public class CommandParser {
         if(command == null) return; //should never reach
 
         commandTranslator.get(command).execute(data);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
