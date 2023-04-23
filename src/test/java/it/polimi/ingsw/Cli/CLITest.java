@@ -10,7 +10,7 @@ public class CLITest {
 
     @BeforeEach
     public void init() {
-        printer = new Printer();
+        printer = new Printer(false);
     }
 
     @Test
@@ -27,7 +27,7 @@ public class CLITest {
                 {null, null, null, null, Color.EMPTY, Color.EMPTY, null, null, null}
         };
         printer.setBoard(board);
-        printer.printBoard();
+        printer.printBoard().forEach(System.out::println);
     }
 
 }
