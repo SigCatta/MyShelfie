@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1338.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.ShelfController">
+    <children>
+        <Group>
+            <ImageView fitHeight="705.0" fitWidth="1340.0">
+                <image>
+                    <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="705.0" fitWidth="947.0">
+                <image>
+                    <Image url="@17_MyShelfie_BGA/boards/bookshelf_orth.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="705.0" fitWidth="947.0">
+                <image>
+                    <Image url="@17_MyShelfie_BGA/boards/bookshelf.png" />
+                </image>
+            </ImageView>
+         <GridPane hgap="45.0" layoutX="118.0" layoutY="51.0" prefHeight="558.0" prefWidth="714.0" vgap="10.0" fx:id="matrix">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.4000244140625" minWidth="10.0" prefWidth="104.20001220703125" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.20001220703125" minWidth="10.0" prefWidth="109.599951171875" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60002441406249" minWidth="10.0" prefWidth="108.00001220703126" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.19998779296873" minWidth="10.0" prefWidth="102.4000122070313" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60001220703123" minWidth="10.0" prefWidth="115.19998779296873" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+         </GridPane>
+        </Group>
+    </children>
+</AnchorPane>
