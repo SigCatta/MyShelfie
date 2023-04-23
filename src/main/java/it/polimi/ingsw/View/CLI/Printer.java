@@ -1,6 +1,8 @@
 package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.virtualModel.Board;
+import it.polimi.ingsw.virtualModel.Shelf;
 import virtualModel.*;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package virtualModel;
+package it.polimi.ingsw.virtualModel;
 
 import it.polimi.ingsw.model.tiles.Color;
 
