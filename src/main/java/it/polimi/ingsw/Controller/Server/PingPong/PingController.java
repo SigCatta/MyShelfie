@@ -69,8 +69,6 @@ public class PingController extends Thread{
      * ping failed MAX_PING_FAILURES times, that means the client was disconnected
      */
     private void clientConnectionLost(){
-        //send to the client a connection lost message
-        SOCKET_HANDLER.sendCommand(ErrorMapper.getMap("Connection lost"));
         connectionLost = true;
 
         GamesManager.getInstance().onConnectionLost(SOCKET_HANDLER);
