@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.PongController;
+import it.polimi.ingsw.Controller.Server.PingPong.PongController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -81,7 +81,7 @@ public class SocketClient extends Client {
     @Override
     public void sendCommand(HashMap<String, String> commandMap) {
         if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
-            setGameId(Integer.parseInt(commandMap.get("GAMEID")));
+            setGameId(Integer.parseInt(commandMap.get("GAMEID"))); //TODO not possible with the new game since the gameid is unknown
 
             //TODO: new Timer(10)
         }

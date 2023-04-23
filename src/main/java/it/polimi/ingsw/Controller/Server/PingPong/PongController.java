@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller;
+package it.polimi.ingsw.Controller.Server.PingPong;
 
 import it.polimi.ingsw.network.client.Client;
 

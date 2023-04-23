@@ -96,7 +96,7 @@ public class Game {
 
     public boolean addPlayer(Player player) {
 
-        if (players.size() == MAX_PLAYER_NUMBER) {
+        if (players.size() >= MAX_PLAYER_NUMBER) {
             //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }
