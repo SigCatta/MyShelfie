@@ -52,6 +52,7 @@ public class BoardRefresher implements EndOfTurnObserver {
                 }
             }
         }
+        board.notifyObservers();
     }
 
     @Override
