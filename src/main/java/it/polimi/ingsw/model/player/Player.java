@@ -1,20 +1,17 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
+
+import java.util.ArrayList;
 
 /**
  * Represents a player in the game.
  */
-public class Player {
-    /**
-     * The board where items can be picked up from.
-     */
-    private Board board;
+public class Player implements VirtualViewSubject {
+    private ArrayList<VirtualViewObserver> observers;
 
-    /**
-     * The shelf manager that controls the shelves owned by the player.
-     */
     private Shelf shelf;
 
     /**
@@ -33,6 +30,7 @@ public class Player {
     private int score;
 
     public Player(String nickname) {
+        observers = new ArrayList<>();
         this.nickname = nickname;
         this.shelf = new Shelf();
         this.isConnected = true;
@@ -43,17 +41,6 @@ public class Player {
      */
     public int getScore() {
         return score;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    /**
-     * @return the board of the player
-     */
-    public Board getBoard() {
-        return board;
     }
 
     /**
@@ -77,6 +64,7 @@ public class Player {
      */
     public void setPersonalGoal(PersonalGoal personalGoal) {
         if (this.personalGoal == null) this.personalGoal = personalGoal;
+        notifyObservers();
     }
 
      /**
@@ -92,13 +80,32 @@ public class Player {
      */
     public void updateScore(int points) {
         score += points;
+        notifyObservers();
     }
 
     public void setConnected(boolean connected) {
         this.isConnected = connected;
+        notifyObservers();
     }
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    @Override
+    public void registerObserver(VirtualViewObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(VirtualViewObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(VirtualViewObserver observer : observers){
+            observer.update();
+        }
     }
 }

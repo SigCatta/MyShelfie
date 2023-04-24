@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Server;
 
 import it.polimi.ingsw.Controller.Server.ServerMappable.ErrorMapper;
+import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
@@ -17,7 +18,10 @@ public class GamesManager {
      * it contains the necessary data to manage the requests
      */
     private ThreeValuesHashMap<Integer, Game, List<SocketClientHandler>, CommandParser> gamesData;
-    private Set<String> playersName = new HashSet<>();
+    /**
+     * Important note: synchronize manually it in case of a set iteration
+     */
+    private final Set<String> PLAYERS_NAME = Collections.synchronizedSet(new HashSet<>());
 
     private static GamesManager gamesManagerInstance;
 
@@ -33,8 +37,8 @@ public class GamesManager {
     }
 
     /**
-     * Adds a new game to the map
-     * @return the game id of the created game
+     * Adds a new game to the map and creates a virtual view associated to that game.
+     * @return the game id of the created game used to make the creator join the game automatically
      */
     public int newGame(int numberOfPlayers){ //TODO make it private
         Game newGame = new Game(numberOfPlayers);
@@ -46,6 +50,10 @@ public class GamesManager {
         gamesData.put(gameID, newGame, new ArrayList<>(), parser);
 
         newGame.setGameID(gameID);
+
+        VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
+        newGame.setVirtualView(virtualView);
+
         //TODO update the view so that it contains the gameID. note: it must be done from the model
 
         return gameID;
@@ -55,16 +63,23 @@ public class GamesManager {
         if(!gamesData.containsKey(gameID))return;
         gamesData.get2(gameID).add(playerHandler);
         Game game = gamesData.get1(gameID);
-        game.addPlayer(new Player(playerHandler.getNickname()));
+
+        if(!game.addPlayer(new Player(playerHandler.getNickname()))){
+            playerHandler.sendCommand(ErrorMapper.getMap("the game is full"));
+            playerHandler.disconnect();
+            return;
+        }
+
+        game.getVirtualView().addClient(playerHandler);
     }
 
-    public synchronized boolean connectPlayer(HashMap<String, String> data, SocketClientHandler playerHandler) throws NumberFormatException{
+    public boolean connectPlayer(HashMap<String, String> data, SocketClientHandler playerHandler) throws NumberFormatException{
 
         int gameID;
         String nickname = data.get("NICKNAME");
         if(nickname == null ) return false;
 
-        if(playersName.contains(nickname)){
+        if(PLAYERS_NAME.contains(nickname)){
             playerHandler.sendCommand(ErrorMapper.getMap("The nickname already exists, choose a new one"));
             return false;
         }
@@ -73,16 +88,16 @@ public class GamesManager {
 
         if(command.equals("NEW_GAME")){
             int numberOfPlayers = Integer.parseInt(data.get("NUMBER_OF_PLAYERS"));
-            gameID = newGame(numberOfPlayers);
+            gameID = newGame(numberOfPlayers); //creates a new game with the virtual view
         } else{
             gameID = Integer.parseInt(data.get("GAMEID"));
         }
 
-        //the player also joins after creating a new game
-        joinGame(gameID, playerHandler);
-
         playerHandler.setNickname(nickname);
         playerHandler.setGameID(gameID);
+
+        //the player also joins after creating a new game
+        joinGame(gameID, playerHandler);
 
         return true;
     }
@@ -98,7 +113,7 @@ public class GamesManager {
     /**
      * create a non-existing id
      */
-    private int createID(){
+    private synchronized int createID(){
         int MAX_VALUE = Integer.MAX_VALUE;
 
         int gameID = (int)(Math.random()*MAX_VALUE);
@@ -115,7 +130,7 @@ public class GamesManager {
     }
 
     public void removePlayer(SocketClientHandler socketClientHandler){
-        playersName.remove(socketClientHandler.getNickname());
+        PLAYERS_NAME.remove(socketClientHandler.getNickname());
         gamesData.get2(socketClientHandler.getGameID()).remove(socketClientHandler);
     }
 

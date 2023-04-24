@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.ServerMappable.ErrorMapper;
+import it.polimi.ingsw.View.VirtualView.Messages.Message;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -137,7 +138,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void sendCommand(HashMap<String, String> commandMap) {
         try {
             output.writeObject(commandMap);
-            if(output == null)return;
             output.reset();
             Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
                     " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
@@ -146,6 +146,17 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             disconnect();
         }
     }
+    @Override
+    public void sendCommand(Message message){
+        try {
+            output.writeObject(message);
+            output.reset();
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
+            disconnect();
+        }
+    }
+
     public String getNickname() {
         return nickname;
     }
