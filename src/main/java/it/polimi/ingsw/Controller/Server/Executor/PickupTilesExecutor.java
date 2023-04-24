@@ -2,7 +2,6 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 
 import java.awt.Point;
@@ -11,22 +10,24 @@ import java.util.HashMap;
 
 public class PickupTilesExecutor implements Executor {
 
-    private GamesManager gamesManager;
+    private Game game;
 
-
-    public PickupTilesExecutor() {
-        this.gamesManager = GamesManager.getInstance();
+    public PickupTilesExecutor(Game game){
+        this.game = game;
     }
+
 
     @Override
     public void execute(HashMap<String, String> data) {
-        Game game =  gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
-        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
 
-        TilesGetter tilesGetter = new TilesGetter(game);
+        String command = data.get("COMMAND");
+        if(command == null) return;
 
+        if(!game.getGameState().isCommandPossible(command))return;
 
         if (!data.get("NICKNAME").equals(game.getActivePlayer().getNickname())) return;
+
+        TilesGetter tilesGetter = game.getTilesGetter();
 
         ArrayList<Point> tileLocations = new ArrayList<>();
         int point = 1;

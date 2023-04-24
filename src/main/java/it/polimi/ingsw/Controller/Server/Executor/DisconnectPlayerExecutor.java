@@ -1,26 +1,20 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.player.Player;
 
 import java.util.HashMap;
 
-
-public class NewGameExecutor implements Executor { //TODO delete this class
+public class DisconnectPlayerExecutor implements Executor{
 
     private Game game;
 
-    public NewGameExecutor(Game game){
+    public DisconnectPlayerExecutor(Game game){
         this.game = game;
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
-
         String nickname = data.get("NICKNAME");
-
-        game.addPlayer(new Player(nickname));
-
+        game.disconnectPlayer(nickname);
     }
 }
