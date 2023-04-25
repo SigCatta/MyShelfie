@@ -57,8 +57,10 @@ public class Game implements VirtualViewSubject {
 
         gameState = new PickUpTilesState();
 
-        if(virtualView != null)//TODO this is just for testing
+        if(virtualView != null) {//TODO this is just for testing
             virtualView.observersInit(); //the virtual view attribute has been set from the GamesManager
+            notifyObservers();
+        }
 
         new BoardRefresher(this).refillBoard();
     }

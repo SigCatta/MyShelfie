@@ -45,6 +45,7 @@ public class SocketClient extends Client {
         commandMap.put("NICKNAME", getNickname());
         commandMap.put("GAMEID", String.valueOf(1));
         commandMap.put("COMMAND", "NEW_GAME");
+        commandMap.put("NUMBER_OF_PLAYERS", "2");
         sendCommand(commandMap);
     }
 

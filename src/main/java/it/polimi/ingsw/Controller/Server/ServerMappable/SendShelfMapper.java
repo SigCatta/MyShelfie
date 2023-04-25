@@ -32,8 +32,5 @@ public class SendShelfMapper extends ServerMappable {
         map.put("COMMAND", "SEND_SHELF");
         map.put("NICKNAME", activePlayer.getNickname());
         map.put("GAMEID", String.valueOf(game.getGameID()));
-
-        //TODO send to the server socket
-
     }
 }
