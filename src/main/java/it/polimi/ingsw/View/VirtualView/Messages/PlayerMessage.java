@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
+import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 import it.polimi.ingsw.model.player.Player;
 
@@ -31,5 +32,10 @@ public class PlayerMessage implements Message, Serializable {
 
     public PersonalGoal getPersonalGoal() {
         return PERSONAL_GOAL;
+    }
+
+    @Override
+    public void update() {
+        Controller.getInstance().changePlayer(this);
     }
 }
