@@ -11,8 +11,19 @@ public class BoardController {
     @FXML
     GridPane matrix;
 
+    @FXML
+    ImageView commonGoalCard1;
 
+    @FXML
+    ImageView commonGoalCard2;
 
+    public void setCommonGoalCard1(ImageView commonGoalCard1) {
+        this.commonGoalCard1 = commonGoalCard1;
+    }
+
+    public void setCommonGoalCard2(ImageView commonGoalCard2) {
+        this.commonGoalCard2 = commonGoalCard2;
+    }
 }
 
 
