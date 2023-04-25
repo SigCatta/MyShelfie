@@ -3,7 +3,11 @@ package it.polimi.ingsw.Controller.Client.VirtualModel;
 import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoardRepresentation extends SingletonImplementation implements VirtualModelSubject{
+    private List<VirtualModelObserver> observers;
     private ItemTile[][] board;
 
     private BoardRepresentation() {}
@@ -24,16 +28,20 @@ public class BoardRepresentation extends SingletonImplementation implements Virt
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        if(observers == null) observers = new ArrayList<>();
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        if(observers == null) return;
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        //TODO every observer must be notified when the class changes
+        for(VirtualModelObserver observer : observers){
+            observer.update();
+        }
     }
 }
