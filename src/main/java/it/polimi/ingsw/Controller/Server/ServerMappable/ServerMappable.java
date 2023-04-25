@@ -1,10 +1,12 @@
 package it.polimi.ingsw.Controller.Server.ServerMappable;
 
 import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.network.server.Server;
 
 import java.util.HashMap;
 
 public abstract class ServerMappable {
+    Server server = Server.getInstance();
     abstract void map(Object o);
 
     /**
