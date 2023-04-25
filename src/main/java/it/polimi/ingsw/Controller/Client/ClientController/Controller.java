@@ -1,7 +1,8 @@
 package it.polimi.ingsw.Controller.Client.ClientController;
 
 import it.polimi.ingsw.Controller.Client.Mappers.PongMapper;
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Client.VirtualModel.*;
+import it.polimi.ingsw.View.VirtualView.Messages.*;
 import it.polimi.ingsw.network.client.SocketClient;
 
 /**
@@ -30,26 +31,26 @@ public class Controller implements Visitor{
      * changes the information regarding the board
      */
     public void changeBoard(Message board){
-        //TODO
+        BoardRepresentation.getInstance().setBoard((BoardMessage) board);
     }
     /**
      * changes the information regarding the shelf
      */
     public void changeShelf(Message shelf){
-        //TODO
+        ShelvesRepresentation.getInstance().updateShelf((ShelfMessage) shelf);
     }
 
     /**
      * changes the information regarding the game
      */
     public void changeGame(Message game){
-        //TODO
+        GameRepresentation.getInstance().setGame((GameMessage) game);
     }
     /**
      * changes the information regarding the player
      */
     public void changePlayer(Message player){
-        //TODO
+        PlayersRepresentation.getInstance().updatePlayer((PlayerMessage) player);
     }
 
     /**
@@ -63,14 +64,14 @@ public class Controller implements Visitor{
      * reacts on error received
      */
     public void error(Message error){
-        //TODO
+        ErrorsRepresentation.getInstance().putError((ErrorMessage) error);
     }
 
     /**
      * push the incoming chat message into the virtual view
      */
     public void chat(Message chat){
-        //TODO
+        ChatRepresentation.getInstance().addMessage((ChatMessage) chat);
     }
 
 }
