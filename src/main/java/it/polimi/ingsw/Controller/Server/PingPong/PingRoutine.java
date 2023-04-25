@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server.PingPong;
 
-import it.polimi.ingsw.Controller.Server.ServerMappable.PingMapper;
+import it.polimi.ingsw.View.VirtualView.Messages.PingMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
@@ -20,7 +20,7 @@ public class PingRoutine extends TimerTask implements Runnable{
     @Override
     public void run() {
         // send PING message
-        SOCKET_CLIENT_HANDLER.sendCommand(PingMapper.getMap());
+        SOCKET_CLIENT_HANDLER.sendCommand(new PingMessage());
         Server.LOGGER.info("PING sent");
     }
 }
