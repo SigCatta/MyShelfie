@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
+import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
@@ -14,5 +15,10 @@ public class ShelfMessage implements Message, Serializable {
 
     public ItemTile[][] getShelf() {
         return SHELF;
+    }
+
+    @Override
+    public void update() {
+        Controller.getInstance().changeShelf(this);
     }
 }
