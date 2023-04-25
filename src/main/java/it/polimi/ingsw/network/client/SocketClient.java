@@ -25,7 +25,7 @@ public class SocketClient extends Client {
 
     private static final int SOCKET_TIMEOUT = 10000;
 
-    private SocketClient(String address, int port, String nickname) throws IOException {
+    public SocketClient(String address, int port, String nickname) throws IOException {
         this.nickname = nickname;
         //TODO call method to set Player's nicknames
         this.socket = new Socket();
