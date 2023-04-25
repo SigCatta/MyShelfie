@@ -8,7 +8,4 @@ public class VirtualModel {
         if(virtualModelInstance == null) virtualModelInstance = new VirtualModel();
         return virtualModelInstance;
     }
-
-
-
 }
