@@ -35,7 +35,7 @@ public class VirtualView {
         GAME.getBoard().registerObserver(new BoardView(GAME, this)); // links the board observer to the board
         for(Player player : GAME.getPlayers()){
             player.registerObserver(new PlayerView(player, this));// links the player observer to the player
-            player.getShelf().registerObserver(new ShelfView(player.getShelf(), this));
+            player.getShelf().registerObserver(new ShelfView(player, this));
         }
         //TODO tilesGetter view
     }
