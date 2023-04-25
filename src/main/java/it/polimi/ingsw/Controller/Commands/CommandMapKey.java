@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller.enums;
+package it.polimi.ingsw.Controller.Commands;
 
 public enum CommandMapKey {
     NICKNAME,

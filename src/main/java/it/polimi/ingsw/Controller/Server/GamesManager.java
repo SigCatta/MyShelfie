@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server;
 
-import it.polimi.ingsw.Controller.Server.ServerMappable.ErrorMapper;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -54,7 +54,7 @@ public class GamesManager {
         VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
         newGame.setVirtualView(virtualView);
 
-        //TODO update the view so that it contains the gameID. note: it must be done from the model
+        newGame.notifyObservers(); //shows the gameID to the creator of the game
 
         return gameID;
     }
@@ -65,7 +65,7 @@ public class GamesManager {
         Game game = gamesData.get1(gameID);
 
         if(!game.addPlayer(new Player(playerHandler.getNickname()))){
-            playerHandler.sendCommand(ErrorMapper.getMap("the game is full"));
+            playerHandler.sendCommand(new ErrorMessage("the game is full"));
             playerHandler.disconnect();
             return;
         }
@@ -80,7 +80,7 @@ public class GamesManager {
         if(nickname == null ) return false;
 
         if(PLAYERS_NAME.contains(nickname)){
-            playerHandler.sendCommand(ErrorMapper.getMap("The nickname already exists, choose a new one"));
+            playerHandler.sendCommand(new ErrorMessage("The nickname already exists, choose a new one"));
             return false;
         }
 

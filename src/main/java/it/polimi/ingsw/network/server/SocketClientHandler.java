@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.Controller.Server.GamesManager;
-import it.polimi.ingsw.Controller.Server.ServerMappable.ErrorMapper;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
 import it.polimi.ingsw.View.VirtualView.Messages.Message;
 
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             handleClientMessages();
 
         }catch(InvalidClassException inc){
-            sendCommand(ErrorMapper.getMap("Provide a valid command to start or join a game"));
+            sendCommand(new ErrorMessage("Provide a valid command to start or join a game"));
             Thread.currentThread().interrupt();
         } catch (IOException e) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");//TODO remove after testing
