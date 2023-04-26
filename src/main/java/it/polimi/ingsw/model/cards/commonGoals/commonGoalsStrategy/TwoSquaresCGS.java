@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy;
 
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy;
 import it.polimi.ingsw.model.player.Shelf;
+import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 /**
@@ -19,35 +20,23 @@ public class TwoSquaresCGS extends CommonGoalStrategy {
     public boolean isGoalAchieved(Shelf shelf) {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
 
-        // Iterate through the matrix and look for groups of 4 cells that form a 2x2 square
-        for(int i=0; i<shelfGrid.length-1; i++) {
-            for(int j=0; j<shelfGrid[0].length-1; j++) {
-                if(shelfGrid[i][j]!=null && shelfGrid[i+1][j]!=null &&
-                        shelfGrid[i][j+1]!=null && shelfGrid[i+1][j+1]!=null) {
-                    // Check if this is a potential group of 4 cells
-                    if(shelfGrid[i][j].getColor().equals(shelfGrid[i+1][j].getColor()) &&
-                            shelfGrid[i][j].getColor().equals(shelfGrid[i][j+1].getColor()) &&
-                            shelfGrid[i][j].getColor().equals(shelfGrid[i+1][j+1].getColor())) {
-                        // Check if there is another group of 4 cells with the same color
-                        for(int k=i+2; k<shelfGrid.length-1; k++) {
-                            for(int l=0; l<shelfGrid[0].length-1; l++) {
-                                if(shelfGrid[k][l]!=null && shelfGrid[k+1][l]!=null &&
-                                        shelfGrid[k][l+1]!=null && shelfGrid[k+1][l+1]!=null) {
-                                    if(shelfGrid[k][l].getColor().equals(shelfGrid[k+1][l].getColor()) &&
-                                            shelfGrid[k][l].getColor().equals(shelfGrid[k][l+1].getColor()) &&
-                                            shelfGrid[k][l].getColor().equals(shelfGrid[k+1][l+1].getColor()) &&
-                                            shelfGrid[k][l].getColor().equals(shelfGrid[i][j].getColor())) {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+        int count = 0; //number of 2x2 blocks found
+
+        for(int row = 0; row < shelfGrid.length-1; row++){
+            for(int col = 0; col < shelfGrid[row].length-1; col++){
+                if(check2x2Square(shelfGrid, row, col, shelfGrid[row][col].getColor())){
+                    count++;
+                    if(count >= 2) return true;
                 }
             }
         }
-        // If we get here, there are no two groups of 4 cells with the same color that form a 2x2 square
         return false;
+    }
+
+    private boolean check2x2Square(ItemTile[][] shelf, int row, int col, Color currentColor){
+        if(shelf[row+1][col].getColor() != currentColor)return false;
+        if(shelf[row][col+1].getColor() != currentColor)return false;
+        return shelf[row + 1][col + 1].getColor() == currentColor;
     }
 }
 

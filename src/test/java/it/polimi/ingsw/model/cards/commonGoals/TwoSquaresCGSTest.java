@@ -34,7 +34,7 @@ public class TwoSquaresCGSTest {
                 {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null},
         };
         shelf = new Shelf(mat2);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertTrue(cg.isGoalAchieved(shelf));
 
         ItemTile[][] mat3 = {
                 {new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
