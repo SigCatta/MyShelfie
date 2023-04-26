@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class SixGroupsOfTwoCGSTest {
 
     @Test
-    public void testCheckForGroups() {
+    public void isGoalAchievedTest() {
         SixGroupsOfTwoCGS cg = new SixGroupsOfTwoCGS();
         // Test case 1: 6 groups of the same color
         ItemTile[][] mat1 = {
