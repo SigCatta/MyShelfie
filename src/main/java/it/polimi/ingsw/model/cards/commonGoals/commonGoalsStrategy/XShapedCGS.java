@@ -36,10 +36,4 @@ public class XShapedCGS extends CommonGoalStrategy {
 
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Cinque tessere dello stesso tipo che formano una X.";
-    }
-
 }

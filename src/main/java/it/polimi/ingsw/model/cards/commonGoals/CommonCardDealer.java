@@ -17,18 +17,15 @@ public class CommonCardDealer {
         List<Class<?>> subTypes = null;
         try {
             subTypes = getClassesForPackage("it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy");
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+            return null;
         }
 
         List<CommonGoalStrategy> instances = new ArrayList<>();
         for (Class<?> subclass : subTypes) {
             try {
                 instances.add((CommonGoalStrategy)subclass.getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
             } catch (InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             } catch (Exception e) {

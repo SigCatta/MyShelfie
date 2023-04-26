@@ -49,8 +49,4 @@ public class CommonGoalCard {
     public int getPoints() {
         return pointsStack.pop();
     }
-
-    public String getDescription() {
-        return commonGoalStrategy.getDescription();
-    }
 }

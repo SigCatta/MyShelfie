@@ -49,12 +49,6 @@ public class TwoSquaresCGS extends CommonGoalStrategy {
         // If we get here, there are no two groups of 4 cells with the same color that form a 2x2 square
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Due gruppi separati di 4 tessere dello stesso tipo che formano un quadrato 2x2. Le tessere dei due gruppi devono essere dello stesso tipo.";
-    }
-
 }
 
 

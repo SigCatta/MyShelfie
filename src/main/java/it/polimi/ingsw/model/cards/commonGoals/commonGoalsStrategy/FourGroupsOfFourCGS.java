@@ -15,8 +15,4 @@ public class FourGroupsOfFourCGS extends CommonGoalStrategy {
         return ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 4, 4);
     }
 
-    @Override
-    public String getDescription() {
-        return "Quattro gruppi separati formati ciascuno da quattro tessere adiacenti dello stesso tipo. Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.";
-    }
 }

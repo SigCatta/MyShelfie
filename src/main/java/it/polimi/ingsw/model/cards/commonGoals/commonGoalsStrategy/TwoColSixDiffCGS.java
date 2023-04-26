@@ -38,9 +38,4 @@ public class TwoColSixDiffCGS extends CommonGoalStrategy {
 
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Due colonne formate ciascuna da 6 diversi tipi di tessere.";
-    }
 }

@@ -44,12 +44,6 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
         }
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti. Colonne diverse possono avere combinazioni diverse di tipi di tessere.";
-    }
-
     /**
      * @param shelfGrid the Color matrix to check
      * @param col the column of the Color matrix to check

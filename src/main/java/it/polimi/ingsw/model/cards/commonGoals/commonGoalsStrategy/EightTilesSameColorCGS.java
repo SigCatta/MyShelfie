@@ -35,12 +35,4 @@ public class EightTilesSameColorCGS extends CommonGoalStrategy {
         }
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Otto tessere dello stesso tipo. Non ci sono restrizioni sulla posizione di queste tessere.";
-    }
-
-
-
 }

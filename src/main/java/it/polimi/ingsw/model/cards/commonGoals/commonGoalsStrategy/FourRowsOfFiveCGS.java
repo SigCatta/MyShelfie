@@ -47,11 +47,6 @@ public class FourRowsOfFiveCGS extends CommonGoalStrategy {
         return false;
     }
 
-    @Override
-    public String getDescription() {
-        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
-    }
-
     /**
      * @param shelfGrid the Color matrix to check
      * @param row the row of the Color matrix to check

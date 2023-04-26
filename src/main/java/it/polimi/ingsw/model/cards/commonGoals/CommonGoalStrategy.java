@@ -12,8 +12,6 @@ public abstract class CommonGoalStrategy {
      * @return true if the goal has been achieved, false otherwise
      */
     public abstract boolean isGoalAchieved(Shelf shelf);
-
-    public abstract String getDescription();
 }
 
 
