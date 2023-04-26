@@ -23,29 +23,29 @@ public class ThreeValuesHashMap<KeyT, T1, T2, T3> {
     /**
      * returns the first value of the hashmap
      */
-    public T1 get1(KeyT key){
+    public synchronized T1 get1(KeyT key){
         return map.get(key).getValue1();
     }
 
     /**
      * returns the second value of the hashmap
      */
-    public T2 get2(KeyT key){
+    public synchronized T2 get2(KeyT key){
         return map.get(key).getValue2();
     }
 
     /**
      * returns the third value of the hashmap
      */
-    public T3 get3(KeyT key){
+    public synchronized T3 get3(KeyT key){
         return map.get(key).getValue3();
     }
 
-    public void remove(KeyT key){
+    public synchronized void remove(KeyT key){
         map.remove(key);
     }
 
-    public boolean containsKey(KeyT key){
+    public synchronized boolean containsKey(KeyT key){
         return map.containsKey(key);
     }
 

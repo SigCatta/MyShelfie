@@ -1,15 +1,20 @@
 package it.polimi.ingsw.model.player;
 
 
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * A class representing the player's shelf.
  */
-public class Shelf {
+public class Shelf implements VirtualViewSubject {
+
+    private ArrayList<VirtualViewObserver> observers;
 
     /**
      * The number of columns in the shelf grid.
@@ -37,6 +42,7 @@ public class Shelf {
      * Constructs a new Shelf object
      */
     public Shelf() {
+        observers = new ArrayList<>();
         shelfGrid = new ItemTile[ROWS][COLUMNS];
         for (int i = 0; i < ROWS; i++) {
             shelfGrid[i] = new ItemTile[COLUMNS];
@@ -45,6 +51,7 @@ public class Shelf {
     }
 
     public Shelf(ItemTile[][] matrix) {
+        observers = new ArrayList<>();
         shelfGrid = matrix;
     }
 
@@ -61,6 +68,7 @@ public class Shelf {
 
     public void setTileAtLocation(Point location, ItemTile tile) {
         shelfGrid[location.x][location.y] = tile;
+        notifyObservers();
     }
 
 
@@ -144,4 +152,20 @@ public class Shelf {
         return true;
     }
 
+    @Override
+    public void registerObserver(VirtualViewObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(VirtualViewObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(VirtualViewObserver observer : observers){
+            observer.update();
+        }
+    }
 }

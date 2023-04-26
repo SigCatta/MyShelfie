@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.Server.PingPong.PongController;
+import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.View.VirtualView.Messages.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,10 +12,13 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Singleton class owned by each client,
+ * handles the socket that communicates through the network
+ */
 public class SocketClient extends Client {
-
+    private static Client clientInstance = null;
     private final Socket socket;
-
     private final ObjectOutputStream outputStm;
     private final ObjectInputStream inputStm;
     private final ExecutorService readExecutionQueue;
@@ -24,19 +28,18 @@ public class SocketClient extends Client {
     public SocketClient(String address, int port, String nickname) throws IOException {
         this.nickname = nickname;
         //TODO call method to set Player's nicknames
-        this.pongController = new PongController(this);
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
         this.inputStm = new ObjectInputStream(socket.getInputStream());
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
-        client_instance = this;
+        clientInstance = this;
         askToPlay();
     }
 
     public static synchronized Client getInstance() {
-        return client_instance;
+        return clientInstance;
     }
 
     //TODO remove method when finished testing
@@ -45,6 +48,7 @@ public class SocketClient extends Client {
         commandMap.put("NICKNAME", getNickname());
         commandMap.put("GAMEID", String.valueOf(1));
         commandMap.put("COMMAND", "NEW_GAME");
+        commandMap.put("NUMBER_OF_PLAYERS", "2");
         sendCommand(commandMap);
     }
 
@@ -56,14 +60,9 @@ public class SocketClient extends Client {
         readExecutionQueue.execute(() -> {
 
             while (!readExecutionQueue.isShutdown()) {
-                HashMap<String, String> commandMap;
                 try {
-                    commandMap = (HashMap<String, String>) inputStm.readObject();
-                    Client.LOGGER.info("Received: " + commandMap.get("COMMAND"));
-
-                    if(commandMap.get("COMMAND").equals("PING")) {
-                        pongController.onPingReceived();
-                    }
+                    Message message = (Message) inputStm.readObject();
+                    Controller.getInstance().updateVirtualModel(message);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
                     Client.LOGGER.severe("An error occurred while reading the commandMap");
