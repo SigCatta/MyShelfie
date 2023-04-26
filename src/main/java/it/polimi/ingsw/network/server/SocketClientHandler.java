@@ -2,8 +2,8 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.Controller.Server.GamesManager;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.Message;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -90,7 +90,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     private void handleClientMessages() throws IOException, ClassNotFoundException {
         Server.LOGGER.info("Client connected from " + client.getInetAddress()); //TODO remove after testing
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted() || !connected) {
             Object o = input.readObject();
             if(!(o instanceof HashMap)) continue;
             HashMap<String, String> commandMap = (HashMap<String, String>) o;
@@ -126,6 +126,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
         GamesManager.getInstance().removePlayer(this);
 
+        pingController.close();
         Thread.currentThread().interrupt();
     }
 

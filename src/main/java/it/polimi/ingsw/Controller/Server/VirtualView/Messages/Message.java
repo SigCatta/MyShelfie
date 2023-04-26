@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.VirtualView.Messages;
+package it.polimi.ingsw.Controller.Server.VirtualView.Messages;
 
 /**
  * the classes that will be sent using the socket must implement this interface

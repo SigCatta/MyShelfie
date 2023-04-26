@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.VirtualView.Messages;
+package it.polimi.ingsw.Controller.Server.VirtualView.Messages;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 import it.polimi.ingsw.model.board.Board;

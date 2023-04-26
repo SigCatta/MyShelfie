@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.Message;
 
 import java.util.HashMap;
 

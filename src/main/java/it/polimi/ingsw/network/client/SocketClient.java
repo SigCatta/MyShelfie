@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

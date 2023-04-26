@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.VirtualView.ModelObservers;
+package it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers;
 
 public interface VirtualViewSubject {
     void registerObserver(VirtualViewObserver observer);

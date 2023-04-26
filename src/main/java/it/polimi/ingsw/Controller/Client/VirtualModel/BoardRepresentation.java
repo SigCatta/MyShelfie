@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.BoardMessage;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;

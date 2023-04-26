@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.View.VirtualView.VirtualView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.Controller.Server.VirtualView.VirtualView;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;

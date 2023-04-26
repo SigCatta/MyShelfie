@@ -11,10 +11,6 @@ public class PingController extends Thread{
     private final int PING_TIMEOUT = 500;
     private final int DELAY = 500;
     private boolean connectionLost;
-    /**
-     * stops the execution
-     */
-    private boolean close;
 
     /**
      * if the client does not respond to MAX_PING_FAILURES consecutive
@@ -29,7 +25,6 @@ public class PingController extends Thread{
         this.SOCKET_HANDLER = socketClientHandler;
         pingToDisconnect = MAX_PING_FAILURES;
         connectionLost = false;
-        close = false;
     }
 
     /**
@@ -39,15 +34,13 @@ public class PingController extends Thread{
     public void run() {
         Server.LOGGER.info("PingController started"); //TODO remove after testing
 
-        while (!close){
-            //if the client is disconnected the ping are sent less frequently
-            int delay = DELAY;
-            if(connectionLost) delay = 3*DELAY;
+        //if the client is disconnected the ping are sent less frequently
+        int pingTimeout = PING_TIMEOUT;
+        if(connectionLost) pingTimeout = 3*PING_TIMEOUT;
 
-            TIMER.scheduleAtFixedRate(new PingRoutine(SOCKET_HANDLER), delay, PING_TIMEOUT);
-            if(pingToDisconnect <= 0) clientConnectionLost();
-            pingToDisconnect--;
-        }
+        TIMER.scheduleAtFixedRate(new PingRoutine(SOCKET_HANDLER), DELAY, pingTimeout);
+        if(pingToDisconnect <= 0) clientConnectionLost();
+        pingToDisconnect--;
     }
 
     /**
@@ -55,21 +48,23 @@ public class PingController extends Thread{
      */
     public void onPongReceived() {
         pingToDisconnect = MAX_PING_FAILURES;
-        connectionLost = false;
+        if(!connectionLost) return;
 
+        connectionLost = false;
         GamesManager.getInstance().onConnectionRestored(SOCKET_HANDLER);
     }
 
     public void close(){
-        close = true;
+        TIMER.cancel();
     }
 
     /**
      * ping failed MAX_PING_FAILURES times, that means the client was disconnected
      */
     private void clientConnectionLost(){
-        connectionLost = true;
+        if(connectionLost) return;
 
+        connectionLost = true;
         GamesManager.getInstance().onConnectionLost(SOCKET_HANDLER);
     }
 

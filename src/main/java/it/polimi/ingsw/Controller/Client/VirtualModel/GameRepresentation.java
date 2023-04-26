@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.GameMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.GameMessage;
 
 public class GameRepresentation extends SingletonImplementation implements VirtualModelSubject{
     private GameMessage gameMessage;

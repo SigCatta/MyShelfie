@@ -1,7 +1,7 @@
-package it.polimi.ingsw.View.VirtualView.ModelObservers;
+package it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.View.VirtualView.Messages.GameMessage;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.GameMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 
 

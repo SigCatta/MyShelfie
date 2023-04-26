@@ -2,7 +2,7 @@ package it.polimi.ingsw.Controller.Client.ClientController;
 
 import it.polimi.ingsw.Controller.Client.Mappers.PongMapper;
 import it.polimi.ingsw.Controller.Client.VirtualModel.*;
-import it.polimi.ingsw.View.VirtualView.Messages.*;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.*;
 import it.polimi.ingsw.network.client.SocketClient;
 
 /**

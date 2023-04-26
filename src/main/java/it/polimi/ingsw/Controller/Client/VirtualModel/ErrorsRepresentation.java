@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.ErrorMessage;
 
 import java.util.LinkedList;
 import java.util.Queue;

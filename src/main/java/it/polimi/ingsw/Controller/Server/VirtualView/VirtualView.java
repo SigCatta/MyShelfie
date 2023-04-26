@@ -1,10 +1,10 @@
-package it.polimi.ingsw.View.VirtualView;
+package it.polimi.ingsw.Controller.Server.VirtualView;
 
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.BoardView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.GameView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.ShelfView;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.BoardView;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.GameView;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.PlayerView;
+import it.polimi.ingsw.Controller.Server.VirtualView.ModelObservers.ShelfView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;

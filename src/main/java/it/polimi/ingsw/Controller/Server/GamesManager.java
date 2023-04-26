@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Server;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;

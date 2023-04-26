@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server.PingPong;
 
-import it.polimi.ingsw.View.VirtualView.Messages.PingMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.PingMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 

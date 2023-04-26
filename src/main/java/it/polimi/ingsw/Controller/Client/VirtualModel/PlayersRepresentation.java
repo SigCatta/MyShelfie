@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.PlayerMessage;
+import it.polimi.ingsw.Controller.Server.VirtualView.Messages.PlayerMessage;
 import java.util.HashMap;
 import java.util.Map;
 
