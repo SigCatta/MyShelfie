@@ -17,7 +17,7 @@ public class CommonCardDealerTest {
     }
 
     @Test
-    public void pickCardsTest() throws TooManyCardsRequestedException {
+    public void pickCardsTest() {
         List<CommonGoalStrategy> commonGoalStrategyList = CommonCardDealer.pickCardStrategies(2);
         assertNotNull(commonGoalStrategyList);
         assertEquals(2, commonGoalStrategyList.size());
@@ -32,14 +32,14 @@ public class CommonCardDealerTest {
     }
 
     @Test
-    public void overflow2() throws TooManyCardsRequestedException {
+    public void overflow2() {
         List<CommonGoalStrategy> commonGoalStrategyList = CommonCardDealer.pickCardStrategies(-1);
         assertNotNull(commonGoalStrategyList);
         assertEquals(0, commonGoalStrategyList.size());
     }
 
     @Test
-    public void testListHasNoDuplicates() throws TooManyCardsRequestedException {
+    public void testListHasNoDuplicates() {
         List<CommonGoalStrategy> commonGoalStrategyList = CommonCardDealer.pickCardStrategies(12);
 
         assertNotNull(commonGoalStrategyList);
@@ -54,7 +54,7 @@ public class CommonCardDealerTest {
 
 
     @Test
-    public void getCards1() throws TooManyCardsRequestedException {
+    public void getCards1() {
         List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
 
         assertNotNull(commonGoalCards);
@@ -68,7 +68,7 @@ public class CommonCardDealerTest {
     }
 
     @Test
-    public void getCards2() throws TooManyCardsRequestedException {
+    public void getCards2() {
         List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(6);
 
         assertNotNull(commonGoalCards);
