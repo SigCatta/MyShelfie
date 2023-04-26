@@ -12,7 +12,7 @@ import java.util.Set;
  * Rule:
  * Two columns each formed by 6 different types of tiles.
  */
-public class TwoColSixDiff extends CommonGoalStrategy {
+public class TwoColSixDiffCGS extends CommonGoalStrategy {
     /**
      * @param shelf The shelf to check.
      * @return True if the matrix has at least two columns formed by cells of 6 different colors, false otherwise.
