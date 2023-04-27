@@ -11,7 +11,7 @@ public class Bag {
 
     public Bag() {
 
-        NUMBER_OF_COLORS = Color.values().length;
+        NUMBER_OF_COLORS = Color.values().length - 1; // not counting the EMPTY color
         tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
 
         for (Color color : Color.values()) {

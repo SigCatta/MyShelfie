@@ -16,7 +16,7 @@ import java.util.Stack;
  * Used for anything regarding reading data from a json file
  */
 
-public class PersonalGoalReader implements JSONFileReader{
+public class PersonalGoalReader implements JSONFileReader {
     private final JSONParser jsonParser;
     private final String PATH = "src/data/";
 
@@ -43,6 +43,7 @@ public class PersonalGoalReader implements JSONFileReader{
         JSONObject JSONObj = (JSONObject) jsonParser.parse(fileReader);
 
         for (Color color : Color.values()) {
+            if (color == Color.EMPTY) continue;
             JSONArray arr = (JSONArray) JSONObj.get(color.name());
             Object x = arr.get(0);
             Object y = arr.get(1);
