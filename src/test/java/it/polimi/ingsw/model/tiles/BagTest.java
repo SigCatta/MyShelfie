@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BagTest {
     private Bag bag;
@@ -65,6 +64,8 @@ public class BagTest {
                 case WHITE:
                     whiteCount++;
                     break;
+                case EMPTY:
+                    throw new RuntimeException();
             }
         }
 

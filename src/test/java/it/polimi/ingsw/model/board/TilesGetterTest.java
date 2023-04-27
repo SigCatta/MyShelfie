@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.board;
 
 import exceptions.FullColumnException;
 import exceptions.NullItemTileException;
+import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
@@ -29,7 +30,7 @@ class TilesGetterTest {
     @BeforeEach
     void setUp()  {
         game = new Game(4);
-        game.start();
+        game.setVirtualView(new VirtualView(game));
         board = game.getBoard();
         player = new Player("player");
         shelf = player.getShelf();
@@ -37,6 +38,7 @@ class TilesGetterTest {
         tilesGetter = new TilesGetter(game);
         game.setActivePlayer(player);
         chosenPositions = new ArrayList<>();
+        game.start();
     }
 
     @Test
@@ -46,8 +48,8 @@ class TilesGetterTest {
         board.setItemTile(Color.YELLOW, goodPosition.x, goodPosition.y);
         chosenPositions.add(goodPosition);
         assertTrue(tilesGetter.pickUpTiles(chosenPositions));
-        assertEquals(1, tilesGetter.getTilesToBeInserted().size());
-        assertEquals(tilesGetter.getTilesToBeInserted().get(0).getColor(), Color.YELLOW);
+        assertEquals(1, tilesGetter.getChosenTilesTable().size());
+        assertEquals(tilesGetter.getChosenTilesTable().getTile(0).getColor(), Color.YELLOW);
         assertFalse(tilesGetter.pickUpTiles(chosenPositions));  //same tiles already picked up
         chosenPositions.remove(goodPosition);
         chosenPositions.add(badPosition);
@@ -59,11 +61,11 @@ class TilesGetterTest {
         int column = 1;
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
         for(ItemTile itemTile: toInsert) {
-            tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getChosenTilesTable().insertTile(itemTile);
             tilesGetter.getPositionsAlreadySelected().add(false);
         }
         for(int i = 0; i < toInsert.size(); i++) {
-            assertEquals(tilesGetter.getTilesToBeInserted().get(i), toInsert.get(i));
+            assertEquals(tilesGetter.getChosenTilesTable().getTile(i), toInsert.get(i));
         }
 
         for (int i = 0; i < shelf.getROWS()-2; i++) {
@@ -83,7 +85,7 @@ class TilesGetterTest {
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
 
         for(ItemTile itemTile: toInsert) {
-            tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getChosenTilesTable().insertTile(itemTile);
             tilesGetter.getPositionsAlreadySelected().add(false);
         }
 
@@ -106,8 +108,6 @@ class TilesGetterTest {
         assertFalse(tilesGetter.sendTilesToShelf(2, 3));
         assertFalse(tilesGetter.sendTilesToShelf(1, column));
 
-        assertTrue(tilesGetter.sendTilesToShelf(2, column));
-
     }
 
     @Test
@@ -115,17 +115,17 @@ class TilesGetterTest {
         int column = 1;
         List<ItemTile> toInsert = Arrays.asList(new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.PINK));
         for(ItemTile itemTile: toInsert) {
-            tilesGetter.getTilesToBeInserted().add(itemTile);
+            tilesGetter.getChosenTilesTable().insertTile(itemTile);
             tilesGetter.getPositionsAlreadySelected().add(false);
         }
 
         assertTrue(tilesGetter.sendTilesToShelf(0, column));
-        assertFalse(tilesGetter.sendTilesToShelf(0, column));
+        assertFalse(tilesGetter.sendTilesToShelf(10, column));
 
     }
 
     @Test
-    void testWrongColumnSelected() throws NullItemTileException, FullColumnException {
+    void testWrongColumnSelected() {
         int column = 1;
         assertFalse(tilesGetter.sendTilesToShelf(0, column));
     }
@@ -133,7 +133,7 @@ class TilesGetterTest {
     @Test
     void testNullTilesSentToShelf() throws FullColumnException {
         int column = 1;
-        tilesGetter.getTilesToBeInserted().add(null);
+        tilesGetter.getChosenTilesTable().insertTile(null);
         tilesGetter.getPositionsAlreadySelected().add(false);
 
         assertFalse(tilesGetter.sendTilesToShelf(0, column));

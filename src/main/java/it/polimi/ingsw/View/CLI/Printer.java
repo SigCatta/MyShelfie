@@ -1,72 +1,37 @@
 package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
+
+import java.util.HashMap;
 
 public class Printer {
-    public static final String ANSI_BLACK_BACKGROUND = "\033[0;100m";
-    public static final String ANSI_GREEN_BACKGROUND = "\033[0;102m";
-    public static final String ANSI_YELLOW_BACKGROUND = "\033[0;103m";
-    public static final String ANSI_BLUE_BACKGROUND = "\033[0;104m";
-    public static final String ANSI_PINK_BACKGROUND = "\033[0;105m";
-    public static final String ANSI_CYAN_BACKGROUND = "\033[0;106m";
-    public static final String ANSI_WHITE_BACKGROUND = "\033[0;107m";
-    public static final String ANSI_RED_BACKGROUND = "\033[0;101m";
 
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
+    static HashMap<Color, String> colorMap;
+    public static final String NULL = ".";
 
-
-    public static void printMyShelfie() {
-        System.out.println( "M   M    Y     Y      SSSSS    H   H    EEEE    L         FFFFFF   III  EEEE\n" +
-                            "MM MM     Y   Y      S         H   H    E       L         F         I   E   \n" +
-                            "M M M      Y Y        SSSSS    HHHHH    EEEE    L         FFFFF     I   EEEE\n" +
-                            "M   M       Y              S   H   H    E       L         F         I   E   \n" +
-                            "M   M       Y         SSSSS    H   H    EEEE    LLLLLL    F        III  EEEE\n");
+    private static void enableCLIColors(boolean isColored) {
+        colorMap = new HashMap<>();
+        if (isColored) {
+            // COLOR = ANSI_BACKGROUND_COLOR_ID + white spaces + ANSI_COLOR_RESET
+            colorMap.put(Color.GREEN, "\033[0;102m" + " " + "\u001B[0m");
+            colorMap.put(Color.YELLOW, "\033[0;103m" + " " + "\u001B[0m");
+            colorMap.put(Color.BLUE, "\033[0;104m" + " " + "\u001B[0m");
+            colorMap.put(Color.PINK, "\033[0;105m" + " " + "\u001B[0m");
+            colorMap.put(Color.LIGHTBLUE, "\033[0;106m" + " " + "\u001B[0m");
+            colorMap.put(Color.WHITE, "\033[0;107m" + " " + "\u001B[0m");
+        } else {
+            colorMap.put(Color.GREEN, "GG");
+            colorMap.put(Color.YELLOW, "YY");
+            colorMap.put(Color.BLUE, "BB");
+            colorMap.put(Color.PINK, "PP");
+            colorMap.put(Color.LIGHTBLUE, "LL");
+            colorMap.put(Color.WHITE, "WW");
+        }
+        colorMap.put(Color.EMPTY, " ");
     }
 
-    public static void printColorMatrix(ItemTile[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            System.out.print(ANSI_RED + "|" + ANSI_RESET);
-            for (int j = 0; j < matrix[i].length; j++) {
-                if(matrix[i][j] == null) {
-                    System.out.print(ANSI_BLACK_BACKGROUND + "    " + ANSI_RESET +
-                            ANSI_RED + "|" + ANSI_RESET );
-                } else {
-                    switch (matrix[i][j].getColor()) {
-                        case GREEN:
-                            System.out.print(ANSI_GREEN_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        case YELLOW:
-                            System.out.print(ANSI_YELLOW_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        case BLUE:
-                            System.out.print(ANSI_BLUE_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        case PINK:
-                            System.out.print(ANSI_PINK_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        case LIGHTBLUE:
-                            System.out.print(ANSI_CYAN_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        case WHITE:
-                            System.out.print(ANSI_WHITE_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                        default:
-                            System.out.print(ANSI_BLACK_BACKGROUND + "    " + ANSI_RESET +
-                                    ANSI_RED + "|"  + ANSI_RESET );
-                            break;
-                    }
-                }
-            }
-            System.out.println();
-            System.out.println();
-        }
+    public static HashMap<Color, String> getColorMap(boolean isColored) {
+        enableCLIColors(isColored);
+        return colorMap;
     }
 }

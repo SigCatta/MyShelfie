@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GameState;
 
+import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.InsertTilesState;
 import it.polimi.ingsw.model.GameState.PickUpTilesState;
@@ -20,6 +21,7 @@ public class GameStateTest {
     @Test
     public void stateSuccessionTest(){
         Game game = new Game(999);
+        game.setVirtualView(new VirtualView(game));
         assertTrue(game.getGameState() instanceof PregameState);
 
         game.addPlayer(new Player("a"));
@@ -40,7 +42,7 @@ public class GameStateTest {
 
         assertTrue(game.getTilesGetter().sendTilesToShelf(0, 2));
         assertFalse(game.getTilesGetter().sendTilesToShelf(1, 3));
-        assertTrue(game.getTilesGetter().sendTilesToShelf(1, 2));
+        assertTrue(game.getTilesGetter().sendTilesToShelf(0, 2));
 
         assertTrue(game.getGameState() instanceof PickUpTilesState);
 
