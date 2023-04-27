@@ -53,8 +53,8 @@ public class TwoSquaresCGS extends CommonGoalStrategy {
 
         for(int[] el : positionsToCheck){
             if(shelfGrid[el[0]][el[1]] == null) return false;
-            if(visitedPositions.contains(el[0] + "," + el[1])) return false;
             if(shelfGrid[el[0]][el[1]].getColor() != currentColor) return false;
+            if(visitedPositions.contains(el[0] + "," + el[1])) return false;
         }
 
         for(int[] el : positionsToCheck){
