@@ -53,6 +53,10 @@ public class Controller implements Visitor{
         PlayersRepresentation.getInstance().updatePlayer((PlayerMessage) player);
     }
 
+    public void changeTilesTable(Message table){
+
+    }
+
     /**
      * reacts on ping received sending a pong message
      */
