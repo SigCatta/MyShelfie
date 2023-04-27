@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -17,12 +18,12 @@ public class BoardController {
     @FXML
     ImageView commonGoalCard2;
 
-    public void setCommonGoalCard1(ImageView commonGoalCard1) {
-        this.commonGoalCard1 = commonGoalCard1;
+    public void setCommonGoalCard1(String commonGoalCard1Path) {
+        this.commonGoalCard1.setImage(new Image(commonGoalCard1Path));
     }
 
-    public void setCommonGoalCard2(ImageView commonGoalCard2) {
-        this.commonGoalCard2 = commonGoalCard2;
+    public void setCommonGoalCard2(String commonGoalCard2Path) {
+        this.commonGoalCard2.setImage(new Image(commonGoalCard2Path));
     }
 }
 
