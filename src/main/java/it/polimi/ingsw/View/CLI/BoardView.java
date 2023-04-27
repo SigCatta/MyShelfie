@@ -8,11 +8,8 @@ import java.util.HashMap;
 
 public class BoardView {
 
-    private final Color[][] board;
-    public BoardView(){
-        this.board = BoardRepresentation.getInstance().getBoardForCLI();
-    }
     public ArrayList<String> printBoard(ArrayList<String> output) { // ─ │ ┌ ┐ └ ┘ ┤ ├ ┴ ┬ ┼
+        Color[][] board = BoardRepresentation.getInstance().getBoardForCLI();
         HashMap<Color, String> colorMap = Printer.getColorMap(true);
 
         output.add("┌────┬────┬────┬────┬────┬────┬────┬────┬────┐          .");
@@ -20,6 +17,8 @@ public class BoardView {
             StringBuilder string = new StringBuilder("│");
             for (Color color : row) {
                 string
+                        .append(colorMap.getOrDefault(color, Printer.NULL))
+                        .append(colorMap.getOrDefault(color, Printer.NULL))
                         .append(colorMap.getOrDefault(color, Printer.NULL))
                         .append(colorMap.getOrDefault(color, Printer.NULL))
                         .append("│");

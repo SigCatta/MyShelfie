@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BoardRepresentation implements VirtualModelSubject {
     private List<VirtualModelObserver> observers;
-    static BoardRepresentation instance;
+    private static BoardRepresentation instance;
     private ItemTile[][] board;
 
     private BoardRepresentation() {}
@@ -24,7 +24,7 @@ public class BoardRepresentation implements VirtualModelSubject {
         notifyObservers();
     }
 
-    public void setBoard(ItemTile[][] board) { // for testing
+    public void setBoard(ItemTile[][] board) { /** for testing */
         this.board = board;
     }
 
