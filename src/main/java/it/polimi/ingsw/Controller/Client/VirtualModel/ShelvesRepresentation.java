@@ -28,6 +28,10 @@ public class ShelvesRepresentation implements VirtualModelSubject {
         notifyObservers();
     }
 
+    public ShelfMessage getShelfMessage (String nickname){
+        return SHELF_MESSAGES.get(nickname);
+    }
+
     //TODO method that retrieves the players
 
     @Override
