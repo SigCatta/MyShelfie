@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.BoardController">
+   <children>
+      <Group>
+         <children>
+            <ImageView fitHeight="705.0" fitWidth="1498.0">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="634.0" fitWidth="741.0" layoutX="157.0" layoutY="35.0" preserveRatio="true">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/boards/livingroom.png" />
+               </image>
+            </ImageView>
+            <GridPane fx:id="matrix" layoutX="185.0" layoutY="63.0" prefHeight="577.0" prefWidth="578.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <ImageView fx:id="commonGoalCard1" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FourAnglesCG.jpg" />
+               </image>
+               <effect>
+                  <Blend />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+   </children>
+</StackPane>

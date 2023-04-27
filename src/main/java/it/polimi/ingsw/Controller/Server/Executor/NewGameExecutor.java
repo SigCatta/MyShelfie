@@ -1,28 +1,26 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.Controller.Server.GamesManager;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.player.Player;
 
 import java.util.HashMap;
 
 
-public class NewGameExecutor implements Executor {
+public class NewGameExecutor implements Executor { //TODO delete this class
 
-    private GamesManager gamesManager;
+    private Game game;
 
-    public NewGameExecutor(){
-        gamesManager = GamesManager.getInstance();
+    public NewGameExecutor(Game game){
+        this.game = game;
     }
 
     @Override
     public void execute(HashMap<String, String> data) {
 
-        Game game = gamesManager.getGame(Integer.parseInt(data.get("GAMEID")));
-        if(!game.getGameState().isCommandPossible(data.get("COMMAND")))return;
-
         String nickname = data.get("NICKNAME");
-        int maxPlayers = Integer.parseInt(data.get("MAX_PLAYERS"));
 
-        int gameID = gamesManager.addGame(maxPlayers);
+        game.addPlayer(new Player(nickname));
+
     }
 }

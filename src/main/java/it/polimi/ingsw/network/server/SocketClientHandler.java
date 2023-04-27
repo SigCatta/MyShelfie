@@ -1,6 +1,12 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.Controller.Server.PingPong.PingController;
+import it.polimi.ingsw.Controller.Server.GamesManager;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.Message;
+
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -11,28 +17,25 @@ import java.util.HashMap;
  */
 public class SocketClientHandler extends ClientHandler implements Runnable {
     private final Socket client;
-
-    private final SocketServer socketServer;
-
+    private PingController pingController;
     private boolean connected;
 
-    private final Object inputLock;
-    private final Object outputLock;
+    /**
+     * Each handler is assigned to only one client,
+     * the nickname is a primary key for a player
+     */
+    private String nickname;
+    private int gameID;
 
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
     /**
-     * @param socketServer the socket of the server.
      * @param client the client asking to connect
      */
-    public SocketClientHandler(SocketServer socketServer, Socket client) {
-        this.socketServer = socketServer;
+    public SocketClientHandler(Socket client) {
         this.client = client;
-        this.connected = true;
-
-        this.inputLock = new Object();
-        this.outputLock = new Object();
+        pingController = new PingController(this);
 
         try {
             this.output = new ObjectOutputStream(client.getOutputStream());
@@ -41,60 +44,68 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             Server.LOGGER.severe(e.getMessage());
         }
     }
-
     @Override
     public void run() {
         try {
             handleClientConnection();
+            pingController.start();
+            handleClientMessages();
+
+        }catch(InvalidClassException inc){
+            sendCommand(new ErrorMessage("Provide a valid command to start or join a game"));
+            Thread.currentThread().interrupt();
         } catch (IOException e) {
-            Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");
-            disconnect();
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");//TODO remove after testing
+            Thread.currentThread().interrupt();
+        } catch (ClassNotFoundException classNotFoundException){
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " class not found"); //TODO remove after testing
+            Thread.currentThread().interrupt();
+        } catch (NumberFormatException nfe){
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " invalid number"); //TODO remove after testing
+            Thread.currentThread().interrupt();
         }
     }
 
     /**
-     * Handles the connection of a new client and keep listening to the socket for new messages.
-     *
-     * @throws IOException for Input/Output related exceptions.
+     * when a player wants to enter he must send a NEW_GAME or CAN_I_PLAY message
+     * in case this is verified, connect the player to the game
      */
-    private void handleClientConnection() throws IOException {
-        Server.LOGGER.info("Client connected from " + client.getInetAddress());
+    private void handleClientConnection() throws IOException, ClassNotFoundException, NumberFormatException {
+        Object o = input.readObject();
+        if(o == null)return;
+        HashMap<String, String> commandMap = (HashMap<String, String>) o;
 
-        try {
-            while (!Thread.currentThread().isInterrupted()) {
-                HashMap<String, String> commandMap = (HashMap<String, String>) input.readObject();
+        if(!commandMap.get("COMMAND").equals("NEW_GAME") && !commandMap.get("COMMAND").equals("CAN_I_PLAY")){
+            throw new InvalidClassException("The command sent is not a valid one to connect into a game");
+        }
 
-                if (commandMap == null ) continue;
+        if(!GamesManager.getInstance().connectPlayer(commandMap, this)){
+            throw new InvalidClassException("The nickname is already in use"); //impossible to initiate a connection
+        }
+    }
 
-                if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
-                    this.nickname = commandMap.get("NICKNAME");
-                    //TODO the client does not have the gameid when creating a new game
-                    this.gameId = Integer.parseInt(commandMap.get("GAMEID"));
-                    socketServer.addClient(this.nickname, this, commandMap);
-                } else {
-                    Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));
-                    socketServer.onCommandReceived(commandMap);
-                }
+    /**
+     * gets the messages from the input and forwards them to the class responsible for handling it
+     */
+    private void handleClientMessages() throws IOException, ClassNotFoundException {
+        Server.LOGGER.info("Client connected from " + client.getInetAddress()); //TODO remove after testing
+
+        while (!Thread.currentThread().isInterrupted()) {
+            Object o = input.readObject();
+            if(!(o instanceof HashMap)) continue;
+            HashMap<String, String> commandMap = (HashMap<String, String>) o;
+
+            if(commandMap.get("COMMAND").equals("PONG")){
+                pingController.onPongReceived();
             }
-        } catch (ClassCastException | ClassNotFoundException e) {
-            Server.LOGGER.severe("Invalid stream from client");
+
+            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));//TODO remove after testing
+
+            GamesManager.getInstance().onCommandReceived(commandMap);
         }
+
+        pingController.close();
         client.close();
-    }
-
-    /**
-     * Returns the current status of the connection.
-     *
-     * @return true if the connection is still active, @code otherwise.
-     */
-    @Override
-    public boolean isConnected() {
-        return connected;
-    }
-
-    @Override
-    public void setConnected(boolean connected) {
-        this.connected = connected;
     }
 
     /**
@@ -112,10 +123,10 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             Server.LOGGER.severe(e.getMessage());
         }
         connected = false;
+
+        GamesManager.getInstance().removePlayer(this);
+
         Thread.currentThread().interrupt();
-
-        socketServer.onDisconnect(this);
-
     }
 
     /**
@@ -126,66 +137,37 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     @Override
     public void sendCommand(HashMap<String, String> commandMap) {
         try {
-            synchronized (outputLock) {
-                output.writeObject(commandMap);
-                output.reset();
-                Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
-                        " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
-            }
+            output.writeObject(commandMap);
+            output.reset();
+            Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
+                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
+            disconnect();
+        }
+    }
+    @Override
+    public void sendCommand(Message message){
+        try {
+            output.writeObject(message);
+            output.reset();
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
             disconnect();
         }
     }
 
-    /**
-     * Sends a PING to the client via socket.
-     */
-    @Override
-    public void sendPing() {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", "SERVER");
-        commandMap.put("GAMEID", String.valueOf(getGameId()));
-        commandMap.put("COMMAND", "PING");
-
-        sendCommand(commandMap);
+    public String getNickname() {
+        return nickname;
     }
-
-    public void notifyNicknameAlreadyTaken() {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", this.getNickname());
-        commandMap.put("GAMEID", String.valueOf(this.gameId));
-        commandMap.put("COMMAND", "NICKNAME_TAKEN");
-        this.sendCommand(commandMap);
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
-
-    /**
-     * sends the message regarding the disconnection or reconnection of a client.
-     *
-     * @param nickname the client disconnecting or reconnection
-     * @param reconnection true if the client has reconnected to the game
-     * @param connectionLost true if the client hasn't responded to a PING message
-     *                       false if the client has been disconnected from the game
-     */
-    public void sendConnectionMessage(String nickname, int gameID, boolean reconnection, boolean connectionLost) {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", nickname);
-        commandMap.put("GAMEID", String.valueOf(gameID));
-
-        if(reconnection) {
-            commandMap.put("COMMAND", "PLAYER_RECONNECTED");
-            commandMap.put("COMMAND_DATA", nickname + " is back online :)");
-        } else {
-            if(connectionLost) {
-                commandMap.put("COMMAND", "PLAYER_DOWN");
-                commandMap.put("COMMAND_DATA", "We've lost connection from " + nickname + " :(");
-            } else {
-                commandMap.put("COMMAND", "BYE");
-                commandMap.put("COMMAND_DATA", nickname + " has disconnected from the game.");
-            }
-        }
-
-        sendCommand(commandMap);
+    public int getGameID() {
+        return gameID;
+    }
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
 }
