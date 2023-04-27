@@ -106,14 +106,14 @@ public class Shelf implements VirtualViewSubject {
      * @return The number of columns in the shelf grid.
      */
     public int getCOLUMNS() {
-        return COLUMNS;
+        return shelfGrid[0].length;
     }
 
     /**
      * @return The number of rows in the shelf grid.
      */
     public int getROWS() {
-        return ROWS;
+        return shelfGrid.length;
     }
 
     /**

@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.EndOfTurn;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +52,7 @@ public class TurnHandler implements EndOfTurnSubject {
         int nextIndex = players.indexOf(game.getActivePlayer()) + 1;
 
         if(lastTurn && nextIndex == 0) game.end();
+        while (!players.get(nextIndex).isConnected()) nextIndex++; //if the player is disconnected skip his turn
 
         nextIndex = nextIndex >= players.size() ? 0 : nextIndex;
         game.setActivePlayer(players.get(nextIndex));
