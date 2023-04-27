@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.board.TilesGetter;
 
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.InsertTilesState;
-import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,11 +16,12 @@ public class TilesGetter {
     private final PickUpValidator PICK_UP_VALIDATOR;
     private Player activePlayer;
     private Integer chosenColumn;
+    private TilesToShelfSender tilesToShelfSender;
     private Game game;
     /**
      * The list of ItemTiles to be inserted.
      */
-    private List<ItemTile> tilesToBeInserted ;
+    private ChosenTilesTable chosenTilesTable;
     /**
      * every item in the list is linked to the ItemTile in the tilesToBeInserted list,
      * and it is true if it has already been sent to the shelf, false otherwise
@@ -30,9 +30,10 @@ public class TilesGetter {
 
     public TilesGetter(Game game){
         this.game = game;
+        chosenTilesTable = new ChosenTilesTable();
+        tilesToShelfSender = new TilesToShelfSender(game, chosenTilesTable);
         PICK_UP_VALIDATOR = new PickUpValidator(game);
         board = game.getBoard();
-        tilesToBeInserted = new ArrayList<>();
         positionsAlreadySelected = new ArrayList<>();
     }
 
@@ -42,24 +43,22 @@ public class TilesGetter {
      */
     public boolean pickUpTiles(ArrayList<Point> chosenPositions){
 
-        this.tilesToBeInserted = new ArrayList<>();
         this.positionsAlreadySelected = new ArrayList<>();
         this.chosenColumn = null;
 
         if(!PICK_UP_VALIDATOR.isValid(chosenPositions)) {
-            //TODO tell the user to choose
+            game.getVirtualView().send(new ErrorMessage("You can't pick up these tiles"));
             return false;
         }
 
         if(tooManyTilesChosen(chosenPositions.size()))  {
-            //TODO tell the user to choose less tiles
+            game.getVirtualView().send(new ErrorMessage("Choose less tiles"));
             return false;
         }
 
-        //send tiles to the shelf buffer and remove them from the board
+        //send tiles to the ChosenTilesTable and remove them from the board
         for(Point position : chosenPositions) {
-            tilesToBeInserted.add(board.removeItemTile(position));
-            positionsAlreadySelected.add(false);
+            chosenTilesTable.insertTile(board.removeItemTile(position));
         }
 
         game.setGameState(new InsertTilesState());
@@ -77,60 +76,21 @@ public class TilesGetter {
 
         Shelf shelf = activePlayer.getShelf();
         for (int i = 0; i < shelf.getCOLUMNS(); i++) {
-            if(shelf.getNumOfBoxLeftInCol(i) >= size)   return false;    //there is still enough free cell in at least a column
+            if(shelf.getNumOfBoxLeftInCol(i) >= size) return false;    //there is still enough free cell in at least a column
         }
         return true;    //not enough free cell in any columns
     }
 
-    private boolean enoughFreeCellsInCol(int column) {
-        return game.getActivePlayer().getShelf().getNumOfBoxLeftInCol(column) >= tilesToBeInserted.size();
-    }
-
-    /**
-     * Method called by an observer when the activePlayer chooses the specific order they want to insert the tiles picked up
-     *
-     * @param tileIndex the index of the tile in the tilesToBeInserted array the activePLayer has chosen to insert into their Shelf
-     * @param column the column selected
-     * @return true if it was possible to insert the tile,
-     *         false if the column selected isn't the corrected one or if the itemTile was already inserted
-     */
-    public boolean sendTilesToShelf(int tileIndex, int column) {
-
-        activePlayer = game.getActivePlayer();
-
-        if(tileIndex >= positionsAlreadySelected.size() || tileIndex < 0) return false;
-
-        //check if the number of tiles to insert fit in the chosen column
-        if(this.chosenColumn == null && !enoughFreeCellsInCol(column)) return false;//TODO send message
-
-
-        //here the chosen column is definitive
-        if(this.chosenColumn == null) this.chosenColumn = column;
-
-        //check if the player chosen column is the right one and if the tile selected was not selected before
-        if(column != this.chosenColumn || positionsAlreadySelected.get(tileIndex)) return false;//TODO send message
-
-        ItemTile tileToInsert = tilesToBeInserted.get(tileIndex);
-        if(!activePlayer.getShelf().insertTile(tileToInsert, column)) return false; //should not reach TODO send error
-
-        positionsAlreadySelected.set(tileIndex, true);
-
-        //there are no more tiles to be inserted because the positions are all selected (true)
-        if(positionsAlreadySelected.stream().allMatch(val -> val)){
-            game.getTurnHandler().changeTurn();
-            game.setGameState(new PickUpTilesState());
-        }
-
-        //TODO update the virtual view
-        return true;
-    }
-
-    public List<ItemTile> getTilesToBeInserted() {
-        return tilesToBeInserted;
+    public ChosenTilesTable getChosenTilesTable() {
+        return chosenTilesTable;
     }
 
     public List<Boolean> getPositionsAlreadySelected() {
         return positionsAlreadySelected;
+    }
+
+    public boolean sendTilesToShelf(int tileIndex, int column){
+        return tilesToShelfSender.sendTilesToShelf(tileIndex, column);
     }
 
 }

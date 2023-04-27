@@ -5,22 +5,24 @@ import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShelvesRepresentation extends SingletonImplementation implements VirtualModelSubject{
+public class ShelvesRepresentation implements VirtualModelSubject {
     /**
      * nickname of the player that owns the shelf
      */
     private final Map<String, ShelfMessage> SHELF_MESSAGES = new HashMap<>();
+    private static ShelvesRepresentation instance;
 
     private ShelvesRepresentation() {}
 
     public static ShelvesRepresentation getInstance() {
-        return getInstance(ShelvesRepresentation.class);
+        if (instance == null) instance = new ShelvesRepresentation();
+        return instance;
     }
 
     /**
      * updates the shelf with the new one sent by the server
      */
-    public void updateShelf(ShelfMessage shelfMessage){
+    public void updateShelf(ShelfMessage shelfMessage) {
         String nickname = shelfMessage.getOwner();
         SHELF_MESSAGES.put(nickname, shelfMessage);
         notifyObservers();
