@@ -1,10 +1,7 @@
 package it.polimi.ingsw.View.VirtualView;
 
 import it.polimi.ingsw.View.VirtualView.Messages.Message;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.BoardView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.GameView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.ShelfView;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
@@ -37,7 +34,7 @@ public class VirtualView {
             player.registerObserver(new PlayerView(player, this));// links the player observer to the player
             player.getShelf().registerObserver(new ShelfView(player, this));
         }
-        //TODO tilesGetter view
+        GAME.getTilesGetter().getChosenTilesTable().registerObserver(new ChosenTilesTableView(GAME, this));
     }
 
     public void send(Message message){
