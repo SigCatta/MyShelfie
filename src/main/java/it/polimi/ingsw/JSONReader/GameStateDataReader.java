@@ -1,11 +1,11 @@
 package it.polimi.ingsw.JSONReader;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
 import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
 
 public class GameStateDataReader implements JSONFileReader{
 

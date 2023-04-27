@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Controller.Client.Mappers;
 
-import java.util.HashMap;
 import java.util.Stack;
 
 /**

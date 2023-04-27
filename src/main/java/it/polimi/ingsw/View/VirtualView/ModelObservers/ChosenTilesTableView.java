@@ -1,10 +1,8 @@
 package it.polimi.ingsw.View.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
 import it.polimi.ingsw.View.VirtualView.Messages.ChosenTilesTableMessage;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.board.TilesGetter.ChosenTilesTable;
 
 public class ChosenTilesTableView implements VirtualViewObserver{
     private final Game GAME;

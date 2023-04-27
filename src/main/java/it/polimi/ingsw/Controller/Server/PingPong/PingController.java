@@ -4,7 +4,7 @@ import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
-import java.util.*;
+import java.util.Timer;
 
 public class PingController extends Thread{
     private final Timer TIMER;
