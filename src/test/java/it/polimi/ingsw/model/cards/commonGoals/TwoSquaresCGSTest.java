@@ -95,4 +95,11 @@ public class TwoSquaresCGSTest {
         };
         assertFalse(cg.isGoalAchieved(new Shelf(shelf)));
     }
+
+    @Test
+    public void bigMatrix(){
+        TwoSquaresCGS cg = new TwoSquaresCGS();
+        ItemTile[][] shelf = new ItemTile[100][200];
+        assertFalse(cg.isGoalAchieved(new Shelf(shelf)));
+    }
 }
