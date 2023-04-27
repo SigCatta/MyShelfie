@@ -3,6 +3,11 @@ package it.polimi.ingsw.View.GUI.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class ChatController {
     @FXML
@@ -26,6 +31,9 @@ public class ChatController {
     @FXML
     TextField otherText5;
 
+    List<TextField> myList = new ArrayList<>(Arrays.asList(myText1, myText2, myText3, myText4, myText5));
+    List<TextField> otherList = new ArrayList<>(Arrays.asList(otherText1, otherText2, otherText3, otherText4, otherText5));
+
     /*
     otherText:
     <TextField layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: lightblue;" text="">
@@ -48,6 +56,7 @@ public class ChatController {
      */
     public void updateChat(String message, boolean otherPlayer) {
         //TODO: set visible the correct textField and write text
+
     }
 
 
