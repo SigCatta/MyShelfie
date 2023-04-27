@@ -59,6 +59,6 @@ public class ChatController {
 
     }
 
-    //TODO: look how to open another window for the chat
+    //TODO: look how to open another window for the chat while maintaining the main window
 
 }
