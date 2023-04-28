@@ -1,15 +1,19 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class ChatController {
+    @FXML
+    Button showBoardButton;
+    @FXML
+    Button showShelfButton;
     @FXML
     TextField myText1;
     @FXML
@@ -59,6 +63,21 @@ public class ChatController {
 
     }
 
-    //TODO: look how to open another window for the chat while maintaining the main window
+    public void setButtonVisible() {
+        if(true ) { //TODO: call call that check at which stage of game we are
+            showBoardButton.setVisible(true);
+        } else {
+            showShelfButton.setVisible(true);
+        }
+    }
 
+    @FXML
+    public void onShowMyShelfClicked() {
+        StageController.changeScene("shelf.fxml", "My shelf");
+    }
+
+    @FXML
+    public void onShowBoardClicked() {
+        StageController.changeScene("board.fxml", "Board");
+    }
 }
