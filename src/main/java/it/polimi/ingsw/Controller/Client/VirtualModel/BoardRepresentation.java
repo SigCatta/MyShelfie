@@ -10,7 +10,7 @@ import java.util.List;
 public class BoardRepresentation implements VirtualModelSubject {
     private List<VirtualModelObserver> observers;
     private static BoardRepresentation instance;
-    private ItemTile[][] board;
+    private Color[][] board;
 
     private BoardRepresentation() {}
 
@@ -20,30 +20,17 @@ public class BoardRepresentation implements VirtualModelSubject {
     }
 
     public void setBoard(BoardMessage board) {
-        this.board = board.getBoard();
+        this.board = board.getColorBoard();
         notifyObservers();
     }
 
-    public void setBoard(ItemTile[][] board) { /** for testing */
+    public void setBoard(Color[][] board) { // for testing
         this.board = board;
     }
 
-    public ItemTile[][] getBoard() {
+    public Color[][] getBoard() {
         return board;
     }
-
-    public Color[][] getBoardForCLI() {
-        Color[][] colors = new Color[board.length][board.length];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                colors[i][j] = board[i][j] == null ? null : board[i][j].getColor();
-            }
-        }
-        //TODO might be more efficient to delete the double for loop and return the matrix [[]...[]]
-        return colors;
-    }
-
-    //TODO method that retrieves the board
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {

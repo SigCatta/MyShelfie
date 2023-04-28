@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class BoardView {
 
     public ArrayList<String> printBoard(ArrayList<String> output) { // ─ │ ┌ ┐ └ ┘ ┤ ├ ┴ ┬ ┼
-        Color[][] board = BoardRepresentation.getInstance().getBoardForCLI();
+        Color[][] board = BoardRepresentation.getInstance().getBoard();
         HashMap<Color, String> colorMap = Printer.getColorMap(true);
 
         output.add("┌────┬────┬────┬────┬────┬────┬────┬────┬────┐          .");

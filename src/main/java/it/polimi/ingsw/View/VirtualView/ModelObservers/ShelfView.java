@@ -14,6 +14,7 @@ public class ShelfView implements VirtualViewObserver, Message, Serializable {
     public ShelfView(Player player, VirtualView virtualView){
         this.OWNER = player;
         this.VIRTUAL_VIEW = virtualView;
+        player.getShelf().registerObserver(this);
     }
     @Override
     public void update() {

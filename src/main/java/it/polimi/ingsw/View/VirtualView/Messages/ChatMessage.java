@@ -2,7 +2,9 @@ package it.polimi.ingsw.View.VirtualView.Messages;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 
-public class ChatMessage implements Message{
+import java.io.Serializable;
+
+public class ChatMessage implements Message, Serializable {
 
     private final String CHAT_MESSAGE;
 

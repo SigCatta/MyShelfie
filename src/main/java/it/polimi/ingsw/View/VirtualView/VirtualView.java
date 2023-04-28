@@ -28,13 +28,13 @@ public class VirtualView {
      */
     public void observersInit(){
 
-        GAME.registerObserver(new GameView(GAME, this));
-        GAME.getBoard().registerObserver(new BoardView(GAME, this)); // links the board observer to the board
+        new GameView(GAME, this);
+        new BoardView(GAME, this); // links the board observer to the board
         for(Player player : GAME.getPlayers()){
-            player.registerObserver(new PlayerView(player, this));// links the player observer to the player
-            player.getShelf().registerObserver(new ShelfView(player, this));
+            new PlayerView(player, this);// links the player observer to the player
+            new ShelfView(player, this);
         }
-        GAME.getTilesGetter().getChosenTilesTable().registerObserver(new ChosenTilesTableView(GAME, this));
+        new ChosenTilesTableView(GAME, this);
     }
 
     public void send(Message message){

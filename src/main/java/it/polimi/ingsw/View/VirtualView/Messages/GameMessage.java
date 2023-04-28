@@ -8,11 +8,12 @@ import java.io.Serializable;
 public class GameMessage implements Message, Serializable {
 
     private final int GAMEID;
-    private final String ACTIVE_PLAYER_NICKNAME;
+    private String activePlayerNickname;
 
     public GameMessage(Game game){
         this.GAMEID = game.getGameID();
-        this.ACTIVE_PLAYER_NICKNAME = game.getActivePlayer().getNickname();
+        if(game.getActivePlayer() != null)
+            this.activePlayerNickname = game.getActivePlayer().getNickname();
     }
 
     public int getGameID() {
@@ -20,7 +21,7 @@ public class GameMessage implements Message, Serializable {
     }
 
     public String getActivePlayerNickname() {
-        return ACTIVE_PLAYER_NICKNAME;
+        return activePlayerNickname;
     }
 
     @Override

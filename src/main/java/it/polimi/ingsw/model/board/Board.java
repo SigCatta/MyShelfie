@@ -10,16 +10,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Board implements VirtualViewSubject {
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> OBSERVERS;
     private final ItemTile[][] BOARD_GRID;
+    private final Color[][] COLOR_GRID;
 
     public Board(int boardDimension) {
         BOARD_GRID = new ItemTile[boardDimension][boardDimension];
-        observers = new ArrayList<>();
+        COLOR_GRID = new Color[boardDimension][boardDimension];
+        OBSERVERS = new ArrayList<>();
+    }
+
+    public Board(ItemTile[][] board){
+        BOARD_GRID = board;
+        COLOR_GRID = toColorArray(board);
+        OBSERVERS = new ArrayList<>();
     }
 
     public ItemTile[][] getBoardGrid() {
         return BOARD_GRID;
+    }
+
+    public Color[][] getColorGrid(){
+        return COLOR_GRID;
     }
 
     public int getSize(){
@@ -29,12 +41,14 @@ public class Board implements VirtualViewSubject {
     public void setItemTile(Color color, int row, int col){
         if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
+        COLOR_GRID[row][col] = color;
         notifyObservers();
     }
 
     public ItemTile removeItemTile(Point location) {
         ItemTile pickedUpTile = BOARD_GRID[location.x][location.y];
         BOARD_GRID[location.x][location.y] = null;
+        COLOR_GRID[location.x][location.y] = null;
         notifyObservers();
         return pickedUpTile;
     }
@@ -46,14 +60,25 @@ public class Board implements VirtualViewSubject {
         notifyObservers();
     }
 
+    private Color[][] toColorArray(ItemTile[][] boardGrid){
+        Color[][] colorGrid = new Color[boardGrid.length][boardGrid[0].length];
+        for(int i = 0; i < boardGrid.length; i++){
+            for(int j = 0; j < boardGrid[0].length; j++){
+                if(boardGrid[i][j] == null) continue;
+                colorGrid[i][j] = boardGrid[i][j].getColor();
+            }
+        }
+        return colorGrid;
+    }
+
     @Override
     public void registerObserver(VirtualViewObserver observer) {
-        observers.add(observer);
+        OBSERVERS.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualViewObserver observer) {
-        observers.remove(observer);
+        OBSERVERS.remove(observer);
     }
 
     /**
@@ -61,7 +86,7 @@ public class Board implements VirtualViewSubject {
      */
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for(VirtualViewObserver observer : OBSERVERS){
             observer.update();
         }
     }

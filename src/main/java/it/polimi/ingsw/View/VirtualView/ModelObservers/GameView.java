@@ -13,6 +13,7 @@ public class GameView implements VirtualViewObserver {
     public GameView(Game game, VirtualView virtualView){
         this.GAME = game;
         this.VIRTUAL_VIEW = virtualView;
+        GAME.registerObserver(this);
     }
 
     @Override

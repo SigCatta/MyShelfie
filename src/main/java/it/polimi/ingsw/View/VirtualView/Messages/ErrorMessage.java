@@ -2,7 +2,9 @@ package it.polimi.ingsw.View.VirtualView.Messages;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 
-public class ErrorMessage implements Message{
+import java.io.Serializable;
+
+public class ErrorMessage implements Message, Serializable {
 
     private final String ERROR_MESSAGE;
 

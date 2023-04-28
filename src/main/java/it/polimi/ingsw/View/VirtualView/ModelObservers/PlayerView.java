@@ -15,6 +15,7 @@ public class PlayerView implements VirtualViewObserver, Message, Serializable {
     public PlayerView(Player player, VirtualView virtualView){
         this.PLAYER = player;
         this.VIRTUAL_VIEW = virtualView;
+        PLAYER.registerObserver(this);
     }
 
     @Override

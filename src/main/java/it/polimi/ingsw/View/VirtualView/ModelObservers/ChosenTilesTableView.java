@@ -11,6 +11,7 @@ public class ChosenTilesTableView implements VirtualViewObserver{
     public ChosenTilesTableView(Game game, VirtualView virtualView){
         this.GAME = game;
         this.VIRTUAL_VIEW = virtualView;
+        game.getTilesGetter().getChosenTilesTable().registerObserver(this);
     }
 
     /**

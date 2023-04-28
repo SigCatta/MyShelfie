@@ -2,18 +2,18 @@ package it.polimi.ingsw.View.VirtualView.Messages;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.model.tiles.Color;
 
 import java.io.Serializable;
 
 public class BoardMessage implements Message, Serializable {
-    private final ItemTile[][] BOARD;
+    private final Color[][] BOARD;
 
     public BoardMessage(Board board){
-        this.BOARD = board.getBoardGrid();
+        this.BOARD = board.getColorGrid();
     }
 
-    public ItemTile[][] getBoard() {
+    public Color[][] getColorBoard() {
         return BOARD;
     }
 
