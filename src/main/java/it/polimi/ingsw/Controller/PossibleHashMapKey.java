@@ -1,6 +1,6 @@
-package it.polimi.ingsw.Controller.Commands;
+package it.polimi.ingsw.Controller;
 
-public enum CommandType {
+public enum PossibleHashMapKey {
     NEW_GAME,
     BYE,
     CAN_I_PLAY,
@@ -14,5 +14,13 @@ public enum CommandType {
     PLAYER_DOWN,
     BOARD,
     PLAYER_SCORE,
-    SHELF
+    SHELF,
+
+    NICKNAME,
+    GAMEID,
+    COMMAND,
+    MESSAGE,
+    NUM_OF_PLAYERS,
+    ROW,
+    TILE_INDEX,
 }

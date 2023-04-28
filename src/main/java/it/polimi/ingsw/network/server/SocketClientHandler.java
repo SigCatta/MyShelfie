@@ -47,8 +47,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            handleClientConnection();
             pingController.start();
+            handleClientConnection();
             handleClientMessages();
 
         }catch(InvalidClassException inc){
