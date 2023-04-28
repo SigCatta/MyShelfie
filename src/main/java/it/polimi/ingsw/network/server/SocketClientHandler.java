@@ -110,23 +110,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         Thread.currentThread().interrupt();
     }
 
-    /**
-     * Sends a command to the client via socket.
-     *
-     * @param commandMap the command and overhead data to be sent.
-     */
-    @Override
-    public void sendCommand(HashMap<String, String> commandMap) {
-        try {
-            output.writeObject(commandMap);
-            output.reset();
-            Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
-        } catch (IOException e) {
-            Server.LOGGER.severe(e.getMessage());
-            disconnect();
-        }
-    }
     @Override
     public void sendCommand(MessageToClient messageToClient){
         try {
