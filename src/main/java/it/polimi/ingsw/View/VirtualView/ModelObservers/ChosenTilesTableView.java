@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ChosenTilesTableMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.ChosenTilesTableMessageToClient;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 
@@ -19,6 +19,6 @@ public class ChosenTilesTableView implements VirtualViewObserver{
      */
     @Override
     public void update() {
-        VIRTUAL_VIEW.send(new ChosenTilesTableMessage(GAME.getTilesGetter().getChosenTilesTable().getCHOSEN_TILES()));
+        VIRTUAL_VIEW.send(new ChosenTilesTableMessageToClient(GAME.getTilesGetter().getChosenTilesTable().getCHOSEN_TILES()));
     }
 }

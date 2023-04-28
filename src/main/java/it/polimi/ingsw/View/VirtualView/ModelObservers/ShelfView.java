@@ -1,13 +1,13 @@
 package it.polimi.ingsw.View.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
-import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessageToClient;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.player.Player;
 
 import java.io.Serializable;
 
-public class ShelfView implements VirtualViewObserver, Message, Serializable {
+public class ShelfView implements VirtualViewObserver, MessageToClient, Serializable {
     private final VirtualView VIRTUAL_VIEW;
     private final Player OWNER;
 
@@ -18,6 +18,6 @@ public class ShelfView implements VirtualViewObserver, Message, Serializable {
     }
     @Override
     public void update() {
-        VIRTUAL_VIEW.send(new ShelfMessage(OWNER));
+        VIRTUAL_VIEW.send(new ShelfMessageToClient(OWNER));
     }
 }

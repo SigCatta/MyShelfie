@@ -1,14 +1,14 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 
 import java.io.Serializable;
 
-public class ErrorMessage implements Message, Serializable {
+public class ErrorMessageToClient implements MessageToClient, Serializable {
 
     private final String ERROR_MESSAGE;
 
-    public ErrorMessage(String errorMessage){
+    public ErrorMessageToClient(String errorMessage){
         this.ERROR_MESSAGE = errorMessage;
     }
 
@@ -18,6 +18,6 @@ public class ErrorMessage implements Message, Serializable {
 
     @Override
     public void update() {
-        Controller.getInstance().error(this);
+        ClientController.getInstance().error(this);
     }
 }

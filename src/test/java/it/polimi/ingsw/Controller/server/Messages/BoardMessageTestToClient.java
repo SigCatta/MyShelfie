@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.BoardMessageToClient;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class BoardMessageTest {
+public class BoardMessageTestToClient {
     @Test
     public void dimension() throws IOException {
 
@@ -23,7 +23,7 @@ public class BoardMessageTest {
                 {new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null},
         };
 
-        BoardMessage obj = new BoardMessage(new Board(board)); // create an instance of your object
+        BoardMessageToClient obj = new BoardMessageToClient(new Board(board)); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

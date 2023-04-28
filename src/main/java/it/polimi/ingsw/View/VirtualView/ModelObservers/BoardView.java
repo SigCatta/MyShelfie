@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.BoardMessageToClient;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 
@@ -20,6 +20,6 @@ public class BoardView implements VirtualViewObserver {
      */
     @Override
     public void update() {
-        VIRTUAL_VIEW.send(new BoardMessage(GAME.getBoard()));
+        VIRTUAL_VIEW.send(new BoardMessageToClient(GAME.getBoard()));
     }
 }

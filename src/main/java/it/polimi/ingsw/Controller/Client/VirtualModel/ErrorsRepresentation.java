@@ -1,21 +1,24 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ErrorsRepresentation extends SingletonImplementation implements VirtualModelSubject{
+public class ErrorsRepresentation implements VirtualModelSubject{
 
     private final Queue<String> ERROR_MESSAGES = new LinkedList<>();
+
+    private static ErrorsRepresentation instance;
 
     private ErrorsRepresentation() {}
 
     public static ErrorsRepresentation getInstance() {
-        return getInstance(ErrorsRepresentation.class);
+        if (instance == null) instance = new ErrorsRepresentation();
+        return instance;
     }
 
-    public void putError(ErrorMessage errorMessage){
+    public void putError(ErrorMessageToClient errorMessage){
         ERROR_MESSAGES.add(errorMessage.getErrorMessage());
     }
 

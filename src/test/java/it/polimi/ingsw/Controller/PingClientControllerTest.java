@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.Socket;
 
-class PingControllerTest {
+class PingClientControllerTest {
 
     private Thread client;
     private SocketClientHandler socketClientHandler;

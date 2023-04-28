@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView;
 
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -11,16 +11,17 @@ import java.util.List;
 
 public class VirtualView {
 
-    private final List<SocketClientHandler> CLIENT_HANDLERS;
+    private List<SocketClientHandler> clientHandlers;
     private final Game GAME;
 
     public void addClient(SocketClientHandler clientHandler){
-        CLIENT_HANDLERS.add(clientHandler);
+        clientHandlers.add(clientHandler);
     }
 
     public VirtualView(Game game){
         this.GAME = game;
-        CLIENT_HANDLERS = new ArrayList<>();
+        clientHandlers = new ArrayList<>();
+        new GameView(GAME, this); //the user needs this information even before the beginning of the game
     }
 
     /**
@@ -28,7 +29,7 @@ public class VirtualView {
      */
     public void observersInit(){
 
-        new GameView(GAME, this);
+        clientHandlers = new ArrayList<>();
         new BoardView(GAME, this); // links the board observer to the board
         for(Player player : GAME.getPlayers()){
             new PlayerView(player, this);// links the player observer to the player
@@ -37,9 +38,9 @@ public class VirtualView {
         new ChosenTilesTableView(GAME, this);
     }
 
-    public void send(Message message){
-        for(SocketClientHandler clientHandler : CLIENT_HANDLERS){
-            clientHandler.sendCommand(message);
+    public void send(MessageToClient messageToClient){
+        for(SocketClientHandler clientHandler : clientHandlers){
+            clientHandler.sendCommand(messageToClient);
         }
     }
 }

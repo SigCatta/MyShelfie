@@ -1,5 +1,8 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.Controller.Client.Messages.ChatMessage;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.View.VirtualView.Messages.ChatMessageToClient;
 import it.polimi.ingsw.model.Game;
 
 import java.util.HashMap;
@@ -12,19 +15,9 @@ public class ChatExecutor implements Executor {
         this.game = game;
     }
 
-
     @Override
-    public void execute(HashMap<String, String> data) {
-
-        String command = data.get("COMMAND");
-
-        if(!game.getGameState().isCommandPossible(command))return;
-
-        String nickname = data.get("NICKNAME");
-        String message = data.get("MESSAGE");
-
-
-        //TODO call the method to push the message in the chat
-
+    public void execute(MessageToServer data) {
+        ChatMessage message = (ChatMessage) data;
+        game.getVirtualView().send(new ChatMessageToClient(message.getChatMessage()));
     }
 }

@@ -1,16 +1,15 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.BoardMessageToClient;
 import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardRepresentation implements VirtualModelSubject {
     private List<VirtualModelObserver> observers;
-    private static BoardRepresentation instance;
     private Color[][] board;
+    private static BoardRepresentation instance;
 
     private BoardRepresentation() {}
 
@@ -19,7 +18,7 @@ public class BoardRepresentation implements VirtualModelSubject {
         return instance;
     }
 
-    public void setBoard(BoardMessage board) {
+    public void setBoard(BoardMessageToClient board) {
         this.board = board.getColorBoard();
         notifyObservers();
     }
