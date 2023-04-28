@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -16,13 +17,12 @@ public class CanIPlayExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-
-        String command = data.get("COMMAND");
+        String command = data.get(String.valueOf(CommandMapKey.COMMAND));
 
         if(!game.getGameState().isCommandPossible(command))return;
 
         ArrayList<Player> players = game.getPlayers();
-        String nickname = data.get("NICKNAME");
+        String nickname = data.get(String.valueOf(CommandMapKey.NICKNAME));
 
         game.addPlayer(new Player(nickname));
     }

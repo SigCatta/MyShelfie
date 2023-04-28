@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 
@@ -19,13 +20,12 @@ public class PickupTilesExecutor implements Executor {
 
     @Override
     public void execute(HashMap<String, String> data) {
-
-        String command = data.get("COMMAND");
+        String command = data.get(String.valueOf(CommandMapKey.COMMAND));
         if(command == null) return;
 
         if(!game.getGameState().isCommandPossible(command))return;
 
-        if (!data.get("NICKNAME").equals(game.getActivePlayer().getNickname())) return;
+        if (!data.get(String.valueOf(CommandMapKey.NICKNAME)).equals(game.getActivePlayer().getNickname())) return;
 
         TilesGetter tilesGetter = game.getTilesGetter();
 

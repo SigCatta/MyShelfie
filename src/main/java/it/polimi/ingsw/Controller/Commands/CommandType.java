@@ -6,6 +6,7 @@ public enum CommandType {
     CAN_I_PLAY,
     CHAT,
     RECONNECT,
+    DISCONNECT_PLAYER,
     PICK_UP_TILES,
     INSERT_TILES,
     PING,
@@ -14,5 +15,5 @@ public enum CommandType {
     PLAYER_DOWN,
     BOARD,
     PLAYER_SCORE,
-    SHELF
+    SHELF,
 }

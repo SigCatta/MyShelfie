@@ -5,8 +5,9 @@ public enum CommandMapKey {
     GAMEID,
     COMMAND,
     MESSAGE,
-    NUM_OF_PLAYERS,
+    NUMBER_OF_PLAYERS,
     ROW,
+    COLUMN,
     TILE_INDEX,
 
 }

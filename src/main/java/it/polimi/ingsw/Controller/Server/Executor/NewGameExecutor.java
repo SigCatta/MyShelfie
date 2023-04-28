@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -17,7 +18,7 @@ public class NewGameExecutor implements Executor { //TODO delete this class
     @Override
     public void execute(HashMap<String, String> data) {
 
-        String nickname = data.get("NICKNAME");
+        String nickname = data.get(String.valueOf(CommandMapKey.NICKNAME));
 
         game.addPlayer(new Player(nickname));
 

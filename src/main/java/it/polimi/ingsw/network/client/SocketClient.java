@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
+import it.polimi.ingsw.Controller.Commands.CommandType;
 import it.polimi.ingsw.View.VirtualView.Messages.Message;
 
 import java.io.IOException;
@@ -45,10 +47,10 @@ public class SocketClient extends Client {
     //TODO remove method when finished testing
     private void askToPlay() {
         HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", getNickname());
-        commandMap.put("GAMEID", String.valueOf(1));
-        commandMap.put("COMMAND", "NEW_GAME");
-        commandMap.put("NUMBER_OF_PLAYERS", "2");
+        commandMap.put(String.valueOf(CommandMapKey.NICKNAME), getNickname());
+        commandMap.put(String.valueOf(CommandMapKey.GAMEID), String.valueOf(1));
+        commandMap.put(String.valueOf(CommandMapKey.COMMAND), String.valueOf(CommandType.NEW_GAME));
+        commandMap.put(String.valueOf(CommandMapKey.NUMBER_OF_PLAYERS), "2");
         sendCommand(commandMap);
     }
 
@@ -79,15 +81,15 @@ public class SocketClient extends Client {
      */
     @Override
     public void sendCommand(HashMap<String, String> commandMap) {
-        if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
-            setGameId(Integer.parseInt(commandMap.get("GAMEID"))); //TODO not possible with the new game since the gameid is unknown
+        if (commandMap.get(String.valueOf(CommandMapKey.COMMAND)).equals( String.valueOf(CommandType.CAN_I_PLAY)) || commandMap.get(String.valueOf(CommandMapKey.COMMAND)).equals( String.valueOf(CommandType.NEW_GAME))) {
+            setGameId(Integer.parseInt(commandMap.get(String.valueOf(CommandMapKey.GAMEID)))); //TODO not possible with the new game since the gameid is unknown
 
             //TODO: new Timer(10)
         }
         try {
             outputStm.writeObject(commandMap);
-            Client.LOGGER.info("Command sent to the server with COMMAND = " + commandMap.get("COMMAND") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAMEID = " + commandMap.get("GAMEID"));
+            Client.LOGGER.info("Command sent to the server with COMMAND = " + commandMap.get(String.valueOf(CommandMapKey.COMMAND)) +
+                    " and NICKNAME = " + commandMap.get(String.valueOf(CommandMapKey.NICKNAME)) + " and GAMEID = " + commandMap.get(String.valueOf(CommandMapKey.GAMEID)));
             outputStm.reset();
         } catch (IOException e) {
             Client.LOGGER.severe("An error occurred while sending the commandMap");

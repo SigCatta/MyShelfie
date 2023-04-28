@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Client.Mappers;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.HashMap;
@@ -11,9 +12,9 @@ public class NewGameMapper implements ClientMappable {
         HashMap<String, String> commandMap = new HashMap<>();
         if (strings.size() != 3) return; //TODO should never hannpen
 
-        commandMap.put("NUM_OF_PLAYERS", strings.pop());
-        commandMap.put("NICKNAME", strings.pop());
-        commandMap.put("COMMAND", strings.pop());
+        commandMap.put(String.valueOf(CommandMapKey.NUMBER_OF_PLAYERS), strings.pop());
+        commandMap.put(String.valueOf(CommandMapKey.NICKNAME), strings.pop());
+        commandMap.put(String.valueOf(CommandMapKey.COMMAND), strings.pop());
 
         SocketClient.getInstance().sendCommand(commandMap);
     }

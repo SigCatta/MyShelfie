@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Controller.Server;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
+import it.polimi.ingsw.Controller.Commands.CommandType;
 import it.polimi.ingsw.Controller.Server.Executor.*;
 import it.polimi.ingsw.model.Game;
 
@@ -33,12 +35,12 @@ public class CommandParser {
 
     private void commandInit(){
         commandTranslator = new HashMap<>();
-        commandTranslator.put("CHAT", new ChatExecutor(game));
-        commandTranslator.put("CAN_I_PLAY", new CanIPlayExecutor(game));
-        commandTranslator.put("INSERT_TILES", new InsertTilesExecutor(game));
-        commandTranslator.put("NEW_GAME", new NewGameExecutor(game));
-        commandTranslator.put("PICK_UP_TILES", new PickupTilesExecutor(game));
-        commandTranslator.put("DISCONNECT_PLAYER", new DisconnectPlayerExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.CHAT), new ChatExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.CAN_I_PLAY), new CanIPlayExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.INSERT_TILES), new InsertTilesExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.NEW_GAME), new NewGameExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.PICK_UP_TILES), new PickupTilesExecutor(game));
+        commandTranslator.put(String.valueOf(CommandType.DISCONNECT_PLAYER), new DisconnectPlayerExecutor(game));
     }
 
     /**
@@ -46,7 +48,7 @@ public class CommandParser {
      * @param data object received from the network
      */
     public void parse(HashMap<String, String> data){
-        String command = data.get("COMMAND");
+        String command = data.get(String.valueOf(CommandMapKey.COMMAND));
 
         if(command == null) return; //should never reach
 

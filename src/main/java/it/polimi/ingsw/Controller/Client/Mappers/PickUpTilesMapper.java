@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Controller.Client.Mappers;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
+import it.polimi.ingsw.Controller.Commands.CommandType;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.HashMap;
@@ -23,9 +25,9 @@ public class PickUpTilesMapper implements ClientMappable {
             pointPosition++;
         }
 
-        commandMap.put("NICKNAME", strings.pop());
-        commandMap.put("GAMEID", strings.pop()); //TODO get the game id
-        commandMap.put("COMMAND", "PICK_UP_TILES");
+        commandMap.put(String.valueOf(CommandMapKey.NICKNAME), strings.pop());
+        commandMap.put(String.valueOf(CommandMapKey.GAMEID), strings.pop()); //TODO get the game id
+        commandMap.put(String.valueOf(CommandMapKey.COMMAND), String.valueOf(CommandType.PICK_UP_TILES));
 
         //TODO send map to network
         SocketClient.getInstance().sendCommand(commandMap);

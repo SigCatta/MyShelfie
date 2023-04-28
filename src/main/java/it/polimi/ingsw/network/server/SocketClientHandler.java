@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
+import it.polimi.ingsw.Controller.Commands.CommandType;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
@@ -75,7 +77,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         if(o == null)return;
         HashMap<String, String> commandMap = (HashMap<String, String>) o;
 
-        if(!commandMap.get("COMMAND").equals("NEW_GAME") && !commandMap.get("COMMAND").equals("CAN_I_PLAY")){
+        if(!commandMap.get(String.valueOf(CommandMapKey.COMMAND)).equals( String.valueOf(CommandType.NEW_GAME)) &&
+                !commandMap.get(String.valueOf(CommandMapKey.COMMAND)).equals( String.valueOf(CommandType.CAN_I_PLAY))){
             throw new InvalidClassException("The command sent is not a valid one to connect into a game");
         }
 
@@ -95,11 +98,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             if(!(o instanceof HashMap)) continue;
             HashMap<String, String> commandMap = (HashMap<String, String>) o;
 
-            if(commandMap.get("COMMAND").equals("PONG")){
+            if(commandMap.get(String.valueOf(CommandMapKey.COMMAND)).equals(String.valueOf(CommandType.PONG))){
                 pingController.onPongReceived();
             }
 
-            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));//TODO remove after testing
+            Server.LOGGER.info(() -> "Received: " + commandMap.get(String.valueOf(CommandMapKey.COMMAND)));//TODO remove after testing
 
             GamesManager.getInstance().onCommandReceived(commandMap);
         }
@@ -139,8 +142,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         try {
             output.writeObject(commandMap);
             output.reset();
-            Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
+            Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get(String.valueOf(CommandMapKey.COMMAND)) +
+                    " and NICKNAME = " + commandMap.get(String.valueOf(CommandMapKey.NICKNAME)) + " and GAMEID = " + commandMap.get(String.valueOf(CommandMapKey.GAMEID)));
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
             disconnect();

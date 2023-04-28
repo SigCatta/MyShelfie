@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Controller.Server;
 
+import it.polimi.ingsw.Controller.Commands.CommandMapKey;
+import it.polimi.ingsw.Controller.Commands.CommandType;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
@@ -76,7 +78,7 @@ public class GamesManager {
     public boolean connectPlayer(HashMap<String, String> data, SocketClientHandler playerHandler) throws NumberFormatException{
 
         int gameID;
-        String nickname = data.get("NICKNAME");
+        String nickname = data.get(String.valueOf(CommandMapKey.NICKNAME));
         if(nickname == null ) return false;
 
         if(PLAYERS_NAME.contains(nickname)){
@@ -84,13 +86,13 @@ public class GamesManager {
             return false;
         }
 
-        String command = data.get("COMMAND");
+        String command = data.get(String.valueOf(CommandMapKey.COMMAND));
 
-        if(command.equals("NEW_GAME")){
-            int numberOfPlayers = Integer.parseInt(data.get("NUMBER_OF_PLAYERS"));
+        if(command.equals(String.valueOf(CommandType.NEW_GAME))){
+            int numberOfPlayers = Integer.parseInt(data.get(String.valueOf(CommandMapKey.NUMBER_OF_PLAYERS)));
             gameID = newGame(numberOfPlayers); //creates a new game with the virtual view
         } else{
-            gameID = Integer.parseInt(data.get("GAMEID"));
+            gameID = Integer.parseInt(data.get(String.valueOf(CommandMapKey.GAMEID)));
         }
 
         playerHandler.setNickname(nickname);
@@ -104,7 +106,7 @@ public class GamesManager {
 
     public void onCommandReceived(HashMap<String, String> data){
         try{
-            int gameID = Integer.parseInt(data.get("GAMEID"));
+            int gameID = Integer.parseInt(data.get(String.valueOf(CommandMapKey.GAMEID)));
             gamesData.get3(gameID).parse(data);
 
         }catch (NumberFormatException ignore){}
