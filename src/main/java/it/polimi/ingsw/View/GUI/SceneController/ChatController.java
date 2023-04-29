@@ -2,6 +2,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.List;
 
 
 public class ChatController {
+    @FXML
+    TextArea newMessageField;
     @FXML
     Button showBoardButton;
     @FXML
@@ -79,5 +82,10 @@ public class ChatController {
     @FXML
     public void onShowBoardClicked() {
         StageController.changeScene("board.fxml", "Board");
+    }
+
+    @FXML
+    public void onSendButtonClicked() {
+        //TODO: handle new message
     }
 }
