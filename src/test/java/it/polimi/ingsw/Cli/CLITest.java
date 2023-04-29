@@ -5,7 +5,7 @@ import it.polimi.ingsw.Controller.Client.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.View.CLI.BoardView;
 import it.polimi.ingsw.View.CLI.ShelfView;
-import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessageToClient;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
@@ -20,16 +20,16 @@ public class CLITest implements VirtualModelObserver {
     @Test
     public void printBoardTest() {
 
-        ItemTile[][] board = {
-                {null, null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.EMPTY), null, null, null, null},
-                {null, null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.BLUE), new ItemTile(Color.EMPTY), null, null, null},
-                {null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.EMPTY), null, null},
-                {null, new ItemTile(Color.EMPTY), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.EMPTY), new ItemTile(Color.EMPTY), null},
-                {new ItemTile(Color.EMPTY), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.GREEN), new ItemTile(Color.WHITE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.EMPTY)},
-                {new ItemTile(Color.EMPTY), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.WHITE), new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.EMPTY), null},
-                {null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.EMPTY), new ItemTile(Color.EMPTY), null, null},
-                {null, null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.BLUE), new ItemTile(Color.EMPTY), null, null, null},
-                {null, null, null, null, new ItemTile(Color.EMPTY), new ItemTile(Color.EMPTY), null, null, null}
+        Color[][] board = {
+                {null, null, null, Color.EMPTY, Color.EMPTY, null, null, null, null},
+                {null, null, null, Color.EMPTY, Color.BLUE, Color.EMPTY, null, null, null},
+                {null, null, Color.EMPTY, Color.GREEN, Color.YELLOW, Color.BLUE, Color.EMPTY, null, null},
+                {null, Color.EMPTY, Color.BLUE, Color.BLUE, Color.YELLOW, Color.BLUE, Color.EMPTY, Color.EMPTY, null},
+                {Color.EMPTY, Color.BLUE, Color.LIGHTBLUE, Color.GREEN, Color.WHITE, Color.LIGHTBLUE, Color.BLUE, Color.YELLOW, Color.EMPTY},
+                {Color.EMPTY, Color.LIGHTBLUE, Color.PINK, Color.GREEN, Color.WHITE, Color.PINK, Color.LIGHTBLUE, Color.EMPTY, null},
+                {null, null, Color.EMPTY, Color.PINK, Color.BLUE, Color.EMPTY, Color.EMPTY, null, null},
+                {null, null, null, Color.EMPTY, Color.BLUE, Color.EMPTY, null, null, null},
+                {null, null, null, null, Color.EMPTY, Color.EMPTY, null, null, null}
         };
         BoardRepresentation.getInstance().registerObserver(this);
         BoardRepresentation.getInstance().setBoard(board);
@@ -51,7 +51,7 @@ public class CLITest implements VirtualModelObserver {
         shelf.setTileAtLocation(new Point(0,3), new ItemTile(Color.GREEN));
         shelf.setTileAtLocation(new Point(0,4), new ItemTile(Color.GREEN));
 
-        ShelvesRepresentation.getInstance().updateShelf(new ShelfMessage(player));
+        ShelvesRepresentation.getInstance().updateShelf(new ShelfMessageToClient(player));
         new ShelfView().printShelfBig(new ArrayList<>(), "test").forEach(System.out::println);
     }
 

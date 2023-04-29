@@ -1,24 +1,27 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.PlayerMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.PlayerMessageToClient;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayersRepresentation extends SingletonImplementation implements VirtualModelSubject{
+public class PlayersRepresentation implements VirtualModelSubject{
 
-    private final Map<String, PlayerMessage> PLAYER_MESSAGES = new HashMap<>();
+    private final Map<String, PlayerMessageToClient> PLAYER_MESSAGES = new HashMap<>();
+
+    private static PlayersRepresentation instance;
 
     private PlayersRepresentation() {}
 
     public static PlayersRepresentation getInstance() {
-        return getInstance(PlayersRepresentation.class);
+        if (instance == null) instance = new PlayersRepresentation();
+        return instance;
     }
 
     /**
      * adds a player or updates it with the new attributes sent by the server
      */
-    public void updatePlayer(PlayerMessage playerMessage){
+    public void updatePlayer(PlayerMessageToClient playerMessage){
         String nickname = playerMessage.getNickname();
         PLAYER_MESSAGES.put(nickname, playerMessage);
         notifyObservers();

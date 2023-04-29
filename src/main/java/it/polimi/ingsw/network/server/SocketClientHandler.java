@@ -1,9 +1,10 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.Controller.Server.GamesManager;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
+import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -47,12 +48,10 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            handleClientConnection();
             pingController.start();
             handleClientMessages();
-
         }catch(InvalidClassException inc){
-            sendCommand(new ErrorMessage("Provide a valid command to start or join a game"));
+            sendCommand(new ErrorMessageToClient("Provide a valid command to start or join a game"));
             Thread.currentThread().interrupt();
         } catch (IOException e) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");//TODO remove after testing
@@ -67,41 +66,23 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
     /**
-     * when a player wants to enter he must send a NEW_GAME or CAN_I_PLAY message
-     * in case this is verified, connect the player to the game
-     */
-    private void handleClientConnection() throws IOException, ClassNotFoundException, NumberFormatException {
-        Object o = input.readObject();
-        if(o == null)return;
-        HashMap<String, String> commandMap = (HashMap<String, String>) o;
-
-        if(!commandMap.get("COMMAND").equals("NEW_GAME") && !commandMap.get("COMMAND").equals("CAN_I_PLAY")){
-            throw new InvalidClassException("The command sent is not a valid one to connect into a game");
-        }
-
-        if(!GamesManager.getInstance().connectPlayer(commandMap, this)){
-            throw new InvalidClassException("The nickname is already in use"); //impossible to initiate a connection
-        }
-    }
-
-    /**
-     * gets the messages from the input and forwards them to the class responsible for handling it
+     * gets the messages from the input and forwards them to the GamesManager that handles the traffic
      */
     private void handleClientMessages() throws IOException, ClassNotFoundException {
         Server.LOGGER.info("Client connected from " + client.getInetAddress()); //TODO remove after testing
 
         while (!Thread.currentThread().isInterrupted()) {
             Object o = input.readObject();
-            if(!(o instanceof HashMap)) continue;
-            HashMap<String, String> commandMap = (HashMap<String, String>) o;
+            MessageToServer message = (MessageToServer) o;
 
-            if(commandMap.get("COMMAND").equals("PONG")){
-                pingController.onPongReceived();
+            //set the header necessary to identify the player in a game
+            message.setSocketClientHandler(this);
+            if(nickname != null){
+                message.setGameId(this.gameID);
+                message.setNickname(this.nickname);
             }
 
-            Server.LOGGER.info(() -> "Received: " + commandMap.get("COMMAND"));//TODO remove after testing
-
-            GamesManager.getInstance().onCommandReceived(commandMap);
+            GamesManager.getInstance().onCommandReceived(message);
         }
 
         pingController.close();
@@ -129,27 +110,10 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         Thread.currentThread().interrupt();
     }
 
-    /**
-     * Sends a command to the client via socket.
-     *
-     * @param commandMap the command and overhead data to be sent.
-     */
     @Override
-    public void sendCommand(HashMap<String, String> commandMap) {
+    public void sendCommand(MessageToClient messageToClient){
         try {
-            output.writeObject(commandMap);
-            output.reset();
-            Server.LOGGER.info("Command sent to the client " + nickname + "with COMMAND = " + commandMap.get("COMMAND") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAME_ID = " + commandMap.get("GAMEID"));
-        } catch (IOException e) {
-            Server.LOGGER.severe(e.getMessage());
-            disconnect();
-        }
-    }
-    @Override
-    public void sendCommand(Message message){
-        try {
-            output.writeObject(message);
+            output.writeObject(messageToClient);
             output.reset();
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());

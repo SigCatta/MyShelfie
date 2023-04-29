@@ -1,6 +1,9 @@
-package it.polimi.ingsw.Controller.Server;
+package it.polimi.ingsw.Controller.Server.ServerController;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessage;
+import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -17,7 +20,7 @@ public class GamesManager {
      * map of gameID / game / handler of the players / parser assigned for the game.
      * it contains the necessary data to manage the requests
      */
-    private ThreeValuesHashMap<Integer, Game, List<SocketClientHandler>, CommandParser> gamesData;
+    private TwoValuesHashMap<Integer, Game, List<SocketClientHandler>> gamesData;
     /**
      * Important note: synchronize manually it in case of a set iteration
      */
@@ -26,7 +29,7 @@ public class GamesManager {
     private static GamesManager gamesManagerInstance;
 
     private GamesManager(){
-        gamesData = new ThreeValuesHashMap<>();
+        gamesData = new TwoValuesHashMap<>();
     }
 
     public static GamesManager getInstance(){
@@ -38,76 +41,50 @@ public class GamesManager {
 
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.
-     * @return the game id of the created game used to make the creator join the game automatically
      */
-    public int newGame(int numberOfPlayers){ //TODO make it private
-        Game newGame = new Game(numberOfPlayers);
+    public void newGame(MessageToServer message){
+
+        if(PLAYERS_NAME.contains(message.getNickname())){
+            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
+        }
+
+        NewGameMessage newGameMessage = (NewGameMessage) message;
+
+        Game newGame = new Game(newGameMessage.getNumberOfPlayers());
 
         int gameID = createID();
         newGame.setGameID(gameID);
-        CommandParser parser = new CommandParser(newGame);
-
-        gamesData.put(gameID, newGame, new ArrayList<>(), parser);
-
-        newGame.setGameID(gameID);
+        gamesData.put(gameID, newGame, new ArrayList<>());
 
         VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
         newGame.setVirtualView(virtualView);
 
+        virtualView.addClient(message.getSocketClientHandler());
+
         newGame.notifyObservers(); //shows the gameID to the creator of the game
-
-        return gameID;
     }
 
-    private synchronized void joinGame(int gameID, SocketClientHandler playerHandler){
-        if(!gamesData.containsKey(gameID))return;
-        gamesData.get2(gameID).add(playerHandler);
-        Game game = gamesData.get1(gameID);
+    /**
+     * connects a player to an existing game
+     */
+    public void connectPlayer(MessageToServer message) throws NumberFormatException{
 
-        if(!game.addPlayer(new Player(playerHandler.getNickname()))){
-            playerHandler.sendCommand(new ErrorMessage("the game is full"));
-            playerHandler.disconnect();
-            return;
+        if(PLAYERS_NAME.contains(message.getNickname())){
+            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
         }
 
-        game.getVirtualView().addClient(playerHandler);
+        CanIPlayMessage canIPlayMessage = (CanIPlayMessage) message;
+        SocketClientHandler playerHandler = message.getSocketClientHandler();
+
+        String nickname = canIPlayMessage.getNickname();
+        int gameID = canIPlayMessage.getGameID();
+
+        playerHandler.setNickname(nickname); //the nickname is definitive
+        playerHandler.setGameID(gameID);    //the gameid is also definitive
     }
 
-    public boolean connectPlayer(HashMap<String, String> data, SocketClientHandler playerHandler) throws NumberFormatException{
-
-        int gameID;
-        String nickname = data.get("NICKNAME");
-        if(nickname == null ) return false;
-
-        if(PLAYERS_NAME.contains(nickname)){
-            playerHandler.sendCommand(new ErrorMessage("The nickname already exists, choose a new one"));
-            return false;
-        }
-
-        String command = data.get("COMMAND");
-
-        if(command.equals("NEW_GAME")){
-            int numberOfPlayers = Integer.parseInt(data.get("NUMBER_OF_PLAYERS"));
-            gameID = newGame(numberOfPlayers); //creates a new game with the virtual view
-        } else{
-            gameID = Integer.parseInt(data.get("GAMEID"));
-        }
-
-        playerHandler.setNickname(nickname);
-        playerHandler.setGameID(gameID);
-
-        //the player also joins after creating a new game
-        joinGame(gameID, playerHandler);
-
-        return true;
-    }
-
-    public void onCommandReceived(HashMap<String, String> data){
-        try{
-            int gameID = Integer.parseInt(data.get("GAMEID"));
-            gamesData.get3(gameID).parse(data);
-
-        }catch (NumberFormatException ignore){}
+    public void onCommandReceived(MessageToServer message){
+        ServerController.getInstance().visit(message, gamesData.get1(message.getGameID()));
     }
 
     /**
@@ -127,6 +104,12 @@ public class GamesManager {
 
     public void endGame(int gameID){
         gamesData.remove(gameID);
+    }
+
+    public void removePlayer(MessageToServer message){
+        SocketClientHandler socketClientHandler = message.getSocketClientHandler();
+        PLAYERS_NAME.remove(socketClientHandler.getNickname());
+        gamesData.get2(socketClientHandler.getGameID()).remove(socketClientHandler);
     }
 
     public void removePlayer(SocketClientHandler socketClientHandler){

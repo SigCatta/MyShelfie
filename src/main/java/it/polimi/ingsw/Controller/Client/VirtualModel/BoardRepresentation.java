@@ -1,16 +1,15 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.BoardMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.BoardMessageToClient;
 import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardRepresentation implements VirtualModelSubject {
     private List<VirtualModelObserver> observers;
+    private Color[][] board;
     private static BoardRepresentation instance;
-    private ItemTile[][] board;
 
     private BoardRepresentation() {}
 
@@ -19,31 +18,18 @@ public class BoardRepresentation implements VirtualModelSubject {
         return instance;
     }
 
-    public void setBoard(BoardMessage board) {
-        this.board = board.getBoard();
+    public void setBoard(BoardMessageToClient board) {
+        this.board = board.getColorBoard();
         notifyObservers();
     }
 
-    public void setBoard(ItemTile[][] board) { /** for testing */
+    public void setBoard(Color[][] board) { // for testing
         this.board = board;
     }
 
-    public ItemTile[][] getBoard() {
+    public Color[][] getBoard() {
         return board;
     }
-
-    public Color[][] getBoardForCLI() {
-        Color[][] colors = new Color[board.length][board.length];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                colors[i][j] = board[i][j] == null ? null : board[i][j].getColor();
-            }
-        }
-        //TODO might be more efficient to delete the double for loop and return the matrix [[]...[]]
-        return colors;
-    }
-
-    //TODO method that retrieves the board
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {

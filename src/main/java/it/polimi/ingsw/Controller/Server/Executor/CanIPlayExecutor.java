@@ -1,10 +1,9 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CanIPlayExecutor implements Executor {
 
@@ -14,16 +13,12 @@ public class CanIPlayExecutor implements Executor {
         this.game = game;
     }
 
+    /**
+     * connects the player to the chosen game
+     */
     @Override
-    public void execute(HashMap<String, String> data) {
-
-        String command = data.get("COMMAND");
-
-        if(!game.getGameState().isCommandPossible(command))return;
-
-        ArrayList<Player> players = game.getPlayers();
-        String nickname = data.get("NICKNAME");
-
-        game.addPlayer(new Player(nickname));
+    public void execute(MessageToServer message) {
+        if(!game.addPlayer(new Player(message.getNickname()))) return;
+        GamesManager.getInstance().connectPlayer(message);
     }
 }

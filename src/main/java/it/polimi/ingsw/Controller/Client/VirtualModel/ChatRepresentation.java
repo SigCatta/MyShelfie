@@ -1,21 +1,24 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ChatMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.ChatMessageToClient;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ChatRepresentation extends SingletonImplementation implements VirtualModelSubject{
+public class ChatRepresentation implements VirtualModelSubject{
 
     private final Queue<String> CHAT = new LinkedList<>();
+    private static ChatRepresentation instance;
 
     private ChatRepresentation() {}
 
     public static ChatRepresentation getInstance() {
-        return getInstance(ChatRepresentation.class);
+        if (instance == null) instance = new ChatRepresentation();
+        return instance;
     }
 
-    public void addMessage(ChatMessage chatMessage){
+
+    public void addMessage(ChatMessageToClient chatMessage){
         CHAT.add(chatMessage.getChatMessage());
         notifyObservers();
     }
