@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ThreeMaxThreeDiffCGSTest {
     @Test
-    public void isGoalAchievedTest() {
+    public void isGoalAchieved() {
         ThreeMaxThreeDiffCGS cg = new ThreeMaxThreeDiffCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},

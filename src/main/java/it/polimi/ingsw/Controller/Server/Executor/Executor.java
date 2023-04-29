@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import java.util.HashMap;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 
 public interface Executor {
-    void execute(HashMap<String, String> data);
+    void execute(MessageToServer data);
 }

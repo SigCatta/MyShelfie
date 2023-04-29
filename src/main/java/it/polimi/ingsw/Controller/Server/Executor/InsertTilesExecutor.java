@@ -1,6 +1,9 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
+import it.polimi.ingsw.Controller.Client.Messages.InsertTileMessage;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameState.InsertTilesState;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 import it.polimi.ingsw.model.player.Player;
 
@@ -14,22 +17,21 @@ public class InsertTilesExecutor implements Executor {
     }
 
     @Override
-    public void execute(HashMap<String, String> data) {
+    public void execute(MessageToServer data) {
 
-        String command = data.get("COMMAND");
-        if(command == null) return;
+        InsertTileMessage message = (InsertTileMessage) data;
 
-        if(!game.getGameState().isCommandPossible(command))return;
+        if(!(game.getGameState() instanceof InsertTilesState))return;
 
         TilesGetter tilesGetter = new TilesGetter(game);
 
         //to insert tiles the player must be the activePlayer of his game
         Player activePlayer = game.getActivePlayer();
-        if (!data.get("NICKNAME").equals(activePlayer.getNickname())) return;
+        if (!message.getNickname().equals(activePlayer.getNickname())) return;
 
         try{
-            int column = Integer.parseInt(data.get("COLUMN"));
-            int tileIndex = Integer.parseInt(data.get("TILE_INDEX"));
+            int column = message.getCol();
+            int tileIndex = message.getRow();
             tilesGetter.sendTilesToShelf(tileIndex, column);
         }catch (NumberFormatException ignore){} //should not reach
 

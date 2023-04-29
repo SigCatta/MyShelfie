@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.Client.ClientController.Controller;
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -61,8 +61,8 @@ public class SocketClient extends Client {
 
             while (!readExecutionQueue.isShutdown()) {
                 try {
-                    Message message = (Message) inputStm.readObject();
-                    Controller.getInstance().updateVirtualModel(message);
+                    MessageToClient messageToClient = (MessageToClient) inputStm.readObject();
+                    ClientController.getInstance().visit(messageToClient);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
                     Client.LOGGER.severe("An error occurred while reading the commandMap");

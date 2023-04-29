@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.tiles;
 
-public class ItemTile {
+import java.io.Serializable;
+
+public class ItemTile implements Serializable {
     private final Color COLOR;
 
     /**
