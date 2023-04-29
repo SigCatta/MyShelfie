@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS;
+import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -39,5 +40,14 @@ public class EigthTilesSameColorCGSTest {
         };
         shelf = new Shelf(matrix);
         assertTrue(cg.isGoalAchieved(shelf));
+    }
+
+    @Test
+    public void getDrawingForCLITest(){
+        new EightTilesSameColorCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new EightTilesSameColorCGS().getDescription());
     }
 }

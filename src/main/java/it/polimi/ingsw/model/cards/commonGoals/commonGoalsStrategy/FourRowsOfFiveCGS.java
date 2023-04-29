@@ -40,27 +40,22 @@ public class FourRowsOfFiveCGS extends CommonGoalStrategy {
             if (colors.size() <= 3) {
                 validRows++;
             }
-            if(validRows>=4)    return true;
+            if (validRows >= 4) return true;
 
         }
 
         return false;
     }
 
-    @Override
-    public String getDescription() {
-        return "Quattro righe formate ciascuna da 5 tessere di uno, due o tre tipi differenti. Righe diverse possono avere combinazioni diverse di tipi di tessere.";
-    }
-
     /**
      * @param shelfGrid the Color matrix to check
-     * @param row the row of the Color matrix to check
+     * @param row       the row of the Color matrix to check
      * @return the number of non-null cells
      */
     private int numOfNotNullCell(ItemTile[][] shelfGrid, int row) {
         int count = 0;
         for (int col = 0; col < shelfGrid[0].length; col++) {
-            if (shelfGrid[row][col] != null ) {
+            if (shelfGrid[row][col] != null) {
                 count++;
             }
         }

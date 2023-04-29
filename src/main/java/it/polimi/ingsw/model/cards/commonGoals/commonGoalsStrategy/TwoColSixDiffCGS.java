@@ -28,19 +28,14 @@ public class TwoColSixDiffCGS extends CommonGoalStrategy {
             Set<Color> colorSet = new HashSet<>();
             for (int j = 0; j < cols; j++) {
 
-                if(shelfGrid[i][j] != null) {
+                if (shelfGrid[i][j] != null) {
                     colorSet.add(shelfGrid[i][j].getColor());
                 }
             }
-            if(colorSet.size() >= 6)    countCol++;
-            if(countCol > 1)    return true;
+            if (colorSet.size() >= 6) countCol++;
+            if (countCol > 1) return true;
         }
 
         return false;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Due colonne formate ciascuna da 6 diversi tipi di tessere.";
     }
 }

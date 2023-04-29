@@ -42,10 +42,4 @@ public class FourAnglesCGS extends CommonGoalStrategy {
 
         return colorSet.size() == 1;
     }
-
-    @Override
-    public String getDescription() {
-        return "Quattro tessere dello stesso tipo ai quattro angoli della Libreria.";
-    }
-
 }

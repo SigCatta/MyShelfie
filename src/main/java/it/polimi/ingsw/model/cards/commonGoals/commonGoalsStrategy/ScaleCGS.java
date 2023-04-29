@@ -18,16 +18,11 @@ public class ScaleCGS extends CommonGoalStrategy {
         return hasIncreasingColumns(shelfGrid, true) || hasIncreasingColumns(shelfGrid, false);
     }
 
-    @Override
-    public String getDescription() {
-        return "Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna a sinistra o a destra, ogni colonna successiva deve essere formata da una tessera in più. \nLe tessere possono essere di qualsiasi tipo. ";
-    }
-
     /**
-     * @param shelfGrid The matrix to be analyzed
+     * @param shelfGrid   The matrix to be analyzed
      * @param leftToRight A boolean indicating whether to start from the left or right
      * @return True if the matrix has at least five columns of increasing height, starting from
-     *          the first column on the left or right
+     * the first column on the left or right
      */
     public boolean hasIncreasingColumns(ItemTile[][] shelfGrid, boolean leftToRight) {
         int startCol = (leftToRight) ? 0 : shelfGrid[0].length - 1;

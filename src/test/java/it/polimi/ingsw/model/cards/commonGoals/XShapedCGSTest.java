@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertTrue;
 public class XShapedCGSTest {
     @Test
     public void isGoalAchievedTest() {
-        XShapedCGS cg = new XShapedCGS();
+        CommonGoalStrategy cg = new XShapedCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
@@ -56,5 +56,14 @@ public class XShapedCGSTest {
         };
         shelf = new Shelf(matrix4);
         assertFalse(cg.isGoalAchieved(shelf));
+    }
+
+    @Test
+    public void getDrawingForCLITest(){
+        new XShapedCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new XShapedCGS().getDescription());
     }
 }

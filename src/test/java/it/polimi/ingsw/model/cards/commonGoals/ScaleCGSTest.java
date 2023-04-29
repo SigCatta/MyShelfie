@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ScaleCGS;
+import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -58,4 +59,12 @@ public class ScaleCGSTest {
         assertFalse(cg.isGoalAchieved(shelf));
     }
 
+    @Test
+    public void getDrawingForCLITest(){
+        new ScaleCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new ScaleCGS().getDescription());
+    }
 }
