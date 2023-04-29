@@ -13,8 +13,18 @@ import java.io.IOException;
 public class LobbyController {
     @FXML
     protected void onPlayButtonClick() {
-        //player must insert his info
-        StageController.changeScene("login_scene.fxml","Login");
+        //start game
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("player_num_scene.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = StageController.getCurrentStage();
+        stage.setTitle("Set number of players");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

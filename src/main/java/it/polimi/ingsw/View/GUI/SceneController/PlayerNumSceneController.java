@@ -31,12 +31,31 @@ public class PlayerNumSceneController {
 
     @FXML
     protected void onContinueButtonClick() {
-        //the new game has been created
-        StageController.changeScene("waiting_room.fxml","Wait for others to join");
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("login_scene.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = StageController.getCurrentStage();
+        stage.setTitle("Set your nickname");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     protected void onBackToMenuButtonClick() {
-        StageController.changeScene("login_scene.fxml","Login");
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("lobby.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = StageController.getCurrentStage();
+        stage.setTitle("Back in the lobby!");
+        stage.setScene(scene);
+        stage.show();
     }
 }

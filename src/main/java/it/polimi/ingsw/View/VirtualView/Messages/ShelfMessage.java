@@ -24,7 +24,6 @@ public class ShelfMessage implements Message, Serializable {
         return SHELF;
     }
 
-
     public Color[][] getShelfForCLI(){
         Color[][] colors = new Color[SHELF.length][SHELF[0].length];
         for (int i = 0; i < SHELF.length; i++) {

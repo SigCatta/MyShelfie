@@ -9,7 +9,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="847.0"
+      xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController">
     <children>
         <ImageView fitHeight="562.0" fitWidth="847.0">
             <image>
@@ -51,7 +52,7 @@
                 <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
-        <Button layoutX="303.0" layoutY="281.0" mnemonicParsing="false" onAction="#onBackToMenuButtonClick" prefHeight="49.0" prefWidth="256.0" text="GO BACK">
+        <Button layoutX="303.0" layoutY="281.0" mnemonicParsing="false" onAction="#onBackToMenuButtonClick" prefHeight="49.0" prefWidth="256.0" text="BACK TO LOBBY">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>
