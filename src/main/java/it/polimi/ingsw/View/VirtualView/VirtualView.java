@@ -35,6 +35,7 @@ public class VirtualView {
             player.getShelf().registerObserver(new ShelfView(player, this));
         }
         GAME.getTilesGetter().getChosenTilesTable().registerObserver(new ChosenTilesTableView(GAME, this));
+
     }
 
     public void send(Message message){

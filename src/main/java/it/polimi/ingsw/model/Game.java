@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.View.VirtualView.VirtualView;

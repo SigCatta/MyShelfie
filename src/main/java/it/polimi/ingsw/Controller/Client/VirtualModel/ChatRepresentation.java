@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
 import it.polimi.ingsw.View.VirtualView.Messages.ChatMessage;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
