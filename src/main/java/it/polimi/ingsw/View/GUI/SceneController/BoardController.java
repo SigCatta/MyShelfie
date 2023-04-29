@@ -1,10 +1,13 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.model.tiles.Color;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+
+import java.awt.*;
 
 public class BoardController {
 
@@ -49,6 +52,10 @@ public class BoardController {
 
     @FXML
     public void onPickUpDoneClicked() {
+        //TODO
+    }
+
+    public void placeTile(Color color, Point position) {
         //TODO
     }
 }

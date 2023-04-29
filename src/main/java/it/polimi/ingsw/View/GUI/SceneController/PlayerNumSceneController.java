@@ -39,4 +39,13 @@ public class PlayerNumSceneController {
     protected void onBackToMenuButtonClick() {
         StageController.changeScene("login_scene.fxml","Login");
     }
+
+    public int getPlayerNum() {
+        if(radioBtn1.isSelected()) {
+            return 2;
+        } else if(radioBtn2.isSelected()) {
+            return 3;
+        } else
+            return 4;
+    }
 }

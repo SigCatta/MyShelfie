@@ -74,4 +74,16 @@ public class LoginSceneController {
         if(nicknameField.getText().length()>0 && (newGameRB.isSelected() || joinGameRB.isSelected()))
             continueButton.setVisible(true);
     }
+
+    public String getNickname() {
+        return nicknameField.getText();
+    }
+
+    public String getIP() {
+        return ipField.getText();
+    }
+
+    public String getGameId() {
+        return gameIdField.getText();
+    }
 }

@@ -79,12 +79,22 @@
             <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="playersText" fill="WHITE" layoutX="431.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+      <Text fx:id="playersNamesText" fill="WHITE" layoutX="431.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
          <font>
             <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="playersNumText" fill="WHITE" layoutX="547.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/0">
+      <Text fx:id="currentNumText" fill="WHITE" layoutX="547.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="568.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+         <font>
+            <Font name="Gill Sans MT" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="maxNumText" fill="WHITE" layoutX="581.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
          <font>
             <Font name="Gill Sans MT" size="20.0" />
          </font>

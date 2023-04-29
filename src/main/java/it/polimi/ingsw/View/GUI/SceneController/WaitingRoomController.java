@@ -8,9 +8,12 @@ import javafx.scene.text.Text;
 
 public class WaitingRoomController {
     @FXML
-    Text playersText;
+    Text playersNamesText;
     @FXML
-    Text playersNumText;
+    Text maxNumText;
+
+    @FXML
+    Text currentNumText;
 
     @FXML
     Button continueButton;
@@ -28,5 +31,17 @@ public class WaitingRoomController {
 
     public void setContinueButtonVisible() {
         continueButton.setVisible(true);
+    }
+
+    public void updatePlayersNamesText(String name) {
+        playersNamesText.setText(playersNamesText.getText() + ", " + name);
+    }
+
+    public void setMaxNumText(int num) {
+        maxNumText.setText(String.valueOf(num));
+    }
+
+    public void updateCurrentNumText() {
+        currentNumText.setText(String.valueOf(Integer.parseInt(currentNumText.getText())+1));
     }
 }

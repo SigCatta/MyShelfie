@@ -1,10 +1,13 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.model.tiles.Color;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+
+import java.awt.*;
 
 public class ShelfController {
     @FXML
@@ -43,6 +46,10 @@ public class ShelfController {
 
     @FXML
     public void onInsertDoneClicked() {
+        //TODO
+    }
+
+    public void insertTile(Color color, Point position) {
         //TODO
     }
 }
