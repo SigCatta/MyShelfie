@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="847.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.WaitingRoomController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="847.0"
+      xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.WaitingRoomController">
     <children>
         <ImageView fitHeight="562.0" fitWidth="847.0">
             <image>
@@ -54,7 +55,7 @@
                 <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
-        <Button fx:id="continueButton" layoutX="452.0" layoutY="261.0" mnemonicParsing="false" onAction="#onContinueButtonClick" prefHeight="32.0" prefWidth="164.0" text="CONTINUE" visible="false">
+        <Button layoutX="452.0" layoutY="261.0" mnemonicParsing="false" onAction="#onContinueButtonClick" prefHeight="32.0" prefWidth="164.0" text="CONTINUE" visible="false">
             <font>
                 <Font name="Arial Black" size="18.0" />
             </font>
@@ -79,7 +80,7 @@
             <Font name="Gill Sans MT" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="playersText" fill="WHITE" layoutX="431.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+      <Text fx:id="playersText" fill="WHITE" layoutX="431.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player1,">
          <font>
             <Font name="Gill Sans MT" size="20.0" />
          </font>
