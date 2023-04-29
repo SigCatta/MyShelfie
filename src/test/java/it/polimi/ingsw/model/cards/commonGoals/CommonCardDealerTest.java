@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
 

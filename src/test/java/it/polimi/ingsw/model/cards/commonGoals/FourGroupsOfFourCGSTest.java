@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FourGroupsOfFourCGSTest {
     @Test
-    public void testCheckMatrix() {
+    public void testCheckMatrixWithDFSTest() {
         FourGroupsOfFourCGS cg = new FourGroupsOfFourCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
