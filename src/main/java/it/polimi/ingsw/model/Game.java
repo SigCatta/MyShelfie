@@ -51,6 +51,7 @@ public class Game implements VirtualViewSubject {
      * Starts the actual game (no more players can connect)
      */
     public void start() {
+        System.out.println("the game started!"); // TODO remove
         bag = new Bag();
 
         tilesGetter = new TilesGetter(this);
@@ -127,6 +128,8 @@ public class Game implements VirtualViewSubject {
         players.add(player);
 
         System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
+        if(players.size() == MAX_PLAYER_NUMBER) start();
+
         return true;
     }
 
