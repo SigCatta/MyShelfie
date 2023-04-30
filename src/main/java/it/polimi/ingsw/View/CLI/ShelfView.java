@@ -2,13 +2,17 @@ package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.Controller.Client.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ShelfView {
-    public ArrayList<String> printShelfBig(ArrayList<String> output, String nickname) {
-        HashMap<Color, String> colorMap = Printer.getColorMap(true);
+public class ShelfView implements ViewElement {
+    @Override
+    public ArrayList<String> print(ArrayList<String> output) {
+        Printer.enableCLIColors(true); //TODO delete after testing
+        HashMap<Color, String> colorMap = Printer.getColorMap();
+        String nickname = SocketClient.getInstance().getNickname();
         Color[][] shelf = ShelvesRepresentation.getInstance().getShelfMessage(nickname).getShelfForCLI();
 
         output.add("          ┌────┬────┬────┬────┬────┐                    .");

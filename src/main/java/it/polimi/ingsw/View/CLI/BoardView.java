@@ -6,11 +6,12 @@ import it.polimi.ingsw.model.tiles.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BoardView {
-
-    public ArrayList<String> printBoard(ArrayList<String> output) { // ─ │ ┌ ┐ └ ┘ ┤ ├ ┴ ┬ ┼
+public class BoardView implements ViewElement {
+    @Override
+    public ArrayList<String> print(ArrayList<String> output) { // ─ │ ┌ ┐ └ ┘ ┤ ├ ┴ ┬ ┼
         Color[][] board = BoardRepresentation.getInstance().getBoard();
-        HashMap<Color, String> colorMap = Printer.getColorMap(true);
+        Printer.enableCLIColors(true); //TODO delete after testing
+        HashMap<Color, String> colorMap = Printer.getColorMap();
 
         output.add("┌────┬────┬────┬────┬────┬────┬────┬────┬────┐          .");
         for (Color[] row : board) {

@@ -28,7 +28,7 @@ public class ClientApp {
         //String nickname = askNickname();
         //Map<String, String> serverInfo = InputReader.askServerInfo();
         try {
-            client = new SocketClient("localhost", 28888);
+            client = SocketClient.getInstance("localhost", 28888);
             //client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")), nickname);
             client.readCommand(); // Starts an asynchronous reading from the server.
         } catch (Exception e) {

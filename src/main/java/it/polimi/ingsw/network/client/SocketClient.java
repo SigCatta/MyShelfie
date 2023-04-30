@@ -31,7 +31,7 @@ public class SocketClient extends Client {
     private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
 
-    public SocketClient(String address, int port) throws Exception{
+    private SocketClient(String address, int port) throws Exception {
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
@@ -39,23 +39,27 @@ public class SocketClient extends Client {
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
         clientInstance = this;
-        askToPlay();
+        // askToPlay(); //TODO uncomment after logic is fixed
     }
 
     public static synchronized Client getInstance() {
+        if (clientInstance == null) return null; // can't create a socket without addres and port
+        return clientInstance;
+    }
+
+    public static synchronized Client getInstance(String address, int port) throws Exception {
+        if (clientInstance == null) clientInstance = new SocketClient(address, port);
         return clientInstance;
     }
 
     //TODO remove method when finished testing
     private void askToPlay() throws ExecutionException {
         String sel = readLine();
-        if(sel.equals("j")) {
+        if (sel.equals("j")) {
             System.out.println("what is the game id?");
             int id = Integer.parseInt(readLine());
             sendCommand(new CanIPlayMessage(id));
-        }
-        else
-        {
+        } else {
             sendCommand(new NewGameMessage(2));
         }
     }
@@ -89,8 +93,8 @@ public class SocketClient extends Client {
     @Override
     public void sendCommand(MessageToServer message) {
         try {
-            if(message instanceof HandshakeMessage) {
-                this.nickname =  message.getNickname();
+            if (message instanceof HandshakeMessage) {
+                this.nickname = message.getNickname();
             }
             outputStm.writeObject(message);
             outputStm.reset();
@@ -107,7 +111,7 @@ public class SocketClient extends Client {
     public void disconnect() {
         try {
             if (!socket.isClosed()) {
-                if(readExecutionQueue != null)
+                if (readExecutionQueue != null)
                     readExecutionQueue.shutdownNow();
                 socket.close();
                 Client.LOGGER.severe("Client disconnected");
