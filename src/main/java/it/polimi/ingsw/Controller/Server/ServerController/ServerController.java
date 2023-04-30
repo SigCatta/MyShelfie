@@ -3,7 +3,6 @@ package it.polimi.ingsw.Controller.Server.ServerController;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.Executor.*;
-import it.polimi.ingsw.model.Game;
 
 public class ServerController implements ServerVisitor {
     private static ServerController instance;
@@ -16,48 +15,51 @@ public class ServerController implements ServerVisitor {
     }
 
     @Override
-    public void visit(MessageToServer message, Game game) {
-        message.update(game);
+    public void visit(MessageToServer message) {
+        message.update();
     }
 
     /**
      * get the tiles from the board passing through the games manager
      */
-    public void pickUpTiles(MessageToServer message, Game game){
-        new PickupTilesExecutor(game).execute(message);
+    public void pickUpTiles(MessageToServer message){
+        PickupTilesExecutor.execute(message);
     }
 
     /**
      * removes the player from a game permanently
      */
-    public void bye(MessageToServer message, Game game){
-        new ByeExecutor(game).execute(message);
+    public void bye(MessageToServer message){
+        ByeExecutor.execute(message);
     }
 
     public void newGame(MessageToServer message){
-        new NewGameExecutor(null).execute(message);
+        GamesManager.getInstance().newGame((NewGameMessage) message);
     }
 
     /**
      * the player joins an existing game
      */
-    public void canIPlay(MessageToServer message, Game game){
-        new CanIPlayExecutor(game).execute(message);
+    public void canIPlay(MessageToServer message){
+        CanIPlayExecutor.execute(message);
     }
 
     /**
      * push the message into the chat
      */
-    public void chat(MessageToServer message, Game game){
-        new ChatExecutor(game).execute(message);
+    public void chat(MessageToServer message){
+        ChatExecutor.execute(message);
     }
 
     /**
      * Insert the tiles in the shelf
      */
-    public void insertTiles(MessageToServer message, Game game){
-        new InsertTilesExecutor(game).execute(message);
+    public void insertTiles(MessageToServer message){
+        InsertTilesExecutor.execute(message);
     }
 
+    public void pongMessage(MessageToServer message){
+        message.getSocketClientHandler().onPongReceived();
+    }
 
 }

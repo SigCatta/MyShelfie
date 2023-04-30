@@ -1,30 +1,36 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
 import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
-import it.polimi.ingsw.model.Game;
 
-public class NewGameMessage extends MessageToServer{
-    private int numberOfPlayers;
+import java.io.Serializable;
 
-    private String nickname;
+public class NewGameMessage extends MessageToServer implements Serializable {
+    private final int NUMBER_OF_PLAYERS;
 
-    public NewGameMessage(String nickname, int numberOfPlayers){
-        this.numberOfPlayers = numberOfPlayers;
-        this.nickname = nickname;
+    private String newNickname;
+
+    private int newGameId;
+
+    public NewGameMessage(String newNickname, int numberOfPlayers){
+        this.NUMBER_OF_PLAYERS = numberOfPlayers;
+        this.newNickname = newNickname;
     }
 
     @Override
-    public void update(Game game) {
-        if(game != null) return; // the game must be null because it has not been created
+    public void update() {
         ServerController.getInstance().newGame(this);
     }
 
     public int getNumberOfPlayers() {
-        return numberOfPlayers;
+        return NUMBER_OF_PLAYERS;
     }
 
-    @Override
-    public String getNickname() {
-        return nickname;
+    public String getNewNickname() {
+        return newNickname;
     }
+
+    public int getNewGameId() {
+        return newGameId;
+    }
+
 }

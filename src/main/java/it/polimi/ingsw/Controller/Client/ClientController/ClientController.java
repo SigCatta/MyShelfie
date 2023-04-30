@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.ClientController;
 
-import it.polimi.ingsw.Controller.Client.Mappers.PongMapper;
+import it.polimi.ingsw.Controller.Client.Messages.PongMessage;
 import it.polimi.ingsw.Controller.Client.VirtualModel.*;
 import it.polimi.ingsw.View.VirtualView.Messages.*;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -57,15 +57,19 @@ public class ClientController implements Visitor{
         PlayersRepresentation.getInstance().updatePlayer((PlayerMessageToClient) player);
     }
 
+    /**
+     * change table in the virtual model
+     */
     public void changeTilesTable(MessageToClient table){
-
+        TilesTableRepresentation.getInstance().updateTable((ChosenTilesTableMessageToClient) table);
     }
 
     /**
      * reacts on ping received sending a pong message
      */
     public void ping(MessageToClient ping){
-        SocketClient.getInstance().sendCommand(PongMapper.getMap());
+        SocketClient.getInstance().sendCommand(new PongMessage());
+        System.out.println("Pong sent");
     }
 
     /**
