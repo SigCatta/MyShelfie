@@ -92,7 +92,16 @@ public class GamesManager {
 
         Game game = gamesData.get(gameID);
 
-        if(game == null) return; //TODO error message, the game id is not valid
+        if(game == null) {
+            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("Insert a valid game id"));
+            System.out.println("Insert a valid game id"); //TODO remove
+            return;
+        }
+        if(game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
+            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The game chosen is already full"));
+            System.out.println("The game chosen is already full");//TODO remove
+            return;
+        }
 
         playerHandler.setNickname(nickname); //the nickname is definitive
         playerHandler.setGameID(gameID);    //the gameid is also definitive

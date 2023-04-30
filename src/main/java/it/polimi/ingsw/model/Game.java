@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
@@ -120,13 +121,12 @@ public class Game implements VirtualViewSubject {
     public synchronized boolean addPlayer(Player player) {
 
         if (players.size() >= MAX_PLAYER_NUMBER) {
-            //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }
 
         players.add(player);
 
-        //TODO send message "connected successfully"
+        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
         return true;
     }
 
