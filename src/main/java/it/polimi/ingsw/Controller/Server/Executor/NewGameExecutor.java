@@ -11,11 +11,7 @@ import java.util.HashMap;
 
 public class NewGameExecutor implements Executor { //TODO delete this class
 
-    public NewGameExecutor(Game game){
-    }
-
-    @Override
-    public void execute(MessageToServer data) {
+    public static void execute(MessageToServer data) {
         GamesManager.getInstance().newGame(data);
     }
 }

@@ -12,15 +12,21 @@ import java.util.TimerTask;
 public class PingRoutine extends TimerTask implements Runnable{
 
     private final SocketClientHandler SOCKET_CLIENT_HANDLER;
+    private PingController pingController;
 
-    public PingRoutine(SocketClientHandler socketClientHandler){
-        this.SOCKET_CLIENT_HANDLER = socketClientHandler;
+    public PingRoutine(PingController pingController){
+        this.pingController = pingController;
+        this.SOCKET_CLIENT_HANDLER = pingController.getSocketHandler();
     }
 
     @Override
     public void run() {
         // send PING message
         SOCKET_CLIENT_HANDLER.sendCommand(new PingMessageToClient());
-        Server.LOGGER.info("PING sent");
+        //decrement the ping left to disconnect and if they are < 0 the connection was lost
+        int pingLeft = pingController.decrementPingToDisconnect();
+        if(pingLeft < 0) pingController.clientConnectionLost();
+
+        Server.LOGGER.info("PING sent : " + pingLeft + " ping left to disconnect");//TODO remove
     }
 }

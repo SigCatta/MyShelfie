@@ -10,18 +10,25 @@ public abstract class MessageToServer {
      * to send it every time.
      */
     private transient int gameId;
+    private transient Game game;
     private transient String nickname;
     private transient SocketClientHandler socketClientHandler;
-    public abstract void update(Game game);
+    public abstract void update();
 
     public int getGameID() {
         return gameId;
     }
-
     public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
     public String getNickname() {
         return nickname;
     }
@@ -29,11 +36,9 @@ public abstract class MessageToServer {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
     public SocketClientHandler getSocketClientHandler() {
         return socketClientHandler;
     }
-
     public void setSocketClientHandler(SocketClientHandler socketClientHandler) {
         this.socketClientHandler = socketClientHandler;
     }

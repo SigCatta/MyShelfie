@@ -7,18 +7,12 @@ import it.polimi.ingsw.model.player.Player;
 
 public class CanIPlayExecutor implements Executor {
 
-    private Game game;
-
-    public CanIPlayExecutor(Game game){
-        this.game = game;
-    }
-
     /**
      * connects the player to the chosen game
      */
-    @Override
-    public void execute(MessageToServer message) {
+    public static void execute(MessageToServer message) {
+        Game game = message.getGame();
         if(!game.addPlayer(new Player(message.getNickname()))) return;
-        GamesManager.getInstance().connectPlayer(message);
+        GamesManager.getInstance().joinPlayer(message);
     }
 }

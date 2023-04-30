@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ public abstract class Client  {
      *
      * @param commandMap the command to be sent.
      */
-    public abstract void sendCommand(HashMap<String, String> commandMap);
+    public abstract void sendCommand(MessageToServer commandMap);
 
     /**
      * Asynchronously reads a command from the server and notifies the ClientController.

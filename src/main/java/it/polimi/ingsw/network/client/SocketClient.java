@@ -1,6 +1,10 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
+import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -8,26 +12,28 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static it.polimi.ingsw.InputReader.readLine;
 
 /**
  * Singleton class owned by each client,
  * handles the socket that communicates through the network
  */
 public class SocketClient extends Client {
-    private static Client clientInstance = null;
-    private final Socket socket;
-    private final ObjectOutputStream outputStm;
-    private final ObjectInputStream inputStm;
-    private final ExecutorService readExecutionQueue;
+    private static Client clientInstance;
+    private Socket socket;
+    private ObjectOutputStream outputStm;
+    private ObjectInputStream inputStm;
+    private ExecutorService readExecutionQueue;
 
-    private static final int SOCKET_TIMEOUT = 10000;
+    private static final int SOCKET_TIMEOUT = 10000000;
 
-    public SocketClient(String address, int port, String nickname) throws IOException {
-        this.nickname = nickname;
-        //TODO call method to set Player's nicknames
+    public SocketClient(String address, int port) throws Exception{
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
@@ -43,13 +49,17 @@ public class SocketClient extends Client {
     }
 
     //TODO remove method when finished testing
-    private void askToPlay() {
-        HashMap<String, String> commandMap = new HashMap<>();
-        commandMap.put("NICKNAME", getNickname());
-        commandMap.put("GAMEID", String.valueOf(1));
-        commandMap.put("COMMAND", "NEW_GAME");
-        commandMap.put("NUMBER_OF_PLAYERS", "2");
-        sendCommand(commandMap);
+    private void askToPlay() throws ExecutionException {
+        String sel = readLine();
+        if(sel.equals("j")) {
+            System.out.println("what is the game id?");
+            int id = Integer.parseInt(readLine());
+            sendCommand(new CanIPlayMessage("ciao", id));
+        }
+        else
+        {
+            sendCommand(new NewGameMessage("Simone", 2));
+        }
     }
 
     /**
@@ -61,7 +71,8 @@ public class SocketClient extends Client {
 
             while (!readExecutionQueue.isShutdown()) {
                 try {
-                    MessageToClient messageToClient = (MessageToClient) inputStm.readObject();
+                    Object o = inputStm.readObject();
+                    MessageToClient messageToClient = (MessageToClient) o;
                     ClientController.getInstance().visit(messageToClient);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
@@ -75,24 +86,16 @@ public class SocketClient extends Client {
     }
 
     /**
-     * @param commandMap the commandMap to be sent to the server
+     * @param message the message to be sent to the server
      */
     @Override
-    public void sendCommand(HashMap<String, String> commandMap) {
-        if (commandMap.get("COMMAND").equals("CAN_I_PLAY") || commandMap.get("COMMAND").equals("NEW_GAME")) {
-            setGameId(Integer.parseInt(commandMap.get("GAMEID"))); //TODO not possible with the new game since the gameid is unknown
-
-            //TODO: new Timer(10)
-        }
+    public void sendCommand(MessageToServer message) {
         try {
-            outputStm.writeObject(commandMap);
-            Client.LOGGER.info("Command sent to the server with COMMAND = " + commandMap.get("COMMAND") +
-                    " and NICKNAME = " + commandMap.get("NICKNAME") + " and GAMEID = " + commandMap.get("GAMEID"));
-            outputStm.reset();
+          outputStm.writeObject(message);
+          outputStm.reset();
         } catch (IOException e) {
-            Client.LOGGER.severe("An error occurred while sending the commandMap");
-            disconnect();
-            //notifyObserver("Could not send commandMap.");
+          Client.LOGGER.severe("An error occurred while sending the message");
+          disconnect();
         }
     }
 
@@ -103,14 +106,14 @@ public class SocketClient extends Client {
     public void disconnect() {
         try {
             if (!socket.isClosed()) {
-                readExecutionQueue.shutdownNow();
+                if(readExecutionQueue != null)
+                    readExecutionQueue.shutdownNow();
                 socket.close();
                 Client.LOGGER.severe("Client disconnected");
             }
             Client.LOGGER.severe("The socket wasn't opened when a disconnection was called");
         } catch (IOException e) {
             Client.LOGGER.severe("Could not disconnect.");
-            //notifyObserver("Could not disconnect.");
         }
 
     }

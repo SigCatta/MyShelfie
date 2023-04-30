@@ -161,7 +161,7 @@ public class Game implements VirtualViewSubject {
         this.gameState = gameState;
     }
 
-    public Player getPlayerByID(String nickname) {
+    public Player getPlayer(String nickname) {
         for (Player player : players) {
             if (player.getNickname().equals(nickname)) return player;
         }
@@ -169,19 +169,14 @@ public class Game implements VirtualViewSubject {
     }
 
     public void disconnectPlayer(String playerNickname) {
-        Player player = getPlayerByID(playerNickname);
-        if (gameState instanceof PregameState) {
-            players.remove(player);
-            //TODO send PLAYER_DOWN message
-        } else {
-            player.setConnected(false);
-            //TODO send PLAYER_DOWN message
-        }
+        Player player = getPlayer(playerNickname);
+        players.remove(player);
+
         //TODO start timeout if there is only one player connected
     }
 
     public void reconnectPlayer(String playerNickname) {
-        Player player = getPlayerByID(playerNickname);
+        Player player = getPlayer(playerNickname);
         player.setConnected(true);
         //TODO stop timeout
     }
