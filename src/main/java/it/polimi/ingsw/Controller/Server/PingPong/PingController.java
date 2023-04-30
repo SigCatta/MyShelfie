@@ -16,7 +16,7 @@ public class PingController extends Thread{
      * if the client does not respond to MAX_PING_FAILURES consecutive
      * ping, then he will be disconnected
      */
-    private final int MAX_PING_FAILURES = 4;
+    private final int MAX_PING_FAILURES = 400;
     private int pingToDisconnect;
 
     private final SocketClientHandler SOCKET_HANDLER;

@@ -7,11 +7,13 @@ import java.io.Serializable;
 public class NewGameMessage extends MessageToServer implements Serializable {
     private final int NUMBER_OF_PLAYERS;
 
-    private final String NICKNAME;
+    private String newNickname;
 
-    public NewGameMessage(String nickname, int numberOfPlayers){
+    private int newGameId;
+
+    public NewGameMessage(String newNickname, int numberOfPlayers){
         this.NUMBER_OF_PLAYERS = numberOfPlayers;
-        this.NICKNAME = nickname;
+        this.newNickname = newNickname;
     }
 
     @Override
@@ -23,9 +25,12 @@ public class NewGameMessage extends MessageToServer implements Serializable {
         return NUMBER_OF_PLAYERS;
     }
 
-    @Override
-    public String getNickname() {
-        return NICKNAME;
+    public String getNewNickname() {
+        return newNickname;
+    }
+
+    public int getNewGameId() {
+        return newGameId;
     }
 
 }

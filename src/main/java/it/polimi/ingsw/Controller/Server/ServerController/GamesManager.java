@@ -45,7 +45,7 @@ public class GamesManager {
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.
      */
-    public void newGame(MessageToServer message){
+    public synchronized void newGame(MessageToServer message){
 
         if(PLAYERS_NAME.contains(message.getNickname())){
             message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
@@ -77,7 +77,7 @@ public class GamesManager {
     /**
      * connects a player to an existing game
      */
-    public void joinPlayer(MessageToServer message) throws NumberFormatException{
+    public synchronized void joinPlayer(CanIPlayMessage message) throws NumberFormatException{
 
         if(PLAYERS_NAME.contains(message.getNickname())){
             System.out.println("Choose another nickname ");//TODO remove
@@ -85,12 +85,14 @@ public class GamesManager {
             return;
         }
 
-        CanIPlayMessage canIPlayMessage = (CanIPlayMessage) message;
         SocketClientHandler playerHandler = message.getSocketClientHandler();
 
-        String nickname = canIPlayMessage.getNickname();
-        int gameID = canIPlayMessage.getGameID();
+        String nickname = message.getNewNickname();
+        int gameID = message.getNewGameID();
+
         Game game = gamesData.get(gameID);
+
+        if(game == null) return; //TODO error message, the game id is not valid
 
         playerHandler.setNickname(nickname); //the nickname is definitive
         playerHandler.setGameID(gameID);    //the gameid is also definitive
@@ -100,6 +102,9 @@ public class GamesManager {
 
     public void onCommandReceived(MessageToServer message){
         message.setGame(gamesData.get(message.getGameID())); //adds to the header of the message the game of the player
+        if(message instanceof CanIPlayMessage){
+            message.setGame(gamesData.get(message.getGameID())); //TODO remove
+        }
         ServerController.getInstance().visit(message);
     }
 

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
@@ -77,10 +79,9 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
             //set the header necessary to identify the player in a game
             message.setSocketClientHandler(this);
-            if(nickname != null){
-                message.setGameId(this.gameID);
-                message.setNickname(this.nickname);
-            }
+
+            message.setGameId(this.gameID);
+            message.setNickname(this.nickname);
 
             GamesManager.getInstance().onCommandReceived(message);
         }

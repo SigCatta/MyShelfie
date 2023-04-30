@@ -11,7 +11,9 @@ import java.util.HashMap;
 
 public class NewGameExecutor implements Executor { //TODO delete this class
 
-    public static void execute(MessageToServer data) {
-        GamesManager.getInstance().newGame(data);
+    public static void execute(MessageToServer message) {
+        GamesManager.getInstance().newGame(message);
+        message.getSocketClientHandler().setGameID(message.getGameID());
+        message.getSocketClientHandler().setNickname(message.getNickname());
     }
 }
