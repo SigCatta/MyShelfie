@@ -1,8 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
@@ -13,7 +11,6 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
 
 /**
  * One instance for each client in a Thread, useful to direct traffic
@@ -128,6 +125,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public String getNickname() {
         return nickname;
     }
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

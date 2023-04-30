@@ -109,9 +109,6 @@ public class GamesManager {
 
     public void onCommandReceived(MessageToServer message){
         message.setGame(gamesData.get(message.getGameID())); //adds to the header of the message the game of the player
-        if(message instanceof CanIPlayMessage){
-            message.setGame(gamesData.get(message.getGameID())); //TODO remove
-        }
         ServerController.getInstance().visit(message);
     }
 
@@ -132,10 +129,6 @@ public class GamesManager {
         return gameID;
     }
 
-    public void endGame(int gameID){
-        gamesData.remove(gameID);
-    }
-
     public void removePlayer(SocketClientHandler socketClientHandler){
         PLAYERS_NAME.remove(socketClientHandler.getNickname());
         Game game = gamesData.get(socketClientHandler.getGameID());
@@ -144,7 +137,7 @@ public class GamesManager {
         }
     }
 
-    public void removeGame(int gameID){
+    public void endGame(int gameID){
         gamesData.remove(gameID);
     }
 
