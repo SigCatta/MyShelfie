@@ -1,12 +1,14 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 
+import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.Messages.PickUpTilesMessage;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PickupTilesExecutor implements Executor {
 
@@ -18,27 +20,17 @@ public class PickupTilesExecutor implements Executor {
 
 
     @Override
-    public void execute(HashMap<String, String> data) {
+    public void execute(MessageToServer data) {
 
-        String command = data.get("COMMAND");
-        if(command == null) return;
+        PickUpTilesMessage pickUpTilesMessage = (PickUpTilesMessage) data;
 
-        if(!game.getGameState().isCommandPossible(command))return;
+        if(!(game.getGameState() instanceof PickUpTilesState))return;
+        if (!pickUpTilesMessage.getNickname().equals(game.getActivePlayer().getNickname())) return;
 
-        if (!data.get("NICKNAME").equals(game.getActivePlayer().getNickname())) return;
 
-        TilesGetter tilesGetter = game.getTilesGetter();
+        ArrayList<Point> tilesPosition = pickUpTilesMessage.getTilesPosition();
+        if(tilesPosition == null) return;
 
-        ArrayList<Point> tileLocations = new ArrayList<>();
-        int point = 1;
-        while (data.containsKey("X" + point)) {
-            int x = Integer.parseInt(data.get("X" + point));
-            int y = Integer.parseInt(data.get("Y" + point));
-
-            tileLocations.add(new Point(x, y));
-            point++;
-        }
-
-        tilesGetter.pickUpTiles(tileLocations);
+        game.getTilesGetter().pickUpTiles(tilesPosition);
     }
 }

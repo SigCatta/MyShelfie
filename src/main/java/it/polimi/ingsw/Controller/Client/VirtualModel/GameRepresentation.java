@@ -1,20 +1,24 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.GameMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
 
-public class GameRepresentation extends SingletonImplementation implements VirtualModelSubject{
-    private GameMessage gameMessage;
+public class GameRepresentation implements VirtualModelSubject{
+    private GameMessageToClient gameMessage;
+
+    private static GameRepresentation instance;
 
     private GameRepresentation() {}
+
     public static GameRepresentation getInstance() {
-        return getInstance(GameRepresentation.class);
+        if (instance == null) instance = new GameRepresentation();
+        return instance;
     }
 
-    public void setGame(GameMessage gameMessage){
+    public void setGame(GameMessageToClient gameMessage){
         this.gameMessage = gameMessage;
     }
 
-    public GameMessage getGameMessage() {
+    public GameMessageToClient getGameMessage() {
         return gameMessage;
     }
 

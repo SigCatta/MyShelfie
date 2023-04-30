@@ -1,17 +1,17 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.io.Serializable;
 
-public class ShelfMessage implements Message, Serializable {
+public class ShelfMessageToClient implements MessageToClient, Serializable {
     private final ItemTile[][] SHELF;
     private final String OWNER;
 
-    public ShelfMessage(Player shelfOwner){
+    public ShelfMessageToClient(Player shelfOwner){
         this.SHELF = shelfOwner.getShelf().getShelfGrid();
         this.OWNER = shelfOwner.getNickname();
     }
@@ -37,6 +37,6 @@ public class ShelfMessage implements Message, Serializable {
 
     @Override
     public void update() {
-        Controller.getInstance().changeShelf(this);
+        ClientController.getInstance().changeShelf(this);
     }
 }

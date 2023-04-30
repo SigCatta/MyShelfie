@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.View.VirtualView.Messages.Message;
+import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.util.HashMap;
 
@@ -17,9 +17,7 @@ public abstract class ClientHandler {
     /**
      * Sends a command to the client.
      *
-     * @param commandMap the command to be sent.
+     * @param messageToClient the message to be sent.
      */
-    public abstract void sendCommand(HashMap<String, String> commandMap);
-
-    public abstract void sendCommand(Message message);
+    public abstract void sendCommand(MessageToClient messageToClient);
 }

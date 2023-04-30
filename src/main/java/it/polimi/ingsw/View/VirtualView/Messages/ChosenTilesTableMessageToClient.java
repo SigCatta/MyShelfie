@@ -1,15 +1,15 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ChosenTilesTableMessage implements Message, Serializable {
+public class ChosenTilesTableMessageToClient implements MessageToClient, Serializable {
     private final List<ItemTile> CHOSEN_TILES;
 
-    public ChosenTilesTableMessage(List<ItemTile> chosenTiles){
+    public ChosenTilesTableMessageToClient(List<ItemTile> chosenTiles){
         this.CHOSEN_TILES = chosenTiles;
     }
 
@@ -19,6 +19,6 @@ public class ChosenTilesTableMessage implements Message, Serializable {
 
     @Override
     public void update() {
-        Controller.getInstance().changeTilesTable(this);
+        ClientController.getInstance().changeTilesTable(this);
     }
 }
