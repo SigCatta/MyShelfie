@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
+import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionFailedExecutor;
@@ -47,10 +48,6 @@ public class GamesManager {
      */
     public synchronized void newGame(NewGameMessage newGameMessage){
 
-        if(PLAYERS_NAME.contains(newGameMessage.getNewNickname())){
-            newGameMessage.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
-        }
-
         Game newGame = new Game(newGameMessage.getNumberOfPlayers());
 
         int gameID = createID();
@@ -58,7 +55,6 @@ public class GamesManager {
 
         //by doing this, the handler will contain the gameid and nickname for the whole game (the client will not send it anymore)
         newGameMessage.getSocketClientHandler().setGameID(gameID);
-        newGameMessage.getSocketClientHandler().setNickname(newGameMessage.getNewNickname());
 
         gamesData.put(gameID, newGame);
 
@@ -67,7 +63,7 @@ public class GamesManager {
 
         virtualView.addClient(newGameMessage.getSocketClientHandler());
 
-        newGame.addPlayer(new Player(newGameMessage.getNewNickname()));
+        newGame.addPlayer(new Player(newGameMessage.getNickname()));
 
         newGame.notifyObservers(); //shows the gameID to the creator of the game
     }
@@ -77,15 +73,8 @@ public class GamesManager {
      */
     public synchronized void joinPlayer(CanIPlayMessage message) throws NumberFormatException{
 
-        if(PLAYERS_NAME.contains(message.getNewNickname())){
-            System.out.println("Choose another nickname ");//TODO remove
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
-            return;
-        }
-
         SocketClientHandler playerHandler = message.getSocketClientHandler();
 
-        String nickname = message.getNewNickname();
         int gameID = message.getNewGameID();
 
         Game game = gamesData.get(gameID);
@@ -101,10 +90,21 @@ public class GamesManager {
             return;
         }
 
-        playerHandler.setNickname(nickname); //the nickname is definitive
         playerHandler.setGameID(gameID);    //the gameid is also definitive
 
-        game.addPlayer(new Player(nickname));
+        game.addPlayer(new Player(message.getNickname()));
+    }
+
+    public void playerHandshake(HandshakeMessage handshakeMessage){
+
+        String nickname = handshakeMessage.getNickname();
+
+        if(!PLAYERS_NAME.add(nickname)){
+            handshakeMessage.getSocketClientHandler().sendCommand(new ErrorMessageToClient("nickname already taken"));
+            System.out.println("nickname taken ");//TODO remove after testing
+            return;
+        }
+        handshakeMessage.getSocketClientHandler().setNickname(nickname);
     }
 
     public void onCommandReceived(MessageToServer message){

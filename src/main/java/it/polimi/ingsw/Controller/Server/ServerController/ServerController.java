@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
+import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.Executor.*;
@@ -56,6 +57,10 @@ public class ServerController implements ServerVisitor {
      */
     public void insertTiles(MessageToServer message){
         InsertTilesExecutor.execute(message);
+    }
+
+    public void handshake(MessageToServer message){
+        GamesManager.getInstance().playerHandshake((HandshakeMessage) message);
     }
 
     public void pongMessage(MessageToServer message){

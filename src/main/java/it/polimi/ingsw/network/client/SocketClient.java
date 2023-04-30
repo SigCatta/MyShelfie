@@ -2,9 +2,9 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
+import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
-import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -12,8 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,7 +28,7 @@ public class SocketClient extends Client {
     private ObjectOutputStream outputStm;
     private ObjectInputStream inputStm;
     private ExecutorService readExecutionQueue;
-
+    private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
 
     public SocketClient(String address, int port) throws Exception{
@@ -54,11 +52,11 @@ public class SocketClient extends Client {
         if(sel.equals("j")) {
             System.out.println("what is the game id?");
             int id = Integer.parseInt(readLine());
-            sendCommand(new CanIPlayMessage("ciao", id));
+            sendCommand(new CanIPlayMessage(id));
         }
         else
         {
-            sendCommand(new NewGameMessage("Simone", 2));
+            sendCommand(new NewGameMessage(2));
         }
     }
 
@@ -91,11 +89,14 @@ public class SocketClient extends Client {
     @Override
     public void sendCommand(MessageToServer message) {
         try {
-          outputStm.writeObject(message);
-          outputStm.reset();
+            if(message instanceof HandshakeMessage) {
+                this.nickname =  message.getNickname();
+            }
+            outputStm.writeObject(message);
+            outputStm.reset();
         } catch (IOException e) {
-          Client.LOGGER.severe("An error occurred while sending the message");
-          disconnect();
+            Client.LOGGER.severe("An error occurred while sending the message");
+            disconnect();
         }
     }
 
