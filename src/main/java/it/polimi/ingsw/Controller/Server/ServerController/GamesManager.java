@@ -80,6 +80,7 @@ public class GamesManager {
     public void joinPlayer(MessageToServer message) throws NumberFormatException{
 
         if(PLAYERS_NAME.contains(message.getNickname())){
+            System.out.println("Choose another nickname ");//TODO remove
             message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
             return;
         }

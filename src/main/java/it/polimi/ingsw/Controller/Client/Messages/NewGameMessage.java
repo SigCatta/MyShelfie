@@ -5,13 +5,13 @@ import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
 import java.io.Serializable;
 
 public class NewGameMessage extends MessageToServer implements Serializable {
-    private int numberOfPlayers;
+    private final int NUMBER_OF_PLAYERS;
 
-    private String nickname;
+    private final String NICKNAME;
 
     public NewGameMessage(String nickname, int numberOfPlayers){
-        this.numberOfPlayers = numberOfPlayers;
-        this.nickname = nickname;
+        this.NUMBER_OF_PLAYERS = numberOfPlayers;
+        this.NICKNAME = nickname;
     }
 
     @Override
@@ -20,11 +20,12 @@ public class NewGameMessage extends MessageToServer implements Serializable {
     }
 
     public int getNumberOfPlayers() {
-        return numberOfPlayers;
+        return NUMBER_OF_PLAYERS;
     }
 
     @Override
     public String getNickname() {
-        return nickname;
+        return NICKNAME;
     }
+
 }
