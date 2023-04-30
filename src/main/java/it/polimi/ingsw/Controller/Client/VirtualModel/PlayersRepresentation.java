@@ -18,6 +18,10 @@ public class PlayersRepresentation implements VirtualModelSubject{
         return instance;
     }
 
+    public PlayerMessageToClient getPlayerByNickname(String nickname){
+        return PLAYER_MESSAGES.get(nickname);
+    }
+
     /**
      * adds a player or updates it with the new attributes sent by the server
      */
