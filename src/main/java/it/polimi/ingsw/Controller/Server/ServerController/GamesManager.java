@@ -45,13 +45,11 @@ public class GamesManager {
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.
      */
-    public synchronized void newGame(MessageToServer message){
+    public synchronized void newGame(NewGameMessage newGameMessage){
 
-        if(PLAYERS_NAME.contains(message.getNickname())){
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
+        if(PLAYERS_NAME.contains(newGameMessage.getNewNickname())){
+            newGameMessage.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
         }
-
-        NewGameMessage newGameMessage = (NewGameMessage) message;
 
         Game newGame = new Game(newGameMessage.getNumberOfPlayers());
 
@@ -60,16 +58,16 @@ public class GamesManager {
 
         //by doing this, the handler will contain the gameid and nickname for the whole game (the client will not send it anymore)
         newGameMessage.getSocketClientHandler().setGameID(gameID);
-        newGameMessage.getSocketClientHandler().setNickname(message.getNickname());
+        newGameMessage.getSocketClientHandler().setNickname(newGameMessage.getNewNickname());
 
         gamesData.put(gameID, newGame);
 
         VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
         newGame.setVirtualView(virtualView);
 
-        virtualView.addClient(message.getSocketClientHandler());
+        virtualView.addClient(newGameMessage.getSocketClientHandler());
 
-        newGame.addPlayer(new Player(message.getNickname()));
+        newGame.addPlayer(new Player(newGameMessage.getNewNickname()));
 
         newGame.notifyObservers(); //shows the gameID to the creator of the game
     }
@@ -79,7 +77,7 @@ public class GamesManager {
      */
     public synchronized void joinPlayer(CanIPlayMessage message) throws NumberFormatException{
 
-        if(PLAYERS_NAME.contains(message.getNickname())){
+        if(PLAYERS_NAME.contains(message.getNewNickname())){
             System.out.println("Choose another nickname ");//TODO remove
             message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
             return;

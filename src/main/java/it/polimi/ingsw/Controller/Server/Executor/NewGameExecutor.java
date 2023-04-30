@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class NewGameExecutor implements Executor { //TODO delete this class
 
     public static void execute(MessageToServer message) {
-        GamesManager.getInstance().newGame(message);
+        GamesManager.getInstance().newGame((NewGameMessage) message);
         message.getSocketClientHandler().setGameID(message.getGameID());
         message.getSocketClientHandler().setNickname(message.getNickname());
     }
