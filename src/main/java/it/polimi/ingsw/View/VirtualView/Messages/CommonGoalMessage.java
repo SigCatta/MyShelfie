@@ -1,11 +1,11 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.Controller;
+import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CommonGoalMessage implements Message, Serializable {
+public class CommonGoalMessage implements MessageToClient, Serializable {
     private final ArrayList<String> drawing;
     private final String description;
     private final int availablePoints;
@@ -43,6 +43,6 @@ public class CommonGoalMessage implements Message, Serializable {
 
     @Override
     public void update() {
-        Controller.getInstance().changeCommonGoal(this);
+        ClientController.getInstance().changeCommonGoal(this);
     }
 }

@@ -34,7 +34,7 @@ public class ClientController implements Visitor{
         BoardRepresentation.getInstance().setBoard((BoardMessageToClient) board);
     }
 
-    public void changeCommonGoal(Message commonGoal){
+    public void changeCommonGoal(MessageToClient commonGoal){
         CommonGoalsRepresentation.getInstance().changeCommonGoal((CommonGoalMessage) commonGoal);
     }
     /**
