@@ -22,6 +22,11 @@ public class ErrorsRepresentation implements VirtualModelSubject{
         ERROR_MESSAGES.add(errorMessage.getErrorMessage());
     }
 
+    public void putError(String errorMessage){
+        ERROR_MESSAGES.add(errorMessage);
+    }
+
+
     //TODO method that retrieves the error message
 
     @Override

@@ -2,12 +2,12 @@ package it.polimi.ingsw.Controller.Client.Messages;
 
 
 import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
-import it.polimi.ingsw.model.Game;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PickUpTilesMessage extends MessageToServer {
+public class PickUpTilesMessage extends MessageToServer implements Serializable {
 
     private transient int gameID;
     private transient String nickname;
@@ -19,8 +19,8 @@ public class PickUpTilesMessage extends MessageToServer {
     }
 
     @Override
-    public void update(Game game) {
-        ServerController.getInstance().pickUpTiles(this, game);
+    public void update() {
+        ServerController.getInstance().pickUpTiles(this);
     }
 
     public ArrayList<Point> getTilesPosition() {

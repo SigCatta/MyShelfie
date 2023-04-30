@@ -48,7 +48,7 @@ public class InputReader implements Callable<String> {
         do {
             System.out.print("Enter the server address [" + defaultAddress + "]: ");
 
-            String address = null;
+            String address;
             try {
                 address = readLine();
             } catch (ExecutionException e) {

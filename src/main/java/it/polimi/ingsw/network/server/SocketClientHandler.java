@@ -11,7 +11,6 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
 
 /**
  * One instance for each client in a Thread, useful to direct traffic
@@ -19,7 +18,6 @@ import java.util.HashMap;
 public class SocketClientHandler extends ClientHandler implements Runnable {
     private final Socket client;
     private PingController pingController;
-    private boolean connected;
 
     /**
      * Each handler is assigned to only one client,
@@ -30,6 +28,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
 
     private ObjectOutputStream output;
     private ObjectInputStream input;
+    private boolean stop;
 
     /**
      * @param client the client asking to connect
@@ -71,16 +70,15 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     private void handleClientMessages() throws IOException, ClassNotFoundException {
         Server.LOGGER.info("Client connected from " + client.getInetAddress()); //TODO remove after testing
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!stop) {
             Object o = input.readObject();
             MessageToServer message = (MessageToServer) o;
 
             //set the header necessary to identify the player in a game
             message.setSocketClientHandler(this);
-            if(nickname != null){
-                message.setGameId(this.gameID);
-                message.setNickname(this.nickname);
-            }
+
+            message.setGameId(this.gameID);
+            message.setNickname(this.nickname);
 
             GamesManager.getInstance().onCommandReceived(message);
         }
@@ -94,7 +92,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
      */
     @Override
     public void disconnect() {
-        if (!connected) return;
 
         try {
             if (!client.isClosed()) {
@@ -103,11 +100,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
         }
-        connected = false;
 
         GamesManager.getInstance().removePlayer(this);
+        pingController.close();
 
-        Thread.currentThread().interrupt();
+        stop = true;
     }
 
     @Override
@@ -121,9 +118,14 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         }
     }
 
+    public void onPongReceived(){
+        pingController.onPongReceived();
+    }
+
     public String getNickname() {
         return nickname;
     }
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
