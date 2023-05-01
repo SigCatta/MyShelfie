@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class EigthTilesSameColorCGSTest {
     @Test
-    public void isGoalAchieved() {
+    public void isGoalAchievedTest() {
         EightTilesSameColorCGS cg = new EightTilesSameColorCGS();
         ItemTile[][] matrix = new ItemTile[][]{
                 {null, null, null, null},
