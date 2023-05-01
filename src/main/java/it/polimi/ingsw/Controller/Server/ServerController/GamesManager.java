@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Server.Executor.ConnectionFailedExecutor;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.PregameState;
@@ -97,12 +96,9 @@ public class GamesManager {
         //TODO in the executor check if the game has only 1 player left, in that case declare the win
         if(socketClientHandler.getGameID() == 0) { //this means it has not been assigned to any game
             socketClientHandler.disconnect();
-            return;
         } else if(gamesData.get(socketClientHandler.getGameID()).getGameState() instanceof PregameState){
             socketClientHandler.disconnect();
-            return;
         }
-        ConnectionFailedExecutor.execute(gamesData.get(socketClientHandler.getGameID()), socketClientHandler.getNickname());
     }
 
     public void onConnectionRestored(SocketClientHandler socketClientHandler){
