@@ -39,7 +39,7 @@ public class SocketClient extends Client {
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
         clientInstance = this;
-        // askToPlay(); //TODO uncomment after logic is fixed
+        askToPlay(); //TODO uncomment after logic is fixed
     }
 
     public static synchronized Client getInstance() {
@@ -54,6 +54,9 @@ public class SocketClient extends Client {
 
     //TODO remove method when finished testing
     private void askToPlay() throws ExecutionException {
+        System.out.print("insert the nickname: ");
+        String nickname = readLine();
+        sendCommand(new HandshakeMessage(nickname));
         String sel = readLine();
         if (sel.equals("j")) {
             System.out.println("what is the game id?");

@@ -2,7 +2,9 @@ package it.polimi.ingsw.Controller.Client.Messages;
 
 import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
 
-public class HandshakeMessage extends MessageToServer{
+import java.io.Serializable;
+
+public class HandshakeMessage extends MessageToServer implements Serializable {
 
     private String nickname;
 
