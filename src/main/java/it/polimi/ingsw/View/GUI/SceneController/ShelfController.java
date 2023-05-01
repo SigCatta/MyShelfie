@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 import it.polimi.ingsw.model.tiles.Color;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -21,6 +22,31 @@ public class ShelfController {
 
     @FXML
     Button insertDoneButton;
+
+    @FXML
+    ImageView itemTile1;
+
+    @FXML
+    ImageView itemTile2;
+
+    @FXML
+    ImageView itemTile3;
+
+    public void setItemTile1Visible(String path) {
+        javafx.scene.image.Image image = new javafx.scene.image.Image(path);
+        itemTile1.setVisible(true);
+        itemTile1.setImage(image);
+    }
+    public void setItemTile2Visible(String path) {
+        javafx.scene.image.Image image = new javafx.scene.image.Image(path);
+        itemTile2.setVisible(true);
+        itemTile2.setImage(image);
+    }
+    public void setItemTile3Visible(String path) {
+        javafx.scene.image.Image image = new Image(path);
+        itemTile3.setVisible(true);
+        itemTile3.setImage(image);
+    }
 
     public void setInsertDoneButtonVisible() {
         insertDoneButton.setVisible(true);
@@ -49,7 +75,9 @@ public class ShelfController {
         //TODO
     }
 
-    public void insertTile(Color color, Point position) {
-        //TODO
+    public void insertTile(String path, Point position) {
+        Image image = new Image(path);
+        ImageView imageView = new ImageView(image);
+        matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
     }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -57,16 +58,16 @@
                   <Blend />
                </effect>
             </ImageView>
-            <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" visible="false">
-               <image>
-                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
-               </image>
-            </ImageView>
             <Button layoutX="871.0" layoutY="505.0" mnemonicParsing="false" onAction="#onShowMyShelfClicked" prefHeight="40.0" prefWidth="206.0" text="SHOW MY SHELF">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
             </Button>
+            <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="1220.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
+               </image>
+            </ImageView>
             <Button layoutX="1132.0" layoutY="505.0" mnemonicParsing="false" onAction="#onShowOtherShelvesClicked" prefHeight="40.0" prefWidth="206.0" text="OTHER SHELVES">
                <font>
                   <Font name="Arial Black" size="18.0" />
@@ -82,6 +83,22 @@
                   <Font name="Arial Black" size="18.0" />
                </font>
             </Button>
+            <TextField editable="false" layoutX="972.0" layoutY="297.0" prefHeight="110.0" prefWidth="303.0" style="-fx-background-color: lightblue;" />
+            <ImageView fx:id="itemTile1" fitHeight="66.0" fitWidth="57.0" layoutX="996.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="itemTile2" fitHeight="66.0" fitWidth="57.0" layoutX="1090.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ItemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1191.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               </image>
+            </ImageView>
          </children>
       </Group>
    </children>
