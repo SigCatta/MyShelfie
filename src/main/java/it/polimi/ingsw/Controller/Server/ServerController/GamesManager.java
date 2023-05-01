@@ -1,16 +1,10 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
-import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionFailedExecutor;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.PregameState;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
 import java.util.*;
@@ -44,67 +38,20 @@ public class GamesManager {
     }
 
     /**
-     * Adds a new game to the map and creates a virtual view associated to that game.
+     * adds a game to the hashmap
+     * @param key the gameid
+     * @param value the game
      */
-    public synchronized void newGame(NewGameMessage newGameMessage){
-
-        Game newGame = new Game(newGameMessage.getNumberOfPlayers());
-
-        int gameID = createID();
-        newGame.setGameID(gameID);
-
-        //by doing this, the handler will contain the gameid and nickname for the whole game (the client will not send it anymore)
-        newGameMessage.getSocketClientHandler().setGameID(gameID);
-
-        gamesData.put(gameID, newGame);
-
-        VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
-        newGame.setVirtualView(virtualView);
-
-        virtualView.addClient(newGameMessage.getSocketClientHandler());
-
-        newGame.addPlayer(new Player(newGameMessage.getNickname()));
-
-        newGame.notifyObservers(); //shows the gameID to the creator of the game
+    public void putGame(int key, Game value){
+        gamesData.put(key, value);
     }
 
-    /**
-     * connects a player to an existing game
-     */
-    public synchronized void joinPlayer(CanIPlayMessage message) throws NumberFormatException{
-
-        SocketClientHandler playerHandler = message.getSocketClientHandler();
-
-        int gameID = message.getNewGameID();
-
-        Game game = gamesData.get(gameID);
-
-        if(game == null) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("Insert a valid game id"));
-            System.out.println("Insert a valid game id"); //TODO remove
-            return;
-        }
-        if(game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The game chosen is already full"));
-            System.out.println("The game chosen is already full");//TODO remove
-            return;
-        }
-
-        playerHandler.setGameID(gameID);    //the gameid is also definitive
-
-        game.addPlayer(new Player(message.getNickname()));
+    public Game getGame(int key){
+        return gamesData.get(key);
     }
 
-    public void playerHandshake(HandshakeMessage handshakeMessage){
-
-        String nickname = handshakeMessage.getNickname();
-
-        if(!PLAYERS_NAME.add(nickname)){
-            handshakeMessage.getSocketClientHandler().sendCommand(new ErrorMessageToClient("nickname already taken"));
-            System.out.println("nickname taken ");//TODO remove after testing
-            return;
-        }
-        handshakeMessage.getSocketClientHandler().setNickname(nickname);
+    public boolean addNickname(String nickname){
+        return PLAYERS_NAME.add(nickname);
     }
 
     public void onCommandReceived(MessageToServer message){
@@ -115,7 +62,7 @@ public class GamesManager {
     /**
      * create a non-existing id
      */
-    private synchronized int createID(){
+    public synchronized int createID(){
         int MAX_VALUE = Integer.MAX_VALUE;
 
         int gameID = (int)(Math.random()*MAX_VALUE);
@@ -139,10 +86,6 @@ public class GamesManager {
 
     public void endGame(int gameID){
         gamesData.remove(gameID);
-    }
-
-    public Game getGame(int gameID){
-        return gamesData.get(gameID);
     }
 
     public int getNumberOfGames(){

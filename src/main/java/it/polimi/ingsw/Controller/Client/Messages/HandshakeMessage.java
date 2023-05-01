@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public class HandshakeMessage extends MessageToServer implements Serializable {
 
-    private String nickname;
+    private final String newNickname;
 
     public HandshakeMessage(String nickname){
-        this.nickname = nickname;
+        this.newNickname = nickname;
     }
 
     @Override
@@ -17,8 +17,7 @@ public class HandshakeMessage extends MessageToServer implements Serializable {
         ServerController.getInstance().handshake(this);
     }
 
-    @Override
-    public String getNickname() {
-        return nickname;
+    public String getNewNickname() {
+        return newNickname;
     }
 }

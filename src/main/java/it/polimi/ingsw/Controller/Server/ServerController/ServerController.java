@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
+import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
@@ -35,14 +36,14 @@ public class ServerController implements ServerVisitor {
     }
 
     public void newGame(MessageToServer message){
-        GamesManager.getInstance().newGame((NewGameMessage) message);
+        NewGameExecutor.execute((NewGameMessage) message);
     }
 
     /**
      * the player joins an existing game
      */
     public void canIPlay(MessageToServer message){
-        CanIPlayExecutor.execute(message);
+        CanIPlayExecutor.execute((CanIPlayMessage) message);
     }
 
     /**
@@ -60,7 +61,7 @@ public class ServerController implements ServerVisitor {
     }
 
     public void handshake(MessageToServer message){
-        GamesManager.getInstance().playerHandshake((HandshakeMessage) message);
+        HandshakeExecutor.execute((HandshakeMessage) message);
     }
 
     public void pongMessage(MessageToServer message){
