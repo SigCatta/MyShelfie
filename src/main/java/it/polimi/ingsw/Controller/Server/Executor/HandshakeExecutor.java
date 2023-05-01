@@ -17,6 +17,7 @@ public class HandshakeExecutor implements Executor{
             System.out.println("nickname taken ");//TODO remove after testing
             return;
         }
+        System.out.println("Handshake with server completed, hi " + nickname); //TODO remove
         message.getSocketClientHandler().setNickname(nickname);
     }
 }

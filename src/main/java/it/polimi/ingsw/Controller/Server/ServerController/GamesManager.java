@@ -106,10 +106,6 @@ public class GamesManager {
     }
 
     public void onConnectionRestored(SocketClientHandler socketClientHandler){
-        if(gamesData.get(socketClientHandler.getGameID()) == null) { //if the player is not connected to a game
-            socketClientHandler.disconnect();
-            return;
-        }
         //update the model so every player knows about the reconnection
         ConnectionRestoredExecutor.execute(gamesData.get(socketClientHandler.getGameID()), socketClientHandler.getNickname());
     }
