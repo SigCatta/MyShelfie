@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board.TilesGetter;
 
+import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.PickUpTilesState;
@@ -29,13 +30,13 @@ public class TilesToShelfSender {
         Player activePlayer = game.getActivePlayer();
 
         if(tileIndex >= chosenTilesTable.size() || tileIndex < 0) {
-            game.getVirtualView().send(new ErrorMessageToClient("ERROR IN THE CREATION OF THE COMMAND"));
+            game.getVirtualView().send(new ErrorMessageToClient("ERROR IN THE CREATION OF THE COMMAND", ErrorCode.PANIC)); //TODO wtf
             return false;
         }
 
         //check if the number of tiles to insert fit in the chosen column
         if(this.chosenColumn == null && !enoughFreeCellsInCol(column)) {
-            game.getVirtualView().send(new ErrorMessageToClient("The chosen column can't contain your tiles"));
+            game.getVirtualView().send(new ErrorMessageToClient("The chosen column can't contain your tiles", ErrorCode.BADCOLUMN));
             return false;
         }
 
@@ -44,13 +45,13 @@ public class TilesToShelfSender {
 
         //check if the player chosen column is the right one
         if(column != this.chosenColumn) {
-            game.getVirtualView().send(new ErrorMessageToClient("You must put your tiles in the same column"));
+            game.getVirtualView().send(new ErrorMessageToClient("You must put your tiles in the same column", ErrorCode.BADCOLUMN));
             return false;
         }
 
         ItemTile tileToInsert = chosenTilesTable.popTile(tileIndex);
         if(!activePlayer.getShelf().insertTile(tileToInsert, column)) {
-            game.getVirtualView().send(new ErrorMessageToClient("THE SERVER HAD PROBLEMS IN INSERTING THE TILE"));
+            game.getVirtualView().send(new ErrorMessageToClient("THE SERVER HAD PROBLEMS IN INSERTING THE TILE", ErrorCode.PANIC)); //TODO wtf
             return false; //should not reach
         }
 

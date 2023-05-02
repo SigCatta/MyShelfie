@@ -1,10 +1,8 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -12,11 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static it.polimi.ingsw.InputReader.readLine;
 
 /**
  * Singleton class owned by each client,
@@ -30,8 +26,10 @@ public class SocketClient extends Client {
     private ExecutorService readExecutionQueue;
     private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
+    static String input;
 
     private SocketClient(String address, int port) throws Exception {
+
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
@@ -39,7 +37,7 @@ public class SocketClient extends Client {
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
         clientInstance = this;
-        askToPlay(); //TODO uncomment after logic is fixed
+        new Thread(new InputReader(input)).start(); // from now on the user can execute commands
     }
 
     public static synchronized Client getInstance() {
@@ -50,21 +48,6 @@ public class SocketClient extends Client {
     public static synchronized Client getInstance(String address, int port) throws Exception {
         if (clientInstance == null) clientInstance = new SocketClient(address, port);
         return clientInstance;
-    }
-
-    //TODO remove method when finished testing
-    private void askToPlay() throws ExecutionException {
-        System.out.print("insert the nickname: ");
-        String nickname = readLine();
-        sendCommand(new HandshakeMessage(nickname));
-        String sel = readLine();
-        if (sel.equals("j")) {
-            System.out.println("what is the game id?");
-            int id = Integer.parseInt(readLine());
-            sendCommand(new CanIPlayMessage(id));
-        } else {
-            sendCommand(new NewGameMessage(2));
-        }
     }
 
     /**

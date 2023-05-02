@@ -42,7 +42,6 @@ public class PingController extends Thread{
      * Method called by the handler when it receives a PONG message from the client
      */
     public void onPongReceived() {
-        System.out.println("pong received");
         pingToDisconnect = MAX_PING_FAILURES;
         if(connectionLost) {
             connectionLost = false;

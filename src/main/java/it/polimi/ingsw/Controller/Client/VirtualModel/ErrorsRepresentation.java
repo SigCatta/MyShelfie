@@ -1,29 +1,34 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
+import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
-public class ErrorsRepresentation implements VirtualModelSubject{
+public class ErrorsRepresentation implements VirtualModelSubject {
 
-    private final Queue<String> ERROR_MESSAGES = new LinkedList<>();
+    private final ArrayList<ErrorMessageToClient> ERRORS;
 
     private static ErrorsRepresentation instance;
 
-    private ErrorsRepresentation() {}
+    private ErrorsRepresentation() {
+        ERRORS = new ArrayList<>();
+    }
 
     public static ErrorsRepresentation getInstance() {
         if (instance == null) instance = new ErrorsRepresentation();
         return instance;
     }
 
-    public void putError(ErrorMessageToClient errorMessage){
-        ERROR_MESSAGES.add(errorMessage.getErrorMessage());
+    public ArrayList<ErrorCode> getErrorCodes() {
+        return ERRORS.stream().map(ErrorMessageToClient::getErrorCode).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void putError(String errorMessage){
-        ERROR_MESSAGES.add(errorMessage);
+    public void putError(ErrorMessageToClient errorMessage) {
+        ERRORS.add(errorMessage);
     }
 
 

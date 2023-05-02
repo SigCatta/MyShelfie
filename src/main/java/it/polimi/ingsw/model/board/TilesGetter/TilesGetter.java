@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board.TilesGetter;
 
+import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.InsertTilesState;
@@ -47,12 +48,12 @@ public class TilesGetter {
         this.chosenColumn = null;
 
         if(!PICK_UP_VALIDATOR.isValid(chosenPositions)) {
-            game.getVirtualView().send(new ErrorMessageToClient("You can't pick up these tiles"));
+            game.getVirtualView().send(new ErrorMessageToClient("You can't pick up these tiles", ErrorCode.PANIC)); // WILL BE REMOVED
             return false;
         }
 
         if(tooManyTilesChosen(chosenPositions.size()))  {
-            game.getVirtualView().send(new ErrorMessageToClient("Choose less tiles"));
+            game.getVirtualView().send(new ErrorMessageToClient("Choose less tiles", ErrorCode.PANIC)); // WILL BE REMOVED
             return false;
         }
 
