@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model.board.TilesGetter;
+package it.polimi.ingsw.model.board.ChosenTilesTable;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
@@ -9,36 +11,29 @@ import java.util.Comparator;
 
 public class PickUpValidator {
 
-
-    private final ItemTile[][] BOARD_GRID;
-    //max number of tiles that the player can take from the board in a single turn
-    final int MAX_TILES;
-
-    public PickUpValidator(Game game){
-        BOARD_GRID = game.getBoard().getBoardGrid();
-        MAX_TILES = game.getMAX_TILES_FROM_BOARD();
-    }
-
-
     /**
      * check if the player asked for more tiles than possible then
      * check if the player asked for consecutive cells then
-     * check if the player asked for an empty cell
+     * check if the player asked for an empty cell then
+     * check if the player has enough room for to fit the tiles in his shelf
      * @return if the player can take the tiles
      */
-    public boolean isValid(ArrayList<Point> chosenPositions) {
+    public static boolean isValid(Game game, ArrayList<Point> chosenPositions) {
+
+        ItemTile[][] boardGrid = game.getBoard().getBoardGrid();
+        //max number of tiles that the player can take from the board in a single turn
+        final int MAX_TILES = 3;
 
         if(chosenPositions.size() > MAX_TILES || chosenPositions.size() == 0) return false;
 
         if(!arePointsAdjacent(chosenPositions)) return false;
 
+        if(tooManyTilesChosen(game, MAX_TILES)) return false;
+
         for (Point singlePosition : chosenPositions) {
-
             //impossible to pick up an empty cell
-            if(BOARD_GRID[singlePosition.x][singlePosition.y] == null) return false;
-
-            if (!hasFreeAdjacentNeighbor(singlePosition)) return false;
-
+            if(boardGrid[singlePosition.x][singlePosition.y] == null) return false;
+            if (!hasFreeAdjacentNeighbor(boardGrid, singlePosition)) return false;
         }
 
         return true;
@@ -52,7 +47,7 @@ public class PickUpValidator {
      * @param chosenPositions the list of points to be checked for adjacency.
      * @return true, if all points in the list are adjacent, otherwise false.
      */
-    boolean arePointsAdjacent(ArrayList<Point> chosenPositions) {
+    private static boolean arePointsAdjacent(ArrayList<Point> chosenPositions) {
         // get the row and column of the first point in the list
         int row = chosenPositions.get(0).x;
         int col = chosenPositions.get(0).y;
@@ -108,9 +103,9 @@ public class PickUpValidator {
      * @param singlePositions, place of the tile the player is trying to take
      * @return if the tile has an adjacent neighbour
      */
-    private boolean hasFreeAdjacentNeighbor(Point singlePositions) {
+    private static boolean hasFreeAdjacentNeighbor(ItemTile[][] boardGrid, Point singlePositions) {
 
-        final int BOARD_DIMENSION = BOARD_GRID.length;
+        final int BOARD_DIMENSION = boardGrid.length;
 
         int row = singlePositions.x;
         int col = singlePositions.y;
@@ -119,13 +114,27 @@ public class PickUpValidator {
                 || singlePositions.y == 0 || singlePositions.y == BOARD_DIMENSION-1) return true;
 
 
-        if(BOARD_GRID[row-1][col] == null){
+        if(boardGrid[row-1][col] == null){
             return true;
-        } else if (BOARD_GRID[row+1][col] == null) {
+        } else if (boardGrid[row+1][col] == null) {
             return true;
-        } else if (BOARD_GRID[row][col-1] == null){
+        } else if (boardGrid[row][col-1] == null){
             return true;
-        } else return BOARD_GRID[row][col + 1] == null;
+        } else return boardGrid[row][col + 1] == null;
 
     }
+
+    /**
+     * @return true if there isn't any columns with enough free cells to contain all the new tiles
+     */
+    private static boolean tooManyTilesChosen(Game game, int size) {
+        Player activePlayer = game.getActivePlayer();
+
+        Shelf shelf = activePlayer.getShelf();
+        for (int i = 0; i < shelf.getCOLUMNS(); i++) {
+            if(shelf.getNumOfBoxLeftInCol(i) >= size) return false;    //there is still enough free cell in at least a column
+        }
+        return true;    //not enough free cell in any columns
+    }
+
 }
