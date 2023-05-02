@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS;
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.XShapedCGS;
 import it.polimi.ingsw.model.player.Shelf;

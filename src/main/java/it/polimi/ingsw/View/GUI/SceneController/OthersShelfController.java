@@ -35,16 +35,16 @@ public class OthersShelfController {
 
     @FXML
     public void onPrevButtonClicked() {
-
+        //TODO
     }
 
     @FXML
     public void onNextButtonClicked() {
-
+        //TODO
     }
 
     @FXML
     public void onBackToMineButtonClicked() {
-
+        StageController.changeScene("shelf.fxml", "My shelf");
     }
 }

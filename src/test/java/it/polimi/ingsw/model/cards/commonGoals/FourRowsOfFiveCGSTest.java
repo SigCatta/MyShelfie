@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FourRowsOfFiveCGSTest {
     @Test
-    public void isGoalAchieved() {
+    public void isGoalAchievedTest() {
         FourRowsOfFiveCGS cg = new FourRowsOfFiveCGS();
         ItemTile[][] matrix1 = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
