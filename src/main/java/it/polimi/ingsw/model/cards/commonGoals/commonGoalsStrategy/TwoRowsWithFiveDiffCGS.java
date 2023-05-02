@@ -50,9 +50,4 @@ public class TwoRowsWithFiveDiffCGS extends CommonGoalStrategy {
 
         return false;
     }
-
-    @Override
-    public String getDescription() {
-        return "Due righe formate ciascuna da 5 diversi tipi di tessere.";
-    }
 }

@@ -5,9 +5,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CommonGoalReader implements JSONFileReader {
     protected final JSONParser jsonParser;
@@ -26,17 +28,26 @@ public class CommonGoalReader implements JSONFileReader {
      */
     public ArrayList<String> getDrawing(String cardName) {
         ArrayList<String> drawing = new ArrayList<>();
+
+        JSONArray rows = (JSONArray) Objects.requireNonNull(getCardObject(cardName)).get("DRAWING");
+
+        for (Object line : rows) {
+            drawing.add((String) line);
+        }
+
+        return drawing;
+    }
+
+
+    private JSONObject getCardObject(String cardName) {
         try {
             FileReader reader = new FileReader(PATH + cardName + ".json");
-            JSONObject data = (JSONObject) jsonParser.parse(reader);
-            JSONArray rows = (JSONArray) data.get("DRAWING");
+            return (JSONObject) jsonParser.parse(reader);
+        } catch (IOException | ParseException ignored) {}
+        return null; // should never reach
+    }
 
-            for (Object line : rows) {
-                drawing.add((String) line);
-            }
-            return drawing;
-        } catch (IOException | ParseException e) {
-            return null;
-        }
+    public String getDescription(String cardName) {
+        return (String) Objects.requireNonNull(getCardObject(cardName)).get("DESCRIPTION");
     }
 }

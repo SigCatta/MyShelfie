@@ -10,7 +10,7 @@ public class CanIPlayMessageTest {
     @Test
     public void dimension() throws IOException {
 
-        MessageToServer obj = new CanIPlayMessage("Nemo", 12); // create an instance of your object
+        MessageToServer obj = new CanIPlayMessage(12); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

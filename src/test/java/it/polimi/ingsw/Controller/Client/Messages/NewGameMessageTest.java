@@ -10,7 +10,7 @@ public class NewGameMessageTest {
     @Test
     public void dimension() throws IOException {
 
-        MessageToServer obj = new NewGameMessage("Nemo", 2);
+        MessageToServer obj = new NewGameMessage(2);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

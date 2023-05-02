@@ -16,7 +16,7 @@ public class CommonGoalCard {
      */
     protected List<Player> playersWhoCompleted;
 
-    private CommonGoalStrategy commonGoalStrategy;
+    private final CommonGoalStrategy commonGoalStrategy;
 
     public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
         initStackPoints();

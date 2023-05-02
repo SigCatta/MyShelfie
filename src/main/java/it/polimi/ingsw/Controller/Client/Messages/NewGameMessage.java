@@ -7,13 +7,8 @@ import java.io.Serializable;
 public class NewGameMessage extends MessageToServer implements Serializable {
     private final int NUMBER_OF_PLAYERS;
 
-    private String newNickname;
-
-    private int newGameId;
-
-    public NewGameMessage(String newNickname, int numberOfPlayers){
+    public NewGameMessage(int numberOfPlayers){
         this.NUMBER_OF_PLAYERS = numberOfPlayers;
-        this.newNickname = newNickname;
     }
 
     @Override
@@ -23,14 +18,6 @@ public class NewGameMessage extends MessageToServer implements Serializable {
 
     public int getNumberOfPlayers() {
         return NUMBER_OF_PLAYERS;
-    }
-
-    public String getNewNickname() {
-        return newNickname;
-    }
-
-    public int getNewGameId() {
-        return newGameId;
     }
 
 }

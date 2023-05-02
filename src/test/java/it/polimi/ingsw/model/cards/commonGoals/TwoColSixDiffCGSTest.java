@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS;
+import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -32,5 +33,14 @@ public class TwoColSixDiffCGSTest {
         };
         shelf = new Shelf(matrix2);
         assertFalse(cg.isGoalAchieved(shelf));
+    }
+
+    @Test
+    public void getDrawingForCLITest(){
+        new TwoColSixDiffCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new TwoColSixDiffCGS().getDescription());
     }
 }

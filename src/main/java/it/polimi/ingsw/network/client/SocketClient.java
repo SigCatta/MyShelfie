@@ -2,9 +2,9 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
+import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
-import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -12,8 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,10 +28,10 @@ public class SocketClient extends Client {
     private ObjectOutputStream outputStm;
     private ObjectInputStream inputStm;
     private ExecutorService readExecutionQueue;
-
+    private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
 
-    public SocketClient(String address, int port) throws Exception{
+    private SocketClient(String address, int port) throws Exception {
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
@@ -41,24 +39,31 @@ public class SocketClient extends Client {
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
         Client.LOGGER.info("Connection established");
         clientInstance = this;
-        askToPlay();
+        askToPlay(); //TODO uncomment after logic is fixed
     }
 
     public static synchronized Client getInstance() {
+        if (clientInstance == null) return null; // can't create a socket without addres and port
+        return clientInstance;
+    }
+
+    public static synchronized Client getInstance(String address, int port) throws Exception {
+        if (clientInstance == null) clientInstance = new SocketClient(address, port);
         return clientInstance;
     }
 
     //TODO remove method when finished testing
     private void askToPlay() throws ExecutionException {
+        System.out.print("insert the nickname: ");
+        String nickname = readLine();
+        sendCommand(new HandshakeMessage(nickname));
         String sel = readLine();
-        if(sel.equals("j")) {
+        if (sel.equals("j")) {
             System.out.println("what is the game id?");
             int id = Integer.parseInt(readLine());
-            sendCommand(new CanIPlayMessage("ciao", id));
-        }
-        else
-        {
-            sendCommand(new NewGameMessage("Simone", 2));
+            sendCommand(new CanIPlayMessage(id));
+        } else {
+            sendCommand(new NewGameMessage(2));
         }
     }
 
@@ -91,11 +96,14 @@ public class SocketClient extends Client {
     @Override
     public void sendCommand(MessageToServer message) {
         try {
-          outputStm.writeObject(message);
-          outputStm.reset();
+            if (message instanceof HandshakeMessage) {
+                this.nickname = message.getNickname();
+            }
+            outputStm.writeObject(message);
+            outputStm.reset();
         } catch (IOException e) {
-          Client.LOGGER.severe("An error occurred while sending the message");
-          disconnect();
+            Client.LOGGER.severe("An error occurred while sending the message");
+            disconnect();
         }
     }
 
@@ -106,7 +114,7 @@ public class SocketClient extends Client {
     public void disconnect() {
         try {
             if (!socket.isClosed()) {
-                if(readExecutionQueue != null)
+                if (readExecutionQueue != null)
                     readExecutionQueue.shutdownNow();
                 socket.close();
                 Client.LOGGER.severe("Client disconnected");

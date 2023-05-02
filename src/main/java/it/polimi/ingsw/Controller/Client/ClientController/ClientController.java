@@ -33,6 +33,10 @@ public class ClientController implements Visitor{
     public void changeBoard(MessageToClient board){
         BoardRepresentation.getInstance().setBoard((BoardMessageToClient) board);
     }
+
+    public void changeCommonGoal(MessageToClient commonGoal){
+        CommonGoalsRepresentation.getInstance().changeCommonGoal((CommonGoalMessage) commonGoal);
+    }
     /**
      * changes the information regarding the shelf
      */

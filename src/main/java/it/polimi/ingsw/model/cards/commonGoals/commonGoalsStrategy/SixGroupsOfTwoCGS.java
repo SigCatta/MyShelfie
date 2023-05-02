@@ -14,9 +14,4 @@ public class SixGroupsOfTwoCGS extends CommonGoalStrategy {
     public boolean isGoalAchieved(Shelf shelf) {
         return ShelfUtils.checkMatrixWithDFS(shelf.getShelfGrid(), 6, 2);
     }
-
-    @Override
-    public String getDescription() {
-        return "Sei gruppi separati formati ciascuno da due tessere adiacenti dello stesso tipo. Le tessere di un gruppo possono essere diverse da quelle di un altro gruppo.";
-    }
 }

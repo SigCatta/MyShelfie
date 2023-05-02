@@ -1,15 +1,9 @@
 package it.polimi.ingsw.Controller.Server.ServerController;
 
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
-import it.polimi.ingsw.Controller.Server.Executor.ConnectionFailedExecutor;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.PregameState;
-import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
 import java.util.*;
@@ -43,68 +37,20 @@ public class GamesManager {
     }
 
     /**
-     * Adds a new game to the map and creates a virtual view associated to that game.
+     * adds a game to the hashmap
+     * @param key the gameid
+     * @param value the game
      */
-    public synchronized void newGame(NewGameMessage newGameMessage){
-
-        if(PLAYERS_NAME.contains(newGameMessage.getNewNickname())){
-            newGameMessage.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
-        }
-
-        Game newGame = new Game(newGameMessage.getNumberOfPlayers());
-
-        int gameID = createID();
-        newGame.setGameID(gameID);
-
-        //by doing this, the handler will contain the gameid and nickname for the whole game (the client will not send it anymore)
-        newGameMessage.getSocketClientHandler().setGameID(gameID);
-        newGameMessage.getSocketClientHandler().setNickname(newGameMessage.getNewNickname());
-
-        gamesData.put(gameID, newGame);
-
-        VirtualView virtualView = new VirtualView(newGame); //creates a virtualView and assign it to the game
-        newGame.setVirtualView(virtualView);
-
-        virtualView.addClient(newGameMessage.getSocketClientHandler());
-
-        newGame.addPlayer(new Player(newGameMessage.getNewNickname()));
-
-        newGame.notifyObservers(); //shows the gameID to the creator of the game
+    public void putGame(int key, Game value){
+        gamesData.put(key, value);
     }
 
-    /**
-     * connects a player to an existing game
-     */
-    public synchronized void joinPlayer(CanIPlayMessage message) throws NumberFormatException{
+    public Game getGame(int key){
+        return gamesData.get(key);
+    }
 
-        if(PLAYERS_NAME.contains(message.getNewNickname())){
-            System.out.println("Choose another nickname ");//TODO remove
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("choose another nickname"));
-            return;
-        }
-
-        SocketClientHandler playerHandler = message.getSocketClientHandler();
-
-        String nickname = message.getNewNickname();
-        int gameID = message.getNewGameID();
-
-        Game game = gamesData.get(gameID);
-
-        if(game == null) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("Insert a valid game id"));
-            System.out.println("Insert a valid game id"); //TODO remove
-            return;
-        }
-        if(game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The game chosen is already full"));
-            System.out.println("The game chosen is already full");//TODO remove
-            return;
-        }
-
-        playerHandler.setNickname(nickname); //the nickname is definitive
-        playerHandler.setGameID(gameID);    //the gameid is also definitive
-
-        game.addPlayer(new Player(nickname));
+    public boolean addNickname(String nickname){
+        return PLAYERS_NAME.add(nickname);
     }
 
     public void onCommandReceived(MessageToServer message){
@@ -115,7 +61,7 @@ public class GamesManager {
     /**
      * create a non-existing id
      */
-    private synchronized int createID(){
+    public synchronized int createID(){
         int MAX_VALUE = Integer.MAX_VALUE;
 
         int gameID = (int)(Math.random()*MAX_VALUE);
@@ -141,10 +87,6 @@ public class GamesManager {
         gamesData.remove(gameID);
     }
 
-    public Game getGame(int gameID){
-        return gamesData.get(gameID);
-    }
-
     public int getNumberOfGames(){
         return gamesData.size();
     }
@@ -154,19 +96,12 @@ public class GamesManager {
         //TODO in the executor check if the game has only 1 player left, in that case declare the win
         if(socketClientHandler.getGameID() == 0) { //this means it has not been assigned to any game
             socketClientHandler.disconnect();
-            return;
         } else if(gamesData.get(socketClientHandler.getGameID()).getGameState() instanceof PregameState){
             socketClientHandler.disconnect();
-            return;
         }
-        ConnectionFailedExecutor.execute(gamesData.get(socketClientHandler.getGameID()), socketClientHandler.getNickname());
     }
 
     public void onConnectionRestored(SocketClientHandler socketClientHandler){
-        if(gamesData.get(socketClientHandler.getGameID()) == null) { //if the player is not connected to a game
-            socketClientHandler.disconnect();
-            return;
-        }
         //update the model so every player knows about the reconnection
         ConnectionRestoredExecutor.execute(gamesData.get(socketClientHandler.getGameID()), socketClientHandler.getNickname());
     }

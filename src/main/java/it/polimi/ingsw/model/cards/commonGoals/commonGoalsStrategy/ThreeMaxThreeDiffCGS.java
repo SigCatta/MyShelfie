@@ -24,7 +24,7 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
-        int countCol=0;
+        int countCol = 0;
         // check each column
         for (int col = 0; col < shelfGrid[0].length; col++) {
             if (numOfNotNullCell(shelfGrid, col) < 6) {
@@ -40,19 +40,14 @@ public class ThreeMaxThreeDiffCGS extends CommonGoalStrategy {
             if (colorSet.size() <= 3) {
                 countCol++;
             }
-            if(countCol>=3)     return true;
+            if (countCol >= 3) return true;
         }
         return false;
     }
 
-    @Override
-    public String getDescription() {
-        return "Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti. Colonne diverse possono avere combinazioni diverse di tipi di tessere.";
-    }
-
     /**
      * @param shelfGrid the Color matrix to check
-     * @param col the column of the Color matrix to check
+     * @param col       the column of the Color matrix to check
      * @return the number of non-null cells
      */
     private int numOfNotNullCell(ItemTile[][] shelfGrid, int col) {

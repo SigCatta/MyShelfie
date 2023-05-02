@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS;
+import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -55,5 +56,14 @@ public class ThreeMaxThreeDiffCGSTest {
         };
         shelf = new Shelf(matrix4);
         assertTrue(cg.isGoalAchieved(shelf));
+    }
+
+    @Test
+    public void getDrawingForCLITest(){
+        new ThreeMaxThreeDiffCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new ThreeMaxThreeDiffCGS().getDescription());
     }
 }
