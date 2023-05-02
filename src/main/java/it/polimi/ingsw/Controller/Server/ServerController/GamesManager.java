@@ -71,7 +71,7 @@ public class GamesManager {
             if(gameID == MAX_VALUE) gameID = 1;
             else gameID++;
         }
-        System.out.println("your game id is " + gameID); //TODO remove
+        System.out.println("It's a success fully!! New game created with gameID: " + gameID); //TODO remove
         return gameID;
     }
 

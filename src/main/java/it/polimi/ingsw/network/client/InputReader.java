@@ -6,14 +6,16 @@ import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.Enum.ErrorCode;
+import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
 
 import java.util.concurrent.ExecutionException;
 
 import static it.polimi.ingsw.InputReader.readLine;
 
+@SuppressWarnings("BusyWait")
 public class InputReader implements Runnable {
     private String input;
-    private SocketClient socketClient;
+    private final SocketClient socketClient;
 
     InputReader(String input) {
         this.input = input;
@@ -29,15 +31,13 @@ public class InputReader implements Runnable {
             getInput();
             startOrJoin();
         }
-        while (true) {
-        }
     }
 
     private void startOrJoin() {
         if (input.equals("join")) joinGame();
         else if (input.equals("new")) createNewGame();
         else {
-            System.out.println("ERROR: Invalid command!\n Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
+            System.out.println("ERROR: Invalid command!\nType 'join' if you want to join a game, 'new' if you want to create a new one: ");
             input = null;
         }
     }
@@ -48,26 +48,45 @@ public class InputReader implements Runnable {
         do {
             getInput();
             numOfPlayers = Integer.parseInt(input);
-            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\n Insert players number:");
+            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert players number: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
         socketClient.sendCommand(new NewGameMessage(numOfPlayers));
+
+        GameMessageToClient gameMessage = null;
+        while (gameMessage == null) {
+            System.out.println("Waiting for server to respond...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            gameMessage = GameRepresentation.getInstance().getGameMessage();
+        }
+        System.out.println("The game was successfully create! The gameID is: " + gameMessage.getGameID());
     }
 
-    @SuppressWarnings("BusyWait")
     private void joinGame() {
-        while (true){
-            System.out.println("Insert gameID: ");
-            getInput();
-            socketClient.sendCommand(new CanIPlayMessage(Integer.parseInt(input)));
+        while (true) {
+            while (true) {
+                System.out.println("Insert gameID: ");
+                getInput();
+                try {
+                    socketClient.sendCommand(new CanIPlayMessage(Integer.parseInt(input)));
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("ERROR: gameID must be a number!");
+                }
+            }
             while (true) {
                 try {
-                    System.out.println("Wait for a server to respond...");
+                    System.out.println("Waiting for server to respond...");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 if (ErrorsRepresentation.getInstance().getErrorCodes().contains(ErrorCode.NOID)) {
-                    System.out.println("This gameID is not associated to a game!"); break;
+                    System.out.println("ERROR: This gameID is not associated to a game!");
+                    break;
                 }
                 if (GameRepresentation.getInstance().getGameMessage() != null) return;
             }
