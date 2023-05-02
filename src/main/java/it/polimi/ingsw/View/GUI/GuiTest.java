@@ -7,16 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class Gui extends Application{
+public class GuiTest extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Create new stage
         StageController.initStage();
         //load lobby
-        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("lobby.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("board.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
         stage.getIcons().add(new Image("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Icon 50x50px.png"));
-        stage.setTitle("Lobby");
+        stage.setTitle("Board");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

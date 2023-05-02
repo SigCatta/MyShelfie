@@ -1,19 +1,21 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class BoardController {
     /**
@@ -22,6 +24,8 @@ public class BoardController {
      * and as values the nuber of tiles of that specific type left
      */
     HashMap<Color, HashMap<String, Integer>> tilesMap;
+
+    List<Color> tilesSelected = new ArrayList<>();
 
     @FXML
     GridPane matrix;
@@ -36,6 +40,9 @@ public class BoardController {
     Button pickUpDoneButton;
 
     @FXML
+    Button selectTileButton;
+
+    @FXML
     ImageView itemTile1;
 
     @FXML
@@ -44,20 +51,30 @@ public class BoardController {
     @FXML
     ImageView itemTile3;
 
+    List<Boolean> selectedItemTiles = new ArrayList<>();
+
     public void setItemTile1Visible(String path) {
         Image image = new Image(path);
         itemTile1.setVisible(true);
         itemTile1.setImage(image);
+        itemTileSelectedHelper();
     }
     public void setItemTile2Visible(String path) {
         Image image = new Image(path);
         itemTile2.setVisible(true);
         itemTile2.setImage(image);
+        itemTileSelectedHelper();
     }
     public void setItemTile3Visible(String path) {
         Image image = new Image(path);
         itemTile3.setVisible(true);
         itemTile3.setImage(image);
+        itemTileSelectedHelper();
+    }
+
+    public void itemTileSelectedHelper() {
+        setPickUpDoneButtonVisible();
+        selectedItemTiles.add(true);
     }
 
     public void setCommonGoalCard1(String commonGoalCard1Path) {
@@ -91,8 +108,54 @@ public class BoardController {
     public void onPickUpDoneClicked() {
         //TODO: send tiles to virtual model
 
+
         //go to player shelf
         onShowMyShelfClicked();
+    }
+
+    @FXML
+    public void setUpBoard() {
+        for(Node node: matrix.getChildren()) {
+            node.setOnMouseClicked(buttonEventHandler());
+        }
+    }
+
+    EventHandler<MouseEvent> buttonEventHandler(){
+        return event -> {
+            ImageView nodeSelected = (ImageView) event.getTarget();
+            int row = GridPane.getRowIndex(nodeSelected);
+            int column = GridPane.getColumnIndex(nodeSelected);
+            onTileSelected(nodeSelected, row, column);
+        };
+    }
+
+
+    public void onTileSelected(ImageView nodeSelected, int row, int column) {
+        Color tileColor;
+        String tileUrl = nodeSelected.getImage().getUrl();
+        for(Color color: Color.values()) {
+            if(tileUrl.contains(String.valueOf(color))) {
+                tileColor = color;
+            }
+        }
+        if(true)   { //TODO: check if tile can be picked up
+            nodeSelected.setVisible(false);
+            if (selectedItemTiles.size() == 0) {
+                setItemTile1Visible(tileUrl);
+            } else if (selectedItemTiles.size() == 1) {
+                setItemTile2Visible(tileUrl);
+            } else {
+                setItemTile3Visible(tileUrl);
+            }
+        }
+    }
+
+    public void onPickUpSelectedTileClicked() {
+        if(tilesSelected.size() > 0) setPickUpDoneButtonVisible();
+        if(tilesSelected.size() >= 3) selectTileButton.setVisible(false);
+
+        //TODO: move tile from board to array
+
     }
 
     public void placeTile(Color color, Point position) {

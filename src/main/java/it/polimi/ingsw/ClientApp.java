@@ -36,7 +36,7 @@ public class ClientApp {
             return;
         }
 
-        //TODO : implement when Cli and Gui will be done
+        //TODO : implement when Cli and GUI will be done
         if (cliParam) {
             //launch cli app
         } else {

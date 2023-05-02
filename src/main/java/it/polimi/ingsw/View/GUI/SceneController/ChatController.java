@@ -43,7 +43,7 @@ public class ChatController {
 
     /*
     otherText:
-    <TextField layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: lightblue;" text="">
+    <TextField layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: LIGHTBLUE;" text="">
          <font>
             <Font name="Gill Sans MT" size="16.0" />
          </font>

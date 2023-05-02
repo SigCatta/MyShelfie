@@ -57,11 +57,6 @@
                <Font size="24.0" />
             </font>
          </Button>
-         <Button fx:id="exitButton" layoutX="1003.0" layoutY="363.0" mnemonicParsing="false" onAction="#onBackToMineButtonClicked" prefHeight="60.0" prefWidth="183.0" text="Back to mine" visible="false">
-            <font>
-               <Font size="24.0" />
-            </font>
-         </Button>
          <ImageView fitHeight="212.0" fitWidth="345.0" layoutX="321.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@17_MyShelfie_BGA/misc/scroll.png" />
@@ -90,7 +85,7 @@
                <Glow />
             </effect>
          </ImageView>
-         <Text fill="WHITE" layoutX="1015.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to mine">
+         <Text fill="WHITE" layoutX="1015.0" layoutY="404.0" onMouseClicked="#onBackToMineButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to mine">
             <font>
                <Font name="System Bold" size="26.0" />
             </font>

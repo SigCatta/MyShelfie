@@ -20,9 +20,6 @@ public class OthersShelfController {
     Button prevShelfButton;
 
     @FXML
-    Button exitButton;
-
-    @FXML
     Text score;
 
     public void setScore(Text score) {

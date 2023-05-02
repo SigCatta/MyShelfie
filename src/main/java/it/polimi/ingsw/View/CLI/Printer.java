@@ -12,7 +12,7 @@ public class Printer {
     private static void enableCLIColors(boolean isColored) {
         colorMap = new HashMap<>();
         if (isColored) {
-            // COLOR = ANSI_BACKGROUND_COLOR_ID + white spaces + ANSI_COLOR_RESET
+            // COLOR = ANSI_BACKGROUND_COLOR_ID + WHITE spaces + ANSI_COLOR_RESET
             colorMap.put(Color.GREEN, "\033[0;102m" + " " + "\u001B[0m");
             colorMap.put(Color.YELLOW, "\033[0;103m" + " " + "\u001B[0m");
             colorMap.put(Color.BLUE, "\033[0;104m" + " " + "\u001B[0m");
