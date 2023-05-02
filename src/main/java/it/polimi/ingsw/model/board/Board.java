@@ -53,6 +53,14 @@ public class Board implements VirtualViewSubject {
         return pickedUpTile;
     }
 
+    public ArrayList<ItemTile> removeItemTiles(ArrayList<Point> positions){
+        ArrayList<ItemTile> tiles = new ArrayList<>();
+        for(Point p : positions){
+            tiles.add(removeItemTile(p));
+        }
+        return tiles;
+    }
+
     public void emptyBoard(){
         for (ItemTile[] itemTiles : BOARD_GRID) {
             Arrays.fill(itemTiles, null);

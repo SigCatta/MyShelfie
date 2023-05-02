@@ -1,7 +1,8 @@
-package it.polimi.ingsw.model.board.TilesGetter;
+package it.polimi.ingsw.model.board.ChosenTilesTable;
 
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
@@ -10,28 +11,41 @@ import java.util.List;
 public class ChosenTilesTable implements VirtualViewSubject {
     private final List<VirtualViewObserver> observers = new ArrayList<>();
 
-    private final List<ItemTile> CHOSEN_TILES = new ArrayList<>();
+    private List<ItemTile> chosenTiles = new ArrayList<>();
 
-    public void insertTile(ItemTile itemTile){
-        CHOSEN_TILES.add(itemTile);
+    private Board board;
+    private Integer chosenColumn;
+
+    public void addTiles(ArrayList<ItemTile> tiles){
+        chosenTiles.addAll(tiles);
+        chosenColumn = null;
         notifyObservers();
     }
+
     public ItemTile popTile(int index){
-        ItemTile chosenTile = CHOSEN_TILES.remove(index);
+        ItemTile chosenTile = chosenTiles.remove(index);
         notifyObservers();
         return chosenTile;
     }
 
     public ItemTile getTile(int index){
-        return CHOSEN_TILES.get(index);
+        return chosenTiles.get(index);
     }
 
     public int size(){
-        return CHOSEN_TILES.size();
+        return chosenTiles.size();
     }
 
-    public List<ItemTile> getCHOSEN_TILES() {
-        return CHOSEN_TILES;
+    public Integer getChosenColumn() {
+        return chosenColumn;
+    }
+
+    public void setChosenColumn(Integer chosenColumn) {
+        this.chosenColumn = chosenColumn;
+    }
+
+    public List<ItemTile> getChosenTiles() {
+        return chosenTiles;
     }
 
     @Override

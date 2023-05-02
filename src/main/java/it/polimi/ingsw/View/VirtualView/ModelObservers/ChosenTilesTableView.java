@@ -11,7 +11,7 @@ public class ChosenTilesTableView implements VirtualViewObserver{
     public ChosenTilesTableView(Game game, VirtualView virtualView){
         this.GAME = game;
         this.VIRTUAL_VIEW = virtualView;
-        game.getTilesGetter().getChosenTilesTable().registerObserver(this);
+        game.getChosenTilesTable().registerObserver(this);
     }
 
     /**
@@ -19,6 +19,6 @@ public class ChosenTilesTableView implements VirtualViewObserver{
      */
     @Override
     public void update() {
-        VIRTUAL_VIEW.send(new ChosenTilesTableMessageToClient(GAME.getTilesGetter().getChosenTilesTable().getCHOSEN_TILES()));
+        VIRTUAL_VIEW.send(new ChosenTilesTableMessageToClient(GAME.getChosenTilesTable().getChosenTiles()));
     }
 }
