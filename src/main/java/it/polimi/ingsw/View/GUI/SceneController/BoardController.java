@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -133,8 +134,12 @@ public class BoardController {
                 tileColor = color;
             }
         }
-        if(tilesSelected.size()<3 )   { //TODO: check if tile can be picked up
+        if(tilesSelected.size()<3 )   { //&& TODO: check if tile can be picked up
             selectTileButton.setVisible(true);
+            if(currentTileSelected!=null) {
+                currentTileSelected.getImageView().setEffect(new Glow(0));
+            }
+            nodeSelected.setEffect(new Glow(0.9));
             currentTileSelected = new NodeData(tileUrl, tileColor, nodeSelected);
         } else {
             selectTileButton.setVisible(false);

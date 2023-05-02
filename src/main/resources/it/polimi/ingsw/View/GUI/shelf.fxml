@@ -97,7 +97,7 @@
                <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="ItemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1376.0" layoutY="195.0" onMouseClicked="#setCurrentTileSelected3" pickOnBounds="true" preserveRatio="true" visible="false">
+         <ImageView fx:id="itemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1376.0" layoutY="195.0" onMouseClicked="#setCurrentTileSelected3" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
             </image>
@@ -107,12 +107,12 @@
                <Font name="Gill Sans MT" size="24.0" />
             </font>
          </Text>
-         <TextField fx:id="nicknameField" layoutX="1367.0" layoutY="323.0" onKeyTyped="#onColumnInserted" prefHeight="34.0" prefWidth="94.0">
+         <TextField fx:id="columnChosen" layoutX="1367.0" layoutY="323.0" onKeyTyped="#onColumnInserted" prefHeight="34.0" prefWidth="94.0">
             <font>
                <Font name="Arial" size="18.0" />
             </font>
          </TextField>
-         <Button layoutX="1192.0" layoutY="382.0" mnemonicParsing="false" onAction="#onInsertTileClicked" prefHeight="40.0" prefWidth="206.0" text="INSERT TILE" visible="false">
+         <Button fx:id="insertTileButton" layoutX="1192.0" layoutY="382.0" mnemonicParsing="false" onAction="#onInsertTileClicked" prefHeight="40.0" prefWidth="206.0" text="INSERT TILE" visible="false">
             <font>
                <Font name="Arial Black" size="18.0" />
             </font>

@@ -142,7 +142,7 @@
                   <Image url="@17_MyShelfie_BGA/item_tiles/GREEN/1.2.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="ItemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1191.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="itemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1191.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
                </image>

@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.model.tiles.Color;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
@@ -19,6 +20,7 @@ public class ShelfController {
     static List<NodeData> tilesSelected = new ArrayList<>();
     static NodeData currentTileSelected = null;
     int currentColumn;
+    int currentRow;
     @FXML
     GridPane matrix;
 
@@ -62,7 +64,8 @@ public class ShelfController {
     }
 
     public void setInsertDoneButtonVisible() {
-        insertDoneButton.setVisible(true);
+        if(!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible())
+            insertDoneButton.setVisible(true);
     }
 
     public void setScore(Text score) {
@@ -85,7 +88,7 @@ public class ShelfController {
 
     @FXML
     public void onInsertDoneClicked() {
-        //TODO
+        //TODO notify model that the current player has terminated his turn
     }
 
     @FXML
@@ -118,6 +121,9 @@ public class ShelfController {
 
         if(true) {   //TODO: check if column is valid
             insertTileButton.setVisible(true);
+            //TODO: calculate row
+
+
         } else {
             insertTileButton.setVisible(false);
         }
@@ -125,12 +131,20 @@ public class ShelfController {
 
     @FXML
     public void onInsertTileClicked() {
-        //TODO:
+        int index = tilesSelected.indexOf(currentTileSelected);
+        if(index == 0) {
+            itemTile1.setVisible(false);
+        } else if(index == 1) {
+            itemTile2.setVisible(false);
+        } else {
+                itemTile3.setVisible(false);
+        }
+        insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
     }
 
     public void insertTile(String path, Point position) {
         Image image = new Image(path);
-        ImageView imageView = new ImageView(image);
         matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+        setInsertDoneButtonVisible();
     }
 }
