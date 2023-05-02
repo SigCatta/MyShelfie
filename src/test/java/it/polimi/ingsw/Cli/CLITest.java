@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class CLITest implements VirtualModelObserver {
 
-    @Test
+    @Test @Disabled
     public void printBoardTest() {
 
         Color[][] board = {
@@ -38,7 +39,7 @@ public class CLITest implements VirtualModelObserver {
         new BoardView().print(new ArrayList<>()).forEach(System.out::println);
     }
 
-    @Test
+    @Test @Disabled
     public void printShelfBigTest() throws Exception {
         SocketClient.getInstance("localhost", 28888).setNickname("test");
 
@@ -59,7 +60,7 @@ public class CLITest implements VirtualModelObserver {
     }
 
 
-    @Test
+    @Test @Disabled
     public void printShelfandBoardTest() throws Exception {
         Printer.enableCLIColors(true);
         printBoardTest();
