@@ -134,17 +134,17 @@
             <TextField editable="false" layoutX="1136.0" layoutY="297.0" prefHeight="110.0" prefWidth="303.0" style="-fx-background-color: lightblue;" />
             <ImageView fx:id="itemTile1" fitHeight="66.0" fitWidth="57.0" layoutX="996.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/LIGHTBLUE/Trofei1.2.png" />
+                  <Image url="@17_MyShelfie_BGA/item_tiles/LIGHTBLUE/1.2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="itemTile2" fitHeight="66.0" fitWidth="57.0" layoutX="1090.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/GREEN/Gatti1.2.png" />
+                  <Image url="@17_MyShelfie_BGA/item_tiles/GREEN/1.2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="ItemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1191.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/Cornici1.1.png" />
+                  <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
                </image>
             </ImageView>
             <Button fx:id="selectTileButton" layoutX="837.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPickUpSelectedTileClicked" prefHeight="40.0" prefWidth="222.0" text="PICK UP SELECTED TILE">
