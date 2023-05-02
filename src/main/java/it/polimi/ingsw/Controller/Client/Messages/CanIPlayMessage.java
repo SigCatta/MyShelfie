@@ -3,18 +3,28 @@ package it.polimi.ingsw.Controller.Client.Messages;
 import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
 import it.polimi.ingsw.model.Game;
 
-public class CanIPlayMessage extends MessageToServer{
-    private String nickname;
+import java.io.Serializable;
 
-    private int gameID;
+public class CanIPlayMessage extends MessageToServer implements Serializable {
 
-    public CanIPlayMessage(String nickname, int gameID){
-        this.nickname = nickname;
-        this.gameID = gameID;
+    private String newNickname;
+    private int newGameID;
+
+    public CanIPlayMessage(String newNickname, int newGameID){
+        this.newNickname = newNickname;
+        this.newGameID = newGameID;
     }
 
     @Override
-    public void update(Game game) {
-        ServerController.getInstance().canIPlay(this, game);
+    public void update() {
+        ServerController.getInstance().canIPlay(this);
+    }
+
+    public String getNewNickname() {
+        return newNickname;
+    }
+
+    public int getNewGameID() {
+        return newGameID;
     }
 }

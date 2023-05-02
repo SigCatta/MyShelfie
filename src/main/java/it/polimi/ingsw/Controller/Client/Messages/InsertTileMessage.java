@@ -1,11 +1,13 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
 import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
-import it.polimi.ingsw.model.Game;
 
-public class InsertTileMessage extends MessageToServer{
+import java.io.Serializable;
+
+public class InsertTileMessage extends MessageToServer implements Serializable {
 
     private int row, col;
+
     /**
      * the tile position in the ChosenTilesTable
      */
@@ -17,8 +19,8 @@ public class InsertTileMessage extends MessageToServer{
     }
 
     @Override
-    public void update(Game game) {
-        ServerController.getInstance().insertTiles(this, game);
+    public void update() {
+        ServerController.getInstance().insertTiles(this);
     }
 
     public int getRow() {
@@ -27,6 +29,14 @@ public class InsertTileMessage extends MessageToServer{
 
     public int getCol() {
         return col;
+    }
+
+    public int getTilePosition() {
+        return tilePosition;
+    }
+
+    public void setTilePosition(int tilePosition) {
+        this.tilePosition = tilePosition;
     }
 
 }

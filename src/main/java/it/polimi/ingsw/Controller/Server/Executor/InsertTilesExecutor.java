@@ -10,16 +10,12 @@ import it.polimi.ingsw.model.player.Player;
 import java.util.HashMap;
 
 public class InsertTilesExecutor implements Executor {
-    private Game game;
 
-    public InsertTilesExecutor(Game game){
-        this.game = game;
-    }
+    public static void execute(MessageToServer message) {
 
-    @Override
-    public void execute(MessageToServer data) {
+        Game game = message.getGame();
 
-        InsertTileMessage message = (InsertTileMessage) data;
+        InsertTileMessage insertTileMessage = (InsertTileMessage) message;
 
         if(!(game.getGameState() instanceof InsertTilesState))return;
 
@@ -27,11 +23,11 @@ public class InsertTilesExecutor implements Executor {
 
         //to insert tiles the player must be the activePlayer of his game
         Player activePlayer = game.getActivePlayer();
-        if (!message.getNickname().equals(activePlayer.getNickname())) return;
+        if (!insertTileMessage.getNickname().equals(activePlayer.getNickname())) return;
 
         try{
-            int column = message.getCol();
-            int tileIndex = message.getRow();
+            int column = insertTileMessage.getCol();
+            int tileIndex = insertTileMessage.getRow();
             tilesGetter.sendTilesToShelf(tileIndex, column);
         }catch (NumberFormatException ignore){} //should not reach
 

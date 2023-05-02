@@ -8,13 +8,9 @@ import java.util.Timer;
 
 public class PingController extends Thread{
     private final Timer TIMER;
-    private final int PING_TIMEOUT = 500;
-    private final int DELAY = 500;
+    private final int PING_TIMEOUT = 1000;
+    private final int DELAY = 100;
     private boolean connectionLost;
-    /**
-     * stops the execution
-     */
-    private boolean close;
 
     /**
      * if the client does not respond to MAX_PING_FAILURES consecutive
@@ -22,6 +18,7 @@ public class PingController extends Thread{
      */
     private final int MAX_PING_FAILURES = 4;
     private int pingToDisconnect;
+
     private final SocketClientHandler SOCKET_HANDLER;
 
     public PingController(SocketClientHandler socketClientHandler) {
@@ -29,7 +26,6 @@ public class PingController extends Thread{
         this.SOCKET_HANDLER = socketClientHandler;
         pingToDisconnect = MAX_PING_FAILURES;
         connectionLost = false;
-        close = false;
     }
 
     /**
@@ -39,38 +35,38 @@ public class PingController extends Thread{
     public void run() {
         Server.LOGGER.info("PingController started"); //TODO remove after testing
 
-        while (!close){
-            //if the client is disconnected the ping are sent less frequently
-            int delay = DELAY;
-            if(connectionLost) delay = 3*DELAY;
-
-            TIMER.scheduleAtFixedRate(new PingRoutine(SOCKET_HANDLER), delay, PING_TIMEOUT);
-            if(pingToDisconnect <= 0) clientConnectionLost();
-            pingToDisconnect--;
-        }
+        TIMER.scheduleAtFixedRate(new PingRoutine(this), DELAY, PING_TIMEOUT);
     }
 
     /**
      * Method called by the handler when it receives a PONG message from the client
      */
     public void onPongReceived() {
+        System.out.println("pong received");
         pingToDisconnect = MAX_PING_FAILURES;
-        connectionLost = false;
-
-        GamesManager.getInstance().onConnectionRestored(SOCKET_HANDLER);
+        if(connectionLost) {
+            connectionLost = false;
+            GamesManager.getInstance().onConnectionRestored(SOCKET_HANDLER);
+        }
     }
 
-    public void close(){
-        close = true;
+    public int decrementPingToDisconnect(){
+        return pingToDisconnect--;
+    }
+
+    public SocketClientHandler getSocketHandler() {
+        return SOCKET_HANDLER;
     }
 
     /**
-     * ping failed MAX_PING_FAILURES times, that means the client was disconnected
+     * ping failed for too many times, that means the client was disconnected
      */
-    private void clientConnectionLost(){
+    public void clientConnectionLost(){
         connectionLost = true;
-
         GamesManager.getInstance().onConnectionLost(SOCKET_HANDLER);
     }
 
+    public void close() {
+        TIMER.cancel();
+    }
 }

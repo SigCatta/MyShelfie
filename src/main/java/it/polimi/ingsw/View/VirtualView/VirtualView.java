@@ -29,7 +29,6 @@ public class VirtualView {
      */
     public void observersInit(){
 
-        clientHandlers = new ArrayList<>();
         new BoardView(GAME, this); // links the board observer to the board
         for(Player player : GAME.getPlayers()){
             new PlayerView(player, this);// links the player observer to the player

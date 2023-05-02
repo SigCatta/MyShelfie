@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
@@ -50,6 +51,7 @@ public class Game implements VirtualViewSubject {
      * Starts the actual game (no more players can connect)
      */
     public void start() {
+        System.out.println("the game started!"); // TODO remove
         bag = new Bag();
 
         tilesGetter = new TilesGetter(this);
@@ -120,13 +122,14 @@ public class Game implements VirtualViewSubject {
     public synchronized boolean addPlayer(Player player) {
 
         if (players.size() >= MAX_PLAYER_NUMBER) {
-            //TODO: controller that modifies view and alerts new player that he can't participate
             return false;
         }
 
         players.add(player);
 
-        //TODO send message "connected successfully"
+        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
+        if(players.size() == MAX_PLAYER_NUMBER) start();
+
         return true;
     }
 
@@ -161,7 +164,7 @@ public class Game implements VirtualViewSubject {
         this.gameState = gameState;
     }
 
-    public Player getPlayerByID(String nickname) {
+    public Player getPlayer(String nickname) {
         for (Player player : players) {
             if (player.getNickname().equals(nickname)) return player;
         }
@@ -169,19 +172,14 @@ public class Game implements VirtualViewSubject {
     }
 
     public void disconnectPlayer(String playerNickname) {
-        Player player = getPlayerByID(playerNickname);
-        if (gameState instanceof PregameState) {
-            players.remove(player);
-            //TODO send PLAYER_DOWN message
-        } else {
-            player.setConnected(false);
-            //TODO send PLAYER_DOWN message
-        }
+        Player player = getPlayer(playerNickname);
+        players.remove(player);
+
         //TODO start timeout if there is only one player connected
     }
 
     public void reconnectPlayer(String playerNickname) {
-        Player player = getPlayerByID(playerNickname);
+        Player player = getPlayer(playerNickname);
         player.setConnected(true);
         //TODO stop timeout
     }
