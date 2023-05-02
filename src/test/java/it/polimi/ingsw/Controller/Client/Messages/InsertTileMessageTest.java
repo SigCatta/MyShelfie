@@ -10,7 +10,7 @@ public class InsertTileMessageTest {
     @Test
     public void dimension() throws IOException {
 
-        MessageToServer obj = new InsertTileMessage(1, 1, 1);
+        MessageToServer obj = new InsertTileMessage(1, 1);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

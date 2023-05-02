@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.View.VirtualView.VirtualView;
@@ -12,7 +11,7 @@ import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.GameState.PickUpTilesState;
 import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
+import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -22,7 +21,6 @@ import java.util.NoSuchElementException;
 public class Game implements VirtualViewSubject {
 
     private ArrayList<VirtualViewObserver> observers;
-
     private final int BOARD_DIMENSION = 9;
     private final int MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
@@ -30,7 +28,7 @@ public class Game implements VirtualViewSubject {
     private int gameID;
     private Bag bag;
     private Board board;
-    private TilesGetter tilesGetter;
+    private ChosenTilesTable chosenTilesTable;
     private GameState gameState;
 
     private ArrayList<Player> players;
@@ -45,6 +43,7 @@ public class Game implements VirtualViewSubject {
         gameState = new PregameState();
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
+        chosenTilesTable = new ChosenTilesTable();
     }
 
     /**
@@ -54,7 +53,6 @@ public class Game implements VirtualViewSubject {
         System.out.println("the game started!"); // TODO remove
         bag = new Bag();
 
-        tilesGetter = new TilesGetter(this);
         turnHandlerInitializer();
 
         gameState = new PickUpTilesState();
@@ -115,8 +113,8 @@ public class Game implements VirtualViewSubject {
         return MAX_TILES_FROM_BOARD;
     }
 
-    public TilesGetter getTilesGetter() {
-        return tilesGetter;
+    public ChosenTilesTable getChosenTilesTable() {
+        return chosenTilesTable;
     }
 
     public synchronized boolean addPlayer(Player player) {
