@@ -2,17 +2,9 @@ package it.polimi.ingsw.GameState;
 
 import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.InsertTilesState;
-import it.polimi.ingsw.model.GameState.PickUpTilesState;
-import it.polimi.ingsw.model.GameState.PregameState;
+import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
-import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +14,7 @@ public class GameStateTest {
     public void stateSuccessionTest(){
         Game game = new Game(999);
         game.setVirtualView(new VirtualView(game));
-        assertTrue(game.getGameState() instanceof PregameState);
+        assertSame(game.getGameState(), GameState.PREGAME);
 
         game.addPlayer(new Player("a"));
         game.addPlayer(new Player("b"));
