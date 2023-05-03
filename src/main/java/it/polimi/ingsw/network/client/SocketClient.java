@@ -29,24 +29,28 @@ public class SocketClient extends Client {
     private static final int SOCKET_TIMEOUT = 10000000;
     static String input;
 
-    private SocketClient(String address, int port) throws Exception {
+    private SocketClient(String address, int port) {
 
         this.socket = new Socket();
-        this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
-        this.outputStm = new ObjectOutputStream(socket.getOutputStream());
-        this.inputStm = new ObjectInputStream(socket.getInputStream());
-        this.readExecutionQueue = Executors.newSingleThreadExecutor();
-        Client.LOGGER.info("Connection established");
-        clientInstance = this;
-        new Thread(new InputReader(input)).start(); // from now on the user can execute commands
+        try {
+            this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
+            this.outputStm = new ObjectOutputStream(socket.getOutputStream());
+            this.inputStm = new ObjectInputStream(socket.getInputStream());
+            this.readExecutionQueue = Executors.newSingleThreadExecutor();
+            Client.LOGGER.info("Connection established");
+            clientInstance = this;
+            new Thread(new InputReader(input)).start(); // from now on the user can execute commands
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static synchronized Client getInstance() {
-        if (clientInstance == null) return null; // can't create a socket without addres and port
+        if (clientInstance == null) throw new RuntimeException(); // can't create a socket without addres and port -- should never happen!!
         return clientInstance;
     }
 
-    public static synchronized Client getInstance(String address, int port) throws Exception {
+    public static synchronized Client getInstance(String address, int port) {
         if (clientInstance == null) clientInstance = new SocketClient(address, port);
         return clientInstance;
     }
@@ -65,7 +69,7 @@ public class SocketClient extends Client {
                     ClientController.getInstance().visit(messageToClient);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
-                    Client.LOGGER.severe("An error occurred while reading the commandMap");
+                    Client.LOGGER.severe("Did you remember to implement Serilizable?");
                     disconnect();
                     readExecutionQueue.shutdownNow();
                 }
@@ -82,6 +86,7 @@ public class SocketClient extends Client {
         try {
             if (message instanceof HandshakeMessage) {
                 this.nickname = message.getNickname();
+                super.setNickname(this.nickname);
             }
             outputStm.writeObject(message);
             outputStm.reset();

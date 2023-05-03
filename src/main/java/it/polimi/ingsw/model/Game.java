@@ -56,9 +56,11 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        new BoardRefresher(this).refillBoard();
+        if(virtualView != null) {//TODO this is just for testing
+            notifyObservers();
+        }
 
-        notifyObservers();
+        new BoardRefresher(this).refillBoard();
     }
 
     /**
@@ -121,7 +123,7 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
         if(players.size() == MAX_PLAYER_NUMBER) start();
 
         return true;

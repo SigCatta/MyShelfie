@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 /**

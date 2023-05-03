@@ -16,6 +16,7 @@ public class PlayerView implements VirtualViewObserver, MessageToClient, Seriali
         this.PLAYER = player;
         this.VIRTUAL_VIEW = virtualView;
         PLAYER.registerObserver(this);
+        update();
     }
 
     @Override

@@ -103,6 +103,7 @@ public class InputReader implements Runnable {
                 }
                 if (GameRepresentation.getInstance().getGameMessage() != null) {
                     System.out.println("You joined game " + GameRepresentation.getInstance().getGameMessage().getGameID());
+                    return;
                 }
             }
         }
@@ -117,14 +118,13 @@ public class InputReader implements Runnable {
     }
 
     private void insertNickname() {
-        while (true){
+        while (true) {
             System.out.println("Insert nickname:");
             getInput();
             socketClient.sendCommand(new HandshakeMessage(input));
-            while (true){
-                System.out.println("Waiting for server to respond...");
+            while (true) {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -132,8 +132,9 @@ public class InputReader implements Runnable {
                     System.out.println("This nickname is already taken");
                     break;
                 }
-                if (GeneralMessagesRepresentation.getInstance().getCodes().contains("NICKOK")){
-                    System.out.println("Nickname accepted!");
+                if (GeneralMessagesRepresentation.getInstance().getCodes().contains("NICKOK")) {
+                    SocketClient.getInstance().setNickname(input);
+                    System.out.println("Nickname " + SocketClient.getInstance().getNickname() + " accepted!");
                     input = null;
                     return;
                 }

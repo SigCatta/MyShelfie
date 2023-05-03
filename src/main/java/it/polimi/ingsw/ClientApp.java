@@ -3,12 +3,6 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 
-import java.io.IOException;
-import java.util.Map;
-
-import static it.polimi.ingsw.InputReader.askNickname;
-import static it.polimi.ingsw.InputReader.askServerInfo;
-
 /**
  * Main of the client app.
  */
@@ -28,7 +22,7 @@ public class ClientApp {
         //String nickname = askNickname();
         //Map<String, String> serverInfo = InputReader.askServerInfo();
         try {
-            client = SocketClient.getInstance("192.168.1.19", 28888);
+            client = SocketClient.getInstance("localhost", 28888);
             //client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")), nickname);
             client.readCommand(); // Starts an asynchronous reading from the server.
         } catch (Exception e) {
