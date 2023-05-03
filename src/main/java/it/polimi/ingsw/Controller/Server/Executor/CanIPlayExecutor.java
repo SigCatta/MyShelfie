@@ -5,6 +5,8 @@ import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.ShelfView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
@@ -32,8 +34,12 @@ public class CanIPlayExecutor implements Executor {
             return;
         }
 
+        Player newPlayer = new Player(message.getNickname());
+        new PlayerView(newPlayer, game.getVirtualView());// links the player observer to the player
+        new ShelfView(newPlayer, game.getVirtualView()); // links the shelf observer to the shelf
+
         playerHandler.setGameID(gameID);    //the gameid is also definitive
 
-        game.addPlayer(new Player(message.getNickname()));
+        game.addPlayer(newPlayer);
     }
 }

@@ -22,18 +22,7 @@ public class VirtualView {
         this.GAME = game;
         clientHandlers = new ArrayList<>();
         new GameView(GAME, this); //the user needs this information even before the beginning of the game
-    }
-
-    /**
-     * creates all the necessary observers and make them observe the respective objects
-     */
-    public void observersInit(){
-
         new BoardView(GAME, this); // links the board observer to the board
-        for(Player player : GAME.getPlayers()){
-            new PlayerView(player, this);// links the player observer to the player
-            new ShelfView(player, this);
-        }
         new ChosenTilesTableView(GAME, this);
     }
 
