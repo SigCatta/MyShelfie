@@ -103,6 +103,10 @@ public class Game implements VirtualViewSubject {
         this.board = board;
     }
 
+    public int getMAX_TILES_FROM_BOARD() {
+        return MAX_TILES_FROM_BOARD;
+    }
+
     public ChosenTilesTable getChosenTilesTable() {
         return chosenTilesTable;
     }
