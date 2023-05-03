@@ -31,8 +31,7 @@ public class InputReader implements Runnable {
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
         startOrJoin();
         while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
-            System.out.println(PlayersRepresentation.getInstance().getPlayersList());
-            System.out.println("Waiting for players...");
+            System.out.println("Players connected: " + PlayersRepresentation.getInstance().getPlayersList());
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -67,7 +66,6 @@ public class InputReader implements Runnable {
 
         GameMessageToClient gameMessage = null;
         while (gameMessage == null) {
-            System.out.println("Waiting for server to respond...");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -92,8 +90,7 @@ public class InputReader implements Runnable {
             }
             while (true) {
                 try {
-                    System.out.println("Waiting for server to respond...");
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -111,7 +108,7 @@ public class InputReader implements Runnable {
 
     private void getInput() {
         try {
-            input = readLine();
+            input = readLine().trim();
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -129,6 +126,7 @@ public class InputReader implements Runnable {
                     throw new RuntimeException(e);
                 }
                 if (ErrorsRepresentation.getInstance().getErrorCodes().contains(ErrorCode.BADNICK)) {
+                    ErrorsRepresentation.getInstance().removeError(ErrorCode.BADNICK);
                     System.out.println("This nickname is already taken");
                     break;
                 }

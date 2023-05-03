@@ -4,8 +4,6 @@ import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class ErrorsRepresentation implements VirtualModelSubject {
@@ -25,6 +23,10 @@ public class ErrorsRepresentation implements VirtualModelSubject {
 
     public ArrayList<ErrorCode> getErrorCodes() {
         return ERRORS.stream().map(ErrorMessageToClient::getErrorCode).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void removeError(ErrorCode errorCode){
+        ERRORS.removeIf(e -> e.getErrorCode() == errorCode);
     }
 
     public void putError(ErrorMessageToClient errorMessage) {
