@@ -54,12 +54,9 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        if(virtualView != null) {//TODO this is just for testing
-            virtualView.observersInit(); //the virtual view attribute has been set from the GamesManager
-            notifyObservers();
-        }
-
         new BoardRefresher(this).refillBoard();
+
+        notifyObservers();
     }
 
     /**
@@ -104,10 +101,6 @@ public class Game implements VirtualViewSubject {
 
     public void setBoard(Board board) {
         this.board = board;
-    }
-
-    public int getMAX_TILES_FROM_BOARD() {
-        return MAX_TILES_FROM_BOARD;
     }
 
     public ChosenTilesTable getChosenTilesTable() {
