@@ -3,8 +3,7 @@ package it.polimi.ingsw.Controller.Server.Executor;
 import it.polimi.ingsw.Controller.Client.Messages.InsertTileMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.InsertTilesState;
-import it.polimi.ingsw.model.GameState.PickUpTilesState;
+import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -21,7 +20,7 @@ public class InsertTilesExecutor implements Executor {
         int tilePosition = insertTileMessage.getTilePosition();
         int column = insertTileMessage.getCol();
 
-        if(!(game.getGameState() instanceof InsertTilesState))return;
+        if(!(game.getGameState() == GameState.INSERT_TILES))return;
 
         //to insert tiles the player must be the activePlayer of his game
         Player activePlayer = game.getActivePlayer();
@@ -44,7 +43,7 @@ public class InsertTilesExecutor implements Executor {
         //there are no more tiles to be inserted
         if(chosenTilesTable.size() == 0){
             game.getTurnHandler().changeTurn();
-            game.setGameState(new PickUpTilesState());
+            game.setGameState(GameState.PICK_UP_TILES);
         }
     }
 }

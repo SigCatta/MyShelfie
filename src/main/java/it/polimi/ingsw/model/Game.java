@@ -6,10 +6,7 @@ import it.polimi.ingsw.View.VirtualView.VirtualView;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
-import it.polimi.ingsw.model.GameState.EndGameState;
 import it.polimi.ingsw.model.GameState.GameState;
-import it.polimi.ingsw.model.GameState.PickUpTilesState;
-import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.player.Player;
@@ -40,7 +37,7 @@ public class Game implements VirtualViewSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
-        gameState = new PregameState();
+        gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
         chosenTilesTable = new ChosenTilesTable();
@@ -55,10 +52,9 @@ public class Game implements VirtualViewSubject {
 
         turnHandlerInitializer();
 
-        gameState = new PickUpTilesState();
+        gameState = GameState.PICK_UP_TILES;
 
         if(virtualView != null) {//TODO this is just for testing
-            virtualView.observersInit(); //the virtual view attribute has been set from the GamesManager
             notifyObservers();
         }
 
@@ -80,7 +76,7 @@ public class Game implements VirtualViewSubject {
     }
 
     public void end(){
-        gameState = new EndGameState();
+        gameState = GameState.END;
         //TODO calculate point and send to the view
     }
 
@@ -125,7 +121,7 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
         if(players.size() == MAX_PLAYER_NUMBER) start();
 
         return true;

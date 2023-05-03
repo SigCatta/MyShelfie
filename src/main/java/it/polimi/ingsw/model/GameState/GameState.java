@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.GameState;
 
-public interface GameState {
-    boolean isCommandPossible(String command);
+public enum GameState {
+    PREGAME,
+    PICK_UP_TILES,
+    INSERT_TILES,
+    END
 }

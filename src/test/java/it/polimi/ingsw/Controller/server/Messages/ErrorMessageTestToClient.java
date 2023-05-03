@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
+import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class ErrorMessageTestToClient {
     public void dimension() throws IOException {
         String errorMessage = "not Hello world!";
 
-        ErrorMessageToClient obj = new ErrorMessageToClient(errorMessage); // create an instance of your object
+        ErrorMessageToClient obj = new ErrorMessageToClient(errorMessage, ErrorCode.PANIC); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

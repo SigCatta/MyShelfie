@@ -69,7 +69,6 @@ public class ClientController implements Visitor{
      */
     public void ping(MessageToClient ping){
         SocketClient.getInstance().sendCommand(new PongMessage());
-        System.out.println("Pong sent");
     }
 
     /**
@@ -77,6 +76,10 @@ public class ClientController implements Visitor{
      */
     public void error(MessageToClient error){
         ErrorsRepresentation.getInstance().putError((ErrorMessageToClient) error);
+    }
+
+    public void general(MessageToClient message){
+        GeneralMessagesRepresentation.getInstance().putMessage((GeneralMessageToClient) message);
     }
 
     /**

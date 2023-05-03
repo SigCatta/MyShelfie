@@ -3,12 +3,6 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 
-import java.io.IOException;
-import java.util.Map;
-
-import static it.polimi.ingsw.InputReader.askNickname;
-import static it.polimi.ingsw.InputReader.askServerInfo;
-
 /**
  * Main of the client app.
  */

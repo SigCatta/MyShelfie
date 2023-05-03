@@ -3,7 +3,7 @@ package it.polimi.ingsw.Controller.Server.ServerController;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.PregameState;
+import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
 import java.util.*;
@@ -71,7 +71,7 @@ public class GamesManager {
             if(gameID == MAX_VALUE) gameID = 1;
             else gameID++;
         }
-        System.out.println("your game id is " + gameID); //TODO remove
+        System.out.println("It's a success fully!! New game created with gameID: " + gameID); //TODO remove
         return gameID;
     }
 
@@ -96,7 +96,7 @@ public class GamesManager {
         //TODO in the executor check if the game has only 1 player left, in that case declare the win
         if(socketClientHandler.getGameID() == 0) { //this means it has not been assigned to any game
             socketClientHandler.disconnect();
-        } else if(gamesData.get(socketClientHandler.getGameID()).getGameState() instanceof PregameState){
+        } else if(gamesData.get(socketClientHandler.getGameID()).getGameState() == GameState.PREGAME){
             socketClientHandler.disconnect();
         }
     }

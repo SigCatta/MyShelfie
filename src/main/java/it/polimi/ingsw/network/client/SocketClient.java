@@ -1,22 +1,19 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.network.client.InputReader.InputReader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static it.polimi.ingsw.InputReader.readLine;
 
 /**
  * Singleton class owned by each client,
@@ -30,41 +27,32 @@ public class SocketClient extends Client {
     private ExecutorService readExecutionQueue;
     private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
+    static String input;
 
-    private SocketClient(String address, int port) throws Exception {
+    private SocketClient(String address, int port) {
+
         this.socket = new Socket();
-        this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
-        this.outputStm = new ObjectOutputStream(socket.getOutputStream());
-        this.inputStm = new ObjectInputStream(socket.getInputStream());
-        this.readExecutionQueue = Executors.newSingleThreadExecutor();
-        Client.LOGGER.info("Connection established");
-        clientInstance = this;
-        askToPlay(); //TODO uncomment after logic is fixed
+        try {
+            this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
+            this.outputStm = new ObjectOutputStream(socket.getOutputStream());
+            this.inputStm = new ObjectInputStream(socket.getInputStream());
+            this.readExecutionQueue = Executors.newSingleThreadExecutor();
+            Client.LOGGER.info("Connection established");
+            clientInstance = this;
+            new Thread(new InputReader(input)).start(); // from now on the user can execute commands
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static synchronized Client getInstance() {
-        if (clientInstance == null) return null; // can't create a socket without addres and port
+        if (clientInstance == null) throw new RuntimeException(); // can't create a socket without addres and port -- should never happen!!
         return clientInstance;
     }
 
-    public static synchronized Client getInstance(String address, int port) throws Exception {
+    public static synchronized Client getInstance(String address, int port) {
         if (clientInstance == null) clientInstance = new SocketClient(address, port);
         return clientInstance;
-    }
-
-    //TODO remove method when finished testing
-    private void askToPlay() throws ExecutionException {
-        System.out.print("insert the nickname: ");
-        String nickname = readLine();
-        sendCommand(new HandshakeMessage(nickname));
-        String sel = readLine();
-        if (sel.equals("j")) {
-            System.out.println("what is the game id?");
-            int id = Integer.parseInt(readLine());
-            sendCommand(new CanIPlayMessage(id));
-        } else {
-            sendCommand(new NewGameMessage(2));
-        }
     }
 
     /**
@@ -81,7 +69,7 @@ public class SocketClient extends Client {
                     ClientController.getInstance().visit(messageToClient);
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
-                    Client.LOGGER.severe("An error occurred while reading the commandMap");
+                    Client.LOGGER.severe("Did you remember to implement Serilizable?");
                     disconnect();
                     readExecutionQueue.shutdownNow();
                 }
@@ -98,6 +86,7 @@ public class SocketClient extends Client {
         try {
             if (message instanceof HandshakeMessage) {
                 this.nickname = message.getNickname();
+                super.setNickname(this.nickname);
             }
             outputStm.writeObject(message);
             outputStm.reset();
