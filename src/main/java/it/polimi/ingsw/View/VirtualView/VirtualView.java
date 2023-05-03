@@ -1,7 +1,9 @@
 package it.polimi.ingsw.View.VirtualView;
 
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.*;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.BoardView;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.ChosenTilesTableView;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.GameView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
@@ -30,5 +32,9 @@ public class VirtualView {
         for(SocketClientHandler clientHandler : clientHandlers){
             clientHandler.sendCommand(messageToClient);
         }
+    }
+
+    public void updateAllPlayers(){
+        GAME.getPlayers().forEach(Player::notifyObservers);
     }
 }
