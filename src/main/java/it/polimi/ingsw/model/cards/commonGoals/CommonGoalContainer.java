@@ -18,7 +18,7 @@ public class CommonGoalContainer implements Iterable<CommonGoalCard>, VirtualVie
         completedCommonGoal = new ArrayList<>();
 
         for (int i = 0; i < NUMBER_OF_CARDS; i++) {
-            completedCommonGoal.set(i, new HashSet<>());
+            completedCommonGoal.add(new HashSet<>());
         }
 
         OBSERVERS = new ArrayList<>();

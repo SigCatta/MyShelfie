@@ -39,6 +39,7 @@ public class Game implements VirtualViewSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
+        commonGoalContainer = new CommonGoalContainer();
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
