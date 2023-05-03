@@ -10,7 +10,7 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
     private static CommonGoalsRepresentation instance;
 
     public ArrayList<String> printDrawings() {
-        ArrayList<String> drawing = new ArrayList<>();
+        ArrayLisaddet<String> drawing = new ArrayList<>();
         for (CommonGoalMessage cg : commonGoalMessages) {
             drawing.add("        COMMON GOAL #" + cg.getCommonGoalNumber());
             drawing.addAll(cg.getDrawing());
