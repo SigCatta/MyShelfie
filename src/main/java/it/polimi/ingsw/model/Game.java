@@ -55,7 +55,6 @@ public class Game implements VirtualViewSubject {
         gameState = GameState.PICK_UP_TILES;
 
         if(virtualView != null) {//TODO this is just for testing
-            virtualView.observersInit(); //the virtual view attribute has been set from the GamesManager
             notifyObservers();
         }
 
@@ -122,7 +121,7 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
         if(players.size() == MAX_PLAYER_NUMBER) start();
 
         return true;

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
@@ -29,17 +28,22 @@ public class CanIPlayExecutor implements Executor {
             return;
         }
         if(game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The game chosen is already full", ErrorCode.GAMEFULL));
-            System.out.println("The game chosen is already full");//TODO remove
+            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The chosen game is already full", ErrorCode.GAMEFULL));
+            System.out.println("The chosen game is already full");//TODO remove
             return;
         }
+
+        playerHandler.setGameID(gameID);
+
+        game.getVirtualView().addClient(playerHandler);
 
         Player newPlayer = new Player(message.getNickname());
         new PlayerView(newPlayer, game.getVirtualView());// links the player observer to the player
         new ShelfView(newPlayer, game.getVirtualView()); // links the shelf observer to the shelf
+        game.addPlayer(newPlayer);
 
         playerHandler.setGameID(gameID);    //the gameid is also definitive
 
-        game.addPlayer(newPlayer);
+        game.notifyObservers();
     }
 }
