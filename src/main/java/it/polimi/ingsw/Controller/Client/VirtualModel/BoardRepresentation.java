@@ -11,7 +11,9 @@ public class BoardRepresentation implements VirtualModelSubject {
     private Color[][] board;
     private static BoardRepresentation instance;
 
-    private BoardRepresentation() {}
+    private BoardRepresentation() {
+        observers = new ArrayList<>();
+    }
 
     public static BoardRepresentation getInstance() {
         if (instance == null) instance = new BoardRepresentation();
