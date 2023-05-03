@@ -1,12 +1,15 @@
-package it.polimi.ingsw.network.client;
+package it.polimi.ingsw.network.client.InputReader;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
 import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.Controller.Client.VirtualModel.GeneralMessagesRepresentation;
+import it.polimi.ingsw.Controller.Client.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
+import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.concurrent.ExecutionException;
 
@@ -17,28 +20,38 @@ public class InputReader implements Runnable {
     private String input;
     private final SocketClient socketClient;
 
-    InputReader(String input) {
+    public InputReader(String input) {
         this.input = input;
         socketClient = (SocketClient) SocketClient.getInstance();
     }
 
     @Override
     public void run() {
-        System.out.println("Insert nickname: ");
-        sendNickname();
+        insertNickname();
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
-        while (input == null) {
-            getInput();
-            startOrJoin();
+        startOrJoin();
+        while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
+            System.out.println(PlayersRepresentation.getInstance().getPlayersList());
+            System.out.println("Waiting for players...");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+        System.out.println("The game has started!");
     }
 
+
     private void startOrJoin() {
-        if (input.equals("join")) joinGame();
-        else if (input.equals("new")) createNewGame();
-        else {
-            System.out.println("ERROR: Invalid command!\nType 'join' if you want to join a game, 'new' if you want to create a new one: ");
-            input = null;
+        while (input == null) {
+            getInput();
+            if (input.equals("join")) joinGame();
+            else if (input.equals("new")) createNewGame();
+            else {
+                System.out.println("ERROR: Invalid command!\nType 'join' if you want to join a game, 'new' if you want to create a new one: ");
+                input = null;
+            }
         }
     }
 
@@ -88,7 +101,9 @@ public class InputReader implements Runnable {
                     System.out.println("ERROR: This gameID is not associated to a game!");
                     break;
                 }
-                if (GameRepresentation.getInstance().getGameMessage() != null) return;
+                if (GameRepresentation.getInstance().getGameMessage() != null) {
+                    System.out.println("You joined game " + GameRepresentation.getInstance().getGameMessage().getGameID());
+                }
             }
         }
     }
@@ -101,9 +116,28 @@ public class InputReader implements Runnable {
         }
     }
 
-    private void sendNickname() {
-        getInput();
-        socketClient.sendCommand(new HandshakeMessage(input));
-        input = null;
+    private void insertNickname() {
+        while (true){
+            System.out.println("Insert nickname:");
+            getInput();
+            socketClient.sendCommand(new HandshakeMessage(input));
+            while (true){
+                System.out.println("Waiting for server to respond...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if (ErrorsRepresentation.getInstance().getErrorCodes().contains(ErrorCode.BADNICK)) {
+                    System.out.println("This nickname is already taken");
+                    break;
+                }
+                if (GeneralMessagesRepresentation.getInstance().getCodes().contains("NICKOK")){
+                    System.out.println("Nickname accepted!");
+                    input = null;
+                    return;
+                }
+            }
+        }
     }
 }

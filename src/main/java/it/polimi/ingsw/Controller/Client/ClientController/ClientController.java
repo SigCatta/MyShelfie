@@ -78,6 +78,10 @@ public class ClientController implements Visitor{
         ErrorsRepresentation.getInstance().putError((ErrorMessageToClient) error);
     }
 
+    public void general(MessageToClient message){
+        GeneralMessagesRepresentation.getInstance().putMessage((GeneralMessageToClient) message);
+    }
+
     /**
      * push the incoming chat message into the virtual view
      */

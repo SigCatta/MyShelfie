@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.network.client.InputReader.InputReader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

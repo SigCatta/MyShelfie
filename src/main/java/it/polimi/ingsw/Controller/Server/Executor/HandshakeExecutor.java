@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
 import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
+import it.polimi.ingsw.View.VirtualView.Messages.GeneralMessageToClient;
 
 public class HandshakeExecutor implements Executor{
     /**
@@ -20,5 +21,7 @@ public class HandshakeExecutor implements Executor{
         }
         System.out.println("Handshake with server completed, hi " + nickname); //TODO remove
         message.getSocketClientHandler().setNickname(nickname);
+        message.getSocketClientHandler().sendCommand(new GeneralMessageToClient("nickname accepted", "NICKOK"));
+
     }
 }

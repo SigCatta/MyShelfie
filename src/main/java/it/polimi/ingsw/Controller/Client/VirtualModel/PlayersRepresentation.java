@@ -2,8 +2,10 @@ package it.polimi.ingsw.Controller.Client.VirtualModel;
 
 import it.polimi.ingsw.View.VirtualView.Messages.PlayerMessageToClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PlayersRepresentation implements VirtualModelSubject{
 
@@ -16,6 +18,10 @@ public class PlayersRepresentation implements VirtualModelSubject{
     public static PlayersRepresentation getInstance() {
         if (instance == null) instance = new PlayersRepresentation();
         return instance;
+    }
+
+    public ArrayList<String> getPlayersList(){
+        return PLAYER_MESSAGES.values().stream().map(PlayerMessageToClient::getNickname).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public PlayerMessageToClient getPlayerByNickname(String nickname){
