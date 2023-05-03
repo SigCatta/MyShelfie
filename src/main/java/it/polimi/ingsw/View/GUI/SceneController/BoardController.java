@@ -109,6 +109,10 @@ public class BoardController {
         onShowMyShelfClicked();
     }
 
+    /**
+     * methods called when mouse enters the board
+     * it adds to each one of the children nodes of the board matrix an event listener
+     */
     @FXML
     public void setUpBoard() {
         for(Node node: matrix.getChildren()) {
@@ -116,6 +120,10 @@ public class BoardController {
         }
     }
 
+    /**
+     *
+     * @return an event fired when a child node of the board matrix is selected
+     */
     EventHandler<MouseEvent> nodeEventHandler(){
         return event -> {
             ImageView nodeSelected = (ImageView) event.getTarget();
@@ -168,6 +176,11 @@ public class BoardController {
         if(tilesSelected.size() >= 3) selectTileButton.setVisible(false);
     }
 
+    /**
+     *
+     * @param color the color of the tile to be placed on the board
+     * @param position of the node in the board matrix where the tile needs to be inserted
+     */
     public void placeTile(Color color, Point position) {
         HashMap<String, Integer> specificTilesMap = tilesMap.get(color);
         String tilePath = null;

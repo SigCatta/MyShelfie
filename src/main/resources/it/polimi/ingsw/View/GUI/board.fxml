@@ -147,7 +147,7 @@
                   <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
                </image>
             </ImageView>
-            <Button fx:id="selectTileButton" layoutX="837.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPickUpSelectedTileClicked" prefHeight="40.0" prefWidth="222.0" text="PICK UP SELECTED TILE">
+            <Button fx:id="selectTileButton" layoutX="837.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPickUpSelectedTileClicked" prefHeight="40.0" prefWidth="222.0" text="PICK UP SELECTED TILE" visible="false">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>

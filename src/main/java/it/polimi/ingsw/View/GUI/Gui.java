@@ -29,6 +29,10 @@ public class Gui extends Application{
         StageController.setCurrentStage(stage);
     }
 
+    /**
+     * method that fills the map saved in BoardController that is used to calculate which particular tile of a given color
+     * can be inserted in the board
+     */
     public void setUpBoardControllerTilesMap() {
         HashMap<Color, HashMap<String, Integer>> tilesMap = new HashMap<>();
         for(Color color: Color.values()) {

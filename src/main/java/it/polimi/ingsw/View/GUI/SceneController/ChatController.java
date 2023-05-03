@@ -41,6 +41,7 @@ public class ChatController {
     List<TextField> myList = new ArrayList<>(Arrays.asList(myText1, myText2, myText3, myText4, myText5));
     List<TextField> otherList = new ArrayList<>(Arrays.asList(otherText1, otherText2, otherText3, otherText4, otherText5));
 
+    // javafxml code to inject to create a new message
     /*
     otherText:
     <TextField layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: LIGHTBLUE;" text="">

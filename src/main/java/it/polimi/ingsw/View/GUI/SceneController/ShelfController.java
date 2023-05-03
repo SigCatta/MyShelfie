@@ -48,6 +48,10 @@ public class ShelfController {
     @FXML
     static ImageView itemTile3;
 
+    /**
+     * this method saves the tiles picked up from the board in the local variable {@code tileselected}
+     * @param tiles tiles picked up from the board that now need to be inserted in the player shelf
+     */
     public static void setUp(List<NodeData> tiles) {
         tilesSelected = new ArrayList<>(tiles);
         List<ImageView> temp = List.of(itemTile1, itemTile2, itemTile3);
