@@ -2,11 +2,10 @@ package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
 import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
 import it.polimi.ingsw.model.player.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,37 +15,29 @@ import java.util.List;
  */
 public class ScoreBoard implements EndOfTurnObserver {
 
-    private final ArrayList<Player> players;
-    private final Game game;
-    private final List<CommonGoalCard> commonGoalCards;
-    private final List<List<Player>> completedCommonGoal;
+    private Game game;
     private boolean isFirstPointAssigned;
+    private CommonGoalContainer commonGoalContainer;
 
     /**
      * creates a new scoreboard and assigns it a game
      */
     public ScoreBoard(Game game){
         this.game = game;
-        this.commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
-        this.players = game.getPlayers();
+        this.commonGoalContainer = game.getCommonGoalContainer();
         this.isFirstPointAssigned = false;
-        this.completedCommonGoal = new ArrayList<>();
-        for (CommonGoalCard commonGoal : commonGoalCards) {
-            completedCommonGoal.add(new ArrayList<>());
-        }
     }
 
     /**
      * Checks if the player has completed any new common goals and give him points accordingly
      */
     private void scoreCommonGoalCards(Player player) { // at the end of each turn
-        for (int i = 0; i < commonGoalCards.size(); i++) {
-            if (!completedCommonGoal.get(i).contains(player)) {
-                completedCommonGoal.get(i).add(player);
-                CommonGoalCard commonGoal = commonGoalCards.get(i);
-                int points = commonGoal.calculateScore(player);
-                player.updateScore(points);
-            }
+        for (CommonGoalCard cg : commonGoalContainer) {
+            if (commonGoalContainer.isAchieved(cg, player.getNickname())) return;
+
+            commonGoalContainer.signCompleted(cg, player.getNickname());
+            int points = cg.calculateScore(player);
+            player.updateScore(points);
         }
     }
 
@@ -57,19 +48,28 @@ public class ScoreBoard implements EndOfTurnObserver {
      */
     @Override
     public void update() {
-        scoreCommonGoalCards(game.getActivePlayer());
 
-        if (game.getActivePlayer().getShelf().isFull()) {
-            if (!isFirstPointAssigned) {
-                scoreFirstCompletedShelf(game.getActivePlayer());
-                isFirstPointAssigned = true;
-            }
+        List<Player> players = game.getPlayers();
+        Player activePlayer = game.getActivePlayer();
+
+        scoreCommonGoalCards(activePlayer);
+
+        if (activePlayer.getShelf().isFull() && !isFirstPointAssigned) {
+            scoreFirstCompletedShelf(activePlayer);
+            isFirstPointAssigned = true;
         }
 
+        //it is the last turn of the last player
         if (isFirstPointAssigned && game.getActivePlayer() == players.get(players.size() - 1)) {
             scorePersonalGoals();
             scoreAdjacency();
         }
+    }
+
+    public void endGameScoreUpdate() {
+        //done for every player in the game
+        scorePersonalGoals();
+        scoreAdjacency();
     }
 
     /**
@@ -88,7 +88,7 @@ public class ScoreBoard implements EndOfTurnObserver {
      * Assigns each player of points based on the completion of their personal goal card
      */
     private void scorePersonalGoals() { // at the end of the game
-        for (Player player : players) {
+        for (Player player : game.getPlayers()) {
             int points = player.getPersonalGoal().calculateScore();
             player.updateScore(points);
         }
@@ -99,7 +99,7 @@ public class ScoreBoard implements EndOfTurnObserver {
      * Assigns each player of points based on the adjacency of tiles in their shelf
      */
     private void scoreAdjacency() { // at the end of the game
-        for (Player player : players) {
+        for (Player player : game.getPlayers()) {
             int points = AdjacencyScoreCalculation.calculateScore(player);
             player.updateScore(points);
         }

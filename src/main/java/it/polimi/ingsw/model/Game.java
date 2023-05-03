@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -18,8 +19,7 @@ import java.util.NoSuchElementException;
 public class Game implements VirtualViewSubject {
 
     private ArrayList<VirtualViewObserver> observers;
-    private final int BOARD_DIMENSION = 9;
-    private final int MAX_TILES_FROM_BOARD = 3;
+    private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
@@ -31,12 +31,15 @@ public class Game implements VirtualViewSubject {
     private ArrayList<Player> players;
     private Player activePlayer;
 
+    private CommonGoalContainer commonGoalContainer;
+
     private TurnHandler turnHandler;
 
 
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
+        commonGoalContainer = new CommonGoalContainer();
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -177,7 +180,7 @@ public class Game implements VirtualViewSubject {
         player.setConnected(true);
         //TODO stop timeout
     }
-        
+
     public GameState getGameState() {
         return gameState;
     }
@@ -185,6 +188,10 @@ public class Game implements VirtualViewSubject {
 
     public VirtualView getVirtualView() {
         return virtualView;
+    }
+
+    public CommonGoalContainer getCommonGoalContainer() {
+        return commonGoalContainer;
     }
 
     @Override
