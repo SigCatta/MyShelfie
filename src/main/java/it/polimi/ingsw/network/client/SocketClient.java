@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
@@ -66,7 +65,7 @@ public class SocketClient extends Client {
                 try {
                     Object o = inputStm.readObject();
                     MessageToClient messageToClient = (MessageToClient) o;
-                    ClientController.getInstance().visit(messageToClient);
+                    messageToClient.update();
                 } catch (IOException | ClassNotFoundException e) {
                     //Connection lost with the server
                     Client.LOGGER.severe("Did you remember to implement Serilizable?");

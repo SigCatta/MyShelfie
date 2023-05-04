@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.GeneralMessagesRepresentation;
 
 import java.io.Serializable;
 
@@ -23,6 +23,6 @@ public class GeneralMessageToClient implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().general(this);
+        GeneralMessagesRepresentation.getInstance().putMessage(this);
     }
 }

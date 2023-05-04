@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
 import it.polimi.ingsw.Enum.ErrorCode;
 
 import java.io.Serializable;
@@ -25,6 +25,6 @@ public class ErrorMessageToClient implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().error(this);
+        ErrorsRepresentation.getInstance().putError(this);
     }
 }

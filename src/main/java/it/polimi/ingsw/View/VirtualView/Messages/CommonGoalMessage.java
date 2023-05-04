@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
 
@@ -32,6 +32,6 @@ public class CommonGoalMessage implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().changeCommonGoal(this);
+        CommonGoalsRepresentation.getInstance().changeCommonGoal(this);
     }
 }

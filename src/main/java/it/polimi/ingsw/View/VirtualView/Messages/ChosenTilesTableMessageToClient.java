@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.TilesTableRepresentation;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.io.Serializable;
@@ -19,6 +19,6 @@ public class ChosenTilesTableMessageToClient implements MessageToClient, Seriali
 
     @Override
     public void update() {
-        ClientController.getInstance().changeTilesTable(this);
+        TilesTableRepresentation.getInstance().updateTable(this);
     }
 }

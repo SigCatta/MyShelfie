@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameState.GameState;
 
@@ -13,10 +13,10 @@ public class GameMessageToClient implements MessageToClient, Serializable {
 
     private final GameState GAME_STATE;
 
-    public GameMessageToClient(Game game){
+    public GameMessageToClient(Game game) {
         this.GAMEID = game.getGameID();
         GAME_STATE = game.getGameState();
-        if(game.getActivePlayer() != null)
+        if (game.getActivePlayer() != null)
             this.activePlayerNickname = game.getActivePlayer().getNickname();
     }
 
@@ -34,6 +34,6 @@ public class GameMessageToClient implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().changeGame(this);
+        GameRepresentation.getInstance().setGame(this);
     }
 }
