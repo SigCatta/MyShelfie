@@ -42,7 +42,9 @@ public class StartOrJoinState extends InputState {
             }
             while (true) {
                 try {
-                    Thread.sleep(500);
+                    synchronized (EchosRepresentation.getInstance()){
+                        EchosRepresentation.getInstance().wait();
+                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -72,7 +74,9 @@ public class StartOrJoinState extends InputState {
         GameMessageToClient gameMessage = null;
         while (gameMessage == null) {
             try {
-                Thread.sleep(1000);
+                synchronized (GameRepresentation.getInstance()){
+                    GameRepresentation.getInstance().wait();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

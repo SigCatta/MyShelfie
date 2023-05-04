@@ -44,6 +44,9 @@ public class EchosRepresentation implements VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
+        synchronized (this){
+            this.notify();
+        }
     }
 
 }

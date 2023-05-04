@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client.InputStates;
 
+import it.polimi.ingsw.Controller.Client.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.InputReader;
@@ -14,7 +15,9 @@ public class WaitingForPlayersState extends InputState {
         while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
             System.out.println("Players connected: " + PlayersRepresentation.getInstance().getPlayersList());
             try {
-                Thread.sleep(3000);
+                synchronized (EchosRepresentation.getInstance()) {
+                    EchosRepresentation.getInstance().wait();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
