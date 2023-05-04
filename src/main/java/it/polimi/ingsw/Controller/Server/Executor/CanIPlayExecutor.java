@@ -2,8 +2,8 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Server.GamesManager;
-import it.polimi.ingsw.Enum.ErrorCode;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
+import it.polimi.ingsw.Enum.EchoID;
+import it.polimi.ingsw.View.VirtualView.Messages.EchoToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.ShelfView;
 import it.polimi.ingsw.model.Game;
@@ -14,7 +14,7 @@ public class CanIPlayExecutor implements Executor {
     /**
      * connects a player to an existing game
      */
-    public static void execute(CanIPlayMessage message) throws NumberFormatException{
+    public static void execute(CanIPlayMessage message) throws NumberFormatException {
 
         SocketClientHandler playerHandler = message.getSocketClientHandler();
 
@@ -22,13 +22,13 @@ public class CanIPlayExecutor implements Executor {
 
         Game game = GamesManager.getInstance().getGame(gameID);
 
-        if(game == null) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("Insert a valid game id", ErrorCode.NOID));
+        if (game == null) {
+            message.getSocketClientHandler().sendCommand(new EchoToClient(EchoID.NOID, true));
             System.out.println("Insert a valid game id"); //TODO remove
             return;
         }
-        if(game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
-            message.getSocketClientHandler().sendCommand(new ErrorMessageToClient("The chosen game is already full", ErrorCode.GAMEFULL));
+        if (game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
+            message.getSocketClientHandler().sendCommand(new EchoToClient(EchoID.GAMEFULL, true));
             System.out.println("The chosen game is already full");//TODO remove
             return;
         }
@@ -46,5 +46,6 @@ public class CanIPlayExecutor implements Executor {
 
         game.getVirtualView().updateAllPlayers();
         game.notifyObservers();
+        message.getSocketClientHandler().sendCommand(new EchoToClient(EchoID.JOINED, false));
     }
 }

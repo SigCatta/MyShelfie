@@ -10,8 +10,8 @@ import static it.polimi.ingsw.InputReader.readLine;
 
 public abstract class InputState {
     String input;
-    Client socketClient = SocketClient.getInstance();
-    InputReader reader;
+    final Client socketClient = SocketClient.getInstance();
+    final InputReader reader;
 
     InputState(InputReader reader){
         this.reader = reader;

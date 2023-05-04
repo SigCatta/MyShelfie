@@ -2,9 +2,9 @@ package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
 import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
-import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
+import it.polimi.ingsw.Controller.Client.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.Enum.ErrorCode;
+import it.polimi.ingsw.View.VirtualView.Messages.EchoToClient;
 import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
 import it.polimi.ingsw.network.client.InputReader;
 
@@ -46,12 +46,13 @@ public class StartOrJoinState extends InputState {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if (ErrorsRepresentation.getInstance().getErrorCodes().contains(ErrorCode.NOID)) {
-                    System.out.println("ERROR: This gameID is not associated to a game!");
+                EchoToClient message = EchosRepresentation.getInstance().getMessage();
+                if (message.isError()) {
+                    System.out.println(message.getOutput());
                     break;
                 }
                 if (GameRepresentation.getInstance().getGameMessage() != null) {
-                    System.out.println("You joined game " + GameRepresentation.getInstance().getGameMessage().getGameID());
+                    System.out.println(message.getOutput() + GameRepresentation.getInstance().getGameMessage().getGameID());
                     return;
                 }
             }

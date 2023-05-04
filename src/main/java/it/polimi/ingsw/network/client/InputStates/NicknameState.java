@@ -1,9 +1,8 @@
 package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
-import it.polimi.ingsw.Controller.Client.VirtualModel.ErrorsRepresentation;
-import it.polimi.ingsw.Controller.Client.VirtualModel.GeneralMessagesRepresentation;
-import it.polimi.ingsw.Enum.ErrorCode;
+import it.polimi.ingsw.Controller.Client.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.View.VirtualView.Messages.EchoToClient;
 import it.polimi.ingsw.network.client.InputReader;
 import it.polimi.ingsw.network.client.SocketClient;
 
@@ -24,14 +23,13 @@ public class NicknameState extends InputState {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if (ErrorsRepresentation.getInstance().getErrorCodes().contains(ErrorCode.BADNICK)) {
-                    ErrorsRepresentation.getInstance().removeError(ErrorCode.BADNICK);
-                    System.out.println("This nickname is already taken");
+                EchoToClient message = EchosRepresentation.getInstance().getMessage();
+                if (message.isError()) {
+                    System.out.println(message.getOutput());
                     break;
-                }
-                if (GeneralMessagesRepresentation.getInstance().getCodes().contains("NICKOK")) {
+                } else {
+                    System.out.println(message.getOutput());
                     SocketClient.getInstance().setNickname(input);
-                    System.out.println("Nickname " + SocketClient.getInstance().getNickname() + " accepted!");
                     input = null;
                     reader.setState(new StartOrJoinState(reader));
                     return;
