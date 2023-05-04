@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
-import it.polimi.ingsw.network.client.InputReader.InputReader;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,7 +25,6 @@ public class SocketClient extends Client {
     private ExecutorService readExecutionQueue;
     private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
-    static String input;
 
     private SocketClient(String address, int port) {
 
@@ -38,7 +36,7 @@ public class SocketClient extends Client {
             this.readExecutionQueue = Executors.newSingleThreadExecutor();
             Client.LOGGER.info("Connection established");
             clientInstance = this;
-            new Thread(new InputReader(input)).start(); // from now on the user can execute commands
+            new Thread(new InputReader()).start(); // from now on the user can execute commands
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
