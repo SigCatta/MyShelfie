@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
-import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Enum.ErrorCode;
 import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;

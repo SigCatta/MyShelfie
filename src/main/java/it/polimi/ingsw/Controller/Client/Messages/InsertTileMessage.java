@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
-import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
+import it.polimi.ingsw.Controller.Server.Executor.InsertTilesExecutor;
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class InsertTileMessage extends MessageToServer implements Serializable {
 
     @Override
     public void update() {
-        ServerController.getInstance().insertTiles(this);
+        InsertTilesExecutor.execute(this);
     }
 
     public int getCol() {
