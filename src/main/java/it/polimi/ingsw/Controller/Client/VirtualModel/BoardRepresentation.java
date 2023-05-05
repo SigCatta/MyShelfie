@@ -34,12 +34,11 @@ public class BoardRepresentation implements VirtualModelSubject {
         return board;
     }
 
-    public Color[][] getBoardColors(){
+    public Color[][] getBoardColors() {
         Color[][] colorBoard = new Color[board.length][board[0].length];
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[0].length; j++){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
                 colorBoard[i][j] = board[i][j] == null ? null : board[i][j].getColor();
-                System.out.println(colorBoard[i][j]);
             }
         }
         return colorBoard;
@@ -61,6 +60,9 @@ public class BoardRepresentation implements VirtualModelSubject {
     public void notifyObservers() {
         for (VirtualModelObserver observer : observers) {
             observer.update();
+        }
+        synchronized (this) {
+            notifyAll();
         }
     }
 }

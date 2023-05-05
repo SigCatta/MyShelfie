@@ -20,7 +20,7 @@ public class StartOrJoinState extends InputState {
             getInput();
             if (input.equals("join")) {
                 joinGame();
-                if (input.equals(".")){
+                if (input.equals(".")) {
                     input = null;
                     return;
                 }
@@ -73,13 +73,18 @@ public class StartOrJoinState extends InputState {
     }
 
     private void createNewGame() {
-        System.out.println("Insert players number (between 2 and 4): ");
-        int numOfPlayers;
+        System.out.println("Insert number of players (between 2 and 4): ");
+        int numOfPlayers = 0;
         do {
             getInput();
             if (input.equals(".")) return;
-            numOfPlayers = Integer.parseInt(input);
-            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert players number: ");
+            try {
+                numOfPlayers = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: number of players must be a number!\n Insert number of players: ");
+                continue;
+            }
+            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert number of players: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
         socketClient.sendCommand(new NewGameMessage(numOfPlayers));
 
