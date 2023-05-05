@@ -20,6 +20,12 @@ public class BoardView implements VirtualViewObserver {
      */
     @Override
     public void update() {
-        VIRTUAL_VIEW.send(new BoardMessageToClient(GAME.getBoard()));
+        BoardMessageToClient message = new BoardMessageToClient(GAME.getBoard());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        VIRTUAL_VIEW.send(message);
     }
 }

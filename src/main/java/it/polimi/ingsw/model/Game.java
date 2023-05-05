@@ -57,12 +57,12 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        if(virtualView != null) {//TODO this is just for testing
+        if (virtualView != null) {//TODO this is just for testing
             notifyObservers();
         }
 
         new BoardRefresher(this).refillBoard();
-        this.activePlayer = players.get(0);
+        if (players.size() > 0) this.activePlayer = players.get(0);
         notifyObservers();
     }
 
@@ -70,7 +70,7 @@ public class Game implements VirtualViewSubject {
      * to be called on creation of the virtual view,
      * this parameter is useful to start the communication with the virtual view
      */
-    public void setVirtualView(VirtualView virtualView){
+    public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
     }
 
@@ -80,7 +80,7 @@ public class Game implements VirtualViewSubject {
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
-    public void end(){
+    public void end() {
         gameState = GameState.END;
         //TODO calculate point and send to the view
     }
@@ -127,7 +127,7 @@ public class Game implements VirtualViewSubject {
         players.add(player);
 
         System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
-        if(players.size() == MAX_PLAYER_NUMBER) start();
+        if (players.size() == MAX_PLAYER_NUMBER) start();
 
         return true;
     }
@@ -208,7 +208,7 @@ public class Game implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

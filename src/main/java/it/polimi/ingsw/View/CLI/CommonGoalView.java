@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CommonGoalView implements ViewElement {
     @Override
-    public ArrayList<String> print(ArrayList<String> output) {
+    public ArrayList<String> getPrint(ArrayList<String> output) {
         if (output.size() == 0) output = new ArrayList<>();
 
         Map<String, Integer> commonGoalDrawing = CommonGoalsRepresentation.getInstance().getNameToPoints();

@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class ShelfView implements ViewElement {
     @Override
-    public ArrayList<String> print(ArrayList<String> output) {
+    public ArrayList<String> getPrint(ArrayList<String> output) {
         Printer.enableCLIColors(true); //TODO delete after testing
         HashMap<Color, String> colorMap = Printer.getColorMap();
         String nickname = SocketClient.getInstance().getNickname();

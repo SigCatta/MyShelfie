@@ -1,6 +1,9 @@
 package it.polimi.ingsw.network.client.InputStates;
 
+import it.polimi.ingsw.View.CLI.BoardView;
 import it.polimi.ingsw.network.client.InputReader;
+
+import java.util.ArrayList;
 
 public class GameStartupState extends InputState{
     public GameStartupState(InputReader reader) {
@@ -9,6 +12,18 @@ public class GameStartupState extends InputState{
 
     @Override
     public void play() {
-        System.out.println("The game has started!");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        new BoardView().getPrint(new ArrayList<>()).forEach(System.out::println);
+        try {
+            synchronized (this){
+                this.wait();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -22,5 +22,6 @@ public class WaitingForPlayersState extends InputState {
             }
         }
         reader.setState(new GameStartupState(reader));
+        System.out.println("The game has started!");
     }
 }
