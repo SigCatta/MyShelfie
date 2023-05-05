@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.Controller.Client.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.ShelvesRepresentation;
-import it.polimi.ingsw.Controller.Client.VirtualModel.VirtualModelSubject;
 import it.polimi.ingsw.View.CLI.BoardView;
 import it.polimi.ingsw.View.CLI.ShelfView;
 import it.polimi.ingsw.network.client.InputReader;
@@ -20,12 +19,16 @@ public class GameStartupState extends InputState {
         ArrayList<String> output = new ArrayList<>();
 
         while (BoardRepresentation.getInstance().getBoard() == null) {
-            waitForVM(BoardRepresentation.getInstance());
+            synchronized (BoardRepresentation.getInstance()) {
+                waitForVM(BoardRepresentation.getInstance());
+            }
         }
         new BoardView().getPrint(output);
 
         while (ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()) == null) {
-            waitForVM(ShelvesRepresentation.getInstance());
+            synchronized (ShelvesRepresentation.getInstance()) {
+                waitForVM(ShelvesRepresentation.getInstance());
+            }
         }
         new ShelfView().getPrint(output);
 
@@ -35,14 +38,6 @@ public class GameStartupState extends InputState {
             synchronized (this) {
                 this.wait();
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private synchronized void waitForVM(VirtualModelSubject representation) {
-        try {
-            representation.wait();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

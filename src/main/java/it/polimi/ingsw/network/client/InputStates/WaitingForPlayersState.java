@@ -13,13 +13,9 @@ public class WaitingForPlayersState extends InputState {
     public void play() {
         while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
             System.out.println("Players connected: " + PlayersRepresentation.getInstance().getPlayersList());
-            try {
-                synchronized (GameRepresentation.getInstance()) {
-                    GameRepresentation.getInstance().wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+           synchronized (GameRepresentation.getInstance()){
+               waitForVM(GameRepresentation.getInstance());
+           }
         }
         reader.setState(new GameStartupState(reader));
         System.out.println("The game has started!");

@@ -52,12 +52,8 @@ public class StartOrJoinState extends InputState {
                 }
             }
             while (true) {
-                try {
-                    synchronized (EchosRepresentation.getInstance()) {
-                        EchosRepresentation.getInstance().wait();
-                    }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                synchronized (EchosRepresentation.getInstance()){
+                    waitForVM(EchosRepresentation.getInstance());
                 }
                 EchoToClient message = EchosRepresentation.getInstance().getMessage();
                 if (message.isError()) {
@@ -90,12 +86,8 @@ public class StartOrJoinState extends InputState {
 
         GameMessageToClient gameMessage = null;
         while (gameMessage == null) {
-            try {
-                synchronized (GameRepresentation.getInstance()) {
-                    GameRepresentation.getInstance().wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            synchronized (GameRepresentation.getInstance()){
+                waitForVM(GameRepresentation.getInstance());
             }
             gameMessage = GameRepresentation.getInstance().getGameMessage();
         }
