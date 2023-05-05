@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.ChatRepresentation;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ public class ChatMessageToClient implements MessageToClient, Serializable {
 
     private final String CHAT_MESSAGE;
 
-    public ChatMessageToClient(String chatMessage){
+    public ChatMessageToClient(String chatMessage) {
         this.CHAT_MESSAGE = chatMessage;
     }
 
@@ -18,6 +18,6 @@ public class ChatMessageToClient implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().chat(this);
+        ChatRepresentation.getInstance().addMessage(this);
     }
 }

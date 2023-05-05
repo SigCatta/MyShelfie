@@ -1,19 +1,18 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.Enum.ErrorCode;
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
+import it.polimi.ingsw.Enum.EchoID;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class ErrorMessageTestToClient {
+public class EchoToClient {
     @Test
     public void dimension() throws IOException {
         String errorMessage = "not Hello world!";
 
-        ErrorMessageToClient obj = new ErrorMessageToClient(errorMessage, ErrorCode.PANIC); // create an instance of your object
+        it.polimi.ingsw.View.VirtualView.Messages.EchoToClient obj = new it.polimi.ingsw.View.VirtualView.Messages.EchoToClient(EchoID.PANIC, true); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

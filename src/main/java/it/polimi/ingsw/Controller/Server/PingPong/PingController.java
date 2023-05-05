@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server.PingPong;
 
-import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 

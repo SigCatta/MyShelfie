@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Controller.Server.ServerController;
+package it.polimi.ingsw.Controller.Server;
 
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
@@ -55,7 +55,7 @@ public class GamesManager {
 
     public void onCommandReceived(MessageToServer message){
         message.setGame(gamesData.get(message.getGameID())); //adds to the header of the message the game of the player
-        ServerController.getInstance().visit(message);
+        message.update();
     }
 
     /**

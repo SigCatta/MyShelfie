@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
-import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
-import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.Controller.Server.Executor.ChatExecutor;
 
 import java.io.Serializable;
 
@@ -15,7 +14,7 @@ public class ChatMessage extends MessageToServer implements Serializable {
 
     @Override
     public void update() {
-        ServerController.getInstance().chat(this);
+        ChatExecutor.execute(this);
     }
 
     public String getChatMessage() {

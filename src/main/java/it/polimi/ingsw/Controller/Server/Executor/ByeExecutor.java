@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.model.Game;
 
 public class ByeExecutor implements Executor {

@@ -16,6 +16,7 @@ public class GameRepresentation implements VirtualModelSubject{
 
     public void setGame(GameMessageToClient gameMessage){
         this.gameMessage = gameMessage;
+        notifyObservers();
     }
 
     public GameMessageToClient getGameMessage() {
@@ -34,6 +35,8 @@ public class GameRepresentation implements VirtualModelSubject{
 
     @Override
     public void notifyObservers() {
-        //TODO every observer must be notified when the class changes
+        synchronized (this){
+            this.notify();
+        }
     }
 }
