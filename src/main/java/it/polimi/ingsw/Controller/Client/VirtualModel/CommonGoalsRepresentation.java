@@ -1,30 +1,36 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.CommonGoalMessage;
-import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
+import it.polimi.ingsw.View.VirtualView.Messages.CommonGoalMessageToClient;
+
+import java.util.ArrayList;
 
 public class CommonGoalsRepresentation implements VirtualModelSubject {
-    private CommonGoalContainer commonGoalContainer;
-
     private static CommonGoalsRepresentation instance;
+    private CommonGoalMessageToClient commonGoalMessage;
 
     private CommonGoalsRepresentation() {
-    }
 
+    }
 
     public static CommonGoalsRepresentation getInstance() {
         if (instance == null) instance = new CommonGoalsRepresentation();
         return instance;
     }
 
-    public void uppdateCommonGoals(CommonGoalMessage commonGoalMessage) {
-        System.out.println("-------------------------------------");
-        commonGoalContainer = commonGoalMessage.getCommonGoalContainer();
-        notifyObservers();
+    public void updateCommonGoal(CommonGoalMessageToClient commonGoalMessage) {
+        this.commonGoalMessage = commonGoalMessage;
     }
 
-    public CommonGoalContainer getCommonGoalContainer() {
-        return commonGoalContainer;
+    public ArrayList<String> getCardNames() {
+        return commonGoalMessage.getCardNames();
+    }
+
+    public CommonGoalMessageToClient getCommonGoalMessage() {
+        return commonGoalMessage;
+    }
+
+    public ArrayList<Integer> getAvailablePoints() {
+        return commonGoalMessage.getAvailablePoints();
     }
 
     @Override
@@ -39,9 +45,8 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
-        synchronized (this){
+        synchronized (this) {
             notifyAll();
         }
     }
-
 }

@@ -1,10 +1,9 @@
 package it.polimi.ingsw.View.VirtualView;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.CommonGoalsView;
-
 import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.BoardView;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.ChosenTilesTableView;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.CommonGoalView;
 import it.polimi.ingsw.View.VirtualView.ModelObservers.GameView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -27,7 +26,7 @@ public class VirtualView {
         clientHandlers = new ArrayList<>();
         new GameView(GAME, this); //the user needs this information even before the beginning of the game
         new BoardView(GAME, this); // links the board observer to the board
-        new CommonGoalsView(GAME, this);
+        new CommonGoalView(GAME, this);
         new ChosenTilesTableView(GAME, this);
     }
 
