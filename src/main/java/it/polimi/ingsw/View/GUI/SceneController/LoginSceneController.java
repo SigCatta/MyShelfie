@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class LoginSceneController {
     @FXML
@@ -13,6 +14,12 @@ public class LoginSceneController {
 
     @FXML
     Button continueButton;
+
+    @FXML
+    ImageView wrongNicknameImage;
+
+    @FXML
+    ImageView wrongIpImage;
 
     @FXML
     protected void onGoBackButtonClick() {
@@ -27,8 +34,22 @@ public class LoginSceneController {
 
     @FXML
     public void setContinueButtonVisible() {
-        if(nicknameField.getText().length()>0 )
+        if(nicknameField.getText().length()>0 ) //TODO && nickname valid && ip valid
             continueButton.setVisible(true);
+    }
+
+    @FXML
+    public void onNicknameInserted()  {
+        if(true) {   //TODO ckeck if nickname is valid
+            wrongNicknameImage.setVisible(false);   //nickname is correct
+        } else wrongNicknameImage.setVisible(true);
+    }
+
+    @FXML
+    public void onIpInserted()  {
+        if(true) {   //TODO ckeck if ip is valid
+            wrongIpImage.setVisible(false);   //ip is correct
+        } else wrongIpImage.setVisible(true);
     }
 
     public String getNickname() {

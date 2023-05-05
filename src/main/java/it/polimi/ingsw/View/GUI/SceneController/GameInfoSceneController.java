@@ -4,9 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class GameInfoSceneController {
+    @FXML
+    ImageView wrongGameIdImage;
     @FXML
     RadioButton newGameRB;
 
@@ -51,12 +54,20 @@ public class GameInfoSceneController {
     }
     @FXML
     public void setContinueButtonVisible() {
-        if(gameIdField.getText().length()>0)
+        if(gameIdField.getText().length()>0) //TODO check if gameid is valid
             continueButton.setVisible(true);
         else continueButton.setVisible(false);
     }
 
     public String getGameId() {
         return gameIdField.getText();
+    }
+
+    @FXML
+    public void onGameIdInsert()  {
+        if(true) {   //TODO ckeck if gameId is valid
+            wrongGameIdImage.setVisible(false);   //gameId is correct
+            setContinueButtonVisible();
+        } else wrongGameIdImage.setVisible(true);
     }
 }

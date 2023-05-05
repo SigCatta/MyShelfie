@@ -70,7 +70,7 @@
             <Font name="Gill Sans MT" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="nicknameField" layoutX="197.0" layoutY="151.0" onKeyTyped="#setContinueButtonVisible" prefHeight="28.0" prefWidth="238.0">
+      <TextField fx:id="nicknameField" layoutX="197.0" layoutY="151.0" onInputMethodTextChanged="#onNicknameInserted" onKeyTyped="#setContinueButtonVisible" prefHeight="28.0" prefWidth="238.0">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -80,10 +80,20 @@
             <Font name="Gill Sans MT" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="ipField" layoutX="197.0" layoutY="247.0" prefHeight="28.0" prefWidth="238.0" promptText="localhost" text="localhost">
+      <TextField fx:id="ipField" layoutX="197.0" layoutY="247.0" onInputMethodTextChanged="#onIpInserted" prefHeight="28.0" prefWidth="238.0" promptText="localhost" text="localhost">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </TextField>
+      <ImageView fx:id="wrongNicknameImage" fitHeight="34.0" fitWidth="81.0" layoutX="456.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@17_MyShelfie_BGA/misc/warning.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="wrongIpImage" fitHeight="34.0" fitWidth="81.0" layoutX="453.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@17_MyShelfie_BGA/misc/warning.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>

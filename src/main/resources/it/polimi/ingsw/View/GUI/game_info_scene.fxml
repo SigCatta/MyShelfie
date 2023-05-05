@@ -85,10 +85,15 @@
                 <Font name="Gill Sans MT" size="24.0" />
             </font>
         </Text>
-        <TextField fx:id="gameIdField" layoutX="395.0" layoutY="261.0" onKeyTyped="#setContinueButtonVisible" onMouseExited="#setContinueButtonVisible" prefHeight="28.0" prefWidth="238.0" promptText="Id" visible="false">
+        <TextField fx:id="gameIdField" layoutX="395.0" layoutY="261.0" onInputMethodTextChanged="#onGameIdInsert" onMouseExited="#setContinueButtonVisible" prefHeight="28.0" prefWidth="238.0" promptText="Id" visible="false">
             <font>
                 <Font name="Arial" size="18.0" />
             </font>
         </TextField>
+      <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="659.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@17_MyShelfie_BGA/misc/warning.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>
