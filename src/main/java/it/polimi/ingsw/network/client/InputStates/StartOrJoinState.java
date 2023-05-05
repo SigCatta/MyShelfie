@@ -18,9 +18,19 @@ public class StartOrJoinState extends InputState {
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
         while (input == null) {
             getInput();
-            if (input.equals("join")) joinGame();
-            else if (input.equals("new")) createNewGame();
-            else {
+            if (input.equals("join")) {
+                joinGame();
+                if (input.equals(".")){
+                    input = null;
+                    return;
+                }
+            } else if (input.equals("new")) {
+                createNewGame();
+                if (input.equals(".")) {
+                    input = null;
+                    return;
+                }
+            } else {
                 System.out.println("ERROR: Invalid command!\nType 'join' if you want to join a game, 'new' if you want to create a new one: ");
                 input = null;
             }
@@ -33,6 +43,7 @@ public class StartOrJoinState extends InputState {
             while (true) {
                 System.out.println("Insert gameID: ");
                 getInput();
+                if (input.equals(".")) return;
                 try {
                     socketClient.sendCommand(new CanIPlayMessage(Integer.parseInt(input)));
                     break;
@@ -42,7 +53,7 @@ public class StartOrJoinState extends InputState {
             }
             while (true) {
                 try {
-                    synchronized (EchosRepresentation.getInstance()){
+                    synchronized (EchosRepresentation.getInstance()) {
                         EchosRepresentation.getInstance().wait();
                     }
                 } catch (InterruptedException e) {
@@ -66,6 +77,7 @@ public class StartOrJoinState extends InputState {
         int numOfPlayers;
         do {
             getInput();
+            if (input.equals(".")) return;
             numOfPlayers = Integer.parseInt(input);
             if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert players number: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
@@ -74,7 +86,7 @@ public class StartOrJoinState extends InputState {
         GameMessageToClient gameMessage = null;
         while (gameMessage == null) {
             try {
-                synchronized (GameRepresentation.getInstance()){
+                synchronized (GameRepresentation.getInstance()) {
                     GameRepresentation.getInstance().wait();
                 }
             } catch (InterruptedException e) {

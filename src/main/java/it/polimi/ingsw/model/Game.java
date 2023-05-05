@@ -62,6 +62,8 @@ public class Game implements VirtualViewSubject {
         }
 
         new BoardRefresher(this).refillBoard();
+        this.activePlayer = players.get(0);
+        notifyObservers();
     }
 
     /**
