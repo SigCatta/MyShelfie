@@ -26,7 +26,7 @@ public abstract class CommonGoalStrategy {
         return reader.getDrawing(getCardName());
     }
 
-    private String getCardName() {
+    public String getCardName() {
         String fullCardName = this.getClass().getName();
         return fullCardName.substring(fullCardName.lastIndexOf('.') + 1, fullCardName.length() - 3); // excluding the package location and "CGS" from the name
     }

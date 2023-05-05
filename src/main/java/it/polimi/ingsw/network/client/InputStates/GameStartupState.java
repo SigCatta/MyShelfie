@@ -1,8 +1,10 @@
 package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.Controller.Client.VirtualModel.BoardRepresentation;
+import it.polimi.ingsw.Controller.Client.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.Controller.Client.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.View.CLI.BoardView;
+import it.polimi.ingsw.View.CLI.CommonGoalsView;
 import it.polimi.ingsw.View.CLI.ShelfView;
 import it.polimi.ingsw.network.client.InputReader;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -31,6 +33,17 @@ public class GameStartupState extends InputState {
             }
         }
         new ShelfView().getPrint(output);
+
+
+        CommonGoalsRepresentation.getInstance().notifyObservers();
+        while (CommonGoalsRepresentation.getInstance().getCommonGoalContainer() == null) {
+            synchronized (CommonGoalsRepresentation.getInstance()) {
+                waitForVM(CommonGoalsRepresentation.getInstance());
+            }
+        }
+
+        new CommonGoalsView().getPrint(output);
+
 
         output.forEach(System.out::println);
 

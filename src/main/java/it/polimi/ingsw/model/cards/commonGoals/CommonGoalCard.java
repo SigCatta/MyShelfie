@@ -50,7 +50,7 @@ public class CommonGoalCard {
         return pointsStack.peek();
     }
 
-    public String getDescription() {
-        return commonGoalStrategy.getDescription();
+    public String getName() {
+        return commonGoalStrategy.getCardName();
     }
 }

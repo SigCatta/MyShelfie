@@ -7,22 +7,21 @@ import java.io.Serializable;
 import java.util.*;
 
 public class CommonGoalContainer implements Iterable<CommonGoalCard>, VirtualViewSubject, Serializable {
-    private final int NUMBER_OF_CARDS = 2;
     private final List<VirtualViewObserver> OBSERVERS;
     private final List<CommonGoalCard> COMMON_GOALS;
 
-    private List<Set<String>> completedCommonGoal; //players who completed a specific common goal
+    private final List<Set<String>> completedCommonGoal; //players who completed a specific common goal
 
-    public CommonGoalContainer() {
-        COMMON_GOALS = CommonCardDealer.pickCommonGoalCards(NUMBER_OF_CARDS);
+    public CommonGoalContainer(int numOfCards) {
+        COMMON_GOALS = CommonCardDealer.pickCommonGoalCards(numOfCards);
         completedCommonGoal = new ArrayList<>();
 
-        for (int i = 0; i < NUMBER_OF_CARDS; i++) {
+        for (int i = 0; i < numOfCards; i++) {
             completedCommonGoal.add(new HashSet<>());
         }
 
         OBSERVERS = new ArrayList<>();
-    }
+     }
 
     public List<CommonGoalCard> getCommonGoals() {
         return COMMON_GOALS;
