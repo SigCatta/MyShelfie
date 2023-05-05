@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -52,6 +53,20 @@ public class BoardController {
 
     @FXML
     ImageView itemTile3;
+
+    @FXML
+    Text pointCG1Text;
+
+    @FXML
+    Text pointCG2Text;
+
+    public void setPointCG1Text(int point) {
+        pointCG1Text.setText(String.valueOf(point));
+    }
+
+    public void setPointCG2Text(int point) {
+        pointCG2Text.setText(String.valueOf(point));
+    }
 
     public void setItemTile1Visible(String path) {
         Image image = new Image(path);

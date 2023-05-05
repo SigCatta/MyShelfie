@@ -76,8 +76,8 @@ public class ShelfController {
         this.score = score;
     }
 
-    public void setPersonalGoalCard(ImageView personalGoalCard) {
-        this.personalGoalCard = personalGoalCard;
+    public void setPersonalGoalCard(String personalGoalCardPath) {
+        this.personalGoalCard.setImage(new Image(personalGoalCardPath));
     }
 
     @FXML
