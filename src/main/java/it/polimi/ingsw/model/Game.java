@@ -9,7 +9,8 @@ import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
-import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -27,11 +28,14 @@ public class Game implements VirtualViewSubject {
     private Board board;
     private ChosenTilesTable chosenTilesTable;
     private GameState gameState;
+    private ArrayList<CommonGoalCard> commonGoals;
 
     private ArrayList<Player> players;
     private Player activePlayer;
 
-    private CommonGoalContainer commonGoalContainer;
+    public ArrayList<CommonGoalCard> getCommonGoals() {
+        return commonGoals;
+    }
 
     private TurnHandler turnHandler;
 
@@ -39,7 +43,7 @@ public class Game implements VirtualViewSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
-        commonGoalContainer = new CommonGoalContainer(2);
+        commonGoals = (ArrayList<CommonGoalCard>) CommonCardDealer.pickCommonGoalCards(2);
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -193,9 +197,6 @@ public class Game implements VirtualViewSubject {
         return virtualView;
     }
 
-    public CommonGoalContainer getCommonGoalContainer() {
-        return commonGoalContainer;
-    }
 
     @Override
     public void registerObserver(VirtualViewObserver observer) {
