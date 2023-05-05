@@ -1,42 +1,30 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
 import it.polimi.ingsw.View.VirtualView.Messages.CommonGoalMessage;
-
-import java.util.ArrayList;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
 
 public class CommonGoalsRepresentation implements VirtualModelSubject {
-    private ArrayList<CommonGoalMessage> commonGoalMessages;
+    private CommonGoalContainer commonGoalContainer;
 
     private static CommonGoalsRepresentation instance;
 
-    public ArrayList<String> printDrawings() {
-        ArrayList<String> drawing = new ArrayList<>();
-        for (CommonGoalMessage cg : commonGoalMessages) {
-            drawing.add("        COMMON GOAL #" + cg.getCommonGoalNumber());
-            drawing.addAll(cg.getDrawing());
-            drawing.add("      Available points: " + cg.getAvailablePoints());
-            drawing.add("                             ");
-
-        }
-        return drawing;
-    }
-
-    public void changeCommonGoal(CommonGoalMessage commonGoalMessage){
-        for (int i = 0; i < commonGoalMessages.size(); i++){
-            if (commonGoalMessages.get(i).getCommonGoalNumber() == commonGoalMessage.getCommonGoalNumber()){
-                commonGoalMessages.set(i, commonGoalMessage);
-                break;
-            }
-        }
-    }
-
     private CommonGoalsRepresentation() {
-        commonGoalMessages = new ArrayList<>();
     }
+
 
     public static CommonGoalsRepresentation getInstance() {
         if (instance == null) instance = new CommonGoalsRepresentation();
         return instance;
+    }
+
+    public void uppdateCommonGoals(CommonGoalMessage commonGoalMessage) {
+        System.out.println("-------------------------------------");
+        commonGoalContainer = commonGoalMessage.getCommonGoalContainer();
+        notifyObservers();
+    }
+
+    public CommonGoalContainer getCommonGoalContainer() {
+        return commonGoalContainer;
     }
 
     @Override
@@ -51,7 +39,9 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
-
+        synchronized (this){
+            notifyAll();
+        }
     }
 
 }

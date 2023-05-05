@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.VirtualView.Messages;
 
-import it.polimi.ingsw.Controller.Client.ClientController.ClientController;
+import it.polimi.ingsw.Controller.Client.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 import it.polimi.ingsw.model.player.Player;
 
@@ -11,7 +11,8 @@ public class PlayerMessageToClient implements MessageToClient, Serializable {
     private final boolean IS_CONNECTED;
     private final int SCORE;
     private final PersonalGoal PERSONAL_GOAL;
-    public PlayerMessageToClient(Player player){
+
+    public PlayerMessageToClient(Player player) {
         nickname = player.getNickname();
         IS_CONNECTED = player.isConnected();
         SCORE = player.getScore();
@@ -36,6 +37,6 @@ public class PlayerMessageToClient implements MessageToClient, Serializable {
 
     @Override
     public void update() {
-        ClientController.getInstance().changePlayer(this);
+        PlayersRepresentation.getInstance().updatePlayer(this);
     }
 }

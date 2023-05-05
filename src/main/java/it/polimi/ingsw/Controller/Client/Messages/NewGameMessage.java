@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
-import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
+import it.polimi.ingsw.Controller.Server.Executor.NewGameExecutor;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ public class NewGameMessage extends MessageToServer implements Serializable {
 
     @Override
     public void update() {
-        ServerController.getInstance().newGame(this);
+        NewGameExecutor.execute(this);
     }
 
     public int getNumberOfPlayers() {

@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -18,8 +19,7 @@ import java.util.NoSuchElementException;
 public class Game implements VirtualViewSubject {
 
     private ArrayList<VirtualViewObserver> observers;
-    private final int BOARD_DIMENSION = 9;
-    private final int MAX_TILES_FROM_BOARD = 3;
+    private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
@@ -31,12 +31,15 @@ public class Game implements VirtualViewSubject {
     private ArrayList<Player> players;
     private Player activePlayer;
 
+    private CommonGoalContainer commonGoalContainer;
+
     private TurnHandler turnHandler;
 
 
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
+        commonGoalContainer = new CommonGoalContainer(2);
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -54,8 +57,12 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        new BoardRefresher(this).refillBoard();
+        if (virtualView != null) {//TODO this is just for testing
+            notifyObservers();
+        }
 
+        new BoardRefresher(this).refillBoard();
+        if (players.size() > 0) this.activePlayer = players.get(0);
         notifyObservers();
     }
 
@@ -63,7 +70,7 @@ public class Game implements VirtualViewSubject {
      * to be called on creation of the virtual view,
      * this parameter is useful to start the communication with the virtual view
      */
-    public void setVirtualView(VirtualView virtualView){
+    public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
     }
 
@@ -73,7 +80,7 @@ public class Game implements VirtualViewSubject {
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
-    public void end(){
+    public void end() {
         gameState = GameState.END;
         //TODO calculate point and send to the view
     }
@@ -119,9 +126,10 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
-        if(players.size() == MAX_PLAYER_NUMBER) start();
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
+        if (players.size() == MAX_PLAYER_NUMBER) start();
 
+        player.getShelf().notifyObservers();
         return true;
     }
 
@@ -175,7 +183,7 @@ public class Game implements VirtualViewSubject {
         player.setConnected(true);
         //TODO stop timeout
     }
-        
+
     public GameState getGameState() {
         return gameState;
     }
@@ -183,6 +191,10 @@ public class Game implements VirtualViewSubject {
 
     public VirtualView getVirtualView() {
         return virtualView;
+    }
+
+    public CommonGoalContainer getCommonGoalContainer() {
+        return commonGoalContainer;
     }
 
     @Override
@@ -197,7 +209,7 @@ public class Game implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

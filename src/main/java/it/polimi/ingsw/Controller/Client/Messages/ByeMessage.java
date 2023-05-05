@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
-import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
+import it.polimi.ingsw.Controller.Server.Executor.ByeExecutor;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ public class ByeMessage extends MessageToServer implements Serializable {
 
     @Override
     public void update() {
-        ServerController.getInstance().bye(this);
+        ByeExecutor.execute(this);
     }
 
 }

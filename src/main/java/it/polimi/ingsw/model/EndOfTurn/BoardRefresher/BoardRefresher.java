@@ -19,7 +19,6 @@ public class BoardRefresher implements EndOfTurnObserver {
     private boolean[][] lookUpTable = null;
 
     public BoardRefresher(Game game) {
-
         this.board = game.getBoard();
         BAG = game.getBag();
         GAME = game;
@@ -37,16 +36,13 @@ public class BoardRefresher implements EndOfTurnObserver {
 
         int numberOfPlayers = GAME.getPlayers().size();
 
-        //lookUpTable is initialized once
         if(lookUpTable == null){
             lookUpTable = new LookUpTableReader().getLookUpTable(numberOfPlayers);
         }
 
         for(int i = 0; i < board.getSize(); i++){
             for(int j = 0; j < board.getSize(); j++){
-
                 if(board.getBoardGrid()[i][j] != null) continue;
-
                 if(lookUpTable[i][j]){
                     board.getBoardGrid()[i][j] = BAG.drawTile();
                 }

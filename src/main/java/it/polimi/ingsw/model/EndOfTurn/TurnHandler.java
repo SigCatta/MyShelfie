@@ -52,9 +52,13 @@ public class TurnHandler implements EndOfTurnSubject {
 
         int nextIndex = players.indexOf(game.getActivePlayer()) + 1;
 
-        if(lastTurn && nextIndex == 0) game.end();
+        if (lastTurn && nextIndex == 0) game.end();
 
         nextIndex = nextIndex >= players.size() ? 0 : nextIndex;
+
+        if (!players.get(nextIndex).isConnected())
+            nextIndex++; //TODO in the controller check if there is only one player and if so end the game
+
         game.setActivePlayer(players.get(nextIndex));
 
     }

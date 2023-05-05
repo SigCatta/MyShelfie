@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.Client.Messages;
 
 
-import it.polimi.ingsw.Controller.Server.ServerController.ServerController;
+import it.polimi.ingsw.Controller.Server.Executor.PickupTilesExecutor;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ public class PickUpTilesMessage extends MessageToServer implements Serializable 
 
     @Override
     public void update() {
-        ServerController.getInstance().pickUpTiles(this);
+        PickupTilesExecutor.execute(this);
     }
 
     public ArrayList<Point> getTilesPosition() {
