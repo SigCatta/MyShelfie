@@ -9,10 +9,12 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     /**
      * nickname of the player that owns the shelf
      */
-    private final Map<String, ShelfMessageToClient> SHELF_MESSAGES = new HashMap<>();
+    private final Map<String, ShelfMessageToClient> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
 
-    private ShelvesRepresentation() {}
+    private ShelvesRepresentation() {
+        SHELF_MESSAGES = new HashMap<>();
+    }
 
     public static ShelvesRepresentation getInstance() {
         if (instance == null) instance = new ShelvesRepresentation();
@@ -28,7 +30,7 @@ public class ShelvesRepresentation implements VirtualModelSubject {
         notifyObservers();
     }
 
-    public ShelfMessageToClient getShelfMessage (String nickname){
+    public ShelfMessageToClient getShelfMessage(String nickname) {
         return SHELF_MESSAGES.get(nickname);
     }
 
@@ -46,6 +48,8 @@ public class ShelvesRepresentation implements VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
-
+        synchronized (this){
+            notifyAll();
+        }
     }
 }

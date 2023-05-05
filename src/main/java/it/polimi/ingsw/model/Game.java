@@ -129,6 +129,7 @@ public class Game implements VirtualViewSubject {
         System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
         if (players.size() == MAX_PLAYER_NUMBER) start();
 
+        player.getShelf().notifyObservers();
         return true;
     }
 
