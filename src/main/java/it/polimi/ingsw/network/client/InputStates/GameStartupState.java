@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.View.CLI.BoardView;
 import it.polimi.ingsw.View.CLI.CommonGoalView;
+import it.polimi.ingsw.View.CLI.PersonalGoalView;
 import it.polimi.ingsw.View.CLI.ShelfView;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
@@ -40,6 +41,8 @@ public class GameStartupState extends InputState {
             }
         }
         output = new CommonGoalView().getPrint(output);
+
+        output = new PersonalGoalView().getPrint(output);
 
         output.forEach(System.out::println);
         try { //TODO so it doesn't keep printing...

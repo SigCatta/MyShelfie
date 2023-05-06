@@ -4,6 +4,8 @@ import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.VirtualView.VirtualView;
+import it.polimi.ingsw.exceptions.NullPlayersException;
+import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
@@ -11,26 +13,29 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
+import it.polimi.ingsw.model.cards.personalGoals.PersonalCardDealer;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Game implements VirtualViewSubject {
 
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> observers;
     private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
     private Bag bag;
     private Board board;
-    private ChosenTilesTable chosenTilesTable;
+    private final ChosenTilesTable chosenTilesTable;
     private GameState gameState;
-    private ArrayList<CommonGoalCard> commonGoals;
+    private final ArrayList<CommonGoalCard> commonGoals;
 
-    private ArrayList<Player> players;
+    private final ArrayList<Player> players;
     private Player activePlayer;
 
     public ArrayList<CommonGoalCard> getCommonGoals() {
@@ -67,6 +72,12 @@ public class Game implements VirtualViewSubject {
 
         new BoardRefresher(this).refillBoard();
         if (players.size() > 0) this.activePlayer = players.get(0);
+
+        try {
+            PersonalCardDealer.getCards(players);
+        } catch (IOException | ParseException | TooManyPlayersException | NullPlayersException e) {
+            throw new RuntimeException(e);
+        }
         notifyObservers();
     }
 
