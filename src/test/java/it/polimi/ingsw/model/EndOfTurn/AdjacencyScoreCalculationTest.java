@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.EndOfTurn;
 
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.AdjacencyScoreCalculation;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

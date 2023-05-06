@@ -1,10 +1,10 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.Controller.Client.Messages.PickUpTilesMessage;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
+import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.ChosenTilesTable.PickUpValidator;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
@@ -17,7 +17,7 @@ public class PickupTilesExecutor implements Executor {
 
         Game game = message.getGame();
 
-        PickUpTilesMessage pickUpTilesMessage = (PickUpTilesMessage) message;
+        PickUpTilesMTS pickUpTilesMessage = (PickUpTilesMTS) message;
 
         if(!(game.getGameState() == GameState.PICK_UP_TILES))return; //TODO send error
         if (!pickUpTilesMessage.getNickname().equals(game.getActivePlayer().getNickname())) return;//TODO send error

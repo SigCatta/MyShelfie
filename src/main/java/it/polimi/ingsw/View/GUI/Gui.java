@@ -1,8 +1,8 @@
 package it.polimi.ingsw.View.GUI;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.View.GUI.SceneController.BoardController;
 import it.polimi.ingsw.View.GUI.SceneController.StageController;
-import it.polimi.ingsw.model.tiles.Color;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

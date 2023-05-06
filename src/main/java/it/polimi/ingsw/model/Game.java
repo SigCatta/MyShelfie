@@ -1,12 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
-import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;

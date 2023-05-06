@@ -1,9 +1,9 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
-import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.HashSet;

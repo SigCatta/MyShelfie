@@ -1,9 +1,9 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import it.polimi.ingsw.Controller.Client.Messages.InsertTileMessage;
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.InsertTileMTS;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -14,7 +14,7 @@ public class InsertTilesExecutor implements Executor {
 
         Game game = message.getGame();
 
-        InsertTileMessage insertTileMessage = (InsertTileMessage) message;
+        InsertTileMTS insertTileMessage = (InsertTileMTS) message;
         ChosenTilesTable chosenTilesTable = game.getChosenTilesTable();
 
         int tilePosition = insertTileMessage.getTilePosition();

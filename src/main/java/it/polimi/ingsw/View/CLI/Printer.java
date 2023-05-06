@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 
 import java.util.HashMap;
 

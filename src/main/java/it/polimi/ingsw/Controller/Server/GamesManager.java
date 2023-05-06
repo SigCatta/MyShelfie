@@ -1,12 +1,15 @@
 package it.polimi.ingsw.Controller.Server;
 
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Singleton class that contains the games that are being played

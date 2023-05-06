@@ -1,10 +1,10 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
+import it.polimi.ingsw.Controller.Client.NewGameMTS;
 import it.polimi.ingsw.Controller.Server.GamesManager;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.PlayerView;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.ShelfView;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV;
+import it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV;
+import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -12,7 +12,7 @@ public class NewGameExecutor implements Executor{
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.
      */
-    public static void execute(NewGameMessage message){
+    public static void execute(NewGameMTS message){
 
         Game newGame = new Game(message.getNumberOfPlayers());
 
@@ -30,8 +30,8 @@ public class NewGameExecutor implements Executor{
         virtualView.addClient(message.getSocketClientHandler());
 
         Player newPlayer = new Player(message.getNickname());
-        new PlayerView(newPlayer, virtualView);// links the player observer to the player
-        new ShelfView(newPlayer, virtualView); // links the shelf observer to the shelf
+        new PlayerVV(newPlayer, virtualView);// links the player observer to the player
+        new ShelfVV(newPlayer, virtualView); // links the shelf observer to the shelf
         newGame.addPlayer(newPlayer);
 
         newGame.notifyObservers(); //shows the gameID to the creator of the game

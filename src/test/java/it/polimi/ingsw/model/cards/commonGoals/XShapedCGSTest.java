@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.XShapedCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 

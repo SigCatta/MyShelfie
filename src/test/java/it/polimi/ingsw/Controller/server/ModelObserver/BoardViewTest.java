@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.server.ModelObserver;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.BoardView;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.VirtualView.ModelObservers.BoardVV;
+import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.Game;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 public class BoardViewTest {
-    BoardView boardView;
+    BoardVV boardView;
     VirtualView virtualView;
     Game game;
     @BeforeEach
@@ -20,7 +20,7 @@ public class BoardViewTest {
         BoardRefresher boardRefresher = new BoardRefresher(game);
         boardRefresher.refillBoard();
         virtualView = new VirtualView(game);
-        boardView = new BoardView(game, virtualView);
+        boardView = new BoardVV(game, virtualView);
     }
 
     @Test

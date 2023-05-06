@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;

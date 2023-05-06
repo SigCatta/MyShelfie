@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client.InputStates;
 
-import it.polimi.ingsw.Controller.Client.VirtualModel.VirtualModelSubject;
+import it.polimi.ingsw.VirtualModel.VirtualModelSubject;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.InputReader;
 import it.polimi.ingsw.network.client.SocketClient;

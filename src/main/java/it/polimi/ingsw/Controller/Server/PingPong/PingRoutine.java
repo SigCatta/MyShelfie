@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server.PingPong;
 
-import it.polimi.ingsw.View.VirtualView.Messages.PingMessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.PingMTC;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
@@ -22,7 +22,7 @@ public class PingRoutine extends TimerTask implements Runnable{
     @Override
     public void run() {
         // send PING message
-        SOCKET_CLIENT_HANDLER.sendCommand(new PingMessageToClient());
+        SOCKET_CLIENT_HANDLER.sendCommand(new PingMTC());
         //decrement the ping left to disconnect and if they are < 0 the connection was lost
         int pingLeft = pingController.decrementPingToDisconnect();
         if(pingLeft < 0) pingController.clientConnectionLost();

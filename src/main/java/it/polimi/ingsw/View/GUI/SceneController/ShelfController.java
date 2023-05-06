@@ -1,9 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.View.GUI.NodeData;
-import it.polimi.ingsw.model.tiles.Color;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
