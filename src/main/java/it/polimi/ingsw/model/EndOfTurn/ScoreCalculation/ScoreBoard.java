@@ -34,7 +34,7 @@ public class ScoreBoard implements EndOfTurnObserver {
      */
     private void scoreCommonGoalCards(Player player) { // at the end of each turn
         for (CommonGoalCard cg : commonGoals) {
-            if (cg.hasCompleted(player)) return;
+            if (cg.hasCompleted(player)) continue;
 
             int points = cg.calculateScore(player);
             player.updateScore(points);

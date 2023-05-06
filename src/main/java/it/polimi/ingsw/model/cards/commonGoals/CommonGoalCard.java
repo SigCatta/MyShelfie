@@ -18,9 +18,10 @@ public class CommonGoalCard implements VirtualViewSubject {
     protected Stack<Integer> pointsStack;
 
     private final CommonGoalStrategy commonGoalStrategy;
-    private HashSet<Player> playersWhoCompleted;
+    private final HashSet<Player> playersWhoCompleted;
 
     public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
+        playersWhoCompleted = new HashSet<>();
         observers = new ArrayList<>();
         initStackPoints();
         this.commonGoalStrategy = commonGoalStrategy;
