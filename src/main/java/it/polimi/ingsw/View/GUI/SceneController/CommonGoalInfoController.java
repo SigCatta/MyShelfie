@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -22,8 +23,8 @@ public class CommonGoalInfoController {
         StageController.changeScene("chat.fxml", "Chat");
     }
 
-    public void setCommonGoalCard() {
-        //TODO
+    public void setCommonGoalCard(String commonGoalCard1Path) {
+        this.commonGoalCard.setImage(new Image(commonGoalCard1Path));
     }
 
     public void setCardDescription() {

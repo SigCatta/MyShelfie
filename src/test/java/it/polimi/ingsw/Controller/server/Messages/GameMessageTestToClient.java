@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class GameMessageTestToClient {
         game.start();
 
 
-        GameMessageToClient obj = new GameMessageToClient(game); // create an instance of your object
+        GameMTC obj = new GameMTC(game); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

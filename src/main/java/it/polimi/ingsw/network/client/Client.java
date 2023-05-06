@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
 
 import java.util.logging.Logger;
 

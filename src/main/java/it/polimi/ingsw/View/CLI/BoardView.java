@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.Controller.Client.VirtualModel.BoardRepresentation;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

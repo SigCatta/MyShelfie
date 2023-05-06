@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.tiles;
 
+import it.polimi.ingsw.Enum.Color;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

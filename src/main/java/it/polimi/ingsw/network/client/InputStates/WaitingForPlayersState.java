@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client.InputStates;
 
-import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.Controller.Client.VirtualModel.PlayersRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.InputReader;
 
 public class WaitingForPlayersState extends InputState {

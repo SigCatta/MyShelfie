@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.PingMessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.PingMTC;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -11,7 +11,7 @@ public class PingMessageTestToClient {
     @Test
     public void dimension() throws IOException {
 
-        PingMessageToClient obj = new PingMessageToClient(); // create an instance of your object
+        PingMTC obj = new PingMTC(); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

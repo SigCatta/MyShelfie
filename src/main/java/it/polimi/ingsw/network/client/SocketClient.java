@@ -1,8 +1,8 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.Controller.Client.Messages.HandshakeMessage;
-import it.polimi.ingsw.Controller.Client.Messages.MessageToServer;
-import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.Controller.Client.HandshakeMTS;
+import it.polimi.ingsw.Controller.Client.MessageToServer;
+import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -81,7 +81,7 @@ public class SocketClient extends Client {
     @Override
     public void sendCommand(MessageToServer message) {
         try {
-            if (message instanceof HandshakeMessage) {
+            if (message instanceof HandshakeMTS) {
                 this.nickname = message.getNickname();
                 super.setNickname(this.nickname);
             }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.GameState;
 
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameState.GameState;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.Test;
 

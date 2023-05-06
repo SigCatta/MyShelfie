@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.tiles;
 
+import it.polimi.ingsw.Enum.Color;
+
 import java.io.Serializable;
 
 public class ItemTile implements Serializable {

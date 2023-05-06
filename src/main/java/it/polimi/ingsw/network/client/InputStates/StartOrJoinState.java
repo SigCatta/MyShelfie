@@ -1,11 +1,11 @@
 package it.polimi.ingsw.network.client.InputStates;
 
-import it.polimi.ingsw.Controller.Client.Messages.CanIPlayMessage;
-import it.polimi.ingsw.Controller.Client.Messages.NewGameMessage;
-import it.polimi.ingsw.Controller.Client.VirtualModel.EchosRepresentation;
-import it.polimi.ingsw.Controller.Client.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.View.VirtualView.Messages.EchoToClient;
-import it.polimi.ingsw.View.VirtualView.Messages.GameMessageToClient;
+import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
+import it.polimi.ingsw.Controller.Client.NewGameMTS;
+import it.polimi.ingsw.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 import it.polimi.ingsw.network.client.InputReader;
 
 public class StartOrJoinState extends InputState {
@@ -45,7 +45,7 @@ public class StartOrJoinState extends InputState {
                 getInput();
                 if (input.equals(".")) return;
                 try {
-                    socketClient.sendCommand(new CanIPlayMessage(Integer.parseInt(input)));
+                    socketClient.sendCommand(new CanIPlayMTS(Integer.parseInt(input)));
                     break;
                 } catch (NumberFormatException e) {
                     System.out.println("ERROR: gameID must be a number!");
@@ -55,7 +55,7 @@ public class StartOrJoinState extends InputState {
                 synchronized (EchosRepresentation.getInstance()){
                     waitForVM(EchosRepresentation.getInstance());
                 }
-                EchoToClient message = EchosRepresentation.getInstance().getMessage();
+                EchoMTC message = EchosRepresentation.getInstance().getMessage();
                 if (message.isError()) {
                     System.out.println(message.getOutput());
                     break;
@@ -82,9 +82,9 @@ public class StartOrJoinState extends InputState {
             }
             if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert number of players: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
-        socketClient.sendCommand(new NewGameMessage(numOfPlayers));
+        socketClient.sendCommand(new NewGameMTS(numOfPlayers));
 
-        GameMessageToClient gameMessage = null;
+        GameMTC gameMessage = null;
         while (gameMessage == null) {
             synchronized (GameRepresentation.getInstance()){
                 waitForVM(GameRepresentation.getInstance());

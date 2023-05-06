@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;

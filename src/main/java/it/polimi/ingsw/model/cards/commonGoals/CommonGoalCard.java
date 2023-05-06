@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 
@@ -18,9 +18,10 @@ public class CommonGoalCard implements VirtualViewSubject {
     protected Stack<Integer> pointsStack;
 
     private final CommonGoalStrategy commonGoalStrategy;
-    private HashSet<Player> playersWhoCompleted;
+    private final HashSet<Player> playersWhoCompleted;
 
     public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
+        playersWhoCompleted = new HashSet<>();
         observers = new ArrayList<>();
         initStackPoints();
         this.commonGoalStrategy = commonGoalStrategy;

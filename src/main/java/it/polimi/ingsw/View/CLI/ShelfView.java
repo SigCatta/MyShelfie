@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.Controller.Client.VirtualModel.ShelvesRepresentation;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;

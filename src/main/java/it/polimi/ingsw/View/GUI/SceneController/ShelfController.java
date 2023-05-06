@@ -1,16 +1,24 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.View.GUI.NodeData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShelfController {
+    static List<NodeData> tilesSelected = new ArrayList<>();
+    static NodeData currentTileSelected = null;
+    int currentColumn;
+    int currentRow;
     @FXML
     GridPane matrix;
 
@@ -21,43 +29,53 @@ public class ShelfController {
     Text score;
 
     @FXML
+    TextField columnChosen;
+
+    @FXML
     Button insertDoneButton;
 
     @FXML
-    ImageView itemTile1;
+    Button insertTileButton;
 
     @FXML
-    ImageView itemTile2;
+    static ImageView itemTile1;
 
     @FXML
-    ImageView itemTile3;
+    static ImageView itemTile2;
 
-    public void setItemTile1Visible(String path) {
-        javafx.scene.image.Image image = new javafx.scene.image.Image(path);
-        itemTile1.setVisible(true);
-        itemTile1.setImage(image);
+    @FXML
+    static ImageView itemTile3;
+
+    /**
+     * this method saves the tiles picked up from the board in the local variable {@code tileselected}
+     * @param tiles tiles picked up from the board that now need to be inserted in the player shelf
+     */
+    public static void setUp(List<NodeData> tiles) {
+        tilesSelected = new ArrayList<>(tiles);
+        List<ImageView> temp = List.of(itemTile1, itemTile2, itemTile3);
+
+        for(int i = 0; i<tilesSelected.size(); i++) {
+            setItemTileVisible(temp.get(i), tilesSelected.get(i).getUrl());
+        }
     }
-    public void setItemTile2Visible(String path) {
+
+    static public void setItemTileVisible(ImageView itemTile, String path) {
         javafx.scene.image.Image image = new javafx.scene.image.Image(path);
-        itemTile2.setVisible(true);
-        itemTile2.setImage(image);
-    }
-    public void setItemTile3Visible(String path) {
-        javafx.scene.image.Image image = new Image(path);
-        itemTile3.setVisible(true);
-        itemTile3.setImage(image);
+        itemTile.setVisible(true);
+        itemTile.setImage(image);
     }
 
     public void setInsertDoneButtonVisible() {
-        insertDoneButton.setVisible(true);
+        if(!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible())
+            insertDoneButton.setVisible(true);
     }
 
     public void setScore(Text score) {
         this.score = score;
     }
 
-    public void setPersonalGoalCard(ImageView personalGoalCard) {
-        this.personalGoalCard = personalGoalCard;
+    public void setPersonalGoalCard(String personalGoalCardPath) {
+        this.personalGoalCard.setImage(new Image(personalGoalCardPath));
     }
 
     @FXML
@@ -72,12 +90,63 @@ public class ShelfController {
 
     @FXML
     public void onInsertDoneClicked() {
-        //TODO
+        //TODO notify model that the current player has terminated his turn
+    }
+
+    @FXML
+    public void setCurrentTileSelected1() {
+        currentTileSelected = tilesSelected.get(0);
+        itemTile1.setEffect(new Glow(0.9));
+        itemTile2.setEffect(new Glow(0));
+        itemTile3.setEffect(new Glow(0));
+    }
+
+    @FXML
+    public void setCurrentTileSelected2() {
+        currentTileSelected = tilesSelected.get(1);
+        itemTile2.setEffect(new Glow(0.9));
+        itemTile1.setEffect(new Glow(0));
+        itemTile3.setEffect(new Glow(0));
+    }
+
+    @FXML
+    public void setCurrentTileSelected3() {
+        currentTileSelected = tilesSelected.get(2);
+        itemTile3.setEffect(new Glow(0.9));
+        itemTile2.setEffect(new Glow(0));
+        itemTile1.setEffect(new Glow(0));
+    }
+
+    @FXML
+    public void onColumnInserted() {
+        currentColumn = Integer.parseInt(columnChosen.getText());
+
+        if(true) {   //TODO: check if column is valid
+            insertTileButton.setVisible(true);
+            //TODO: calculate row
+
+
+        } else {
+            insertTileButton.setVisible(false);
+        }
+    }
+
+    @FXML
+    public void onInsertTileClicked() {
+        int index = tilesSelected.indexOf(currentTileSelected);
+        if(index == 0) {
+            itemTile1.setVisible(false);
+        } else if(index == 1) {
+            itemTile2.setVisible(false);
+        } else {
+                itemTile3.setVisible(false);
+        }
+        insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
     }
 
     public void insertTile(String path, Point position) {
         Image image = new Image(path);
-        ImageView imageView = new ImageView(image);
         matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+        setInsertDoneButtonVisible();
     }
 }

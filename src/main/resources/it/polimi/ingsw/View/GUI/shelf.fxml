@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1338.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.ShelfController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1506.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.ShelfController">
     <children>
         <Group>
             <ImageView fitHeight="705.0" fitWidth="1505.0">
@@ -71,37 +71,52 @@
                <Font size="30.0" />
             </font>
          </Text>
-         <Button layoutX="1000.0" layoutY="516.0" mnemonicParsing="false" onAction="#onShowOtherShelvesClicked" prefHeight="40.0" prefWidth="206.0" text="OTHER SHELVES">
+         <Button layoutX="1216.0" layoutY="579.0" mnemonicParsing="false" onAction="#onShowOtherShelvesClicked" prefHeight="40.0" prefWidth="206.0" text="OTHER SHELVES">
             <font>
                <Font name="Arial Black" size="18.0" />
             </font>
          </Button>
-         <Button layoutX="1002.0" layoutY="579.0" mnemonicParsing="false" onAction="#onGoToChatClicked" prefHeight="40.0" prefWidth="202.0" text="GO TO CHAT">
+         <Button layoutX="932.0" layoutY="579.0" mnemonicParsing="false" onAction="#onGoToChatClicked" prefHeight="40.0" prefWidth="202.0" text="GO TO CHAT">
             <font>
                <Font name="Arial Black" size="18.0" />
             </font>
          </Button>
-         <Button fx:id="insertDoneButton" layoutX="1002.0" layoutY="642.0" mnemonicParsing="false" onAction="#onInsertDoneClicked" prefHeight="40.0" prefWidth="202.0" text="INSERT DONE!" visible="false">
+         <TextField editable="false" layoutX="1158.0" layoutY="165.0" prefHeight="110.0" prefWidth="303.0" style="-fx-background-color: lightblue;" />
+         <Button fx:id="insertDoneButton" layoutX="1080.0" layoutY="642.0" mnemonicParsing="false" onAction="#onInsertDoneClicked" prefHeight="40.0" prefWidth="202.0" text="INSERT DONE!" visible="false">
             <font>
                <Font name="Arial Black" size="18.0" />
             </font>
          </Button>
-         <TextField editable="false" layoutX="1157.0" layoutY="238.0" prefHeight="110.0" prefWidth="303.0" style="-fx-background-color: lightblue;" />
-         <ImageView fx:id="itemTile1" fitHeight="66.0" fitWidth="57.0" layoutX="1181.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <ImageView fx:id="itemTile1" fitHeight="66.0" fitWidth="57.0" layoutX="1181.0" layoutY="195.0" onMouseClicked="#setCurrentTileSelected1" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
-               <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="itemTile2" fitHeight="66.0" fitWidth="57.0" layoutX="1275.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <ImageView fx:id="itemTile2" fitHeight="66.0" fitWidth="57.0" layoutX="1275.0" layoutY="195.0" onMouseClicked="#setCurrentTileSelected2" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
-               <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="ItemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1376.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <ImageView fx:id="itemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1376.0" layoutY="195.0" onMouseClicked="#setCurrentTileSelected3" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
-               <Image url="@17_MyShelfie_BGA/item_tiles/Cornici1.1.png" />
+               <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
             </image>
          </ImageView>
+         <Text fill="WHITE" layoutX="1099.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE COLUMN:" textAlignment="CENTER" wrappingWidth="234.4429931640625">
+            <font>
+               <Font name="Gill Sans MT" size="24.0" />
+            </font>
+         </Text>
+         <TextField fx:id="columnChosen" layoutX="1367.0" layoutY="323.0" onKeyTyped="#onColumnInserted" prefHeight="34.0" prefWidth="94.0">
+            <font>
+               <Font name="Arial" size="18.0" />
+            </font>
+         </TextField>
+         <Button fx:id="insertTileButton" layoutX="1192.0" layoutY="382.0" mnemonicParsing="false" onAction="#onInsertTileClicked" prefHeight="40.0" prefWidth="206.0" text="INSERT TILE" visible="false">
+            <font>
+               <Font name="Arial Black" size="18.0" />
+            </font>
+         </Button>
         </Group>
     </children>
 </AnchorPane>

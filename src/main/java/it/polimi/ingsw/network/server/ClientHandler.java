@@ -1,8 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.View.VirtualView.Messages.MessageToClient;
-
-import java.util.HashMap;
+import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 /**
  * Abstract class that handle clients. Every type of connection must implement this interface.

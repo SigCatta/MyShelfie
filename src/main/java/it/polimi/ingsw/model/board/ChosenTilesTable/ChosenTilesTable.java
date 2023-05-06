@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.board.ChosenTilesTable;
 
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
