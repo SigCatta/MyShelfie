@@ -17,13 +17,11 @@ public class NicknameState extends InputState {
         System.out.println("Insert nickname:");
         getInput();
         socketClient.sendCommand(new HandshakeMessage(input));
-        try {
-            synchronized (EchosRepresentation.getInstance()) {
-                EchosRepresentation.getInstance().wait();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
+        synchronized (EchosRepresentation.getInstance()){
+            waitForVM(EchosRepresentation.getInstance());
         }
+
         EchoToClient message = EchosRepresentation.getInstance().getMessage();
         if (message.isError()) {
             System.out.println(message.getOutput());

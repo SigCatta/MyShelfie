@@ -1,27 +1,36 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
-public class CommonGoalCard {
+public class CommonGoalCard implements VirtualViewSubject {
+
+    private ArrayList<VirtualViewObserver> observers;
     /**
      * Stack of points that can be obtained by achieving the goal.
      */
     protected Stack<Integer> pointsStack;
 
     private final CommonGoalStrategy commonGoalStrategy;
+    private final HashSet<Player> playersWhoCompleted;
 
     public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
+        playersWhoCompleted = new HashSet<>();
+        observers = new ArrayList<>();
         initStackPoints();
         this.commonGoalStrategy = commonGoalStrategy;
     }
 
     private void initStackPoints() {
         pointsStack = new Stack<>();
-        for (int i = 1; i <= 4 ; i++) {
-            pointsStack.push(i*2);
+        for (int i = 1; i <= 4; i++) {
+            pointsStack.push(i * 2);
         }
     }
 
@@ -30,7 +39,15 @@ public class CommonGoalCard {
      * @return the point achieved by the player
      */
     public int calculateScore(Player player) {
-        return isGoalAchieved(player.getShelf()) ? popPoints() : 0;
+        if (isGoalAchieved(player.getShelf())) {
+            playersWhoCompleted.add(player);
+            return popPoints();
+        }
+        return 0;
+    }
+
+    public boolean hasCompleted(Player player) {
+        return playersWhoCompleted.contains(player);
     }
 
     private boolean isGoalAchieved(Shelf shelf) {
@@ -50,7 +67,24 @@ public class CommonGoalCard {
         return pointsStack.peek();
     }
 
-    public String getDescription() {
-        return commonGoalStrategy.getDescription();
+    public String getCardName() {
+        return commonGoalStrategy.getCardName();
+    }
+
+    @Override
+    public void registerObserver(VirtualViewObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(VirtualViewObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (VirtualViewObserver o : observers){
+            o.update();
+        }
     }
 }

@@ -34,4 +34,8 @@ public class Printer {
         if (colorMap == null) enableCLIColors(false);
         return colorMap;
     }
+
+    public static void printHomeScreen(){
+
+    }
 }

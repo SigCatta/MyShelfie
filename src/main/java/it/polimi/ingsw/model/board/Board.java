@@ -20,7 +20,7 @@ public class Board implements VirtualViewSubject {
         OBSERVERS = new ArrayList<>();
     }
 
-    public Board(ItemTile[][] board){
+    public Board(ItemTile[][] board){ //TODO only for testing (?)
         BOARD_GRID = board;
         COLOR_GRID = toColorArray(board);
         OBSERVERS = new ArrayList<>();
@@ -58,6 +58,7 @@ public class Board implements VirtualViewSubject {
         for(Point p : positions){
             tiles.add(removeItemTile(p));
         }
+        notifyObservers();
         return tiles;
     }
 

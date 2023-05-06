@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client.InputStates;
 
+import it.polimi.ingsw.Controller.Client.VirtualModel.VirtualModelSubject;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.InputReader;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -21,6 +22,14 @@ public abstract class InputState {
         try {
             input = readLine().trim();
         } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    synchronized void waitForVM(VirtualModelSubject representation) {
+        try {
+            representation.wait();
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class GameView implements ViewElement{
     @Override
-    public ArrayList<String> print(ArrayList<String> output) {
+    public ArrayList<String> getPrint(ArrayList<String> output) {
         return null;
     }
 }

@@ -18,9 +18,19 @@ public class StartOrJoinState extends InputState {
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
         while (input == null) {
             getInput();
-            if (input.equals("join")) joinGame();
-            else if (input.equals("new")) createNewGame();
-            else {
+            if (input.equals("join")) {
+                joinGame();
+                if (input.equals(".")) {
+                    input = null;
+                    return;
+                }
+            } else if (input.equals("new")) {
+                createNewGame();
+                if (input.equals(".")) {
+                    input = null;
+                    return;
+                }
+            } else {
                 System.out.println("ERROR: Invalid command!\nType 'join' if you want to join a game, 'new' if you want to create a new one: ");
                 input = null;
             }
@@ -33,6 +43,7 @@ public class StartOrJoinState extends InputState {
             while (true) {
                 System.out.println("Insert gameID: ");
                 getInput();
+                if (input.equals(".")) return;
                 try {
                     socketClient.sendCommand(new CanIPlayMessage(Integer.parseInt(input)));
                     break;
@@ -41,12 +52,8 @@ public class StartOrJoinState extends InputState {
                 }
             }
             while (true) {
-                try {
-                    synchronized (EchosRepresentation.getInstance()){
-                        EchosRepresentation.getInstance().wait();
-                    }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                synchronized (EchosRepresentation.getInstance()){
+                    waitForVM(EchosRepresentation.getInstance());
                 }
                 EchoToClient message = EchosRepresentation.getInstance().getMessage();
                 if (message.isError()) {
@@ -62,23 +69,25 @@ public class StartOrJoinState extends InputState {
     }
 
     private void createNewGame() {
-        System.out.println("Insert players number (between 2 and 4): ");
-        int numOfPlayers;
+        System.out.println("Insert number of players (between 2 and 4): ");
+        int numOfPlayers = 0;
         do {
             getInput();
-            numOfPlayers = Integer.parseInt(input);
-            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert players number: ");
+            if (input.equals(".")) return;
+            try {
+                numOfPlayers = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: number of players must be a number!\n Insert number of players: ");
+                continue;
+            }
+            if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert number of players: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
         socketClient.sendCommand(new NewGameMessage(numOfPlayers));
 
         GameMessageToClient gameMessage = null;
         while (gameMessage == null) {
-            try {
-                synchronized (GameRepresentation.getInstance()){
-                    GameRepresentation.getInstance().wait();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            synchronized (GameRepresentation.getInstance()){
+                waitForVM(GameRepresentation.getInstance());
             }
             gameMessage = GameRepresentation.getInstance().getGameMessage();
         }

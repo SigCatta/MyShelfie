@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class PersonalGoalView implements ViewElement {
     @Override
-    public ArrayList<String> print(ArrayList<String> output) {
+    public ArrayList<String> getPrint(ArrayList<String> output) {
         String nickname = SocketClient.getInstance().getNickname();
         HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPersonalGoal().getAchievements();
         Color[][] goal = new Color[6][5];

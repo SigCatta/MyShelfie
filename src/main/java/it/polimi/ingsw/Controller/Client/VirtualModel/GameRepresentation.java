@@ -36,7 +36,7 @@ public class GameRepresentation implements VirtualModelSubject{
     @Override
     public void notifyObservers() {
         synchronized (this){
-            this.notify();
+            this.notifyAll();
         }
     }
 }

@@ -9,7 +9,8 @@ import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
 import it.polimi.ingsw.model.GameState.GameState;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
-import it.polimi.ingsw.model.cards.commonGoals.CommonGoalContainer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -27,11 +28,14 @@ public class Game implements VirtualViewSubject {
     private Board board;
     private ChosenTilesTable chosenTilesTable;
     private GameState gameState;
+    private ArrayList<CommonGoalCard> commonGoals;
 
     private ArrayList<Player> players;
     private Player activePlayer;
 
-    private CommonGoalContainer commonGoalContainer;
+    public ArrayList<CommonGoalCard> getCommonGoals() {
+        return commonGoals;
+    }
 
     private TurnHandler turnHandler;
 
@@ -39,7 +43,7 @@ public class Game implements VirtualViewSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
-        commonGoalContainer = new CommonGoalContainer();
+        commonGoals = (ArrayList<CommonGoalCard>) CommonCardDealer.pickCommonGoalCards(2);
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
@@ -57,18 +61,20 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        if(virtualView != null) {//TODO this is just for testing
+        if (virtualView != null) {//TODO this is just for testing
             notifyObservers();
         }
 
         new BoardRefresher(this).refillBoard();
+        if (players.size() > 0) this.activePlayer = players.get(0);
+        notifyObservers();
     }
 
     /**
      * to be called on creation of the virtual view,
      * this parameter is useful to start the communication with the virtual view
      */
-    public void setVirtualView(VirtualView virtualView){
+    public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
     }
 
@@ -78,7 +84,7 @@ public class Game implements VirtualViewSubject {
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
-    public void end(){
+    public void end() {
         gameState = GameState.END;
         //TODO calculate point and send to the view
     }
@@ -125,8 +131,9 @@ public class Game implements VirtualViewSubject {
         players.add(player);
 
         System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
-        if(players.size() == MAX_PLAYER_NUMBER) start();
+        if (players.size() == MAX_PLAYER_NUMBER) start();
 
+        player.getShelf().notifyObservers();
         return true;
     }
 
@@ -190,9 +197,6 @@ public class Game implements VirtualViewSubject {
         return virtualView;
     }
 
-    public CommonGoalContainer getCommonGoalContainer() {
-        return commonGoalContainer;
-    }
 
     @Override
     public void registerObserver(VirtualViewObserver observer) {
@@ -206,7 +210,7 @@ public class Game implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

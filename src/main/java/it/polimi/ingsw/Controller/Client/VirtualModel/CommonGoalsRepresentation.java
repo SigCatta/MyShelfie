@@ -1,26 +1,15 @@
 package it.polimi.ingsw.Controller.Client.VirtualModel;
 
-import it.polimi.ingsw.View.VirtualView.Messages.CommonGoalMessage;
+import it.polimi.ingsw.View.VirtualView.Messages.CommonGoalMessageToClient;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class CommonGoalsRepresentation implements VirtualModelSubject {
-    /**
-     * name of the common goal with the points that will be assigned
-     * to the next player that achieves it
-     */
-    private Map<String, Integer> nameToPoints;
-
     private static CommonGoalsRepresentation instance;
+    private CommonGoalMessageToClient commonGoalMessage;
 
     private CommonGoalsRepresentation() {
-        nameToPoints = new HashMap<>();
-    }
 
-
-    public void changeCommonGoal(CommonGoalMessage commonGoalMessage) {
-        nameToPoints = commonGoalMessage.getCardNamesToPoints();
     }
 
     public static CommonGoalsRepresentation getInstance() {
@@ -28,8 +17,20 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
         return instance;
     }
 
-    public Map<String, Integer> getNameToPoints() {
-        return nameToPoints;
+    public void updateCommonGoal(CommonGoalMessageToClient commonGoalMessage) {
+        this.commonGoalMessage = commonGoalMessage;
+    }
+
+    public ArrayList<String> getCardNames() {
+        return commonGoalMessage.getCardNames();
+    }
+
+    public CommonGoalMessageToClient getCommonGoalMessage() {
+        return commonGoalMessage;
+    }
+
+    public ArrayList<Integer> getAvailablePoints() {
+        return commonGoalMessage.getAvailablePoints();
     }
 
     @Override
@@ -44,7 +45,8 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
-
+        synchronized (this) {
+            notifyAll();
+        }
     }
-
 }
