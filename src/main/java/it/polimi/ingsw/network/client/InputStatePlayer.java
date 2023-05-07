@@ -3,7 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.network.client.InputStates.InputState;
 import it.polimi.ingsw.network.client.InputStates.NicknameState;
 
-public class InputReader implements Runnable {
+public class InputStatePlayer implements Runnable {
     private InputState state;
 
     @SuppressWarnings("InfiniteLoopStatement")
