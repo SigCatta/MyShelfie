@@ -25,11 +25,10 @@ public class PersonalGoalView implements ViewElement {
 
         if (output.size() == 0) {
             output = new ArrayList<>();
-            //TODO need a way to use output.add() if a new ArrayList is declared, output.set() otherwise
-            output.add(" PERSONAL GOAL");
-            output.add("┌──┬──┬──┬──┬──┐");
+            output.add("       PERSONAL GOAL");
+            output.add("      ┌──┬──┬──┬──┬──┐");
             for (Color[] row : goal) {
-                StringBuilder string = new StringBuilder("│");
+                StringBuilder string = new StringBuilder("      │");
                 for (Color color : row) {
                     string
                             .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
@@ -37,16 +36,15 @@ public class PersonalGoalView implements ViewElement {
                             .append("│");
                 }
                 output.add(string.toString());
-                output.add("├──┼──┼──┼──┼──┤");
+                output.add("      ├──┼──┼──┼──┼──┤");
             }
             output.set(output.size() - 1, output.get(output.size() - 1).replace("├──┼──┼──┼──┼──┤", "└──┴──┴──┴──┴──┘"));
         } else if (output.get(0).contains("COMMON GOAL #")) {
             int i = 36; // starts printing after common goals
-            //TODO need a way to use output.add() if a new ArrayList is declared, output.set() otherwise
-            output.set(i, output.get(i++).concat(" PERSONAL GOAL"));
-            output.set(i, output.get(i++).concat("┌──┬──┬──┬──┬──┐"));
+            output.set(i, output.get(i++).concat("       PERSONAL GOAL"));
+            output.set(i, output.get(i++).concat("      ┌──┬──┬──┬──┬──┐"));
             for (Color[] row : goal) {
-                StringBuilder string = new StringBuilder("│");
+                StringBuilder string = new StringBuilder("      │");
                 for (Color color : row) {
                     string
                             .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
@@ -54,7 +52,7 @@ public class PersonalGoalView implements ViewElement {
                             .append("│");
                 }
                 output.set(i, output.get(i++).concat(string.toString()));
-                output.set(i, output.get(i++).concat("├──┼──┼──┼──┼──┤"));
+                output.set(i, output.get(i++).concat("      ├──┼──┼──┼──┼──┤"));
             }
             i--;
             output.set(i, output.get(i).replace("├──┼──┼──┼──┼──┤", "└──┴──┴──┴──┴──┘"));
