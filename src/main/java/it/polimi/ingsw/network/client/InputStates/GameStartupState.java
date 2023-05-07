@@ -6,6 +6,7 @@ import it.polimi.ingsw.View.CLI.PersonalGoalView;
 import it.polimi.ingsw.View.CLI.ShelfView;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.network.client.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -45,12 +46,12 @@ public class GameStartupState extends InputState {
         output = new PersonalGoalView().getPrint(output);
 
         output.forEach(System.out::println);
-        try { //TODO so it doesn't keep printing...
-            synchronized (this) {
-                this.wait();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
+
+        //now that the game startup menu is printed, the game can start. Each player gets their state assigned
+        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())){
+            player.setState(new ActivePlayerState(player));
         }
+        else player.setState(new WaitingPlayerState(player));
     }
 }
