@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.VirtualView.VirtualView;
-import it.polimi.ingsw.exceptions.NullPlayersException;
 import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
@@ -76,8 +77,9 @@ public class Game implements VirtualViewSubject {
 
             try {
                 PersonalCardDealer.getCards(players);
-            } catch (IOException | ParseException | TooManyPlayersException | NullPlayersException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | ParseException | TooManyPlayersException e) {
+                virtualView.send(new EchoMTC(EchoID.PANIC, true)); // should never reach
+                end();
             }
         }
         notifyObservers();
