@@ -6,11 +6,11 @@ import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
-import it.polimi.ingsw.network.client.InputReader;
+import it.polimi.ingsw.network.client.InputStatePlayer;
 
 public class StartOrJoinState extends InputState {
-    public StartOrJoinState(InputReader reader) {
-        super(reader);
+    public StartOrJoinState(InputStatePlayer player) {
+        super(player);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class StartOrJoinState extends InputState {
                 input = null;
             }
         }
-        reader.setState(new WaitingForPlayersState(reader));
+        player.setState(new WaitingForPlayersState(player));
     }
 
     private void joinGame() {

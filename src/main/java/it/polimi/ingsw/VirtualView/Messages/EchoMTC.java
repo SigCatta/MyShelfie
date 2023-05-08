@@ -39,4 +39,8 @@ public class EchoMTC implements MessageToClient, Serializable {
             throw new RuntimeException(e);
         }
     }
+
+    public EchoID getID(){
+        return id;
+    }
 }
