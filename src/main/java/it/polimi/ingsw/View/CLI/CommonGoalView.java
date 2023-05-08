@@ -50,7 +50,12 @@ public class CommonGoalView implements ViewElement {
                     break;
                 }
                 int endOfSubstring = description.indexOf(" ", (j + 1) * referenceLength);
-                dLines.add(description.substring(startIndex, endOfSubstring == -1 ? description.length() : endOfSubstring).trim());
+
+                if (endOfSubstring == - 1) {
+                    dLines.add(description.substring(startIndex));
+                    break;
+                }
+                else dLines.add(description.substring(startIndex, endOfSubstring).trim());
             }
 
             dLines = dLines.stream().map("     "::concat).collect(Collectors.toCollection(ArrayList::new)); // adding padding...
