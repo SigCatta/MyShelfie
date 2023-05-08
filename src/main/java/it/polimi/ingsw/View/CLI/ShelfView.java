@@ -10,9 +10,16 @@ import java.util.HashMap;
 public class ShelfView implements ViewElement {
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
+        return printShelf(output, SocketClient.getInstance().getNickname());
+    }
+
+    public ArrayList<String> getOtherShelvsPrint(String nickname) {
+        return printShelf(new ArrayList<>(), nickname);
+    }
+
+    private ArrayList<String> printShelf(ArrayList<String> output, String nickname) {
         Printer.enableCLIColors(true); //TODO delete after testing
         HashMap<Color, String> colorMap = Printer.getColorMap();
-        String nickname = SocketClient.getInstance().getNickname();
         Color[][] shelf = ShelvesRepresentation.getInstance().getShelfMessage(nickname).getShelfForCLI();
 
         output.add("          ┌──0─┬──1─┬──2─┬──3─┬──4─┐                    .");
@@ -39,5 +46,4 @@ public class ShelfView implements ViewElement {
         output.add("        └────────────────────────────┘                  .");
         return output;
     }
-
 }

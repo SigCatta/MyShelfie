@@ -1,5 +1,6 @@
 package it.polimi.ingsw.VirtualModel;
 
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
 public class GameRepresentation implements VirtualModelSubject{
@@ -19,6 +20,16 @@ public class GameRepresentation implements VirtualModelSubject{
         notifyObservers();
     }
 
+
+    public int getGameID(){
+        return gameMessage.getGameID();
+    }
+    public GameState getGameState(){
+        return gameMessage.getGameState();
+    }
+    public String getActivePlayerNickname(){
+        return gameMessage.getActivePlayerNickname();
+    }
     public GameMTC getGameMessage() {
         return gameMessage;
     }

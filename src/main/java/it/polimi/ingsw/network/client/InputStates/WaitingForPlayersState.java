@@ -2,22 +2,22 @@ package it.polimi.ingsw.network.client.InputStates;
 
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
-import it.polimi.ingsw.network.client.InputReader;
+import it.polimi.ingsw.network.client.InputStatePlayer;
 
 public class WaitingForPlayersState extends InputState {
-    public WaitingForPlayersState(InputReader reader) {
-        super(reader);
+    public WaitingForPlayersState(InputStatePlayer player) {
+        super(player);
     }
 
     @Override
     public void play() {
         while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
             System.out.println("Players connected: " + PlayersRepresentation.getInstance().getPlayersList());
-           synchronized (GameRepresentation.getInstance()){
-               waitForVM(GameRepresentation.getInstance());
-           }
+            synchronized (GameRepresentation.getInstance()) {
+                waitForVM(GameRepresentation.getInstance());
+            }
         }
-        reader.setState(new GameStartupState(reader));
+        player.setState(new GameStartupState(player));
         System.out.println("The game has started!");
     }
 }
