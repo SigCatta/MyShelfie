@@ -3,6 +3,7 @@ package it.polimi.ingsw.Controller.Server.Executor;
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Enum.EchoID;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV;
 import it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV;
@@ -30,6 +31,10 @@ public class CanIPlayExecutor implements Executor {
         if (game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
             message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.GAMEFULL, true));
             System.out.println("The chosen game is already full");//TODO remove
+            return;
+        }
+        if (game.getGameState() != GameState.PREGAME) {
+            message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.GAMESTARTED, true));
             return;
         }
 

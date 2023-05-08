@@ -122,11 +122,7 @@ public class Game implements VirtualViewSubject {
         return chosenTilesTable;
     }
 
-    public synchronized boolean addPlayer(Player player) {
-
-        if (players.size() >= MAX_PLAYER_NUMBER) {
-            return false;
-        }
+    public synchronized void addPlayer(Player player) {
 
         players.add(player);
 
@@ -134,7 +130,6 @@ public class Game implements VirtualViewSubject {
         if (players.size() == MAX_PLAYER_NUMBER) start();
 
         player.getShelf().notifyObservers();
-        return true;
     }
 
     public TurnHandler getTurnHandler() {

@@ -4,5 +4,6 @@
   "NOID": "ERROR: This gameID is not associated to a game!",
   "GAMEFULL": "ERROR: The game is full",
   "JOINED": "You joined game: ",
-  "PANIC": "Something went wrong..."
+  "PANIC": "Something went wrong...",
+  "GAMESTARTED": "This game has already started"
 }
