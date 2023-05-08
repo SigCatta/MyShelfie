@@ -14,7 +14,7 @@ public class CommandExecutorFactory {
             case "disconnect":
                 return new DisconnectCE(); //TODO
             case "common_goals":
-                return new CommonGoalCE(); //TODO
+                return new CommonGoalCE();
             case "personal_goal":
                 return new PersonalGoalCE();
             case "shelves":
