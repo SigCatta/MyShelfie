@@ -38,24 +38,16 @@ public class ChatController {
     @FXML
     TextField otherText5;
 
-    List<TextField> myList = new ArrayList<>(Arrays.asList(myText1, myText2, myText3, myText4, myText5));
-    List<TextField> otherList = new ArrayList<>(Arrays.asList(otherText1, otherText2, otherText3, otherText4, otherText5));
+    List<TextField> myList;
+    static int myMessagesCounter = 0;
+    List<TextField> otherList;
+    static int otherMessagesCounter = 0;
 
-    // javafxml code to inject to create a new message
-    /*
-    otherText:
-    <TextField layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: LIGHTBLUE;" text="">
-         <font>
-            <Font name="Gill Sans MT" size="16.0" />
-         </font>
-      </TextField>
-
-      myText:
-      <TextField layoutX="530.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: lightgreen;" text="">
-         <font>
-            <Font name="Gill Sans MT" size="16.0" />
-         </font>
-     */
+    @FXML
+    public void init() {
+        myList = new ArrayList<>(Arrays.asList(myText1, myText2, myText3, myText4, myText5));
+        otherList = new ArrayList<>(Arrays.asList(otherText1, otherText2, otherText3, otherText4, otherText5));
+    }
 
     /**
      * Method called every time a player writes on the chat
@@ -63,8 +55,41 @@ public class ChatController {
      * @param otherPlayer true if the message is from another player, false if is from this player
      */
     public void updateChat(String message, boolean otherPlayer) {
-        //TODO: set visible the correct textField and write text
+        if(otherMessagesCounter>=5 || myMessagesCounter>=5) {
+            cleanChat();
+        }
+        if(otherPlayer) {
+            for(TextField textField: otherList) {
+                if(textField.getText().length() == 0) {
+                    textField.setText(message);
+                    textField.setVisible(true);
+                    otherMessagesCounter++;
+                    break;
+                }
+            }
+        } else {
+            for(TextField textField: myList) {
+                if(textField.getText().length() == 0) {
+                    textField.setText(message);
+                    textField.setVisible(true);
+                    myMessagesCounter++;
+                    break;
+                }
+            }
+        }
+    }
 
+    public void cleanChat() {
+        for(TextField textField: myList) {
+            textField.setText("");
+            textField.setVisible(false);
+        }
+        for(TextField textField: otherList) {
+            textField.setText("");
+            textField.setVisible(false);
+        }
+        myMessagesCounter=0;
+        otherMessagesCounter=0;
     }
 
     public void setButtonVisible() {
@@ -87,6 +112,9 @@ public class ChatController {
 
     @FXML
     public void onSendButtonClicked() {
-        //TODO: handle new message
+        if(newMessageField.getText().length()>0) {
+            updateChat(newMessageField.getText(), false);
+            newMessageField.setText("");
+        }
     }
 }

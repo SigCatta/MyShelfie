@@ -1,9 +1,8 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.View.GUI.NodeData;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
@@ -17,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShelfController {
-    static List<NodeData> tilesSelected = new ArrayList<>();
-    static NodeData currentTileSelected = null;
+    List<NodeData> tilesSelected = new ArrayList<>();
+    NodeData currentTileSelected = null;
     int currentColumn;
     int currentRow;
     @FXML
@@ -40,20 +39,21 @@ public class ShelfController {
     Button insertTileButton;
 
     @FXML
-    static ImageView itemTile1;
+    ImageView itemTile1;
 
     @FXML
-    static ImageView itemTile2;
+    ImageView itemTile2;
 
     @FXML
-    static ImageView itemTile3;
+    ImageView itemTile3;
 
     /**
      * this method saves the tiles picked up from the board in the local variable {@code tileselected}
-     * @param tiles tiles picked up from the board that now need to be inserted in the player shelf
+     * the tiles picked up from the board that now need to be inserted in the player shelf
      */
-    public static void setUp(List<NodeData> tiles) {
-        tilesSelected = new ArrayList<>(tiles);
+    @FXML
+    public void setUp() {
+        tilesSelected = new ArrayList<>(TilesSelectedCointainer.getTilesSelected());
         List<ImageView> temp = List.of(itemTile1, itemTile2, itemTile3);
 
         for(int i = 0; i<tilesSelected.size(); i++) {
