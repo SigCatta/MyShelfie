@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.RefreshTrigger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

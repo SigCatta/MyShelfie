@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

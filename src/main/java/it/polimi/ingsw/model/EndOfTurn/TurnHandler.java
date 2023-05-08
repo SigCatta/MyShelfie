@@ -48,15 +48,24 @@ public class TurnHandler implements EndOfTurnSubject {
      * Notifies the observers that the current turn has ended.
      */
     public void changeTurn() {
-        notifyObservers();
 
-        int nextIndex = players.indexOf(game.getActivePlayer()) + 1;
+        int currentIndex = players.indexOf(game.getActivePlayer());
+        int nextIndex = currentIndex;
 
-        if(lastTurn && nextIndex == 0) game.end();
+        nextIndex = nextIndex + 1 >= players.size() ? 0 : nextIndex + 1;
 
-        nextIndex = nextIndex >= players.size() ? 0 : nextIndex;
+        if (lastTurn && nextIndex == 0) game.end();
+
+        while (!players.get(nextIndex).isConnected()) {
+            nextIndex = nextIndex + 1 >= players.size() ? 0 : nextIndex + 1;
+            if (nextIndex == currentIndex) { //end game for lack of connected players
+                game.end();
+            }
+        }
+
         game.setActivePlayer(players.get(nextIndex));
 
+        notifyObservers();
     }
 
     /**

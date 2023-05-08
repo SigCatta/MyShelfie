@@ -1,8 +1,8 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ShelfMessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class ShelfMessageTestToClient {
         Player newPlayer = new Player("Diego");
         newPlayer.getShelf().insertTile(new ItemTile(Color.WHITE), 2);
 
-        ShelfMessageToClient obj = new ShelfMessageToClient(newPlayer); // create an instance of your object
+        ShelfMTC obj = new ShelfMTC(newPlayer); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

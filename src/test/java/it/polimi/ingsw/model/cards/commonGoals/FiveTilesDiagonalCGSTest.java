@@ -2,10 +2,9 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -68,4 +67,12 @@ public class FiveTilesDiagonalCGSTest {
         assertTrue(cg.isGoalAchieved(shelf));
     }
 
+    @Test
+    public void getDrawingForCLITest(){
+        new FiveTilesDiagonalCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new FiveTilesDiagonalCGS().getDescription());
+    }
 }

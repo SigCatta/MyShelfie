@@ -1,0 +1,8 @@
+{
+  "NICKOK": "Nickname Accepted",
+  "BADNICK": "ERROR: This nickname is already taken",
+  "NOID": "ERROR: This gameID is not associated to a game!",
+  "GAMEFULL": "ERROR: The game is full",
+  "JOINED": "You joined game: ",
+  "PANIC": "Something went wrong..."
+}

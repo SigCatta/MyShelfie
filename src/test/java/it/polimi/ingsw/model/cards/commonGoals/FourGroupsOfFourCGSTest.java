@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS;
 import it.polimi.ingsw.model.player.ShelfUtils;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
@@ -38,4 +38,12 @@ public class FourGroupsOfFourCGSTest {
         assertFalse(ShelfUtils.checkMatrixWithDFS(matrix3, 4, 4));
     }
 
+    @Test
+    public void getDrawingForCLITest(){
+        new FourGroupsOfFourCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new FourGroupsOfFourCGS().getDescription());
+    }
 }

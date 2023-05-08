@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.GUI;
 
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import javafx.scene.image.ImageView;
 
 /**

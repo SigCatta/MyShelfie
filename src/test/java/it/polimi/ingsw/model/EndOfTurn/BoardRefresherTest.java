@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.Game;

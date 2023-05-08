@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ChatMessageToClient;
+import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +12,7 @@ public class ChatMessageTestToClient {
     public void dimension() throws IOException {
         String myMessage = "Hello world!";
 
-        ChatMessageToClient obj = new ChatMessageToClient(myMessage); // create an instance of your object
+        ChatMTC obj = new ChatMTC(myMessage); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

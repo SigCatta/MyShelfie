@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.cards.commonGoals;
 
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.Test;
 
@@ -47,4 +47,12 @@ public class FourAnglesCGSTest {
         assertTrue(cg.isGoalAchieved(shelf));
     }
 
+    @Test
+    public void getDrawingForCLITest(){
+        new FourAnglesCGS().getDrawingForCLI().forEach(System.out::println);
+    }
+    @Test
+    public void getDescriptionTest(){
+        System.out.println(new FourAnglesCGS().getDescription());
+    }
 }

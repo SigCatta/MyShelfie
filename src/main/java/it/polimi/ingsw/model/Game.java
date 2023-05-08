@@ -1,18 +1,16 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ErrorMessageToClient;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.View.VirtualView.ModelObservers.VirtualViewSubject;
-import it.polimi.ingsw.View.VirtualView.VirtualView;
+import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
-import it.polimi.ingsw.model.GameState.EndGameState;
-import it.polimi.ingsw.model.GameState.GameState;
-import it.polimi.ingsw.model.GameState.PickUpTilesState;
-import it.polimi.ingsw.model.GameState.PregameState;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.TilesGetter.TilesGetter;
+import it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable;
+import it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer;
+import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.Bag;
 
@@ -22,19 +20,22 @@ import java.util.NoSuchElementException;
 public class Game implements VirtualViewSubject {
 
     private ArrayList<VirtualViewObserver> observers;
-
-    private final int BOARD_DIMENSION = 9;
-    private final int MAX_TILES_FROM_BOARD = 3;
+    private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
     private Bag bag;
     private Board board;
-    private TilesGetter tilesGetter;
+    private ChosenTilesTable chosenTilesTable;
     private GameState gameState;
+    private ArrayList<CommonGoalCard> commonGoals;
 
     private ArrayList<Player> players;
     private Player activePlayer;
+
+    public ArrayList<CommonGoalCard> getCommonGoals() {
+        return commonGoals;
+    }
 
     private TurnHandler turnHandler;
 
@@ -42,9 +43,11 @@ public class Game implements VirtualViewSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
-        gameState = new PregameState();
+        commonGoals = (ArrayList<CommonGoalCard>) CommonCardDealer.pickCommonGoalCards(2);
+        gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
+        chosenTilesTable = new ChosenTilesTable();
     }
 
     /**
@@ -54,24 +57,24 @@ public class Game implements VirtualViewSubject {
         System.out.println("the game started!"); // TODO remove
         bag = new Bag();
 
-        tilesGetter = new TilesGetter(this);
         turnHandlerInitializer();
 
-        gameState = new PickUpTilesState();
+        gameState = GameState.PICK_UP_TILES;
 
-        if(virtualView != null) {//TODO this is just for testing
-            virtualView.observersInit(); //the virtual view attribute has been set from the GamesManager
+        if (virtualView != null) {//TODO this is just for testing
             notifyObservers();
         }
 
         new BoardRefresher(this).refillBoard();
+        if (players.size() > 0) this.activePlayer = players.get(0);
+        notifyObservers();
     }
 
     /**
      * to be called on creation of the virtual view,
      * this parameter is useful to start the communication with the virtual view
      */
-    public void setVirtualView(VirtualView virtualView){
+    public void setVirtualView(VirtualView virtualView) {
         this.virtualView = virtualView;
     }
 
@@ -81,8 +84,8 @@ public class Game implements VirtualViewSubject {
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
     }
 
-    public void end(){
-        gameState = new EndGameState();
+    public void end() {
+        gameState = GameState.END;
         //TODO calculate point and send to the view
     }
 
@@ -115,8 +118,8 @@ public class Game implements VirtualViewSubject {
         return MAX_TILES_FROM_BOARD;
     }
 
-    public TilesGetter getTilesGetter() {
-        return tilesGetter;
+    public ChosenTilesTable getChosenTilesTable() {
+        return chosenTilesTable;
     }
 
     public synchronized boolean addPlayer(Player player) {
@@ -127,9 +130,10 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully"); //TODO remove
-        if(players.size() == MAX_PLAYER_NUMBER) start();
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
+        if (players.size() == MAX_PLAYER_NUMBER) start();
 
+        player.getShelf().notifyObservers();
         return true;
     }
 
@@ -174,20 +178,11 @@ public class Game implements VirtualViewSubject {
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
         players.remove(player);
-
-        //TODO start timeout if there is only one player connected
     }
 
-    public void reconnectPlayer(String playerNickname) {
-        Player player = getPlayer(playerNickname);
-        player.setConnected(true);
-        //TODO stop timeout
-    }
-        
     public GameState getGameState() {
         return gameState;
     }
-
 
     public VirtualView getVirtualView() {
         return virtualView;
@@ -205,7 +200,7 @@ public class Game implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

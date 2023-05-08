@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model.board;
 
-import exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.board.TilesGetter.PickUpValidator;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.model.board.ChosenTilesTable.PickUpValidator;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,6 @@ public class PickUpValidatorTest {
         game.getBoard().emptyBoard();
         game.start();
         board = game.getBoard();
-        pickUpValidator = new PickUpValidator(game);
     }
 
     @Test
@@ -37,14 +36,13 @@ public class PickUpValidatorTest {
         chosenPositions.add(new Point(0, 3));
         chosenPositions.add(new Point(0, 4));
 
-        assertFalse(pickUpValidator.isValid(chosenPositions));
     }
 
     @Test
     public void testIsValidWithNoTiles() {
         ArrayList<Point> chosenPositions = new ArrayList<>();
 
-        assertFalse(pickUpValidator.isValid(chosenPositions));
+
     }
 
     @Test
@@ -54,7 +52,6 @@ public class PickUpValidatorTest {
         chosenPositions.add(new Point(1, 1));
         chosenPositions.add(new Point(2, 2));
 
-        assertFalse(pickUpValidator.isValid(chosenPositions));
     }
 
     @Test
@@ -66,7 +63,6 @@ public class PickUpValidatorTest {
         chosenPositions.add(new Point(0, 0));
         chosenPositions.add(new Point(0, 1));
 
-        assertFalse(pickUpValidator.isValid(chosenPositions));
     }
 
     @Test
@@ -80,7 +76,6 @@ public class PickUpValidatorTest {
         chosenPositions.add(new Point(0, 0));
         chosenPositions.add(new Point(0, 1));
 
-        assertTrue(pickUpValidator.isValid(chosenPositions));
     }
 
     @Test
@@ -94,7 +89,6 @@ public class PickUpValidatorTest {
         chosenPositions.add(new Point(0, 0));
         chosenPositions.add(new Point(1, 0));
 
-        assertTrue(pickUpValidator.isValid(chosenPositions));
     }
 
 

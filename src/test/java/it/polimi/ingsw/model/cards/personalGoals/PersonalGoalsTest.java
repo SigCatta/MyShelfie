@@ -1,15 +1,14 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
 
-import exceptions.NullPlayersException;
-import exceptions.TooManyPlayersException;
+import it.polimi.ingsw.exceptions.NullPlayersException;
+import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

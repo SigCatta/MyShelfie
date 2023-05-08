@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Controller.Server.PingPong;
 
-import it.polimi.ingsw.Controller.Server.ServerController.GamesManager;
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
@@ -42,7 +42,6 @@ public class PingController extends Thread{
      * Method called by the handler when it receives a PONG message from the client
      */
     public void onPongReceived() {
-        System.out.println("pong received");
         pingToDisconnect = MAX_PING_FAILURES;
         if(connectionLost) {
             connectionLost = false;

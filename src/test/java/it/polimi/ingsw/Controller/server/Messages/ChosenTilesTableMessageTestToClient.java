@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.View.VirtualView.Messages.ChosenTilesTableMessageToClient;
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class ChosenTilesTableMessageTestToClient {
         ArrayList<ItemTile> myTiles = new ArrayList<>();
         myTiles.add(new ItemTile(Color.WHITE));
 
-        ChosenTilesTableMessageToClient obj = new ChosenTilesTableMessageToClient(myTiles); // create an instance of your object
+        ChosenTilesTableMTC obj = new ChosenTilesTableMTC(myTiles); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

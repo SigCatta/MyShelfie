@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.model.tiles.Color;
+import it.polimi.ingsw.Enum.Color;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ public class Printer {
     static HashMap<Color, String> colorMap;
     public static final String NULL = ".";
 
-    private static void enableCLIColors(boolean isColored) {
+    public static void enableCLIColors(boolean isColored) {
         colorMap = new HashMap<>();
         if (isColored) {
             // COLOR = ANSI_BACKGROUND_COLOR_ID + WHITE spaces + ANSI_COLOR_RESET
@@ -20,18 +20,22 @@ public class Printer {
             colorMap.put(Color.LIGHTBLUE, "\033[0;106m" + " " + "\u001B[0m");
             colorMap.put(Color.WHITE, "\033[0;107m" + " " + "\u001B[0m");
         } else {
-            colorMap.put(Color.GREEN, "GG");
-            colorMap.put(Color.YELLOW, "YY");
-            colorMap.put(Color.BLUE, "BB");
-            colorMap.put(Color.PINK, "PP");
-            colorMap.put(Color.LIGHTBLUE, "LL");
-            colorMap.put(Color.WHITE, "WW");
+            colorMap.put(Color.GREEN, "G");
+            colorMap.put(Color.YELLOW, "Y");
+            colorMap.put(Color.BLUE, "B");
+            colorMap.put(Color.PINK, "P");
+            colorMap.put(Color.LIGHTBLUE, "L");
+            colorMap.put(Color.WHITE, "W");
         }
         colorMap.put(Color.EMPTY, " ");
     }
 
-    public static HashMap<Color, String> getColorMap(boolean isColored) {
-        enableCLIColors(isColored);
+    public static HashMap<Color, String> getColorMap() {
+        if (colorMap == null) enableCLIColors(false);
         return colorMap;
+    }
+
+    public static void printHomeScreen(){
+
     }
 }
