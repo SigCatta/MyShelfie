@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TilesSelectedCointainer {
-    static List<NodeData> tilesSelected = new ArrayList<>();
+    static List<NodeData> tilesSelected;
 
     public static void setTilesSelected(List<NodeData> tiles) {
         tilesSelected = new ArrayList<>(tiles);
