@@ -17,6 +17,7 @@ public class CommonGoalView implements ViewElement {
             drawing.add("       COMMON GOAL #" + i);
             drawing.addAll(reader.getDrawing(cardName));
             drawing.add("     Available points: " + availablePoints.get(i++ - 1));
+            drawing.add(new CommonGoalReader().getDescription(cardName));
             drawing.add("                             ");
         }
 

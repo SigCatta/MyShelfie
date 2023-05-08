@@ -15,9 +15,10 @@ public class ShelfView implements ViewElement {
         String nickname = SocketClient.getInstance().getNickname();
         Color[][] shelf = ShelvesRepresentation.getInstance().getShelfMessage(nickname).getShelfForCLI();
 
-        output.add("          ┌────┬────┬────┬────┬────┐                    .");
+        output.add("          ┌──0─┬──1─┬──2─┬──3─┬──4─┐                    .");
+        int rowNumber = 0;
         for (Color[] row : shelf) {
-            StringBuilder string = new StringBuilder("          │");
+            StringBuilder string = new StringBuilder("        " + rowNumber + " │");
             for (Color color : row) {
                 string
                         .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
@@ -30,6 +31,7 @@ public class ShelfView implements ViewElement {
             output.add(string.toString());
             output.add(string.toString());
             output.add("          ├────┼────┼────┼────┼────┤                    .");
+            rowNumber++;
         }
         output.remove(output.size() - 1);
 
