@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.exceptions.FullColumnException;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
@@ -8,7 +7,7 @@ import it.polimi.ingsw.model.player.Shelf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 
 class TilesGetterTest {
@@ -59,7 +58,7 @@ class TilesGetterTest {
     }
 
     @Test
-    void testNullTilesSentToShelf() throws FullColumnException {
+    void testNullTilesSentToShelf() {
 
     }
 

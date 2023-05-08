@@ -5,5 +5,8 @@
   "GAMEFULL": "ERROR: The game is full",
   "JOINED": "You joined game: ",
   "PANIC": "Something went wrong...",
-  "CHANGE": "Something changed..."
+  "GAMESTARTED": "This game has already started",
+  "CHANGE": "Something changed...",
+  "WRONG_CHOSEN_TABLE_INDEX": "The index chosen is not valid",
+  "BADCOLUMN": "the column chosen does not have enough spaces to contain all the tiles"
 }

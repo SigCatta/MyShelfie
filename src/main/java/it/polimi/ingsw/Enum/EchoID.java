@@ -9,5 +9,7 @@ public enum EchoID {
     NICKOK,
     JOINED,
     CREATED,
+    GAMESTARTED,
     CHANGE,
+    WRONG_CHOSEN_TABLE_INDEX
 }
