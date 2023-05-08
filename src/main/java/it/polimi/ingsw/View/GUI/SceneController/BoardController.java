@@ -2,6 +2,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.View.GUI.NodeData;
+import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -120,7 +121,7 @@ public class BoardController {
 
 
         //go to player shelf
-        ShelfController.setUp(tilesSelected);
+        TilesSelectedCointainer.setTilesSelected(tilesSelected);
         onShowMyShelfClicked();
     }
 
