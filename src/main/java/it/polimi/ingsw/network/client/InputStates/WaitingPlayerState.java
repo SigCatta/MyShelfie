@@ -1,8 +1,10 @@
 package it.polimi.ingsw.network.client.InputStates;
 
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.InputStatePlayer;
+import it.polimi.ingsw.network.client.SocketClient;
 
-public class WaitingPlayerState extends InputState{
+public class WaitingPlayerState extends InputState {
     WaitingPlayerState(InputStatePlayer player) {
         super(player);
     }
@@ -10,13 +12,16 @@ public class WaitingPlayerState extends InputState{
     @Override
     public void play() {
         System.out.println("You are not the active player!");
+        String nickname = SocketClient.getInstance().getNickname();
 
-        try { //TODO so it doesn't keep printing...
-            synchronized (this) {
-                this.wait();
+
+
+        while (!GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)){
+            synchronized (GameRepresentation.getInstance()){
+                waitForVM(GameRepresentation.getInstance());
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
+
+        player.setState(new ActivePlayerState(player));
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.Enum.Color;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Printer {
@@ -36,6 +37,13 @@ public class Printer {
     }
 
     public static void printHomeScreen(){
+        ArrayList<String> output = new ArrayList<>();
 
+        output = new BoardView().getPrint(output);
+        output = new ShelfView().getPrint(output);
+        output = new CommonGoalView().getPrint(output);
+        output = new PersonalGoalView().getPrint(output);
+
+        output.forEach(System.out::println);
     }
 }
