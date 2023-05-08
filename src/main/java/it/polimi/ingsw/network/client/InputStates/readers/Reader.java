@@ -16,4 +16,8 @@ public abstract void executeCommand();
             throw new RuntimeException(e);
         }
     }
+    public boolean isReading(){
+        return isReading;
+    }
+
 }

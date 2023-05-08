@@ -27,6 +27,9 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     public void updateShelf(ShelfMTC shelfMessage) {
         String nickname = shelfMessage.getOwner();
         SHELF_MESSAGES.put(nickname, shelfMessage);
+        System.out.println("----------------------------------------");
+        System.out.println(nickname);
+        System.out.println("----------------------------------------");
         notifyObservers();
     }
 
