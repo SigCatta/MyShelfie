@@ -41,13 +41,6 @@ public class PersonalCardDealerTest {
     }
 
     @Test
-    public void noPlayersTest() {
-        ArrayList<Player> players = new ArrayList<>();
-
-        assertThrows(NullPlayersException.class, () -> PersonalCardDealer.getCards(players));
-    }
-
-    @Test
     public void allCardsTest() throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards; i++) {

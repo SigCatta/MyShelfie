@@ -9,5 +9,6 @@ public enum EchoID {
     NICKOK,
     JOINED,
     CREATED,
-    GAMESTARTED
+    GAMESTARTED,
+    CHANGE
 }

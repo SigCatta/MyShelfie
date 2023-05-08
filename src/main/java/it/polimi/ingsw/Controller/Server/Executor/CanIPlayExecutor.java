@@ -50,6 +50,7 @@ public class CanIPlayExecutor implements Executor {
         playerHandler.setGameID(gameID);    //the gameid is also definitive
 
         game.getVirtualView().updateAllPlayers();
+        game.getVirtualView().updateAllShelvs();
         game.notifyObservers();
         message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.JOINED, false));
     }

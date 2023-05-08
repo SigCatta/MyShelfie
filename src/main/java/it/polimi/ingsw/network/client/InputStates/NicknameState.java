@@ -3,13 +3,13 @@ package it.polimi.ingsw.network.client.InputStates;
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
-import it.polimi.ingsw.network.client.InputReader;
+import it.polimi.ingsw.network.client.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class NicknameState extends InputState {
 
-    public NicknameState(InputReader reader) {
-        super(reader);
+    public NicknameState(InputStatePlayer player) {
+        super(player);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class NicknameState extends InputState {
             System.out.println(message.getOutput());
             SocketClient.getInstance().setNickname(input);
             input = null;
-            reader.setState(new StartOrJoinState(reader));
+            player.setState(new StartOrJoinState(player));
         }
     }
 }
