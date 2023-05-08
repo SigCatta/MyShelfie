@@ -1,7 +1,6 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commands;
+package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
-import it.polimi.ingsw.network.client.InputStates.readers.commands.CommandExecutor;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.concurrent.ExecutionException;

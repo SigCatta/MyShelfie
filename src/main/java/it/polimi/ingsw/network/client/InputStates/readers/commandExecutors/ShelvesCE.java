@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commands;
+package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.ShelfView;
 
