@@ -20,4 +20,17 @@ public abstract void executeCommand();
         return isReading;
     }
 
+    void chooseCommand(){
+        getInput();
+
+        isReading = true;
+        input = input.toLowerCase();
+        executeCommand();
+
+        isReading = false;
+        synchronized (this) {
+            notifyAll();
+        }
+    }
+
 }

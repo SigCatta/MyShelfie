@@ -17,27 +17,18 @@ public class WaitingReader extends Reader implements Runnable {
                             " - personal_goal\n" +
                             " - shelves\n"
             ); //TODO other commands?
-            getInput();
 
-            isReading = true;
-            input = input.toLowerCase();
-            executeCommand();
-
-            isReading = false;
-            synchronized (this){
-                notifyAll();
-            }
+            chooseCommand();
         }
     }
 
     @Override
     public void executeCommand() {
         switch (input) {
-            case ".":
-                return;
             case "chat":
                 System.out.println("Insert message: ");
                 getInput();
+                if (input.equals(".")) return;
                 //TODO send the message to the server
                 return;
             case "disconnect":
@@ -49,7 +40,7 @@ public class WaitingReader extends Reader implements Runnable {
                 }
                 return;
             case "common_goals":
-                //TODO print all common goals with their respective description
+                //TODO print all common goals with their respective description and how to get points
                 return;
             case "personal_goal":
                 //TODO print the personal goal with an explanation on how to get points etc.
@@ -57,6 +48,7 @@ public class WaitingReader extends Reader implements Runnable {
             case "shelves":
                 System.out.println("Whose shelf do you want to see?");
                 getInput();
+                if (input.equals(".")) return;
                 ArrayList<String> output = new ShelfView().getOtherShelvsPrint(input);
                 output.forEach(System.out::println);
                 return;
