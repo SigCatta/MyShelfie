@@ -189,25 +189,15 @@ public class Game implements VirtualViewSubject {
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
         players.remove(player);
-
-        //TODO start timeout if there is only one player connected
-    }
-
-    public void reconnectPlayer(String playerNickname) {
-        Player player = getPlayer(playerNickname);
-        player.setConnected(true);
-        //TODO stop timeout
     }
 
     public GameState getGameState() {
         return gameState;
     }
 
-
     public VirtualView getVirtualView() {
         return virtualView;
     }
-
 
     @Override
     public void registerObserver(VirtualViewObserver observer) {
