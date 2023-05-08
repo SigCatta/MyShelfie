@@ -71,12 +71,14 @@ public class Game implements VirtualViewSubject {
         }
 
         new BoardRefresher(this).refillBoard();
-        if (players.size() > 0) this.activePlayer = players.get(0);
+        if (players.size() > 0) {
+            this.activePlayer = players.get(0);
 
-        try {
-            PersonalCardDealer.getCards(players);
-        } catch (IOException | ParseException | TooManyPlayersException | NullPlayersException e) {
-            throw new RuntimeException(e);
+            try {
+                PersonalCardDealer.getCards(players);
+            } catch (IOException | ParseException | TooManyPlayersException | NullPlayersException e) {
+                throw new RuntimeException(e);
+            }
         }
         notifyObservers();
     }

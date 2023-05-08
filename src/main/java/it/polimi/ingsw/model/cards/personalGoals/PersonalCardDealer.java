@@ -31,7 +31,6 @@ public class PersonalCardDealer {
     public static void getCards(ArrayList<Player> players) throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
         if (numOfFiles < players.size()) throw new TooManyPlayersException();
-        if (players.size() == 0) throw new NullPlayersException();
 
         Stack<String> cards = new Stack<>();
         do {
