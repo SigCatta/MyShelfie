@@ -8,7 +8,6 @@ public abstract class Reader {
     String input;
     boolean isReading;
 public abstract void run();
-public abstract void executeCommand();
     void getInput() {
         try {
             input = readLine().trim();
@@ -25,7 +24,7 @@ public abstract void executeCommand();
 
         isReading = true;
         input = input.toLowerCase();
-        executeCommand();
+        CommandExecutorFactory.getCommand(input).execute();
 
         isReading = false;
         synchronized (this) {

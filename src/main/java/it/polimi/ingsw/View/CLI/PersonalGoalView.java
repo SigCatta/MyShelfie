@@ -59,4 +59,12 @@ public class PersonalGoalView implements ViewElement {
         }
         return output;
     }
+
+    public ArrayList<String> addDescription(ArrayList<String> output){
+        if (output.size() == 0) return null;
+        output.set(6, output.get(6).concat("     The personal goal card grants points if you match the"));
+        output.set(7, output.get(7).concat("     highlighted spaces with the corresponding item tiles."));
+        output.set(8, output.get(8).concat("     Points are awarded in the following order: 1, 2, 4, 6, 9 ,12"));
+        return output;
+    }
 }
