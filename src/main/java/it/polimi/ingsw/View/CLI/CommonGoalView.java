@@ -68,6 +68,7 @@ public class CommonGoalView implements ViewElement {
                     for (String dLine : dLines) {
                         output.set(line, output.get(line++).concat(dLine));
                     }
+                    break;
                 }
             }
         }
