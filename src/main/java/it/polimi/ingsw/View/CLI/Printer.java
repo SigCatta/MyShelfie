@@ -36,6 +36,14 @@ public class Printer {
         return colorMap;
     }
 
+
+    /**
+     * Prints the game's home screen, containing:<br>
+     *      - board<br>
+     *      - personal shelf<br>
+     *      - common goals<br>
+     *      - personal goal<br>
+     */
     public static void printHomeScreen(){
         ArrayList<String> output = new ArrayList<>();
 

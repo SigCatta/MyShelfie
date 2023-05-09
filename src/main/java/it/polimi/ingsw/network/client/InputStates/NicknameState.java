@@ -12,6 +12,10 @@ public class NicknameState extends InputState {
         super(player);
     }
 
+    /**
+     * Asks the player for a username and checks with the server if it's available,
+     * if the name is not available, the user is asked again, changes state otherwise
+     */
     @Override
     public void play() {
         System.out.println("Insert nickname:");

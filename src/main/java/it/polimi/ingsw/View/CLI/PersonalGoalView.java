@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PersonalGoalView implements ViewElement {
+
+    /**
+     * prints the player's personal goal card
+     *
+     * @param output an ArrayList where to add the drawing
+     * @return the give ArrayList with the player's personal goal card drawing
+     */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
         String nickname = SocketClient.getInstance().getNickname();
@@ -60,7 +67,14 @@ public class PersonalGoalView implements ViewElement {
         return output;
     }
 
-    public ArrayList<String> addDescription(ArrayList<String> output){
+
+    /**
+     * Adds a brief description about personal goal cards next to the drawing of the cards
+     *
+     * @param output a drwoing of a personal card
+     * @return a drowing of the personal card (argument) next to a brief description
+     */
+    public ArrayList<String> addDescription(ArrayList<String> output) {
         if (output.size() == 0) return null;
         output.set(6, output.get(6).concat("     The personal goal card grants points if you match the"));
         output.set(7, output.get(7).concat("     highlighted spaces with the corresponding item tiles."));

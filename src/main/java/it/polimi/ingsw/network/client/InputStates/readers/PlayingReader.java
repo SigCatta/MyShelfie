@@ -1,6 +1,11 @@
 package it.polimi.ingsw.network.client.InputStates.readers;
 
 public class PlayingReader extends Reader implements Runnable {
+
+    /**
+     * Prints te commands an active player can execute,
+     * calls the inherited chooseCommand method to wait for the command and execute it
+     */
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
