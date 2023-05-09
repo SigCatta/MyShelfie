@@ -5,21 +5,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class LookUpTableReader implements JSONFileReader{
 
     protected final JSONParser jsonParser;
-    private final String PATH;
 
     public LookUpTableReader(){
         this.jsonParser = new JSONParser();
-        PATH = "src/data/boards/";
     }
 
     /**
-     * Reads the src/data/boards folder to get which spots on the board a playable, reads the files based on
+     * Reads the resources/data/boards folder to get which spots on the board a playable, reads the files based on
      * how many players are playing, allowing more tile for bigger games
      *
      * @param numOfPlayers indicates how many players will be playing
@@ -32,10 +31,13 @@ public class LookUpTableReader implements JSONFileReader{
         if(numOfPlayers < 2) numOfPlayers = 2;
         else if(numOfPlayers > 4) numOfPlayers = 4;
 
-        try (FileReader reader = new FileReader(PATH + numOfPlayers + ".json")) {
 
-            JSONObject data = (JSONObject) jsonParser.parse(reader);
-            JSONArray rows = (JSONArray) data.get("lookUpTable");
+        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/boards/" +  numOfPlayers + ".json");
+        assert inputSream != null;
+        InputStreamReader reader = new InputStreamReader(inputSream);
+        try {
+            JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
+            JSONArray rows = (JSONArray) JSONObj.get("lookUpTable");
 
             int numRows = rows.size();
             int numCols = ((JSONArray) rows.get(0)).size();
@@ -52,7 +54,6 @@ public class LookUpTableReader implements JSONFileReader{
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
         return lookUpTable;
     }
 }

@@ -16,7 +16,7 @@ import java.util.Stack;
  * the deck and assign each card to a different player
  */
 public class PersonalCardDealer {
-    private static final File personalCardsDirectory = new File("src/data/personal_cards");
+    private static final File personalCardsDirectory = new File("src/main/resources/data/personal_cards");
 
     /**
      * Assigns <strong>different</strong> personal goals to a list of players,
@@ -28,6 +28,7 @@ public class PersonalCardDealer {
      * @throws ParseException          if an incorrect JSON is being parsed
      */
     public static void getCards(ArrayList<Player> players) throws IOException, ParseException, TooManyPlayersException {
+
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
         if (numOfFiles < players.size()) throw new TooManyPlayersException();
 

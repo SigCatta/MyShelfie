@@ -56,7 +56,7 @@ public class SocketClient extends Client {
      * Asynchronously reads a message from the server via socket and notifies the InstructionDecoder
      */
     @Override
-    public void readCommand() {
+    public synchronized void readCommand() {
         readExecutionQueue.execute(() -> {
 
             while (!readExecutionQueue.isShutdown()) {
@@ -79,7 +79,7 @@ public class SocketClient extends Client {
      * @param message the message to be sent to the server
      */
     @Override
-    public void sendCommand(MessageToServer message) {
+    public synchronized void sendCommand(MessageToServer message) {
         try {
             if (message instanceof HandshakeMTS) {
                 this.nickname = message.getNickname();
