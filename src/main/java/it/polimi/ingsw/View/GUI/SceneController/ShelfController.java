@@ -1,7 +1,9 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -46,6 +48,9 @@ public class ShelfController {
 
     @FXML
     ImageView itemTile3;
+
+    @FXML
+    ImageView wrongColumnImage;
 
     /**
      * this method saves the tiles picked up from the board in the local variable {@code tileselected}
@@ -121,29 +126,55 @@ public class ShelfController {
 
     @FXML
     public void onColumnInserted() {
-        currentColumn = Integer.parseInt(columnChosen.getText());
-
-        if(true) {   //TODO: check if column is valid
-            insertTileButton.setVisible(true);
-            //TODO: calculate row
-
-
-        } else {
-            insertTileButton.setVisible(false);
-        }
+        insertTileButton.setVisible(true);
+        wrongColumnImage.setVisible(false);
     }
 
     @FXML
     public void onInsertTileClicked() {
+        currentColumn = Integer.parseInt(columnChosen.getText());
         int index = tilesSelected.indexOf(currentTileSelected);
+        int correctededIndex; //index to use in the InsertTileMTS
+
         if(index == 0) {
+            correctededIndex = 0;
             itemTile1.setVisible(false);
         } else if(index == 1) {
+            if(itemTile1.isVisible()) {
+                correctededIndex = 1;
+            } else {
+                correctededIndex =0;
+            }
             itemTile2.setVisible(false);
         } else {
-                itemTile3.setVisible(false);
+            if(itemTile1.isVisible() && itemTile2.isVisible()) {
+                correctededIndex = 2;
+            } else if((!itemTile1.isVisible() && itemTile2.isVisible()) || (itemTile1.isVisible() && !itemTile2.isVisible())){
+                correctededIndex =1;
+            } else {
+                correctededIndex = 0;
+            }
+            itemTile3.setVisible(false);
         }
-        insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
+        SocketClient.getInstance().sendCommand(new InsertTileMTS(correctededIndex, currentColumn));
+    }
+
+    public void tileCanBeInserted(boolean correct, int row) {
+        if(correct) {
+            currentRow = row;
+            int index = tilesSelected.indexOf(currentTileSelected);
+
+            if(index == 0) {
+                itemTile1.setVisible(false);
+            } else if(index == 1) {
+                itemTile2.setVisible(false);
+            } else {
+                itemTile3.setVisible(false);
+            }
+            insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
+        } else {
+            wrongColumnImage.setVisible(true);
+        }
     }
 
     public void insertTile(String path, Point position) {

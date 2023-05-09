@@ -99,7 +99,7 @@
                   <ImageView fitHeight="53.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <ImageView fx:id="commonGoalCard1" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="commonGoalCard1" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="45.0" onMouseClicked="#onCommonGoal1Clicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FourAnglesCG.jpg" />
                </image>
@@ -112,7 +112,7 @@
                   <Font name="Arial Black" size="18.0" />
                </font>
             </Button>
-            <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="1219.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="1219.0" layoutY="45.0" onMouseClicked="#onCommonGoal2Clicked" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
                </image>
@@ -127,7 +127,7 @@
                   <Font name="Arial Black" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="pickUpDoneButton" layoutX="1134.0" layoutY="585.0" mnemonicParsing="false" onAction="#onPickUpDoneClicked" prefHeight="40.0" prefWidth="202.0" text="PICK UP DONE!" visible="false">
+            <Button fx:id="continueButton" layoutX="1134.0" layoutY="585.0" mnemonicParsing="false" onAction="#onContinueButtonClicked" prefHeight="40.0" prefWidth="202.0" text="CONTINUE" visible="false">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
@@ -153,7 +153,6 @@
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
             <Text fill="WHITE" layoutX="934.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS AVAILABLE" textAlignment="CENTER" wrappingWidth="123.2430419921875">
                <font>
                   <Font name="Gill Sans MT" size="18.0" />
@@ -174,6 +173,18 @@
                   <Font name="Gill Sans MT" size="18.0" />
                </font>
             </Text>
+            <Button fx:id="pickUpDoneButton" layoutX="1134.0" layoutY="433.0" mnemonicParsing="false" onAction="#onPickUpDoneClicked" prefHeight="40.0" prefWidth="202.0" text="PICK UP DONE!" visible="false">
+               <font>
+                  <Font name="Arial Black" size="18.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="wrongTilesSelected" fitHeight="34.0" fitWidth="81.0" layoutX="1357.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@17_MyShelfie_BGA/misc/warning.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="cgDescription1" editable="false" layoutX="932.0" layoutY="45.0" onMouseClicked="#cgDescription1Clicked" prefHeight="133.0" prefWidth="200.0" visible="false" />
+            <TextField fx:id="cgDescription2" editable="false" layoutX="1219.0" layoutY="45.0" onMouseClicked="#cgDescription2Clicked" prefHeight="133.0" prefWidth="200.0" visible="false" />
          </children>
       </Group>
    </children>

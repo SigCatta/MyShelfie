@@ -1,5 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.NewGameMTS;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -26,6 +28,7 @@ public class PlayerNumSceneController {
     @FXML
     protected void onContinueButtonClick() {
         //the new game has been created
+        SocketClient.getInstance().sendCommand(new NewGameMTS(getPlayerNum()));
         StageController.changeScene("waiting_room.fxml","Wait for others to join");
     }
 

@@ -1,5 +1,10 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
+import it.polimi.ingsw.Controller.Client.ChatMTS;
+import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -112,10 +117,11 @@ public class ChatController {
 
     @FXML
     public void onSendButtonClicked() {
-        if(newMessageField.getText().length()>0) {
-            //TODO send message to model
+        String message = newMessageField.getText();
+        if(message.length()>0) {
+            SocketClient.getInstance().sendCommand(new ChatMTS(message));
 
-            updateChat(newMessageField.getText(), false);
+            updateChat(message, false);
             newMessageField.setText("");
         }
     }

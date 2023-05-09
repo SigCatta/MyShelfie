@@ -1,5 +1,8 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.HandshakeMTS;
+import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -29,25 +32,26 @@ public class LoginSceneController {
 
     @FXML
     protected void onContinueButtonClick() {
-        StageController.changeScene("game_info_scene.fxml","Set number of players");
+        SocketClient.getInstance().sendCommand(new HandshakeMTS(getNickname()));
     }
 
     @FXML
     public void setContinueButtonVisible() {
-        if(nicknameField.getText().length()>0 ) //TODO && nickname valid && ip valid
+        if(nicknameField.getText().length()>0 )
             continueButton.setVisible(true);
     }
 
-    @FXML
-    public void onNicknameInserted()  {
-        if(true) {   //TODO ckeck if nickname is valid
-            wrongNicknameImage.setVisible(false);   //nickname is correct
+    public void isNicknameCorrect(boolean correct)  {
+        //ckeck if nickname is valid
+        if(correct) {
+            //nickname is correct so change scene
+            wrongNicknameImage.setVisible(false);
+            StageController.changeScene("game_info_scene.fxml","Set number of players");
         } else wrongNicknameImage.setVisible(true);
     }
 
-    @FXML
-    public void onIpInserted()  {
-        if(true) {   //TODO ckeck if ip is valid
+    public void isIpCorrect(boolean correct)  {
+        if(correct) {   //TODO ckeck if ip is valid
             wrongIpImage.setVisible(false);   //ip is correct
         } else wrongIpImage.setVisible(true);
     }

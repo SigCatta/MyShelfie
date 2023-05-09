@@ -1,12 +1,15 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +47,16 @@ public class BoardController {
     Button pickUpDoneButton;
 
     @FXML
+    Button continueButton;
+
+    @FXML
     Button selectTileButton;
 
     @FXML
     ImageView itemTile1;
+
+    @FXML
+    ImageView wrongTilesSelected;
 
     @FXML
     ImageView itemTile2;
@@ -61,6 +70,12 @@ public class BoardController {
     @FXML
     Text pointCG2Text;
 
+    @FXML
+    TextField cgDescription1;
+
+    @FXML
+    TextField cgDescription2;
+
     public void setPointCG1Text(int point) {
         pointCG1Text.setText(String.valueOf(point));
     }
@@ -71,20 +86,20 @@ public class BoardController {
 
     public void setItemTile1Visible(String path) {
         Image image = new Image(path);
-        itemTile1.setVisible(true);
         itemTile1.setImage(image);
+        itemTile1.setVisible(true);
         setPickUpDoneButtonVisible();
     }
     public void setItemTile2Visible(String path) {
         Image image = new Image(path);
-        itemTile2.setVisible(true);
         itemTile2.setImage(image);
+        itemTile2.setVisible(true);
         setPickUpDoneButtonVisible();
     }
     public void setItemTile3Visible(String path) {
         Image image = new Image(path);
-        itemTile3.setVisible(true);
         itemTile3.setImage(image);
+        itemTile3.setVisible(true);
         setPickUpDoneButtonVisible();
     }
 
@@ -94,6 +109,32 @@ public class BoardController {
 
     public void setCommonGoalCard2(String commonGoalCard2Path) {
         this.commonGoalCard2.setImage(new Image(commonGoalCard2Path));
+    }
+
+    @FXML
+    public void onCommonGoal1Clicked() {
+        cgDescription1.setText("Description");  //TODO
+        cgDescription1.setVisible(true);
+        commonGoalCard1.setVisible(false);
+    }
+
+    @FXML
+    public void onCommonGoal2Clicked() {
+        cgDescription2.setText("Description");  //TODO
+        cgDescription2.setVisible(true);
+        commonGoalCard2.setVisible(false);
+    }
+
+    @FXML
+    public void cgDescription1Clicked() {
+        cgDescription1.setVisible(false);
+        commonGoalCard1.setVisible(true);
+    }
+
+    @FXML
+    public void cgDescription2Clicked() {
+        cgDescription1.setVisible(false);
+        commonGoalCard1.setVisible(true);
     }
 
     public void setPickUpDoneButtonVisible() {
@@ -112,14 +153,38 @@ public class BoardController {
 
     @FXML
     public void onGoToChatClicked() {
-        StageController.changeScene("chat.fxml", "Chat");
+        StageController.changeScene("chat_scrollable.fxml", "Chat");
+        //StageController.changeScene("chat.fxml", "Chat");
     }
 
     @FXML
     public void onPickUpDoneClicked() {
-        //TODO: send tiles to virtual model
+        ArrayList<Point> tilesPosition = new ArrayList<>();
+        for(NodeData node: tilesSelected) {
+            tilesPosition.add(node.getPosition());
+        }
+        SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
+    }
 
+    public void canTilesBePickedUp(boolean correctTiles) {
+        //check if tiles can be picked up
+        if(correctTiles) {
+            //tiles can be picked up
+            continueButton.setVisible(true);
+        } else {
+            continueButton.setVisible(false);
+            for(NodeData node: tilesSelected) {
+                node.getImageView().setVisible(true);
+            }
+        }
+        tilesSelected.clear();
+        itemTile1.setVisible(false);
+        itemTile2.setVisible(false);
+        itemTile3.setVisible(false);
+    }
 
+    @FXML
+    public void onContinueButtonClicked() {
         //go to player shelf
         TilesSelectedCointainer.setTilesSelected(tilesSelected);
         onShowMyShelfClicked();
@@ -149,7 +214,6 @@ public class BoardController {
         };
     }
 
-
     public void onTileSelected(ImageView nodeSelected, int row, int column) {
         Color tileColor = null;
         String tileUrl = nodeSelected.getImage().getUrl();
@@ -158,13 +222,13 @@ public class BoardController {
                 tileColor = color;
             }
         }
-        if(tilesSelected.size()<3 )   { //&& TODO: check if tile can be picked up
+        if(tilesSelected.size()<3 )   {
             selectTileButton.setVisible(true);
             if(currentTileSelected!=null) {
                 currentTileSelected.getImageView().setEffect(new Glow(0));
             }
             nodeSelected.setEffect(new Glow(0.9));
-            currentTileSelected = new NodeData(tileUrl, tileColor, nodeSelected);
+            currentTileSelected = new NodeData(tileUrl, tileColor, nodeSelected, new Point(row, column));
         } else {
             selectTileButton.setVisible(false);
         }
@@ -184,8 +248,9 @@ public class BoardController {
             selectTileButton.setVisible(false);
             return;
         }
+        // set not visible the tile picked up in the board
         currentTileSelected.getImageView().setVisible(false);
-        tilesSelected.add(new NodeData(currentTileSelected.getUrl(), currentTileSelected.getColor(), currentTileSelected.getImageView()));
+        tilesSelected.add(currentTileSelected);
         currentTileSelected = null;
 
         setPickUpDoneButtonVisible();
@@ -220,6 +285,7 @@ public class BoardController {
     public void placeTile(String path, Point position) {
         Image image = new Image(path);
         ImageView imageView = new ImageView(image);
+        imageView.setVisible(true);
         matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
     }
 }
