@@ -40,6 +40,7 @@ public class GameInfoSceneController {
     protected void onJoinGameRBClicked() {
         gameIdField.setVisible(true);
         gameIdText.setVisible(true);
+        setContinueButtonVisible();
 
         //TODO: let player join the game
     }
@@ -54,9 +55,13 @@ public class GameInfoSceneController {
     }
     @FXML
     public void setContinueButtonVisible() {
-        if(gameIdField.getText().length()>0) //TODO check if gameid is valid
+        if(joinGameRB.isSelected()) {
+            if(gameIdField.getText().length()>0) //TODO check if gameid is valid
+                continueButton.setVisible(true);
+            else continueButton.setVisible(false);
+        } else if(newGameRB.isSelected()){
             continueButton.setVisible(true);
-        else continueButton.setVisible(false);
+        } else continueButton.setVisible(false);
     }
 
     public String getGameId() {

@@ -113,6 +113,8 @@ public class ChatController {
     @FXML
     public void onSendButtonClicked() {
         if(newMessageField.getText().length()>0) {
+            //TODO send message to model
+
             updateChat(newMessageField.getText(), false);
             newMessageField.setText("");
         }
