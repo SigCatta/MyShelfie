@@ -8,6 +8,10 @@ import java.util.concurrent.ExecutionException;
 import static it.polimi.ingsw.InputReader.readLine;
 
 public class ShelvesCE implements CommandExecutor {
+
+    /**
+     * Asks for which player's the user wants to see the shelf and prints it
+     */
     @Override
     public void execute() {
         System.out.println("Whose shelf do you want to see?");
@@ -17,6 +21,11 @@ public class ShelvesCE implements CommandExecutor {
         output.forEach(System.out::println);
     }
 
+    /**
+     * Reads user input
+     *
+     * @return user input
+     */
     private String getInput() {
         try {
             return readLine().trim();

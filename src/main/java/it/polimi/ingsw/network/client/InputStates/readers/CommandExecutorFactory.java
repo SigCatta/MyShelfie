@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.client.InputStates.readers;
 
 import it.polimi.ingsw.network.client.InputStates.readers.commandExecutors.*;
 
+/**
+ * Selects which command corresponds to the player's input
+ */
 public class CommandExecutorFactory {
     public static CommandExecutor getCommand(String command) {
         switch (command) {

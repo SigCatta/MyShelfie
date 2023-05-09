@@ -8,6 +8,10 @@ import java.util.concurrent.ExecutionException;
 import static it.polimi.ingsw.InputReader.readLine;
 
 public class DisconnectCE implements CommandExecutor {
+
+    /**
+     * After asking for confirmation, removes the player from the current game
+     */
     @Override
     public void execute() {
         System.out.println("Are you sure you want to leave? (y/n)");
@@ -19,6 +23,11 @@ public class DisconnectCE implements CommandExecutor {
         }
     }
 
+    /**
+     * Reads user input
+     *
+     * @return user input
+     */
     private String getInput() {
         try {
             return readLine().trim();

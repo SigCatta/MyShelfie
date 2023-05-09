@@ -9,6 +9,9 @@ public class WaitingForPlayersState extends InputState {
         super(player);
     }
 
+    /**
+     * The player waits for the game to start
+     */
     @Override
     public void play() {
         while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {

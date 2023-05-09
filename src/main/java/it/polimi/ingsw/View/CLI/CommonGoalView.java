@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 public class CommonGoalView implements ViewElement {
     private final CommonGoalReader reader = new CommonGoalReader();
 
+    /**
+     * Adds common goal drawings on top of the given ArrayList
+     *
+     * @param output the ArrayList where to add common goal drawings
+     * @return the original ArrayList with common goal drawings
+     */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
         ArrayList<String> drawing = new ArrayList<>();
@@ -30,41 +36,64 @@ public class CommonGoalView implements ViewElement {
         return output;
     }
 
+    /**
+     * Adds description the common goals drawings
+     *
+     * @param output the ArrayList where to add the descriptions of the common goals
+     * @return an ArrayList containing the common goals next to the respective description
+     */
     public ArrayList<String> addDescription(ArrayList<String> output) {
         if (output.size() == 0) return null;
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
 
-        int referenceLength = 50; // all descriptions lines will be around this length
+        int margin = 50; // all descriptions lines will be around this length
 
+        int line = 0;
         for (int i = 0; i < cardNames.size(); i++) {
             String description = reader.getDescription(cardNames.get(i));
-            ArrayList<String> dLines = new ArrayList<>();
 
-            for (int j = 0; ; j++) { // splits the description in more strings of similar length, saves the substrings in dLines
-                int startIndex = j * referenceLength;
-                if (description.charAt(startIndex) != ' ' && j != 0) {
-                    startIndex = description.indexOf(" ", startIndex);
-                }
-                if ((j + 1) * referenceLength > description.length()) {
-                    dLines.add(description.substring(startIndex).trim());
-                    break;
-                }
-                int endOfSubstring = description.indexOf(" ", (j + 1) * referenceLength);
-                dLines.add(description.substring(startIndex, endOfSubstring == -1 ? description.length() : endOfSubstring).trim());
-            }
+            ArrayList<String> dLines = applyMargin(margin, description);
+            dLines = dLines.stream().map("     "::concat).collect(Collectors.toCollection(ArrayList::new)); // adds padding...
 
-            dLines = dLines.stream().map("     "::concat).collect(Collectors.toCollection(ArrayList::new)); // adding padding...
-
-            int line = 0;
-            for (String s : output) {
-                line++;
-                if (s.contains("COMMON GOAL #" + (i + 1))) {
-                    line += 5;
+            for (; line < output.size(); line++) {
+                if (output.get(line).contains("COMMON GOAL #" + (i + 1))) {
+                    line += 6; // offset from the string indicating the common goal number
                     for (String dLine : dLines) {
                         output.set(line, output.get(line++).concat(dLine));
                     }
+                    break;
                 }
             }
+        }
+        return output;
+    }
+
+
+    /**
+     * Splits a give string in substrings of length margin (not cutting words)
+     *
+     * @param margin all the lines will be cut at the end of the word that contains the margin'th char
+     * @param s the string to split
+     * @return an ArrayList containing the strings in which that starting string has been split
+     */
+    private ArrayList<String> applyMargin(int margin, String s){
+        ArrayList<String> output = new ArrayList<>();
+        for (int j = 0; ; j++) {
+            int startIndex = j * margin;
+            if (s.charAt(startIndex) != ' ' && j != 0) {
+                startIndex = s.indexOf(" ", startIndex);
+            }
+            if ((j + 1) * margin > s.length()) {
+                output.add(s.substring(startIndex).trim());
+                break;
+            }
+            int endOfSubstring = s.indexOf(" ", (j + 1) * margin);
+
+            if (endOfSubstring == - 1) {
+                output.add(s.substring(startIndex));
+                break;
+            }
+            else output.add(s.substring(startIndex, endOfSubstring).trim());
         }
         return output;
     }

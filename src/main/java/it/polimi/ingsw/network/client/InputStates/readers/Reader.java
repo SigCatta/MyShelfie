@@ -7,7 +7,12 @@ import static it.polimi.ingsw.InputReader.readLine;
 public abstract class Reader {
     String input;
     boolean isReading;
-public abstract void run();
+
+    public abstract void run();
+
+    /**
+     * Waits for the user to input a string and updates the input variable accordingly
+     */
     void getInput() {
         try {
             input = readLine().trim();
@@ -15,11 +20,18 @@ public abstract void run();
             throw new RuntimeException(e);
         }
     }
-    public boolean isReading(){
+
+    /**
+     * @return a boolean indicating if the user is using a command
+     */
+    public boolean isReading() {
         return isReading;
     }
 
-    void chooseCommand(){
+    /**
+     * Waits for the user to input a command and calls the corresponding executor
+     */
+    void chooseCommand() {
         getInput();
 
         isReading = true;

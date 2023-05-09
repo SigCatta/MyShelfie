@@ -13,6 +13,11 @@ public class GameStartupState extends InputState {
         super(player);
     }
 
+    /**
+     * Waits for the VM to update with the model data (representations != null),
+     * prints the startup menu when the virtual model is ready.
+     * After printing the menu the state is updated depending on the active player
+     */
     @Override
     public void play() {
         while (BoardRepresentation.getInstance().getBoard() == null) {
