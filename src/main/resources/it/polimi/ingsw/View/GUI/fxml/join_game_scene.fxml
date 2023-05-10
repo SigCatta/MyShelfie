@@ -1,13 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<StackPane fx:controller="it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController" prefHeight="800.0"
+           prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css"
+           xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Group styleClass="library_background" stylesheets="@../css/background.css">
+         <children>
+            <AnchorPane layoutX="1.0" prefHeight="803.0" prefWidth="1202.0">
+               <children>
+                  <AnchorPane layoutX="159.0" layoutY="94.0" prefHeight="207.0" prefWidth="885.0">
+                     <children>
+                        <ImageView fitHeight="276.0" fitWidth="769.0" layoutX="58.0" layoutY="-2.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/asse.png"/>
+                           </image>
+                        </ImageView>
+                        <Text fontSmoothingType="LCD" layoutX="196.0" layoutY="85.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="CHOOSE THE NUMBER OF PLAYERS" textAlignment="CENTER"
+                              wrappingWidth="475.5628204345703">
+                           <font>
+                              <Font name="Arial Bold" size="24.0"/>
+                           </font>
+                           <fill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0"/>
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0"/>
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </RadialGradient>
+                           </fill>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="130.0" layoutY="331.0" prefHeight="75.0" prefWidth="873.0"
+                              stylesheets="@../css/background.css">
+                     <children>
+                        <RadioButton fx:id="radioBtn1" layoutX="54.0" layoutY="24.0" mnemonicParsing="false"
+                                     selected="true" text="2 Players">
+                           <font>
+                              <Font size="18.0"/>
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggleGroup"/>
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioBtn2" layoutX="385.0" layoutY="24.0" mnemonicParsing="false"
+                                     text="3 Players">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggleGroup1"/>
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0"/>
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioBtn3" layoutX="717.0" layoutY="24.0" mnemonicParsing="false"
+                                     text="4 Players">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggleGroup2"/>
+                           </toggleGroup>
+                           <font>
+                              <Font size="18.0"/>
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </AnchorPane>
+                  <Button layoutX="686.0" layoutY="491.0" mnemonicParsing="false" onAction="#onContinueButtonClick"
+                          prefHeight="75.0" prefWidth="317.0" text="CONTINUE">
+                     <font>
+                        <Font name="Arial Black" size="18.0"/>
+                     </font>
+                  </Button>
+                  <Button layoutX="159.0" layoutY="491.0" mnemonicParsing="false" onAction="#onBackToMenuButtonClick"
+                          prefHeight="75.0" prefWidth="317.0" text="GO BACK">
+                     <font>
+                        <Font name="Arial Black" size="18.0"/>
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </Group>
+   </children>
 </StackPane>
