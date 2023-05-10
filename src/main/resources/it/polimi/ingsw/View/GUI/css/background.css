@@ -1,0 +1,46 @@
+.wooden_background{
+    -fx-background-image: url("../17_MyShelfie_BGA/misc/sfondo_parquet.jpg");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.dark_wooden_background{
+    -fx-background-image: url("../17_MyShelfie_BGA/misc/base_pagina2.jpg");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.chair{
+    -fx-background-image: url("../17_MyShelfie_BGA/misc/firstplayertokenFlipped.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.MyShelfieLogo{
+    -fx-background-image: url("../17_MyShelfie_BGA/Publisher_material/Title_2000x618px.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#playBtn{
+    -fx-font-size: 30;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: "white";
+}
+
+#exitBtn{
+    -fx-font-size: 30;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: "white";
+}
+
+.blackBoard{
+    -fx-background-image: url("../17_MyShelfie_BGA/misc/blackboard.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

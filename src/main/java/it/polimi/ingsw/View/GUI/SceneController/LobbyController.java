@@ -8,7 +8,7 @@ public class LobbyController {
     @FXML
     protected void onPlayButtonClick() {
         //player must insert his info
-        StageController.changeScene("login_scene.fxml","Login");
+        StageController.changeScene("fxml/login_scene1.fxml","Login");
     }
 
     @FXML

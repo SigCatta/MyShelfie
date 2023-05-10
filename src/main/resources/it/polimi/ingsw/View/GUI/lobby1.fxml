@@ -53,12 +53,12 @@
             <Image url="@17_MyShelfie_BGA/Publisher_material/Title_2000x618px.png" />
          </image>
       </ImageView>
-      <Button layoutX="296.0" layoutY="226.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="49.0" prefWidth="256.0" text="PLAY">
+      <Button fx:id="playBtn" layoutX="296.0" layoutY="226.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="49.0" prefWidth="256.0" text="PLAY">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="296.0" layoutY="298.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="49.0" prefWidth="256.0" text="EXIT">
+      <Button fx:id="" layoutX="296.0" layoutY="298.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="49.0" prefWidth="256.0" text="EXIT">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>

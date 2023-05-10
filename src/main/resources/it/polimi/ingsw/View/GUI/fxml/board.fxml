@@ -19,12 +19,12 @@
          <children>
             <ImageView fitHeight="705.0" fitWidth="1498.0">
                <image>
-                  <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+                  <Image url="@../17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
                </image>
             </ImageView>
             <ImageView fitHeight="634.0" fitWidth="741.0" layoutX="157.0" layoutY="35.0" preserveRatio="true">
                <image>
-                  <Image url="@17_MyShelfie_BGA/boards/livingroom.png" />
+                  <Image url="@../17_MyShelfie_BGA/boards/livingroom.png" />
                </image>
             </ImageView>
             <GridPane fx:id="matrix" layoutX="185.0" layoutY="63.0" prefHeight="577.0" prefWidth="578.0">
@@ -101,7 +101,7 @@
             </GridPane>
             <ImageView fx:id="commonGoalCard1" fitHeight="150.0" fitWidth="200.0" layoutX="932.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FourAnglesCG.jpg" />
+                  <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FourAnglesCG.jpg" />
                </image>
                <effect>
                   <Blend />
@@ -114,7 +114,7 @@
             </Button>
             <ImageView fx:id="commonGoalCard2" fitHeight="150.0" fitWidth="200.0" layoutX="1219.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
+                  <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/ThreeMaxThreeDiffCG.jpg" />
                </image>
             </ImageView>
             <Button layoutX="1132.0" layoutY="505.0" mnemonicParsing="false" onAction="#onShowOtherShelvesClicked" prefHeight="40.0" prefWidth="206.0" text="OTHER SHELVES">
@@ -135,17 +135,17 @@
             <TextField editable="false" layoutX="1136.0" layoutY="297.0" prefHeight="110.0" prefWidth="303.0" style="-fx-background-color: lightblue;" />
             <ImageView fx:id="itemTile1" fitHeight="66.0" fitWidth="57.0" layoutX="996.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/LIGHTBLUE/1.2.png" />
+                  <Image url="@../17_MyShelfie_BGA/item_tiles/LIGHTBLUE/1.2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="itemTile2" fitHeight="66.0" fitWidth="57.0" layoutX="1090.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/GREEN/1.2.png" />
+                  <Image url="@../17_MyShelfie_BGA/item_tiles/GREEN/1.2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="itemTile3" fitHeight="66.0" fitWidth="57.0" layoutX="1191.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
-                  <Image url="@17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
+                  <Image url="@../17_MyShelfie_BGA/item_tiles/BLUE/1.1.png" />
                </image>
             </ImageView>
             <Button fx:id="selectTileButton" layoutX="837.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPickUpSelectedTileClicked" prefHeight="40.0" prefWidth="222.0" text="PICK UP SELECTED TILE" visible="false">

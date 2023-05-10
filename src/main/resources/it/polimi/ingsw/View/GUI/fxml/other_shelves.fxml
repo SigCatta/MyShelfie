@@ -17,17 +17,17 @@
         <Group>
             <ImageView fitHeight="704.0" fitWidth="1340.0">
                 <image>
-                    <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+                    <Image url="@../17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
                 </image>
             </ImageView>
             <ImageView fitHeight="594.0" fitWidth="849.0" layoutX="17.0" layoutY="109.0">
                 <image>
-                    <Image url="@17_MyShelfie_BGA/boards/bookshelf_orth.png" />
+                    <Image url="@../17_MyShelfie_BGA/boards/bookshelf_orth.png" />
                 </image>
             </ImageView>
             <ImageView fitHeight="596.0" fitWidth="849.0" layoutX="14.0" layoutY="110.0">
                 <image>
-                    <Image url="@17_MyShelfie_BGA/boards/bookshelf.png" />
+                    <Image url="@../17_MyShelfie_BGA/boards/bookshelf.png" />
                 </image>
             </ImageView>
          <GridPane fx:id="matrix" hgap="10.0" layoutX="122.0" layoutY="135.0" prefHeight="466.0" prefWidth="634.0" vgap="5.0">
@@ -59,7 +59,7 @@
          </Button>
          <ImageView fitHeight="212.0" fitWidth="345.0" layoutX="321.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@17_MyShelfie_BGA/misc/scroll.png" />
+               <Image url="@../17_MyShelfie_BGA/misc/scroll.png" />
             </image>
          </ImageView>
          <Text fx:id="playerName" layoutX="376.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameField" wrappingWidth="173.33673095703125">
@@ -69,17 +69,17 @@
          </Text>
          <ImageView fitHeight="133.0" fitWidth="117.0" layoutX="874.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@17_MyShelfie_BGA/misc/left_arrow.png" />
+               <Image url="@../17_MyShelfie_BGA/misc/left_arrow.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="112.0" fitWidth="120.0" layoutX="1211.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@17_MyShelfie_BGA/misc/rigth_arrow.png" />
+               <Image url="@../17_MyShelfie_BGA/misc/rigth_arrow.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="995.0" layoutY="343.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@17_MyShelfie_BGA/misc/blu_button.png" />
+               <Image url="@../17_MyShelfie_BGA/misc/blu_button.png" />
             </image>
             <effect>
                <Glow />

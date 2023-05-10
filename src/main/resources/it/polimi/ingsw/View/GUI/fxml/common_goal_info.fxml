@@ -11,42 +11,42 @@
     <children>
         <ImageView fitHeight="752.0" fitWidth="847.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+                <Image url="@../17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
             </image>
         </ImageView>
         <ImageView fitHeight="152.0" fitWidth="847.0" layoutY="599.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/base_pagina2.jpg" />
+                <Image url="@../17_MyShelfie_BGA/misc/base_pagina2.jpg" />
             </image>
         </ImageView>
         <ImageView fitHeight="159.0" fitWidth="142.0" layoutX="40.0" layoutY="548.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/firstplayertokenFlipped.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/firstplayertokenFlipped.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="107.0" fitWidth="84.0" layoutX="296.0" layoutY="611.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="152.0" fitWidth="142.0" layoutX="646.0" layoutY="557.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/firstplayertoken.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/firstplayertoken.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="84.0" fitWidth="77.0" layoutX="355.0" layoutY="653.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="107.0" fitWidth="84.0" layoutX="382.0" layoutY="591.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="77.0" fitWidth="85.0" layoutX="608.0" layoutY="628.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Aperto.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Aperto.png" />
             </image>
         </ImageView>
         <Button fx:id="showShelfButton" layoutX="174.0" layoutY="517.0" mnemonicParsing="false" onAction="#onShowChatClicked" prefHeight="40.0" prefWidth="206.0" text="SHOW CHAT">
@@ -61,7 +61,7 @@
         </Button>
       <ImageView fitHeight="746.0" fitWidth="751.0" layoutX="40.0" layoutY="-93.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@17_MyShelfie_BGA/misc/open_book.png" />
+            <Image url="@../17_MyShelfie_BGA/misc/open_book.png" />
          </image>
       </ImageView>
       <Text fx:id="cardDescription" layoutX="440.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Desciption:" wrappingWidth="284.423828125">
@@ -71,7 +71,7 @@
       </Text>
       <ImageView fx:id="commonGoalCard" fitHeight="150.0" fitWidth="200.0" layoutX="196.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@17_MyShelfie_BGA/common_goal_cards/1.jpg" />
+            <Image url="@../17_MyShelfie_BGA/common_goal_cards/1.jpg" />
          </image>
       </ImageView>
     </children>

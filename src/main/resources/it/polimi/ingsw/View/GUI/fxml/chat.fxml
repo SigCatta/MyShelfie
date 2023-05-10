@@ -12,22 +12,22 @@
     <children>
         <ImageView fitHeight="752.0" fitWidth="847.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
+                <Image url="@../17_MyShelfie_BGA/misc/sfondo_parquet.jpg" />
             </image>
         </ImageView>
         <ImageView fitHeight="152.0" fitWidth="847.0" layoutY="599.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/base_pagina2.jpg" />
+                <Image url="@../17_MyShelfie_BGA/misc/base_pagina2.jpg" />
             </image>
         </ImageView>
       <ImageView fitHeight="300.0" fitWidth="532.0" layoutX="166.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@17_MyShelfie_BGA/misc/chat_background.jpg" />
+            <Image url="@../17_MyShelfie_BGA/misc/chat_background.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="977.0" fitWidth="775.0" layoutX="36.0" layoutY="-211.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@17_MyShelfie_BGA/misc/phone.png" />
+            <Image url="@../17_MyShelfie_BGA/misc/phone.png" />
          </image>
       </ImageView>
       <TextField fx:id="otherText1" editable="false" layoutX="174.0" layoutY="58.0" prefHeight="39.0" prefWidth="132.0" style="-fx-background-color: lightblue;" visible="false">
@@ -82,32 +82,32 @@
       </TextField>
         <ImageView fitHeight="159.0" fitWidth="142.0" layoutX="40.0" layoutY="548.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/firstplayertokenFlipped.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/firstplayertokenFlipped.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="107.0" fitWidth="84.0" layoutX="296.0" layoutY="611.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="152.0" fitWidth="142.0" layoutX="646.0" layoutY="557.0">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/firstplayertoken.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/firstplayertoken.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="84.0" fitWidth="77.0" layoutX="355.0" layoutY="653.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="107.0" fitWidth="84.0" layoutX="382.0" layoutY="591.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Chiuso.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="77.0" fitWidth="85.0" layoutX="608.0" layoutY="628.0" preserveRatio="true">
             <image>
-                <Image url="@17_MyShelfie_BGA/misc/Sacchetto_Aperto.png" />
+                <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Aperto.png" />
             </image>
         </ImageView>
       <Button fx:id="showShelfButton" layoutX="174.0" layoutY="517.0" mnemonicParsing="false" onAction="#onShowMyShelfClicked" prefHeight="40.0" prefWidth="206.0" text="SHOW MY SHELF">
@@ -123,7 +123,7 @@
       <TextArea fx:id="newMessageField" layoutX="174.0" layoutY="388.0" prefHeight="93.0" prefWidth="310.0" promptText="Insert message here..." />
       <ImageView fitHeight="206.0" fitWidth="184.0" layoutX="471.0" layoutY="344.0" onMouseClicked="#onSendButtonClicked" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@17_MyShelfie_BGA/misc/send_button.png" />
+            <Image url="@../17_MyShelfie_BGA/misc/send_button.png" />
          </image>
       </ImageView>
     </children>
