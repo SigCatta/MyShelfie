@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.JSONReader.CommonGoalReader;
-import it.polimi.ingsw.View.CLI.Elements.ViewElement;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class CommonGoalView implements ViewElement {
         for (String cardName : cardNames) {
             drawing.add("       COMMON GOAL #" + i);
             drawing.addAll(reader.getDrawing(cardName));
-            drawing.add("     Available points: " + availablePoints.get(i++ - 1));
+            drawing.add("     Available points: " + availablePoints.get(i++ - 1) + "     ");
             drawing.add("                             ");
         }
         if (output.size() == 0) return drawing;
@@ -74,10 +73,10 @@ public class CommonGoalView implements ViewElement {
      * Splits a give string in substrings of length margin (not cutting words)
      *
      * @param margin all the lines will be cut at the end of the word that contains the margin'th char
-     * @param s the string to split
+     * @param s      the string to split
      * @return an ArrayList containing the strings in which that starting string has been split
      */
-    private ArrayList<String> applyMargin(int margin, String s){
+    private ArrayList<String> applyMargin(int margin, String s) {
         ArrayList<String> output = new ArrayList<>();
         for (int j = 0; ; j++) {
             int startIndex = j * margin;
@@ -90,11 +89,10 @@ public class CommonGoalView implements ViewElement {
             }
             int endOfSubstring = s.indexOf(" ", (j + 1) * margin);
 
-            if (endOfSubstring == - 1) {
+            if (endOfSubstring == -1) {
                 output.add(s.substring(startIndex));
                 break;
-            }
-            else output.add(s.substring(startIndex, endOfSubstring).trim());
+            } else output.add(s.substring(startIndex, endOfSubstring).trim());
         }
         return output;
     }

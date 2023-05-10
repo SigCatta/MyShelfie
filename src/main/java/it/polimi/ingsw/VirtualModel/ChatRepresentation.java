@@ -1,26 +1,31 @@
 package it.polimi.ingsw.VirtualModel;
 
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 
 import java.util.ArrayList;
 
-public class ChatRepresentation implements VirtualModelSubject{
+public class ChatRepresentation implements VirtualModelSubject {
 
-    private final ArrayList<String> CHAT = new ArrayList<>();
+    private final ArrayList<ChatMTC> CHAT = new ArrayList<>();
     private static ChatRepresentation instance;
 
-    private ChatRepresentation() {}
+    private ChatRepresentation() {
+    }
 
     public static ChatRepresentation getInstance() {
         if (instance == null) instance = new ChatRepresentation();
         return instance;
     }
 
+    public ArrayList<ChatMTC> getMessages() {
+        return CHAT;
+    }
 
-    public void addMessage(ChatMTC chatMessage){
-        CHAT.add(chatMessage.getChatMessage());
-        System.out.println(chatMessage.getChatMessage());
+    public void addMessage(ChatMTC chatMessage) {
+        CHAT.add(chatMessage);
         notifyObservers();
+        Printer.printHomeScreen(); //TODO remove after implementation of Echo.CHANGE
     }
 
     //TODO Note: if the client is not interested in the chat he can simply unsubscribe (remove from the observer list)

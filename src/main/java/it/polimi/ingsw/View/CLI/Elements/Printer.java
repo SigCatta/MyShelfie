@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class Printer {
 
     static HashMap<Color, String> colorMap;
-    public static final String NULL = ".";
 
     public static void enableCLIColors(boolean isColored) {
         colorMap = new HashMap<>();
@@ -51,6 +50,7 @@ public class Printer {
         output = new ShelfView().getPrint(output);
         output = new CommonGoalView().getPrint(output);
         output = new PersonalGoalView().getPrint(output);
+        output = new ChatView().getPrint(output);
 
         output.forEach(System.out::println);
     }
