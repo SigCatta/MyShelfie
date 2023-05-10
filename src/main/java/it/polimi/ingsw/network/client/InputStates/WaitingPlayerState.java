@@ -10,6 +10,12 @@ public class WaitingPlayerState extends InputState {
         super(player);
     }
 
+    /**
+     * Tells the user he is NOT the active player, starts a thread to read any eventual player commands
+     * and waits for any changes in the model, if the player is using a command, the view will update
+     * after the command has been executed.<br>
+     * If the ative plauer's turn end and the user is not using any commands, its state will switch to active
+     */
     @Override
     public void play() {
         System.out.println("You are not the active player...");

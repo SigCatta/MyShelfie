@@ -2,12 +2,11 @@ package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 public class ChatRepresentation implements VirtualModelSubject{
 
-    private final Queue<String> CHAT = new LinkedList<>();
+    private final ArrayList<String> CHAT = new ArrayList<>();
     private static ChatRepresentation instance;
 
     private ChatRepresentation() {}
@@ -20,6 +19,7 @@ public class ChatRepresentation implements VirtualModelSubject{
 
     public void addMessage(ChatMTC chatMessage){
         CHAT.add(chatMessage.getChatMessage());
+        System.out.println(chatMessage.getChatMessage());
         notifyObservers();
     }
 

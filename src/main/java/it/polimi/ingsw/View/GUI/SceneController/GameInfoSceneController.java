@@ -1,5 +1,10 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
+import it.polimi.ingsw.Controller.Client.NewGameMTS;
+import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -28,20 +33,33 @@ public class GameInfoSceneController {
     @FXML
     protected void onContinueButtonClick() {
         if(joinGameRB.isSelected()) {
-            //TODO: connect player to already existing game
+            //connect player to already existing game
+            SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
         } else {
             //player want to create a new game
-            //TODO: notify model
-            StageController.changeScene("player_num_scene1.fxml","Set number of players");
+            StageController.changeScene("player_num_scene.fxml","Set number of players");
         }
+    }
+
+    public void checkGameId(boolean correct) {
+        if(correct) {   //TODO ckeck if gameId is valid
+            wrongGameIdImage.setVisible(false);   //gameId is correct
+
+            //change scene based on the stage of the game
+            GameState gameState = GameRepresentation.getInstance().getGameMessage().getGameState();
+            if(gameState.equals(GameState.PREGAME)) {
+                StageController.changeScene("waiting_room.fxml", "Waiting room");
+            } else{
+                StageController.changeScene("board.fxml", "Board");
+            }
+
+        } else wrongGameIdImage.setVisible(true);
     }
 
     @FXML
     protected void onJoinGameRBClicked() {
         gameIdField.setVisible(true);
         gameIdText.setVisible(true);
-
-        //TODO: let player join the game
     }
 
     @FXML
@@ -49,14 +67,16 @@ public class GameInfoSceneController {
         gameIdField.setVisible(false);
         gameIdText.setVisible(false);
         setContinueButtonVisible();
-
-        //TODO: let player start the game
     }
     @FXML
     public void setContinueButtonVisible() {
-        if(gameIdField.getText().length()>0) //TODO check if gameid is valid
+        if(joinGameRB.isSelected()) {
+            if(gameIdField.getText().length()>0)
+                continueButton.setVisible(true);
+            else continueButton.setVisible(false);
+        } else if(newGameRB.isSelected()){
             continueButton.setVisible(true);
-        else continueButton.setVisible(false);
+        } else continueButton.setVisible(false);
     }
 
     public String getGameId() {
@@ -65,9 +85,6 @@ public class GameInfoSceneController {
 
     @FXML
     public void onGameIdInsert()  {
-        if(true) {   //TODO ckeck if gameId is valid
-            wrongGameIdImage.setVisible(false);   //gameId is correct
-            setContinueButtonVisible();
-        } else wrongGameIdImage.setVisible(true);
+        setContinueButtonVisible();
     }
 }
