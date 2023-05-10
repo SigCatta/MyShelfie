@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
            onMouseEntered="#setUpBoard" prefHeight="800.0" prefWidth="1200.0" styleClass="wooden_background"
            stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
@@ -244,7 +238,7 @@
                      <Text layoutX="5.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label2"
                            text="Objectives" textAlignment="CENTER" wrappingWidth="98.392578125"/>
                   </AnchorPane>
-                  <ImageView fx:id="pickUpDoneButton" onMouseClicked="#onPickUpDoneClicked" fitHeight="53.0"
+                  <ImageView onMouseClicked="#onPickUpDoneClicked" fitHeight="53.0"
                              fitWidth="55.0" layoutX="1126.0"
                              layoutY="548.0">
                      <Image url="@../17_MyShelfie_BGA/misc/green_check.png"/>

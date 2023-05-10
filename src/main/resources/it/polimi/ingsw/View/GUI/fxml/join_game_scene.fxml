@@ -4,26 +4,26 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
-<StackPane fx:controller="it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController" prefHeight="800.0"
-           prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css"
-           xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="800.0" prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css"
+           xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController">
    <children>
       <Group styleClass="library_background" stylesheets="@../css/background.css">
          <children>
-            <AnchorPane layoutX="1.0" prefHeight="803.0" prefWidth="1202.0">
+            <AnchorPane layoutX="-13.0" prefHeight="801.0" prefWidth="1201.0" styleClass="blackBoard"
+                        stylesheets="@../css/background.css">
                <children>
-                  <AnchorPane layoutX="159.0" layoutY="94.0" prefHeight="207.0" prefWidth="885.0">
+                  <AnchorPane layoutX="147.0" layoutY="102.0" prefHeight="227.0" prefWidth="909.0">
                      <children>
-                        <ImageView fitHeight="276.0" fitWidth="769.0" layoutX="58.0" layoutY="-2.0" pickOnBounds="true">
+                        <ImageView fitHeight="221.0" fitWidth="827.0" layoutX="41.0" layoutY="40.0" pickOnBounds="true">
                            <image>
                               <Image url="@../17_MyShelfie_BGA/misc/asse.png"/>
                            </image>
                         </ImageView>
-                        <Text fontSmoothingType="LCD" layoutX="196.0" layoutY="85.0" strokeType="OUTSIDE"
+                        <Text fontSmoothingType="LCD" layoutX="196.0" layoutY="96.0" strokeType="OUTSIDE"
                               strokeWidth="0.0" text="CHOOSE THE NUMBER OF PLAYERS" textAlignment="CENTER"
                               wrappingWidth="475.5628204345703">
                            <font>
@@ -48,7 +48,7 @@
                         </Text>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="130.0" layoutY="331.0" prefHeight="75.0" prefWidth="873.0"
+                  <AnchorPane layoutX="187.0" layoutY="363.0" prefHeight="75.0" prefWidth="828.0"
                               stylesheets="@../css/background.css">
                      <children>
                         <RadioButton fx:id="radioBtn1" layoutX="54.0" layoutY="24.0" mnemonicParsing="false"
@@ -80,18 +80,22 @@
                         </RadioButton>
                      </children>
                   </AnchorPane>
-                  <Button layoutX="686.0" layoutY="491.0" mnemonicParsing="false" onAction="#onContinueButtonClick"
-                          prefHeight="75.0" prefWidth="317.0" text="CONTINUE">
-                     <font>
-                        <Font name="Arial Black" size="18.0"/>
-                     </font>
-                  </Button>
-                  <Button layoutX="159.0" layoutY="491.0" mnemonicParsing="false" onAction="#onBackToMenuButtonClick"
-                          prefHeight="75.0" prefWidth="317.0" text="GO BACK">
-                     <font>
-                        <Font name="Arial Black" size="18.0"/>
-                     </font>
-                  </Button>
+                  <AnchorPane layoutX="179.0" layoutY="587.0">
+                     <children>
+                        <Button layoutX="527.0" mnemonicParsing="false" onAction="#onContinueButtonClick"
+                                prefHeight="75.0" prefWidth="317.0" text="CONTINUE">
+                           <font>
+                              <Font name="Arial Black" size="18.0"/>
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onBackToMenuButtonClick" prefHeight="75.0"
+                                prefWidth="317.0" text="GO BACK">
+                           <font>
+                              <Font name="Arial Black" size="18.0"/>
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
