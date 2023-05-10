@@ -27,7 +27,7 @@ public class ChatView implements ViewElement {
         ArrayList<String> drawing = new ArrayList<>();
         ArrayList<ChatMTC> messages = ChatRepresentation.getInstance().getMessages();
         if (messages.size() == 0) return drawing;
-        drawing.add(("                  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────┐"));
+        drawing.add(("          ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────┐"));
         drawing.add(("          │                                                   CHAT                                                   │"));
         drawing.add(("          ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤"));
 
