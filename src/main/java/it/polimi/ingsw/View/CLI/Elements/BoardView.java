@@ -1,8 +1,6 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
-import it.polimi.ingsw.View.CLI.Elements.Printer;
-import it.polimi.ingsw.View.CLI.Elements.ViewElement;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ public class BoardView implements ViewElement {
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) { // ─ │ ┌ ┐ └ ┘ ┤ ├ ┴ ┬ ┼
         Color[][] board = BoardRepresentation.getInstance().getBoardColors();
-        Printer.enableCLIColors(true); //TODO delete after testing
         HashMap<Color, String> colorMap = Printer.getColorMap();
 
         output.add("┌──0─┬──1─┬──2─┬──3─┬──4─┬──5─┬──6─┬──7─┬──8─┐          .");

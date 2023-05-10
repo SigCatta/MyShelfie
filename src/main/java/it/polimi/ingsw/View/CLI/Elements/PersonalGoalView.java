@@ -21,7 +21,6 @@ public class PersonalGoalView implements ViewElement {
         String nickname = SocketClient.getInstance().getNickname();
         HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPersonalGoal();
         Color[][] goal = new Color[6][5];
-        Printer.enableCLIColors(true); //TODO delete after testing
         HashMap<Color, String> colorMap = Printer.getColorMap();
 
         for (Color color : Color.values()) {

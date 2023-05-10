@@ -38,7 +38,6 @@ public class ShelfView implements ViewElement {
      * @return the given ArrayList with the given player's shelf
      */
     private ArrayList<String> printShelf(ArrayList<String> output, String nickname) {
-        Printer.enableCLIColors(true); //TODO delete after testing
         HashMap<Color, String> colorMap = Printer.getColorMap();
         Color[][] shelf = ShelvesRepresentation.getInstance().getShelfMessage(nickname).getShelfForCLI();
 

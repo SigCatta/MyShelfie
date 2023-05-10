@@ -126,6 +126,7 @@ public class Printer {
         commands.add("          │ - chat -> to use the game chat and comunicate with other players                                         │");
         commands.add("          │ - disconnect -> to leave the game ☹                                                                      │");
         commands.add("          │ - refresh -> to print an updated version of the home screen                                              │");
+        commands.add("          │ - colors -> to choose wether to use colors or letters to show item tiles                                 │");
         commands.add("          │ - common_goals -> to checkout the description of the common goal cards for this game                     │");
         commands.add("          │ - personal_goal -> to checkout a brief explanation on how personal goal cards work                       │");
         commands.add("          │ - shelves -> to checkout other player's shelves                                                          │");

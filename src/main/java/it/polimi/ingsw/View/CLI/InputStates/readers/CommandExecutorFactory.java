@@ -24,6 +24,8 @@ public class CommandExecutorFactory {
                 return new ShelvesCE();
             case "refresh":
                 return new RefreshCE();
+            case "colors":
+                return new ColorsCE();
         }
         return new InvalidCE();
     }
