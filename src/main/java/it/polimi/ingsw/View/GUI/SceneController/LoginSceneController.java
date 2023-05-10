@@ -1,19 +1,24 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class LoginSceneController {
     @FXML
-    TextField nicknameField;
+    TextArea nicknameField;
 
     @FXML
-    TextField ipField;
+    TextArea ipField;
 
     @FXML
-    Button continueButton;
+    Group continueLoginBtn;
+
+    @FXML
+    Group goBackLoginBtn;
 
     @FXML
     ImageView wrongNicknameImage;
@@ -35,7 +40,7 @@ public class LoginSceneController {
     @FXML
     public void setContinueButtonVisible() {
         if(nicknameField.getText().length()>0 ) //TODO && nickname valid && ip valid
-            continueButton.setVisible(true);
+            continueLoginBtn.setVisible(true);
     }
 
     @FXML

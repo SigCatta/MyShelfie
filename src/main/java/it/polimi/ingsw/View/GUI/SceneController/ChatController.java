@@ -107,7 +107,7 @@ public class ChatController {
 
     @FXML
     public void onShowBoardClicked() {
-        StageController.changeScene("board.fxml", "Board");
+        StageController.changeScene("board1.fxml", "Board");
     }
 
     @FXML

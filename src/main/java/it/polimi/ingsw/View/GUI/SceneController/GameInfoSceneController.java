@@ -32,7 +32,7 @@ public class GameInfoSceneController {
         } else {
             //player want to create a new game
             //TODO: notify model
-            StageController.changeScene("player_num_scene.fxml","Set number of players");
+            StageController.changeScene("player_num_scene1.fxml","Set number of players");
         }
     }
 

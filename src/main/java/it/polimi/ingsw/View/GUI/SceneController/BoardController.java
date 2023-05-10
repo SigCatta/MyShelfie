@@ -32,7 +32,7 @@ public class BoardController {
     static NodeData currentTileSelected = null;
 
     @FXML
-    GridPane matrix;
+    GridPane board;
 
     @FXML
     ImageView commonGoalCard1;
@@ -41,7 +41,7 @@ public class BoardController {
     ImageView commonGoalCard2;
 
     @FXML
-    Button pickUpDoneButton;
+    ImageView pickUpDoneButton;
 
     @FXML
     Button selectTileButton;
@@ -97,7 +97,7 @@ public class BoardController {
     }
 
     public void setPickUpDoneButtonVisible() {
-        pickUpDoneButton.setVisible(true);
+        pickUpDoneButton.setOpacity(1);
     }
 
     @FXML
@@ -119,6 +119,7 @@ public class BoardController {
     public void onPickUpDoneClicked() {
         //TODO: send tiles to virtual model
 
+        if(pickUpDoneButton.getOpacity() == 0.0) return; //do not change view if the button is invisible
 
         //go to player shelf
         TilesSelectedCointainer.setTilesSelected(tilesSelected);
@@ -131,7 +132,7 @@ public class BoardController {
      */
     @FXML
     public void setUpBoard() {
-        for(Node node: matrix.getChildren()) {
+        for(Node node: board.getChildren()) {
             node.setOnMouseClicked(nodeEventHandler());
         }
     }
@@ -220,7 +221,7 @@ public class BoardController {
     public void placeTile(String path, Point position) {
         Image image = new Image(path);
         ImageView imageView = new ImageView(image);
-        matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+        board.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
     }
 }
 

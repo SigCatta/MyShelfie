@@ -20,7 +20,7 @@ public class WaitingRoomController {
     @FXML
     public void onContinueButtonClick(ActionEvent actionEvent) {
         //start the game
-        StageController.changeScene("board.fxml","Living room");
+        StageController.changeScene("board1.fxml","Living room");
     }
 
     @FXML
