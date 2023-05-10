@@ -44,7 +44,7 @@ public class SocketClient extends Client {
     }
 
     public static synchronized Client getInstance() {
-        if (clientInstance == null) throw new RuntimeException(); // can't create a socket without addres and port -- should never happen!!
+        if (clientInstance == null) clientInstance = new SocketClient("localhost", 28888); // can't create a socket without addres and port -- should never happen!!
         return clientInstance;
     }
 
