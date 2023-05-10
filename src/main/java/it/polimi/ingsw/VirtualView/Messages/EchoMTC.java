@@ -6,9 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 
 public class EchoMTC implements MessageToClient, Serializable {
     private final boolean errorFlag;
@@ -29,14 +27,20 @@ public class EchoMTC implements MessageToClient, Serializable {
     }
 
     public String getOutput() {
+
         JSONParser parser = new JSONParser();
-        FileReader fileReader;
+        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/echo_messages/ID_map.json");
+        assert inputSream != null;
+        InputStreamReader reader = new InputStreamReader(inputSream);
         try {
-            fileReader = new FileReader("src/data/echo_messages/ID_map.json");
-            JSONObject JSONObj = (JSONObject) parser.parse(fileReader);
-            return (String) JSONObj.get(id.name());
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            return (String) jsonObject.get(id.name());
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public EchoID getID() {
+        return id;
     }
 }

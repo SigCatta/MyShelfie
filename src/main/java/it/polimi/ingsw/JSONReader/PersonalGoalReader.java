@@ -7,8 +7,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -18,7 +19,6 @@ import java.util.Stack;
 
 public class PersonalGoalReader implements JSONFileReader {
     private final JSONParser jsonParser;
-    private final String PATH = "src/data/";
 
     /**
      * Contracts a new JSON file reader
@@ -28,7 +28,7 @@ public class PersonalGoalReader implements JSONFileReader {
     }
 
     /**
-     * Reads a JSON file from the src/data/personal_cards/ folder given its name,
+     * Reads a JSON file from the resources/data/personal_cards/ folder given its name,
      * if the file exists in the directory the method returns a hashmap containing
      * the color-coordinates pair for each objective
      *
@@ -39,8 +39,11 @@ public class PersonalGoalReader implements JSONFileReader {
      */
     public HashMap<Color, Point> getPersonalGoalsData(String fileName) throws IOException, ParseException {
         HashMap<Color, Point> map = new HashMap<>();
-        FileReader fileReader = new FileReader(PATH + "personal_cards/" + fileName);
-        JSONObject JSONObj = (JSONObject) jsonParser.parse(fileReader);
+
+        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/" + fileName);
+        assert inputSream != null;
+        InputStreamReader reader = new InputStreamReader(inputSream);
+        JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
 
         for (Color color : Color.values()) {
             if (color == Color.EMPTY) continue;
@@ -55,7 +58,7 @@ public class PersonalGoalReader implements JSONFileReader {
     }
 
     /**
-     * Reads the src/data/personal_cards/points.json file to get how many points the player gets for completing
+     * Reads the resources/data/personal_cards/points.json file to get how many points the player gets for completing
      * each objective. The amount of points received is based on the number of objectives already completed
      * (this data is set while writing the points.json file)
      *
@@ -65,8 +68,12 @@ public class PersonalGoalReader implements JSONFileReader {
      */
     public Stack<Integer> getPointStack() throws IOException, ParseException {
         Stack<Integer> pointStack = new Stack<>();
-        FileReader fileReader = new FileReader(PATH + "personal_cards/points.json");
-        JSONObject JSONObj = (JSONObject) jsonParser.parse(fileReader);
+
+
+        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/points.json");
+        assert inputSream != null;
+        InputStreamReader reader = new InputStreamReader(inputSream);
+        JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
 
         JSONArray points = (JSONArray) JSONObj.get("POINTS");
         for (int i = points.size() - 1; i >= 0; i--) {

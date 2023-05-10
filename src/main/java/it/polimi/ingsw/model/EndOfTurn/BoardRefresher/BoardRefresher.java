@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
@@ -54,9 +56,12 @@ public class BoardRefresher implements EndOfTurnObserver {
     @Override
     public void update() {
 
-        if(board == null) throw new NullPointerException();
+        if (board == null) {
+            GAME.getVirtualView().send(new EchoMTC(EchoID.PANIC, true));
+            return; //should never reach
+        }
 
-        if(RefreshTrigger.isBoardRefreshable(board)){
+        if (RefreshTrigger.isBoardRefreshable(board)) {
             refillBoard();
         }
     }

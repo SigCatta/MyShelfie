@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import it.polimi.ingsw.exceptions.NullPlayersException;
 import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
@@ -26,7 +25,7 @@ public class PersonalCardDealerTest {
 
     @BeforeAll
     public static void init() {
-        File personalCardsDirectory = new File("src/data/personal_cards");
+        File personalCardsDirectory = new File("src/main/resources/data/personal_cards");
         numOfCards = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
     }
 
@@ -41,14 +40,7 @@ public class PersonalCardDealerTest {
     }
 
     @Test
-    public void noPlayersTest() {
-        ArrayList<Player> players = new ArrayList<>();
-
-        assertThrows(NullPlayersException.class, () -> PersonalCardDealer.getCards(players));
-    }
-
-    @Test
-    public void allCardsTest() throws IOException, ParseException, TooManyPlayersException, NullPlayersException {
+    public void allCardsTest() throws IOException, ParseException, TooManyPlayersException {
         ArrayList<Player> players = new ArrayList<>();
         for (int i = 0; i < numOfCards; i++) {
             players.add(new Player("player"));

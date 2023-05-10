@@ -6,13 +6,17 @@ import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
-import it.polimi.ingsw.network.client.InputReader;
+import it.polimi.ingsw.network.client.InputStatePlayer;
 
 public class StartOrJoinState extends InputState {
-    public StartOrJoinState(InputReader reader) {
-        super(reader);
+    public StartOrJoinState(InputStatePlayer player) {
+        super(player);
     }
 
+    /**
+     * Asks the player to either join a game or create a new one,
+     * after the player decides and inputs the correct information the state changes to WaitingForPlayers
+     */
     @Override
     public void play() {
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
@@ -35,9 +39,12 @@ public class StartOrJoinState extends InputState {
                 input = null;
             }
         }
-        reader.setState(new WaitingForPlayersState(reader));
+        player.setState(new WaitingForPlayersState(player));
     }
 
+    /**
+     * Asks the player for a gameID to join a game, if the gameID is wrong, asks again
+     */
     private void joinGame() {
         while (true) {
             while (true) {
@@ -52,7 +59,7 @@ public class StartOrJoinState extends InputState {
                 }
             }
             while (true) {
-                synchronized (EchosRepresentation.getInstance()){
+                synchronized (EchosRepresentation.getInstance()) {
                     waitForVM(EchosRepresentation.getInstance());
                 }
                 EchoMTC message = EchosRepresentation.getInstance().getMessage();
@@ -68,6 +75,9 @@ public class StartOrJoinState extends InputState {
         }
     }
 
+    /**
+     * ASks for the game's number of players and starts the game if the number is valid
+     */
     private void createNewGame() {
         System.out.println("Insert number of players (between 2 and 4): ");
         int numOfPlayers = 0;
@@ -86,7 +96,7 @@ public class StartOrJoinState extends InputState {
 
         GameMTC gameMessage = null;
         while (gameMessage == null) {
-            synchronized (GameRepresentation.getInstance()){
+            synchronized (GameRepresentation.getInstance()) {
                 waitForVM(GameRepresentation.getInstance());
             }
             gameMessage = GameRepresentation.getInstance().getGameMessage();
