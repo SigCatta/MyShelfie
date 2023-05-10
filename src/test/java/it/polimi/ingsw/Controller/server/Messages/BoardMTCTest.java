@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class BoardMessageTestToClient {
+public class BoardMTCTest {
     @Test
     public void dimension() throws IOException {
 

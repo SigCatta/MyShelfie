@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class ShelfMessageTestToClient {
+public class ShelfMTCTest {
     @Test
     public void dimension() throws IOException {
 

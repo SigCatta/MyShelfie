@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class ChatMessageTestToClient {
+public class ChatMTCTest {
     @Test
     public void dimension() throws IOException {
         String myMessage = "Hello world!";
