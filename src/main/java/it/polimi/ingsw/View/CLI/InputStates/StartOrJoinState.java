@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.client.InputStates;
+package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Controller.Client.NewGameMTS;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
-import it.polimi.ingsw.network.client.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 
 public class StartOrJoinState extends InputState {
     public StartOrJoinState(InputStatePlayer player) {

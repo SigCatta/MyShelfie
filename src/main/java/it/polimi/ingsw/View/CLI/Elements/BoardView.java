@@ -1,6 +1,8 @@
-package it.polimi.ingsw.View.CLI;
+package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.Elements.ViewElement;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 
 import java.util.ArrayList;

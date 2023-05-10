@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.Controller.Client.MessageToServer;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;

@@ -1,6 +1,7 @@
-package it.polimi.ingsw.View.CLI;
+package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.JSONReader.CommonGoalReader;
+import it.polimi.ingsw.View.CLI.Elements.ViewElement;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 
 import java.util.ArrayList;

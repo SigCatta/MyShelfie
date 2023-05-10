@@ -1,13 +1,13 @@
-package it.polimi.ingsw.network.client.InputStates;
+package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Enum.EchoID;
-import it.polimi.ingsw.View.CLI.Printer;
+import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelSubject;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.network.client.InputStatePlayer;
-import it.polimi.ingsw.network.client.InputStates.readers.Reader;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.concurrent.ExecutionException;

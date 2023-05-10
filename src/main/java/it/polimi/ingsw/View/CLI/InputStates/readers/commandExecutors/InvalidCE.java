@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
 
 public class InvalidCE implements CommandExecutor {
 

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
 
-import it.polimi.ingsw.View.CLI.PersonalGoalView;
+import it.polimi.ingsw.View.CLI.Elements.PersonalGoalView;
 
 import java.util.ArrayList;
 

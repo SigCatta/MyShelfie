@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.ByeMTS;
 import it.polimi.ingsw.network.client.SocketClient;

@@ -1,7 +1,7 @@
-package it.polimi.ingsw.network.client;
+package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.network.client.InputStates.InputState;
-import it.polimi.ingsw.network.client.InputStates.NicknameState;
+import it.polimi.ingsw.View.CLI.InputStates.InputState;
+import it.polimi.ingsw.View.CLI.InputStates.NicknameState;
 
 public class InputStatePlayer implements Runnable {
     private InputState state;

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.network.client.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
 
-import it.polimi.ingsw.View.CLI.ShelfView;
+import it.polimi.ingsw.View.CLI.Elements.ShelfView;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

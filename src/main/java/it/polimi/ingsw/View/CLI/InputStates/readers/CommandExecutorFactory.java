@@ -1,5 +1,6 @@
-package it.polimi.ingsw.network.client.InputStates.readers;
+package it.polimi.ingsw.View.CLI.InputStates.readers;
 
+import it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors.*;
 import it.polimi.ingsw.network.client.InputStates.readers.commandExecutors.*;
 
 /**

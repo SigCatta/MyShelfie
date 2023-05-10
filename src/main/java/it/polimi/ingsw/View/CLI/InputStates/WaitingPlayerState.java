@@ -1,8 +1,8 @@
-package it.polimi.ingsw.network.client.InputStates;
+package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.network.client.InputStatePlayer;
-import it.polimi.ingsw.network.client.InputStates.readers.WaitingReader;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.readers.WaitingReader;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class WaitingPlayerState extends InputState {

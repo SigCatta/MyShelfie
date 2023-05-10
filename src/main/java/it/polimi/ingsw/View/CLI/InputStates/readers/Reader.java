@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.client.InputStates.readers;
+package it.polimi.ingsw.View.CLI.InputStates.readers;
 
 import java.util.concurrent.ExecutionException;
 

@@ -1,11 +1,11 @@
-package it.polimi.ingsw.network.client.InputStates;
+package it.polimi.ingsw.View.CLI.InputStates;
 
-import it.polimi.ingsw.View.CLI.Printer;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
-import it.polimi.ingsw.network.client.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class GameStartupState extends InputState {
