@@ -32,20 +32,19 @@ public class GameStartupState extends InputState {
             }
         }
 
-        while (CommonGoalsRepresentation.getInstance().getCommonGoalMessage() == null){
-            synchronized (CommonGoalsRepresentation.getInstance()){
+        while (CommonGoalsRepresentation.getInstance().getCommonGoalMessage() == null) {
+            synchronized (CommonGoalsRepresentation.getInstance()) {
                 waitForVM(CommonGoalsRepresentation.getInstance());
             }
         }
 
         //all elements are ready
-
+        Printer.clearConsole();
         Printer.printHomeScreen();
 
         //now that the game startup menu is printed, the game can start. Each player gets their state assigned
-        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())){
+        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
             player.setState(new ActivePlayerState(player));
-        }
-        else player.setState(new WaitingPlayerState(player));
+        } else player.setState(new WaitingPlayerState(player));
     }
 }

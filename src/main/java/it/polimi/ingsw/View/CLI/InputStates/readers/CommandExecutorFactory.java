@@ -9,7 +9,7 @@ public class CommandExecutorFactory {
     public static CommandExecutor getCommand(String command) {
         switch (command) {
             case "pickup_tiles":
-                return new PickupTilesCE(); //TODO
+                return new PickupTilesCE();
             case "insert_tiles":
                 return new InsertTilesCE(); //TODO
             case "chat":
@@ -22,6 +22,8 @@ public class CommandExecutorFactory {
                 return new PersonalGoalCE();
             case "shelves":
                 return new ShelvesCE();
+            case "refresh":
+                return new RefreshCE();
         }
         return new InvalidCE();
     }

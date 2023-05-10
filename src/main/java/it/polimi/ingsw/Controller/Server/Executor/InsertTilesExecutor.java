@@ -56,5 +56,6 @@ public class InsertTilesExecutor implements Executor {
             chosenTilesTable.setChosenColumn(null);
             game.setGameState(GameState.PICK_UP_TILES);
         }
+        game.getVirtualView().send(new EchoMTC(EchoID.CHANGE, false));
     }
 }

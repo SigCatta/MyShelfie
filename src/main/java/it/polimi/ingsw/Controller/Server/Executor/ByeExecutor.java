@@ -2,6 +2,8 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.GamesManager;
+import it.polimi.ingsw.Enum.EchoID;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.model.Game;
 
 public class ByeExecutor implements Executor {
@@ -15,5 +17,6 @@ public class ByeExecutor implements Executor {
         game.disconnectPlayer(nickname);
         //disconnect the player from the gamesManager list
         GamesManager.getInstance().removePlayer(message.getSocketClientHandler());
+        game.getVirtualView().send(new EchoMTC(EchoID.CHANGE, false));
     }
 }

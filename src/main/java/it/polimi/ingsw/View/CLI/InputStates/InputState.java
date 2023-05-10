@@ -25,6 +25,9 @@ public abstract class InputState {
 
     public abstract void play();
 
+    /**
+     * writes user input to the input variable
+     */
     void getInput() {
         try {
             input = readLine().trim();
@@ -33,6 +36,11 @@ public abstract class InputState {
         }
     }
 
+    /**
+     * Helper method to wait on an element of the virtual model
+     *
+     * @param representation the element on which to wait
+     */
     synchronized void waitForVM(VirtualModelSubject representation) {
         try {
             representation.wait();
@@ -41,6 +49,13 @@ public abstract class InputState {
         }
     }
 
+    /**
+     * This method waits on EchoRepresentation, when it gets notified checks if
+     * the user is using a commands, if that is the case, the methods waits for
+     * the user to finish, then prints an updated home screen
+     *
+     * @param reader the reader that user might be using
+     */
     void runInputReaderUntilModelUpdate(Reader reader) {
         synchronized (EchosRepresentation.getInstance()) {
             waitForVM(EchosRepresentation.getInstance());
@@ -57,7 +72,9 @@ public abstract class InputState {
         }
 
         EchoMTC message = EchosRepresentation.getInstance().getMessage();
-        if (message.getID() == EchoID.CHANGE) Printer.printHomeScreen();
-        else System.out.println(message.getOutput());
+        if (message.getID() == EchoID.CHANGE) {
+            Printer.clearConsole();
+            Printer.printHomeScreen();
+        } else System.out.println(message.getOutput());
     }
 }
