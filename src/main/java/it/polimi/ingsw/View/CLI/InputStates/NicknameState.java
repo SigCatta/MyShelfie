@@ -22,7 +22,7 @@ public class NicknameState extends InputState {
         getInput();
         socketClient.sendCommand(new HandshakeMTS(input));
 
-        synchronized (EchosRepresentation.getInstance()){
+        synchronized (EchosRepresentation.getInstance()) {
             waitForVM(EchosRepresentation.getInstance());
         }
 

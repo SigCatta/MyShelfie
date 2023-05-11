@@ -19,14 +19,13 @@ public class ChatView implements ViewElement {
     public ArrayList<String> getPrint(ArrayList<String> output) {
         ArrayList<String> chat = getChatPrint();
 
-        if (output.size() != 0){
-            for (int i = 0; i < chat.size(); i++){
+        if (output.size() != 0) {
+            for (int i = 0; i < chat.size(); i++) {
                 output.set(i, output.get(i).concat(chat.get(i)));
             }
 
             return output;
-        }
-        else return chat;
+        } else return chat;
     }
 
     /**
@@ -53,7 +52,7 @@ public class ChatView implements ViewElement {
             drawing.add(string);
         }
 
-        for (int i = 0; i < chatHeigth - drawing.size() - 1; i++){
+        for (int i = 0; i < chatHeigth - drawing.size() - 1; i++) {
             drawing.add("          │                                                                                                          │");
         }
 

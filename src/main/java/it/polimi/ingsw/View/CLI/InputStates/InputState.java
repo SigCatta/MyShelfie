@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Enum.EchoID;
-import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelSubject;

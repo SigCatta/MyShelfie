@@ -20,6 +20,7 @@ public class InputStatePlayer implements Runnable {
 
     /**
      * Stets the state
+     *
      * @param state the state to set
      */
     public void setState(InputState state) {

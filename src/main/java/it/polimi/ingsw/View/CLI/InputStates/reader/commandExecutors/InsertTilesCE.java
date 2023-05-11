@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Enum.GameState;

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.View.CLI.InputStates.readers;
+package it.polimi.ingsw.View.CLI.InputStates.reader;
 
-import it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors.*;
+import it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.*;
 
 /**
  * Selects which command corresponds to the player's input

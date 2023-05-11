@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.CLI.InputStates.readers;
+package it.polimi.ingsw.View.CLI.InputStates.reader;
 
 import java.util.concurrent.ExecutionException;
 
@@ -8,6 +8,9 @@ public class Reader implements Runnable {
     String input;
     boolean isReading;
 
+    /**
+     * waits for user imputs and use {@link CommandExecutorFactory} to run it
+     */
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {

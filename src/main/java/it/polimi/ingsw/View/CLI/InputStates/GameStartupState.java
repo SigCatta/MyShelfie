@@ -2,7 +2,7 @@ package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;

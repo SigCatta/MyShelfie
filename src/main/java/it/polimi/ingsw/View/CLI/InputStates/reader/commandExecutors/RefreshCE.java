@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 

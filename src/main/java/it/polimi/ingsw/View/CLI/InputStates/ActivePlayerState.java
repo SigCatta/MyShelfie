@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 

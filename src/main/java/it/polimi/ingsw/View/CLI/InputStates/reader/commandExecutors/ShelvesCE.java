@@ -1,4 +1,4 @@
-package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
+package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.Elements.ShelfView;
@@ -16,20 +16,20 @@ public class ShelvesCE implements CommandExecutor {
      */
     @Override
     public void execute() {
-        while (true){
+        while (true) {
 
-        System.out.println("Whose shelf do you want to see?");
-        String input = getInput();
-        if (input.equals(".")) return;
-        if(!PlayersRepresentation.getInstance().getPlayersList().contains(input)){
-            System.out.println("The player " + input + " does not exist!");
-            continue;
-        }
-        Printer.clearConsole();
-        ArrayList<String> output = new ShelfView().getOtherShelvsPrint(input);
-        output.forEach(System.out::println);
-        Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
-        break;
+            System.out.println("Whose shelf do you want to see?");
+            String input = getInput();
+            if (input.equals(".")) return;
+            if (!PlayersRepresentation.getInstance().getPlayersList().contains(input)) {
+                System.out.println("The player " + input + " does not exist!");
+                continue;
+            }
+            Printer.clearConsole();
+            ArrayList<String> output = new ShelfView().getOtherShelvsPrint(input);
+            output.forEach(System.out::println);
+            Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
+            break;
         }
     }
 

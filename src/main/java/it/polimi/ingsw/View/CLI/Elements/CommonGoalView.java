@@ -22,7 +22,7 @@ public class CommonGoalView implements ViewElement {
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
         int i = 1;
         for (String cardName : cardNames) {
-            drawing.add("       COMMON GOAL #" + i + "       "+  ( i >9 ? "" : " "));
+            drawing.add("       COMMON GOAL #" + i + "       " + (i > 9 ? "" : " "));
             drawing.addAll(reader.getDrawing(cardName));
             drawing.add("     Available points: " + availablePoints.get(i++ - 1) + "     ");
             drawing.add("                             ");
