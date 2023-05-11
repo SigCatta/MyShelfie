@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 
-public class OthersShelfController {
+public class OtherShelvesController {
     @FXML
     GridPane matrix;
 
@@ -41,7 +41,7 @@ public class OthersShelfController {
     }
 
     @FXML
-    public void onBackBoardButtonClicked() {
+    public void onBackToBoardButtonClicked() {
         StageController.changeScene("shelf.fxml", "My shelf");
     }
 }

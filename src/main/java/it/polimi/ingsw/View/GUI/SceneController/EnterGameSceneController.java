@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
-import it.polimi.ingsw.Controller.Client.NewGameMTS;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -12,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class GameInfoSceneController {
+public class EnterGameSceneController {
     @FXML
     ImageView wrongGameIdImage;
     @FXML
@@ -48,9 +47,9 @@ public class GameInfoSceneController {
             //change scene based on the stage of the game
             GameState gameState = GameRepresentation.getInstance().getGameMessage().getGameState();
             if(gameState.equals(GameState.PREGAME)) {
-                StageController.changeScene("waiting_room.fxml", "Waiting room");
+                StageController.changeScene("fxml/waiting_room_new.fxml", "Waiting room");
             } else{
-                StageController.changeScene("board.fxml", "Board");
+                StageController.changeScene("fxml/board.fxml", "Board");
             }
 
         } else wrongGameIdImage.setVisible(true);

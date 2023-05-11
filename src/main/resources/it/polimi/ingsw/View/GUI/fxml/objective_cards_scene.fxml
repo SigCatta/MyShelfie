@@ -89,7 +89,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="68.0" layoutY="624.0" prefHeight="147.0" prefWidth="191.0">
                      <children>
-                        <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0" onMouseClicked="#onGoBackClicked" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../17_MyShelfie_BGA/misc/back_arrow.png" />
                            </image>

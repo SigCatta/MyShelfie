@@ -43,7 +43,7 @@
                                     <Font name="Gill Sans MT" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="currentNumText1" fill="WHITE" layoutX="74.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                              <Text fx:id="maxNumTextmaxNumText" fill="WHITE" layoutX="74.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                  <font>
                                     <Font name="Gill Sans MT" size="20.0" />
                                  </font>
@@ -52,6 +52,11 @@
                         </AnchorPane>
                         <Label layoutX="111.0" layoutY="264.0" styleClass="label3" stylesheets="@../css/background.css" text="Waiting for other players to join:" />
                         <Label layoutX="242.0" layoutY="178.0" styleClass="label3" stylesheets="@../css/background.css" text="Players connected: " />
+                        <Text fx:id="playersNamesText" fill="WHITE" layoutX="567.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Gill Sans MT" size="20.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </children>

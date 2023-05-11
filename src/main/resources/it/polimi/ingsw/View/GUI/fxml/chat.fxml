@@ -115,7 +115,7 @@
             <Font name="Arial Black" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="showBoardButton" layoutX="440.0" layoutY="517.0" mnemonicParsing="false" onAction="#onShowBoardClicked" prefHeight="40.0" prefWidth="206.0" text="SHOW BOARD">
+      <Button fx:id="showBoardButton" layoutX="440.0" layoutY="517.0" mnemonicParsing="false" onAction="#onBackToBoardClicked" prefHeight="40.0" prefWidth="206.0" text="SHOW BOARD">
          <font>
             <Font name="Arial Black" size="18.0" />
          </font>

@@ -11,6 +11,5 @@ open module proj.ingsw.The.Compiler.Coalition {
     //opens it.polimi.ingsw.View.GUI to javafx.fxml;
     exports it.polimi.ingsw.View.GUI;
     exports it.polimi.ingsw.View.GUI.SceneController;
-    exports it.polimi.ingsw.View.GUI.GuiObservers;
     //opens it.polimi.ingsw.View.GUI.SceneController to javafx.fxml;
 }

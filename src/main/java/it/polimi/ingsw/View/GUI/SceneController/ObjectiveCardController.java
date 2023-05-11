@@ -55,4 +55,9 @@ public class ObjectiveCardController {
     public void setMyPointsText(int points) {
         this.myPointsText.setText(String.valueOf(points));
     }
+
+    @FXML
+    public void onGoBackClicked() {
+        StageController.changeScene("fxml/board.fxml", "Chat");
+    }
 }

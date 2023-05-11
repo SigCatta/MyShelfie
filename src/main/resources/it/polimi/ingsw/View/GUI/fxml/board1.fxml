@@ -158,7 +158,7 @@
                               <Blend/>
                            </effect>
                         </ImageView>
-                        <Button layoutX="871.0" layoutY="505.0" mnemonicParsing="false" onAction="#onShowMyShelfClicked"
+                        <Button layoutX="871.0" layoutY="505.0" mnemonicParsing="false" onAction="#onObjectivesClicked"
                                 prefHeight="40.0" prefWidth="206.0" text="SHOW MY SHELF">
                            <font>
                               <Font name="Arial Black" size="18.0"/>
@@ -171,13 +171,13 @@
                            </image>
                         </ImageView>
                         <Button layoutX="1132.0" layoutY="505.0" mnemonicParsing="false"
-                                onAction="#onShowOtherShelvesClicked" prefHeight="40.0" prefWidth="206.0"
+                                onAction="#onShelvesClicked" prefHeight="40.0" prefWidth="206.0"
                                 text="OTHER SHELVES">
                            <font>
                               <Font name="Arial Black" size="18.0"/>
                            </font>
                         </Button>
-                        <Button layoutX="871.0" layoutY="585.0" mnemonicParsing="false" onAction="#onGoToChatClicked"
+                        <Button layoutX="871.0" layoutY="585.0" mnemonicParsing="false" onAction="#onChatClicked"
                                 prefHeight="40.0" prefWidth="202.0" text="GO TO CHAT">
                            <font>
                               <Font name="Arial Black" size="18.0"/>

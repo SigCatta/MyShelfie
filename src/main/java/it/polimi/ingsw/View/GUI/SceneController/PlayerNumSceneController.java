@@ -29,12 +29,12 @@ public class PlayerNumSceneController {
     protected void onContinueButtonClick() {
         //the new game has been created
         SocketClient.getInstance().sendCommand(new NewGameMTS(getPlayerNum()));
-        StageController.changeScene("waiting_room.fxml","Wait for others to join");
+        StageController.changeScene("fxml/waiting_room_new.fxml","Wait for others to join");
     }
 
     @FXML
     protected void onBackToMenuButtonClick() {
-        StageController.changeScene("login_scene.fxml","Login");
+        StageController.changeScene("fxml/login_scene.fxml","Login");
     }
 
     public int getPlayerNum() {

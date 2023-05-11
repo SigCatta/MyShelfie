@@ -1,15 +1,16 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.NodeData;
-import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +32,8 @@ public class BoardController {
      */
     static public HashMap<Color, HashMap<String, Integer>> tilesMap;
 
+    int currentColumn;
+    int currentRow;
     static List<NodeData> tilesSelected = new ArrayList<>();
     static NodeData currentTileSelected = null;
 
@@ -44,16 +47,10 @@ public class BoardController {
     Button pickUpDoneButton;
 
     @FXML
-    Button continueButton;
-
-    @FXML
     Button selectTileButton;
 
     @FXML
     ImageView itemTile1;
-
-    @FXML
-    ImageView wrongTilesSelected;
 
     @FXML
     ImageView itemTile2;
@@ -61,47 +58,106 @@ public class BoardController {
     @FXML
     ImageView itemTile3;
 
+    @FXML
+    ImageView errorImage;
+
+    @FXML
+    Text errorText;
+
+    @FXML
+    ImageView insertDoneImage;
+
+    @FXML
+    ImageView col0InsertButton;
+
+    @FXML
+    ImageView col1InsertButton;
+
+    @FXML
+    ImageView col2InsertButton;
+
+    @FXML
+    ImageView col3InsertButton;
+
+    @FXML
+    ImageView col4InsertButton;
+
+    @FXML
+    Text myNicknameText;
+
+    @FXML
+    Text player2Nickname;
+
+    @FXML
+    Text player3Nickname;
+
+    @FXML
+    Text player4Nickname;
+
+    static GameState gameState;
+
+    static String myNickname;
+
+    /**
+     * method called everyTime the state of the game changes
+     * @param gameState the current state of the game
+     */
+    public static void setGameState(GameState gameState) {
+        gameState = gameState;
+    }
+
+    /**
+     * method called everyTime activePlayer changes
+     * @param nickname = nickname; the nickname of the active player
+     */
+    public static void setMyNickname(String nickname) {
+        myNickname = nickname;
+    }
+
+    @FXML
+    public void setNicknames() {
+        //TODO set player nicknames text
+    }
+
+    public String getMyNickname() {
+        return myNickname;
+    }
+
     public void setItemTile1Visible(String path) {
         Image image = new Image(path);
         itemTile1.setImage(image);
         itemTile1.setVisible(true);
-        setPickUpDoneButtonVisible();
     }
     public void setItemTile2Visible(String path) {
         Image image = new Image(path);
         itemTile2.setImage(image);
         itemTile2.setVisible(true);
-        setPickUpDoneButtonVisible();
     }
     public void setItemTile3Visible(String path) {
         Image image = new Image(path);
         itemTile3.setImage(image);
         itemTile3.setVisible(true);
-        setPickUpDoneButtonVisible();
-    }
-
-    public void setPickUpDoneButtonVisible() {
-        pickUpDoneButton.setVisible(true);
     }
 
     @FXML
-    public void onShowMyShelfClicked() {
-        StageController.changeScene("shelf.fxml", "My shelf");
+    public void onObjectivesClicked() {
+        StageController.changeScene("fxml/objectives_card_scene.fxml", "Objective cards scene");
     }
 
     @FXML
-    public void onShowOtherShelvesClicked() {
-        StageController.changeScene("other_shelves.fxml", "Other shelves");
+    public void onShelvesClicked() {
+        StageController.changeScene("fxml/other_player_shelves.fxml", "Other players shelves");
     }
 
     @FXML
-    public void onGoToChatClicked() {
-        StageController.changeScene("chat_scrollable.fxml", "Chat");
-        //StageController.changeScene("chat.fxml", "Chat");
+    public void onChatClicked() {
+        StageController.changeScene("fxml/chat_scene.fxml", "Chat");
     }
 
     @FXML
     public void onPickUpDoneClicked() {
+        if (!gameState.equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+
         ArrayList<Point> tilesPosition = new ArrayList<>();
         for(NodeData node: tilesSelected) {
             tilesPosition.add(node.getPosition());
@@ -112,25 +168,53 @@ public class BoardController {
     public void canTilesBePickedUp(boolean correctTiles) {
         //check if tiles can be picked up
         if(correctTiles) {
-            //tiles can be picked up
-            continueButton.setVisible(true);
-        } else {
-            continueButton.setVisible(false);
+            setColInserterButtonVisible(true);
+            hideErrorMessage();
+        }
+        else {
+            setColInserterButtonVisible(false);
+            showErrorMessage("Tiles can't be picked up!");
             for(NodeData node: tilesSelected) {
                 node.getImageView().setVisible(true);
             }
+            tilesSelected.clear();
+            itemTile1.setVisible(false);
+            itemTile2.setVisible(false);
+            itemTile3.setVisible(false);
         }
-        tilesSelected.clear();
-        itemTile1.setVisible(false);
-        itemTile2.setVisible(false);
-        itemTile3.setVisible(false);
     }
 
     @FXML
-    public void onContinueButtonClicked() {
-        //go to player shelf
-        TilesSelectedCointainer.setTilesSelected(tilesSelected);
-        onShowMyShelfClicked();
+    public void onCol0InserterSelected() {onInsertTileClicked(0);}
+
+    @FXML
+    public void onCol1InserterSelected() {onInsertTileClicked(1);}
+
+    @FXML
+    public void onCol2InserterSelected() {onInsertTileClicked(2);}
+
+    @FXML
+    public void onCol3InserterSelected() {onInsertTileClicked(3);}
+
+    @FXML
+    public void onCol4InserterSelected() {onInsertTileClicked(4);}
+
+    private void setColInserterButtonVisible(boolean correct) {
+        col0InsertButton.setVisible(correct);
+        col1InsertButton.setVisible(correct);
+        col2InsertButton.setVisible(correct);
+        col3InsertButton.setVisible(correct);
+        col4InsertButton.setVisible(correct);
+    }
+
+    private void showErrorMessage(String message) {
+        errorText.setText(message);
+        errorImage.setVisible(true);
+    }
+
+    private void hideErrorMessage() {
+        errorImage.setVisible(false);
+        errorText.setVisible(false);
     }
 
     /**
@@ -153,6 +237,7 @@ public class BoardController {
             ImageView nodeSelected = (ImageView) event.getTarget();
             int row = GridPane.getRowIndex(nodeSelected);
             int column = GridPane.getColumnIndex(nodeSelected);
+            currentTileSelected.setImageView(nodeSelected);
             onTileSelected(nodeSelected, row, column);
         };
     }
@@ -196,8 +281,8 @@ public class BoardController {
         tilesSelected.add(currentTileSelected);
         currentTileSelected = null;
 
-        setPickUpDoneButtonVisible();
         if(tilesSelected.size() >= 3) selectTileButton.setVisible(false);
+        insertDoneImage.setVisible(false);
     }
 
     /**
@@ -230,6 +315,66 @@ public class BoardController {
         ImageView imageView = new ImageView(image);
         imageView.setVisible(true);
         board.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+    }
+
+    @FXML
+    public void onInsertTileClicked(int column) {
+        if (!gameState.equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+
+        currentColumn = column;
+        int index = tilesSelected.indexOf(currentTileSelected);
+        int correctededIndex; //index to use in the InsertTileMTS
+
+        if(index == 0) {
+            correctededIndex = 0;
+            itemTile1.setVisible(false);
+        } else if(index == 1) {
+            if(itemTile1.isVisible()) {
+                correctededIndex = 1;
+            } else {
+                correctededIndex =0;
+            }
+            itemTile2.setVisible(false);
+        } else {
+            if(itemTile1.isVisible() && itemTile2.isVisible()) {
+                correctededIndex = 2;
+            } else if((!itemTile1.isVisible() && itemTile2.isVisible()) || (itemTile1.isVisible() && !itemTile2.isVisible())){
+                correctededIndex =1;
+            } else {
+                correctededIndex = 0;
+            }
+            itemTile3.setVisible(false);
+        }
+        SocketClient.getInstance().sendCommand(new InsertTileMTS(correctededIndex, currentColumn));
+    }
+
+    public void tileCanBeInserted(boolean correct, int row) {
+        if(correct) {
+            hideErrorMessage();
+            currentRow = row;
+            int index = tilesSelected.indexOf(currentTileSelected);
+
+            if(index == 0) {
+                itemTile1.setVisible(false);
+            } else if(index == 1) {
+                itemTile2.setVisible(false);
+            } else {
+                itemTile3.setVisible(false);
+            }
+            insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
+        } else {
+            showErrorMessage("Wrong column selected!");
+        }
+    }
+
+    public void insertTile(String path, Point position) {
+        Image image = new Image(path);
+        myShelf.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+
+        if(!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible()) {
+            insertDoneImage.setVisible(true);
+        }
+
     }
 }
 

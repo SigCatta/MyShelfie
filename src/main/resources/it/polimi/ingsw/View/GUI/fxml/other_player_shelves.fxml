@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="shelfClose" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.OthersShelfController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="shelfClose" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.OtherShelvesController">
     <children>
         <Group>
             <children>
@@ -25,7 +25,7 @@
                                         <Image url="@../17_MyShelfie_BGA/boards/bookshelf_orth.png" />
                                     </image>
                                 </ImageView>
-                                <GridPane fx:id="myShelf" focusTraversable="true" hgap="30.0" layoutX="126.0" layoutY="116.0" prefHeight="522.0" prefWidth="510.0" stylesheets="@../css/background.css" vgap="15.0" visible="false" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="116.0">
+                                <GridPane fx:id="myShelf" focusTraversable="true" hgap="30.0" layoutX="128.0" layoutY="116.0" prefHeight="522.0" prefWidth="514.0" stylesheets="@../css/background.css" vgap="15.0" visible="false" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="116.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.4000244140625" minWidth="10.0" prefWidth="80.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.20001220703125" minWidth="0.0" prefWidth="72.0" />
@@ -54,17 +54,17 @@
                                         <Glow />
                                     </effect>
                                 </ImageView>
-                                <Text fill="WHITE" layoutX="138.0" layoutY="110.0" onMouseClicked="#onBackToMineButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to board" textAlignment="CENTER">
+                                <Text fill="WHITE" layoutX="138.0" layoutY="110.0" onMouseClicked="#onBackToBoardButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to board" textAlignment="CENTER">
                                     <font>
                                         <Font name="System Bold" size="26.0" />
                                     </font>
                                 </Text>
-                                <ImageView fitHeight="76.0" fitWidth="77.0" layoutX="336.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="76.0" fitWidth="77.0" layoutX="336.0" layoutY="62.0" onMouseClicked="#onNextButtonClicked" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../17_MyShelfie_BGA/misc/rigth_arrow.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="75.0" fitWidth="90.0" layoutX="28.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="75.0" fitWidth="90.0" layoutX="28.0" layoutY="63.0" onMouseClicked="#onPrevButtonClicked" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../17_MyShelfie_BGA/misc/left_arrow.png" />
                                     </image>

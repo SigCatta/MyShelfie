@@ -20,8 +20,7 @@ import java.util.List;
 public class ShelfController {
     List<NodeData> tilesSelected = new ArrayList<>();
     NodeData currentTileSelected = null;
-    int currentColumn;
-    int currentRow;
+
     @FXML
     GridPane myShelf;
 
@@ -130,56 +129,5 @@ public class ShelfController {
         wrongColumnImage.setVisible(false);
     }
 
-    @FXML
-    public void onInsertTileClicked() {
-        currentColumn = Integer.parseInt(columnChosen.getText());
-        int index = tilesSelected.indexOf(currentTileSelected);
-        int correctededIndex; //index to use in the InsertTileMTS
 
-        if(index == 0) {
-            correctededIndex = 0;
-            itemTile1.setVisible(false);
-        } else if(index == 1) {
-            if(itemTile1.isVisible()) {
-                correctededIndex = 1;
-            } else {
-                correctededIndex =0;
-            }
-            itemTile2.setVisible(false);
-        } else {
-            if(itemTile1.isVisible() && itemTile2.isVisible()) {
-                correctededIndex = 2;
-            } else if((!itemTile1.isVisible() && itemTile2.isVisible()) || (itemTile1.isVisible() && !itemTile2.isVisible())){
-                correctededIndex =1;
-            } else {
-                correctededIndex = 0;
-            }
-            itemTile3.setVisible(false);
-        }
-        SocketClient.getInstance().sendCommand(new InsertTileMTS(correctededIndex, currentColumn));
-    }
-
-    public void tileCanBeInserted(boolean correct, int row) {
-        if(correct) {
-            currentRow = row;
-            int index = tilesSelected.indexOf(currentTileSelected);
-
-            if(index == 0) {
-                itemTile1.setVisible(false);
-            } else if(index == 1) {
-                itemTile2.setVisible(false);
-            } else {
-                itemTile3.setVisible(false);
-            }
-            insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
-        } else {
-            wrongColumnImage.setVisible(true);
-        }
-    }
-
-    public void insertTile(String path, Point position) {
-        Image image = new Image(path);
-        myShelf.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
-        setInsertDoneButtonVisible();
-    }
 }

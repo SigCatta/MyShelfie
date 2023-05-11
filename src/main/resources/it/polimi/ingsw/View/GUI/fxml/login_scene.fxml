@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-           prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="it.polimi.ingsw.View.GUI.SceneController.LoginSceneController">
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.LoginSceneController">
    <children>
       <Group>
          <children>
             <AnchorPane layoutX="-15.0" layoutY="6.0" prefHeight="801.0" prefWidth="1201.0" styleClass="blackBoard">
                <children>
-                  <Group fx:id="goBackLoginBtn" onMouseClicked="#onGoBackButtonClick" layoutX="78.0" layoutY="427.0">
-                     <ImageView fitHeight="323.0" fitWidth="302.0" onMouseClicked="#onGoBackButtonClick"
-                                preserveRatio="true">
-                        <Image url="@../17_MyShelfie_BGA/misc/scared_book.png"/>
+                  <Group fx:id="goBackLoginBtn" layoutX="78.0" layoutY="427.0" onMouseClicked="#onGoBackButtonClick">
+                     <ImageView fitHeight="323.0" fitWidth="302.0" onMouseClicked="#onGoBackButtonClick" preserveRatio="true">
+                        <Image url="@../17_MyShelfie_BGA/misc/scared_book.png" />
                      </ImageView>
-                     <Label layoutX="115.0" layoutY="206.0" onMouseClicked="#onGoBackButtonClick" prefHeight="38.0"
-                            prefWidth="92.0" rotate="-6.3" text="GO BACK" textAlignment="CENTER">
+                     <Label layoutX="115.0" layoutY="206.0" onMouseClicked="#onGoBackButtonClick" prefHeight="38.0" prefWidth="92.0" rotate="-6.3" text="GO BACK" textAlignment="CENTER">
                         <font>
-                           <Font name="System Bold" size="18.0"/>
+                           <Font name="System Bold" size="18.0" />
                         </font>
                      </Label>
                   </Group>
-                  <TextField fx:id="ipField" layoutX="368.0" layoutY="304.0"
-                             prefHeight="38.0" prefWidth="465.0"/>
-                  <TextField fx:id="nicknameField"
-                             onKeyTyped="#setContinueButtonVisible" layoutX="368.0" layoutY="186.0" prefHeight="38.0"
-                             prefWidth="465.0"/>
-                  <Label styleClass="label1" layoutX="368.0" layoutY="267.0" prefHeight="17.0" prefWidth="465.0"
-                         text="INSERT THE SERVER IP"/>
-                  <Label styleClass="label1" layoutX="368.0" layoutY="144.0" prefHeight="17.0" prefWidth="465.0"
-                         text="CHOOSE YOUR NICKNAME"/>
-                  <Group fx:id="continueLoginBtn" layoutX="833.0" layoutY="427.0"
-                         onMouseClicked="#onContinueButtonClick" visible="false">
+                  <TextField fx:id="ipField" layoutX="368.0" layoutY="304.0" prefHeight="38.0" prefWidth="465.0" />
+                  <TextField fx:id="nicknameField" layoutX="368.0" layoutY="186.0" onKeyTyped="#setContinueButtonVisible" prefHeight="38.0" prefWidth="465.0" />
+                  <Label layoutX="368.0" layoutY="267.0" prefHeight="17.0" prefWidth="465.0" styleClass="label1" text="INSERT THE SERVER IP" />
+                  <Label layoutX="368.0" layoutY="144.0" prefHeight="17.0" prefWidth="465.0" styleClass="label1" text="CHOOSE YOUR NICKNAME" />
+                  <Group fx:id="continueLoginBtn" layoutX="833.0" layoutY="427.0" onMouseClicked="#onContinueButtonClick" visible="false">
                      <ImageView fitHeight="354.0" fitWidth="317.0" preserveRatio="true">
-                        <Image url="@../17_MyShelfie_BGA/misc/happy_book.png"/>
+                        <Image url="@../17_MyShelfie_BGA/misc/happy_book.png" />
                      </ImageView>
-                     <Label layoutX="114.0" layoutY="210.0" prefHeight="38.0" prefWidth="106.0" rotate="-6.3"
-                            text="CONTINUE" textAlignment="CENTER">
+                     <Label layoutX="114.0" layoutY="210.0" prefHeight="38.0" prefWidth="106.0" rotate="-6.3" text="CONTINUE" textAlignment="CENTER">
                         <font>
-                           <Font name="System Bold" size="18.0"/>
+                           <Font name="System Bold" size="18.0" />
                         </font>
                      </Label>
                   </Group>
-                  <ImageView fx:id="wrongNicknameImage" fitHeight="48.0" fitWidth="56.0" layoutX="848.0" layoutY="181.0"
-                             pickOnBounds="true" preserveRatio="true" visible="false">
-                     <Image url="@../17_MyShelfie_BGA/misc/warning.png"/>
+                  <ImageView fx:id="wrongNicknameImage" fitHeight="34.0" fitWidth="81.0" layoutX="855.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../17_MyShelfie_BGA/misc/warning.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="wrongIpImage" fitHeight="34.0" fitWidth="81.0" layoutX="855.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../17_MyShelfie_BGA/misc/warning.png" />
+                     </image>
                   </ImageView>
                </children>
             </AnchorPane>

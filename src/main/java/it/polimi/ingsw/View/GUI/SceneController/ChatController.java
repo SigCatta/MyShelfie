@@ -1,9 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Controller.Client.ChatMTS;
-import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,11 +14,7 @@ import java.util.List;
 
 public class ChatController {
     @FXML
-    TextArea newMessageField;
-    @FXML
-    Button showBoardButton;
-    @FXML
-    Button showShelfButton;
+    TextField newMessageField;
     @FXML
     TextField myText1;
     @FXML
@@ -97,22 +90,9 @@ public class ChatController {
         otherMessagesCounter=0;
     }
 
-    public void setButtonVisible() {
-        if(true ) { //TODO: call call that check at which stage of game we are
-            showBoardButton.setVisible(true);
-        } else {
-            showShelfButton.setVisible(true);
-        }
-    }
-
     @FXML
-    public void onShowMyShelfClicked() {
-        StageController.changeScene("shelf.fxml", "My shelf");
-    }
-
-    @FXML
-    public void onShowBoardClicked() {
-        StageController.changeScene("board1.fxml", "Board");
+    public void onBackToBoardClicked() {
+        StageController.changeScene("fxml/board.fxml", "Board");
     }
 
     @FXML

@@ -27,7 +27,7 @@ public class LoginSceneController {
     @FXML
     protected void onGoBackButtonClick() {
         //back to the lobby
-        StageController.changeScene("lobby.fxml","Lobby");
+        StageController.changeScene("fxml/lobby.fxml","Lobby");
     }
 
     @FXML
@@ -46,7 +46,7 @@ public class LoginSceneController {
         if(correct) {
             //nickname is correct so change scene
             wrongNicknameImage.setVisible(false);
-            StageController.changeScene("game_info_scene.fxml","Set number of players");
+            StageController.changeScene("fxml/enter_game_scene.fxml","Set number of players");
         } else wrongNicknameImage.setVisible(true);
     }
 
