@@ -13,5 +13,6 @@ public enum EchoID {
     CHANGE,
     WRONG_CHOSEN_TABLE_INDEX,
     WRONGSTATE,
+    NOTACTIVE,
     BADPICKUP
 }

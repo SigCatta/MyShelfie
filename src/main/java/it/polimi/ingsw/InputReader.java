@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 /**
  * This class is used to read the input stream and making the input kind of interruptible.
  */
 public class InputReader implements Callable<String> {
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final BufferedReader br;
 
     public InputReader() {
@@ -117,8 +116,7 @@ public class InputReader implements Callable<String> {
      */
     public static String readLine() throws ExecutionException {
         FutureTask<String> futureTask = new FutureTask<>(new InputReader());
-        Thread inputThread = new Thread(futureTask);
-        inputThread.start();
+        executorService.submit(futureTask);
 
         String input = null;
 
@@ -126,7 +124,7 @@ public class InputReader implements Callable<String> {
             input = futureTask.get();
         } catch (InterruptedException e) {
             futureTask.cancel(true);
-            Thread.currentThread().interrupt();
+            executorService.shutdownNow();
         }
         return input;
     }

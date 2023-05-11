@@ -176,6 +176,7 @@ public class Game implements VirtualViewSubject {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        notifyObservers();
     }
 
     public Player getPlayer(String nickname) {

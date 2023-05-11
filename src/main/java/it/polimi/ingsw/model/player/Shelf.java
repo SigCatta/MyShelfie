@@ -99,7 +99,7 @@ public class Shelf implements VirtualViewSubject {
      * @return True if the column is full, false otherwise.
      */
     public boolean isColumnFull(int column) {
-        return shelfGrid[ROWS - 1][column] != null;
+        return shelfGrid[0][column] != null;
     }
 
     /**
@@ -133,7 +133,7 @@ public class Shelf implements VirtualViewSubject {
             return false;
         }
 
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = ROWS - 1; i >= 0; i--) {
             Point location = new Point(i, column);
             if (getTileAtLocation(location) == null) {
                 setTileAtLocation(location, tile);

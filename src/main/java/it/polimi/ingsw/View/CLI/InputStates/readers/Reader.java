@@ -18,6 +18,7 @@ public abstract class Reader {
             input = readLine().trim();
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -33,6 +34,7 @@ public abstract class Reader {
      */
     void chooseCommand() {
         getInput();
+        if (input == null) return;
 
         isReading = true;
         input = input.toLowerCase();

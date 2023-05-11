@@ -38,7 +38,7 @@ public class InsertTilesExecutor implements Executor {
             return;
         }
 
-        if (activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= chosenTilesTable.size()) {
+        if (activePlayer.getShelf().getNumOfBoxLeftInCol(column) <= chosenTilesTable.size()) {
             handler.sendCommand(new EchoMTC(EchoID.BADCOLUMN, true));
             return;
         }

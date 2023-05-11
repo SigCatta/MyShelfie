@@ -31,6 +31,8 @@ public class ActivePlayerState extends InputState {
             runInputReaderUntilModelUpdate(reader); //TODO use echos
         }
 
+        readerThread.interrupt();
+
         player.setState(new WaitingPlayerState(player));
     }
 }

@@ -77,8 +77,8 @@ public abstract class InputState {
             Printer.printHomeScreen();
         } else {
             System.out.println(message.getOutput());
-            if (message.isError()){
-                for (int i = 0; i < 3; i++){
+            if (message.isError()) {
+                for (int i = 0; i < 3; i++) {
                     try {
                         Thread.sleep(700);
                         System.out.println(".");
