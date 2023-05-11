@@ -8,9 +8,9 @@ import it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors.*;
 public class CommandExecutorFactory {
     public static CommandExecutor getCommand(String command) {
         switch (command) {
-            case "pickup_tiles":
+            case "pickup":
                 return new PickupTilesCE();
-            case "insert_tiles":
+            case "insert":
                 return new InsertTilesCE();
             case "chat":
                 return new ChatCE();

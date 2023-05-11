@@ -44,7 +44,7 @@ public class ShelfView implements ViewElement {
         output.add("          ┌──0─┬──1─┬──2─┬──3─┬──4─┐                    .");
         int rowNumber = 0;
         for (Color[] row : shelf) {
-            StringBuilder string = new StringBuilder("        " + rowNumber + " │");
+            StringBuilder string = new StringBuilder("          │");
             for (Color color : row) {
                 string
                         .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))

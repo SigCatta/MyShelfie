@@ -118,8 +118,8 @@ public class Printer {
         commands.add("          ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤");
 
         if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
-            commands.add("          │ - pickup_tiles -> to pickup between 1, 2 or 3 tiles from the board                                       │");
-            commands.add("          │ - insert_tiles -> to insert the tiles you picked up in your personal shelf                               │");
+            commands.add("          │ - pickup -> to pickup between 1, 2 or 3 tiles from the board                                             │");
+            commands.add("          │ - insert -> to insert the tiles you picked up in your personal shelf                                     │");
         }
 
         commands.add("          │ - chat -> to use the game chat and comunicate with other players                                         │");

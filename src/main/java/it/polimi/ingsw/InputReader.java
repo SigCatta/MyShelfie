@@ -69,7 +69,7 @@ public class InputReader implements Callable<String> {
 
         do {
             System.out.print("Enter the server port [" + defaultPort + "]: ");
-            String port = null;
+            String port;
             try {
                 port = readLine();
             } catch (ExecutionException e) {
@@ -116,7 +116,7 @@ public class InputReader implements Callable<String> {
      */
     public static String readLine() throws ExecutionException {
         FutureTask<String> futureTask = new FutureTask<>(new InputReader());
-        executorService.submit(futureTask);
+            executorService.submit(futureTask);
 
         String input = null;
 

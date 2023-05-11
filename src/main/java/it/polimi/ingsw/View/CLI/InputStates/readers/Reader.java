@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates.readers;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.RejectedExecutionException;
 
 import static it.polimi.ingsw.InputReader.readLine;
 
@@ -19,6 +20,8 @@ public abstract class Reader {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (NullPointerException ignored) {
+        }catch (RejectedExecutionException e){
+            input = null;
         }
     }
 
