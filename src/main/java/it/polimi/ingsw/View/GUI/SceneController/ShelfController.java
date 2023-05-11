@@ -23,7 +23,7 @@ public class ShelfController {
     int currentColumn;
     int currentRow;
     @FXML
-    GridPane matrix;
+    GridPane myShelf;
 
     @FXML
     ImageView personalGoalCard;
@@ -179,7 +179,7 @@ public class ShelfController {
 
     public void insertTile(String path, Point position) {
         Image image = new Image(path);
-        matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+        myShelf.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
         setInsertDoneButtonVisible();
     }
 }

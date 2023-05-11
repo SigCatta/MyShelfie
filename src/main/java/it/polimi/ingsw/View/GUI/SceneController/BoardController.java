@@ -35,7 +35,10 @@ public class BoardController {
     static NodeData currentTileSelected = null;
 
     @FXML
-    GridPane matrix;
+    GridPane board;
+
+    @FXML
+    GridPane myShelf;
 
     @FXML
     ImageView commonGoalCard1;
@@ -196,7 +199,7 @@ public class BoardController {
      */
     @FXML
     public void setUpBoard() {
-        for(Node node: matrix.getChildren()) {
+        for(Node node: board.getChildren()) {
             node.setOnMouseClicked(nodeEventHandler());
         }
     }
@@ -286,7 +289,7 @@ public class BoardController {
         Image image = new Image(path);
         ImageView imageView = new ImageView(image);
         imageView.setVisible(true);
-        matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
+        board.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
     }
 }
 
