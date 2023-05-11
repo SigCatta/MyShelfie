@@ -38,6 +38,10 @@ public class StageController {
         Stage stage = getCurrentStage();
         stage.setTitle(title);
         stage.setScene(scene);
+
+        stage.setMaximized(true);
+        stage.setFullScreen(true);
+
         stage.show();
     }
 }

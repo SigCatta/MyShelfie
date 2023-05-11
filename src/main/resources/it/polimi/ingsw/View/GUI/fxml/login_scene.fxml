@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-           prefWidth="1200.0" styleClass="library_background" xmlns="http://javafx.com/javafx/19"
+           prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="it.polimi.ingsw.View.GUI.SceneController.LoginSceneController">
    <children>

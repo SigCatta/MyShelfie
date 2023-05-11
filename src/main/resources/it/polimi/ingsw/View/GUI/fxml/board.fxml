@@ -95,6 +95,19 @@
                               <ImageView fitHeight="53.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
+                        <AnchorPane layoutX="499.0" layoutY="14.0" prefHeight="157.0" prefWidth="237.0">
+                           <children>
+                              <ImageView fitHeight="165.0" fitWidth="208.0" layoutX="8.0" layoutY="-14.0" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../17_MyShelfie_BGA/misc/small_board.png" />
+                                 </image>
+                              </ImageView>
+                              <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
+                              <Text layoutX="14.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
+                              <Text layoutX="14.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
+                              <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="MyBookShelf" layoutX="819.0" layoutY="180.0" prefHeight="327.0" prefWidth="322.0">
@@ -147,19 +160,6 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="837.0" layoutY="16.0" prefHeight="157.0" prefWidth="237.0">
-                     <children>
-                        <ImageView fitHeight="165.0" fitWidth="208.0" layoutX="8.0" layoutY="-14.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/small_board.png" />
-                           </image>
-                        </ImageView>
-                        <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
-                        <Text layoutX="14.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
-                        <Text layoutX="14.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
-                        <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="161.0" />
-                     </children>
-                  </AnchorPane>
                   <AnchorPane fx:id="toOtherShelves" layoutX="956.0" layoutY="642.0" onMouseClicked="#onShowOtherShelvesClicked" prefHeight="136.0" prefWidth="119.0">
                      <ImageView fitHeight="127.0" fitWidth="133.0" layoutX="-14.0" layoutY="7.0" preserveRatio="true">
                         <Image url="@../17_MyShelfie_BGA/misc/singing_book.png" />
@@ -178,6 +178,35 @@
                   <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="1126.0" layoutY="548.0" onMouseClicked="#onPickUpDoneClicked">
                      <Image url="@../17_MyShelfie_BGA/misc/green_check.png" />
                   </ImageView>
+                  <AnchorPane layoutX="832.0" layoutY="125.0" prefHeight="47.0" prefWidth="295.0">
+                     <children>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="29.0" layoutY="20.0" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/triangular-arrowhead-.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="80.0" layoutY="20.0" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/triangular-arrowhead-.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="134.0" layoutY="20.0" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/triangular-arrowhead-.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="186.0" layoutY="20.0" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/triangular-arrowhead-.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="240.0" layoutY="20.0" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/triangular-arrowhead-.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
