@@ -51,16 +51,16 @@
                   <AnchorPane layoutX="187.0" layoutY="363.0" prefHeight="75.0" prefWidth="828.0"
                               stylesheets="@../css/background.css">
                      <children>
-                        <RadioButton fx:id="radioBtn1" layoutX="54.0" layoutY="24.0" mnemonicParsing="false"
+                        <RadioButton fx:id="twoPlayers" layoutX="54.0" layoutY="24.0" mnemonicParsing="false"
                                      selected="true" text="2 Players">
                            <font>
                               <Font size="18.0"/>
                            </font>
                            <toggleGroup>
-                              <ToggleGroup fx:id="toggleGroup"/>
+                              <ToggleGroup fx:id="playerNumToggle"/>
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="radioBtn2" layoutX="385.0" layoutY="24.0" mnemonicParsing="false"
+                        <RadioButton fx:id="threePlayers" layoutX="385.0" layoutY="24.0" mnemonicParsing="false"
                                      text="3 Players">
                            <toggleGroup>
                               <ToggleGroup fx:id="toggleGroup1"/>
@@ -69,7 +69,7 @@
                               <Font size="18.0"/>
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="radioBtn3" layoutX="717.0" layoutY="24.0" mnemonicParsing="false"
+                        <RadioButton fx:id="fourPlayers" layoutX="717.0" layoutY="24.0" mnemonicParsing="false"
                                      text="4 Players">
                            <toggleGroup>
                               <ToggleGroup fx:id="toggleGroup2"/>

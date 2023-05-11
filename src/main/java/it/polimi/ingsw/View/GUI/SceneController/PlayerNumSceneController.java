@@ -8,22 +8,22 @@ import javafx.scene.control.ToggleGroup;
 
 public class PlayerNumSceneController {
     @FXML
-    ToggleGroup toggleGroup;
+    ToggleGroup playerNumToggle;
     /**
      * radio button for 2 players selected
      */
     @FXML
-    RadioButton radioBtn1;
+    RadioButton twoPlayers;
     /**
      * radio button for 3 players selected
      */
     @FXML
-    RadioButton radioBtn2;
+    RadioButton threePlayers;
     /**
      * radio button for 4 players selected
      */
     @FXML
-    RadioButton radioBtn3;
+    RadioButton fourPlayers;
 
     @FXML
     protected void onContinueButtonClick() {
@@ -38,9 +38,9 @@ public class PlayerNumSceneController {
     }
 
     public int getPlayerNum() {
-        if(radioBtn1.isSelected()) {
+        if(twoPlayers.isSelected()) {
             return 2;
-        } else if(radioBtn2.isSelected()) {
+        } else if(threePlayers.isSelected()) {
             return 3;
         } else
             return 4;

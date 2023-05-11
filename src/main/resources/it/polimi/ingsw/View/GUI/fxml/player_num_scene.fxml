@@ -62,20 +62,20 @@
          </image>
       </ImageView>
 
-        <RadioButton fx:id="radioBtn1" layoutX="159.0" layoutY="147.0" mnemonicParsing="false" selected="true" text="2 Players">
+        <RadioButton fx:id="twoPlayers" layoutX="159.0" layoutY="147.0" mnemonicParsing="false" selected="true" text="2 Players">
             <font>
                 <Font size="18.0" />
             </font>
          <toggleGroup>
-            <ToggleGroup fx:id="toggleGroup" />
+            <ToggleGroup fx:id="playerNumToggle" />
          </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="radioBtn2" layoutX="366.0" layoutY="147.0" mnemonicParsing="false" text="3 Players" toggleGroup="$toggleGroup">
+        <RadioButton fx:id="threePlayers" layoutX="366.0" layoutY="147.0" mnemonicParsing="false" text="3 Players" toggleGroup="$playerNumToggle">
             <font>
                 <Font size="18.0" />
             </font>
         </RadioButton>
-      <RadioButton fx:id="radioBtn3" layoutX="584.0" layoutY="147.0" mnemonicParsing="false" text="4 Players" toggleGroup="$toggleGroup">
+      <RadioButton fx:id="fourPlayers" layoutX="584.0" layoutY="147.0" mnemonicParsing="false" text="4 Players" toggleGroup="$playerNumToggle">
          <font>
             <Font size="18.0" />
          </font>
