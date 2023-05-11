@@ -75,6 +75,19 @@ public abstract class InputState {
         if (message.getID() == EchoID.CHANGE) {
             Printer.clearConsole();
             Printer.printHomeScreen();
-        } else System.out.println(message.getOutput());
+        } else {
+            System.out.println(message.getOutput());
+            if (message.isError()){
+                for (int i = 0; i < 3; i++){
+                    try {
+                        Thread.sleep(700);
+                        System.out.println(".");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                Printer.printHomeScreen();
+            }
+        }
     }
 }

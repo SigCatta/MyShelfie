@@ -43,7 +43,7 @@ public class Printer {
      * depending on wether the user requested a colored CLI or not)
      */
     public static HashMap<Color, String> getColorMap() {
-        if (colorMap == null) enableCLIColors(false);
+        if (colorMap == null) enableCLIColors(true);
         return colorMap;
     }
 
@@ -72,7 +72,6 @@ public class Printer {
 
     /**
      * Adds a list of the available output to the given ArrayList,
-     * the position is relative to that of the chat box
      *
      * @param output the ArrayList where to add the command box
      */
@@ -88,7 +87,7 @@ public class Printer {
                 break;
             }
         }
-        if (i == output.size()) i = 0;
+        if (i == output.size()) i = 0; // the chat is not being shown yet ~ no messages sent
 
         ArrayList<String> commands = getAvailableCommands();
 

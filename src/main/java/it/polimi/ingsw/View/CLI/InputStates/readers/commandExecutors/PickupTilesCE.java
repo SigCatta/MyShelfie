@@ -1,6 +1,8 @@
 package it.polimi.ingsw.View.CLI.InputStates.readers.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.awt.*;
@@ -16,19 +18,32 @@ public class PickupTilesCE implements CommandExecutor {
      */
     @Override
     public void execute() {
+        if (!GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
+            System.out.println("ERROR: You are not the active player!");
+            return;
+        }
+
         int pickedUpTiles = 0;
         ArrayList<Point> tiles = new ArrayList<>();
 
         while (true) {
             int column = getColumn();
-            if (column == -1) return;
+            if (column == -1 && tiles.size() == 0) {
+                Printer.clearConsole();
+                Printer.printHomeScreen();
+                return;
+            }
 
-            int row = getRow();
-            if (row == -1) continue;
+            if (column != -1) {
+                int row = getRow();
+                if (row == -1) continue;
 
-            tiles.add(new Point(row, column));
+                tiles.add(new Point(row, column));
+                pickedUpTiles++;
+            }
 
-            if (++pickedUpTiles < 3) {
+
+            if (pickedUpTiles < 3) {
                 System.out.println("Do you want to pickup more tiles? (y/n)");
                 if (getInput().equalsIgnoreCase("n")) break;
             } else break;
