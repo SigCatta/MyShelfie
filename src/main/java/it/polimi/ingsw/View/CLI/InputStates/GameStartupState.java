@@ -1,11 +1,12 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class GameStartupState extends InputState {
@@ -42,9 +43,14 @@ public class GameStartupState extends InputState {
         Printer.clearConsole();
         Printer.printHomeScreen();
 
+        Reader reader = new Reader();
+
+        new Thread(reader).start();
+
         //now that the game startup menu is printed, the game can start. Each player gets their state assigned
         if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
-            player.setState(new ActivePlayerState(player));
-        } else player.setState(new WaitingPlayerState(player));
+            player.setState(new ActivePlayerState(player, reader));
+        } else player.setState(new WaitingPlayerState(player, reader));
     }
+
 }

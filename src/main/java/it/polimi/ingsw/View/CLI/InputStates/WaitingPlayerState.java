@@ -1,13 +1,16 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.CLI.InputStates.readers.WaitingReader;
+import it.polimi.ingsw.View.CLI.InputStates.readers.Reader;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class WaitingPlayerState extends InputState {
-    WaitingPlayerState(InputStatePlayer player) {
+    private final Reader reader;
+
+    WaitingPlayerState(InputStatePlayer player, Reader reader) {
         super(player);
+        this.reader = reader;
     }
 
     /**
@@ -19,20 +22,13 @@ public class WaitingPlayerState extends InputState {
     @Override
     public void play() {
         System.out.println("You are not the active player...");
-        WaitingReader reader = new WaitingReader();
-
-        Thread readerThread = new Thread(reader);
 
         String nickname = SocketClient.getInstance().getNickname();
-
-        readerThread.start(); //reads input commands and sends messages to the server
 
         while (!GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) { // waits for the model to change and updates the view
             runInputReaderUntilModelUpdate(reader);
         }
 
-        readerThread.interrupt();
-
-        player.setState(new ActivePlayerState(player));
+        player.setState(new ActivePlayerState(player, reader));
     }
 }
