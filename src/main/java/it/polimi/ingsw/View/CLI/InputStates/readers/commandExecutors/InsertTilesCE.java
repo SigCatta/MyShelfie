@@ -13,6 +13,11 @@ import java.util.concurrent.ExecutionException;
 import static it.polimi.ingsw.InputReader.readLine;
 
 public class InsertTilesCE implements CommandExecutor {
+
+    /**
+     * Asks the user for a tile to insert in the shelf and where to insert it,
+     * then sends a message to the server to insert the choosen tiles
+     */
     @Override
     public void execute() {
         if (!GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
@@ -34,7 +39,12 @@ public class InsertTilesCE implements CommandExecutor {
         SocketClient.getInstance().sendCommand(new InsertTileMTS(tile - 1, column));
     }
 
-
+    /**
+     * Asks the user to choose which tile to insert in his shelf
+     * from the ones he has picke up eralier
+     *
+     * @return the index of the coosen tile in the tiles table
+     */
     private int getTileIndex() {
         int tile;
         while (true) {
@@ -50,6 +60,11 @@ public class InsertTilesCE implements CommandExecutor {
         }
     }
 
+    /**
+     * Asks the user to pick a column where to insert the tiles
+     *
+     * @return the column where to insert the tiles
+     */
     private int getColumn() {
         int column;
         while (true) {

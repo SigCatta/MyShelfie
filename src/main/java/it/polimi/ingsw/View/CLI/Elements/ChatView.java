@@ -9,6 +9,12 @@ public class ChatView implements ViewElement {
     private final int chatWidth = 118;
     private final int chatHeigth = 15; // has to be at least 5
 
+    /**
+     * Adds the chat box to a given ArrayList
+     *
+     * @param output the ArrayList where to add the chat box
+     * @return the given ArrayList with the chat bo added
+     */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
         ArrayList<String> chat = getChatPrint();
@@ -23,6 +29,10 @@ public class ChatView implements ViewElement {
         else return chat;
     }
 
+    /**
+     * @return an ArrayList containing the chat box, returns an enpty ArrayList
+     * if there are no messages to show
+     */
     private ArrayList<String> getChatPrint() {
         ArrayList<String> drawing = new ArrayList<>();
         ArrayList<ChatMTC> messages = ChatRepresentation.getInstance().getMessages();
@@ -51,6 +61,12 @@ public class ChatView implements ViewElement {
         return drawing;
     }
 
+    /**
+     * Adds padding to fill a line
+     *
+     * @param message the message that needs padding
+     * @return a string containing the necessary padding
+     */
     private String padding(ChatMTC message) {
         int paddingLength = chatWidth
                 - "          │ ".length()

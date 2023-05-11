@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TilesTableView implements ViewElement {
+    /**
+     * Prints a box containing the tiles picked up from the player
+     *
+     * @param output where to add the box
+     * @return the give ArrayList with the box added
+     */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
         HashMap<Color, String> colorMap = Printer.getColorMap();
