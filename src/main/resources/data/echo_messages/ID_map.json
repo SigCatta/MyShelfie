@@ -8,8 +8,9 @@
   "GAMESTARTED": "This game has already started",
   "CHANGE": "Something changed...",
   "WRONG_CHOSEN_TABLE_INDEX": "ERROR: The index chosen is not valid",
-  "BADCOLUMN": "ERROR: the column chosen does not have enough spaces to contain all the tiles",
+  "BADCOLUMN": "ERROR: The column chosen does not have enough spaces to contain all the tiles",
   "WRONGSTATE": "ERROR: This action can not be perform in the current state of the game",
   "NOTACTIVE": "ERROR: You are not the active player",
-  "BADPICKUP": "ERROR: Invalid pickup!s"
+  "BADPICKUP": "ERROR: Invalid pickup!",
+  "COLUMNDIFF": "ERROR: During a turn, all tiles must be inserted in the same column"
 }

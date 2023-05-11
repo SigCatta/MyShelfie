@@ -68,7 +68,7 @@ public class InsertTilesCE implements CommandExecutor {
     private int getColumn() {
         int column;
         while (true) {
-            System.out.println("Where would you like to insert the column? (0 - 4)");
+            System.out.println("In which column would you like to insert the tile? (0 - 4)");
             try {
                 column = Integer.parseInt(getInput());
             } catch (NumberFormatException e) {
