@@ -117,20 +117,20 @@
                               <Image url="@../17_MyShelfie_BGA/boards/bookshelf.png" />
                            </image>
                         </ImageView>
-                        <GridPane fx:id="myShelf" focusTraversable="true" hgap="5.0" layoutX="41.0" layoutY="19.0" prefHeight="262.0" prefWidth="247.0" stylesheets="@../css/background.css" vgap="5.0" visible="false" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="19.0">
+                        <GridPane fx:id="myShelf" focusTraversable="true" hgap="10.0" layoutX="41.0" layoutY="26.0" prefHeight="252.0" prefWidth="244.0" stylesheets="@../css/background.css" vgap="5.0" visible="false" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="26.0">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.4000244140625" minWidth="10.0" prefWidth="42.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.20001220703125" minWidth="0.0" prefWidth="51.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60002441406249" minWidth="10.0" prefWidth="51.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.19998779296878" minWidth="10.0" prefWidth="51.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60001220703123" minWidth="10.0" prefWidth="47.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.4000244140625" minWidth="10.0" prefWidth="40.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.20001220703125" minWidth="0.0" prefWidth="40.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60002441406249" minWidth="10.0" prefWidth="40.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.19998779296878" minWidth="10.0" prefWidth="38.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.60001220703123" minWidth="10.0" prefWidth="38.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
@@ -147,6 +147,11 @@
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="96.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="89.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                              <ImageView fitHeight="94.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                           </children>
                         </GridPane>
                      </children>
                   </AnchorPane>

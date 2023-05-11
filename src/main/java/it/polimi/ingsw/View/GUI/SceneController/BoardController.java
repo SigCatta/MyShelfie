@@ -41,12 +41,6 @@ public class BoardController {
     GridPane myShelf;
 
     @FXML
-    ImageView commonGoalCard1;
-
-    @FXML
-    ImageView commonGoalCard2;
-
-    @FXML
     Button pickUpDoneButton;
 
     @FXML
@@ -67,26 +61,6 @@ public class BoardController {
     @FXML
     ImageView itemTile3;
 
-    @FXML
-    Text pointCG1Text;
-
-    @FXML
-    Text pointCG2Text;
-
-    @FXML
-    TextField cgDescription1;
-
-    @FXML
-    TextField cgDescription2;
-
-    public void setPointCG1Text(int point) {
-        pointCG1Text.setText(String.valueOf(point));
-    }
-
-    public void setPointCG2Text(int point) {
-        pointCG2Text.setText(String.valueOf(point));
-    }
-
     public void setItemTile1Visible(String path) {
         Image image = new Image(path);
         itemTile1.setImage(image);
@@ -104,40 +78,6 @@ public class BoardController {
         itemTile3.setImage(image);
         itemTile3.setVisible(true);
         setPickUpDoneButtonVisible();
-    }
-
-    public void setCommonGoalCard1(String commonGoalCard1Path) {
-        this.commonGoalCard1.setImage(new Image(commonGoalCard1Path));
-    }
-
-    public void setCommonGoalCard2(String commonGoalCard2Path) {
-        this.commonGoalCard2.setImage(new Image(commonGoalCard2Path));
-    }
-
-    @FXML
-    public void onCommonGoal1Clicked() {
-        cgDescription1.setText("Description");  //TODO
-        cgDescription1.setVisible(true);
-        commonGoalCard1.setVisible(false);
-    }
-
-    @FXML
-    public void onCommonGoal2Clicked() {
-        cgDescription2.setText("Description");  //TODO
-        cgDescription2.setVisible(true);
-        commonGoalCard2.setVisible(false);
-    }
-
-    @FXML
-    public void cgDescription1Clicked() {
-        cgDescription1.setVisible(false);
-        commonGoalCard1.setVisible(true);
-    }
-
-    @FXML
-    public void cgDescription2Clicked() {
-        cgDescription1.setVisible(false);
-        commonGoalCard1.setVisible(true);
     }
 
     public void setPickUpDoneButtonVisible() {
