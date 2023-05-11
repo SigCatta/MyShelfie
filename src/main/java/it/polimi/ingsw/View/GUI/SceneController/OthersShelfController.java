@@ -41,7 +41,7 @@ public class OthersShelfController {
     }
 
     @FXML
-    public void onBackToMineButtonClicked() {
+    public void onBackBoardButtonClicked() {
         StageController.changeScene("shelf.fxml", "My shelf");
     }
 }

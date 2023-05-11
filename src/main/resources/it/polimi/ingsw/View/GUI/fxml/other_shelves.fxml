@@ -85,7 +85,7 @@
                <Glow />
             </effect>
          </ImageView>
-         <Text fill="WHITE" layoutX="1015.0" layoutY="404.0" onMouseClicked="#onBackToMineButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to mine">
+         <Text fill="WHITE" layoutX="1015.0" layoutY="404.0" onMouseClicked="#onBackBoardButtonClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to mine">
             <font>
                <Font name="System Bold" size="26.0" />
             </font>
