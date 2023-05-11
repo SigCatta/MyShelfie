@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class Shelf implements VirtualViewSubject {
 
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> observers;
 
     /**
      * The number of columns in the shelf grid.
@@ -28,12 +28,12 @@ public class Shelf implements VirtualViewSubject {
 
     /**
      * The grid of ItemTiles representing the player's shelf.
-     * 5 |
-     * 4 |
-     * 3 |
-     * 2 |
+     * 0 |
      * 1 |
-     * 0 | _ _ _ _ _
+     * 2 |
+     * 3 |
+     * 4 |
+     * 5 | _ _ _ _ _
      *     0 1 2 3 4
      */
     private final ItemTile[][] shelfGrid;

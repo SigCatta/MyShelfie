@@ -11,7 +11,7 @@ public class CommandExecutorFactory {
             case "pickup_tiles":
                 return new PickupTilesCE();
             case "insert_tiles":
-                return new InsertTilesCE(); //TODO
+                return new InsertTilesCE();
             case "chat":
                 return new ChatCE();
             case "disconnect":

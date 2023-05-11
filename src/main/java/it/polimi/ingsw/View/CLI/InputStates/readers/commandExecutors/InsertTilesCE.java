@@ -15,7 +15,6 @@ import static it.polimi.ingsw.InputReader.readLine;
 public class InsertTilesCE implements CommandExecutor {
     @Override
     public void execute() {
-        System.out.println(GameRepresentation.getInstance().getGameState());
         if (!GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
             System.out.println("ERROR: You are not the active player!");
             return;
