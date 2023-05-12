@@ -41,8 +41,7 @@ public class ShelfView implements ViewElement {
         HashMap<Color, String> colorMap = Printer.getColorMap();
         Color[][] shelf = ShelvesRepresentation.getInstance().getShelfMessage(nickname).getShelfForCLI();
 
-        output.add("          ┌──0─┬──1─┬──2─┬──3─┬──4─┐                    .");
-        int rowNumber = 0;
+        output.add("          ┌──0─┬──1─┬──2─┬──3─┬──4─┐                    ");
         for (Color[] row : shelf) {
             StringBuilder string = new StringBuilder("          │");
             for (Color color : row) {
@@ -53,16 +52,15 @@ public class ShelfView implements ViewElement {
                         .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
                         .append("│");
             }
-            string.append("                    .");
+            string.append("                    ");
             output.add(string.toString());
             output.add(string.toString());
-            output.add("          ├────┼────┼────┼────┼────┤                    .");
-            rowNumber++;
+            output.add("          ├────┼────┼────┼────┼────┤                    ");
         }
         output.remove(output.size() - 1);
 
-        output.add("        ┌─┴────┴────┴────┴────┴────┴─┐                  .");
-        output.add("        └────────────────────────────┘                  .");
+        output.add("        ┌─┴────┴────┴────┴────┴────┴─┐                  ");
+        output.add("        └────────────────────────────┘                  ");
         return output;
     }
 }
