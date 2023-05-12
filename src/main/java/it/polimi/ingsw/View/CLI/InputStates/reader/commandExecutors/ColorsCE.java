@@ -1,10 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
-
-import java.util.concurrent.ExecutionException;
-
-import static it.polimi.ingsw.InputReader.readLine;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 
 public class ColorsCE implements CommandExecutor {
 
@@ -13,22 +10,18 @@ public class ColorsCE implements CommandExecutor {
      */
     @Override
     public void execute() {
-        System.out.println("Do you want to use colors? (y/n)");
-        Printer.enableCLIColors(getInput().equals("y"));
+        String input;
+        while (true) {
+            System.out.println("Do you want to use colors? (y/n)");
+            input = Reader.getInput();
+            if (input.equals(".")) return;
+            if (!(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("n"))) {
+                System.out.println("ERROR: Invalid input!");
+            } else break;
+        }
+
+        Printer.enableCLIColors(input.equalsIgnoreCase("y"));
         Printer.clearConsole();
         Printer.printHomeScreen();
-    }
-
-    /**
-     * Reads user input
-     *
-     * @return user input
-     */
-    private String getInput() {
-        try {
-            return readLine().trim();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

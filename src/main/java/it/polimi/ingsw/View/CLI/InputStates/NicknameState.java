@@ -1,9 +1,10 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class NicknameState extends InputState {
@@ -16,7 +17,7 @@ public class NicknameState extends InputState {
     @Override
     public void play() {
         System.out.println("Insert nickname:");
-        getInput();
+        input = Reader.getInput();
         socketClient.sendCommand(new HandshakeMTS(input));
 
         synchronized (EchosRepresentation.getInstance()) {

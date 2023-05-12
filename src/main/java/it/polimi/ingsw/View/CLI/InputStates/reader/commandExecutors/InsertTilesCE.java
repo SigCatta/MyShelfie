@@ -3,14 +3,12 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.CLI.Elements.TilesTableView;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.TilesTableRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import static it.polimi.ingsw.InputReader.readLine;
 
 public class InsertTilesCE implements CommandExecutor {
 
@@ -50,7 +48,7 @@ public class InsertTilesCE implements CommandExecutor {
         while (true) {
             System.out.println("Which tile would you like to insert? (1 - 3)");
             try {
-                tile = Integer.parseInt(getInput());
+                tile = Integer.parseInt(Reader.getInput());
             } catch (NumberFormatException e) {
                 System.out.println("ERROR: Invalid number!");
                 continue;
@@ -70,27 +68,13 @@ public class InsertTilesCE implements CommandExecutor {
         while (true) {
             System.out.println("In which column would you like to insert the tile? (0 - 4)");
             try {
-                column = Integer.parseInt(getInput());
+                column = Integer.parseInt(Reader.getInput());
             } catch (NumberFormatException e) {
                 System.out.println("ERROR: Invalid number!");
                 continue;
             }
             if (column < 0 || column > 4) System.out.println("ERROR: invalid number");
             else return column;
-        }
-    }
-
-
-    /**
-     * Reads user input
-     *
-     * @return user input
-     */
-    private String getInput() {
-        try {
-            return readLine().trim();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
         }
     }
 }

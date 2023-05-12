@@ -30,11 +30,10 @@ public class Reader implements Runnable {
      * Waits for the user to input a command and calls the corresponding executor
      */
     private void chooseCommand() {
-        getInput();
-        if (input == null) return;
+        input = getInput();
 
-        isReading = true;
         input = input.toLowerCase();
+        isReading = true;
         CommandExecutorFactory.getCommand(input).execute();
 
         isReading = false;
@@ -46,12 +45,13 @@ public class Reader implements Runnable {
     /**
      * Waits for the user to input a string and updates the input variable accordingly
      */
-    private void getInput() {
+    public static String getInput() {
         try {
-            input = readLine().trim();
+            return readLine().trim();
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException e) {
+            return ".";
         }
     }
 

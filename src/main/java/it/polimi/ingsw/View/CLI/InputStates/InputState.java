@@ -9,26 +9,11 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 
-import java.util.concurrent.ExecutionException;
-
-import static it.polimi.ingsw.InputReader.readLine;
-
 public abstract class InputState {
     String input;
     final Client socketClient = SocketClient.getInstance();
 
     public abstract void play();
-
-    /**
-     * writes user input to the input variable
-     */
-    void getInput() {
-        try {
-            input = readLine().trim();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Helper method to wait on an element of the virtual model

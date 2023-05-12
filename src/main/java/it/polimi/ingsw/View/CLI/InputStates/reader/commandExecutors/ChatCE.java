@@ -1,11 +1,8 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.network.client.SocketClient;
-
-import java.util.concurrent.ExecutionException;
-
-import static it.polimi.ingsw.InputReader.readLine;
 
 public class ChatCE implements CommandExecutor {
 
@@ -15,21 +12,8 @@ public class ChatCE implements CommandExecutor {
     @Override
     public void execute() {
         System.out.println("Insert message: ");
-        String input = getInput();
+        String input = Reader.getInput();
         if (input.equals(".")) return;
         SocketClient.getInstance().sendCommand(new ChatMTS(input));
-    }
-
-    /**
-     * Reads user input
-     *
-     * @return user input
-     */
-    private String getInput() {
-        try {
-            return readLine().trim();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

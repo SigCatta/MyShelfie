@@ -3,14 +3,12 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import static it.polimi.ingsw.InputReader.readLine;
 
 public class PickupTilesCE implements CommandExecutor {
 
@@ -48,8 +46,9 @@ public class PickupTilesCE implements CommandExecutor {
 
             if (pickedUpTiles >= 3) break;
 
-            System.out.println("Do you want to pickup more tiles? (y/n)");
-            if (getInput().equalsIgnoreCase("n")) break;
+
+
+            if (stopPickup()) break;
         }
 
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tiles));
@@ -64,8 +63,8 @@ public class PickupTilesCE implements CommandExecutor {
     private int getColumn() {
         String input;
         while (true) {
-            System.out.println("Select which column you would like to select: ");
-            input = getInput();
+            System.out.println("Which column would you like to select?");
+            input = Reader.getInput();
             if (input.equals(".")) return -1;
             if (isInputValid(input)) {
                 return Integer.parseInt(input);
@@ -84,8 +83,8 @@ public class PickupTilesCE implements CommandExecutor {
     private int getRow() {
         String input;
         while (true) {
-            System.out.println("Select which row you would like to select: ");
-            input = getInput();
+            System.out.println("Which row would you like to select?");
+            input = Reader.getInput();
             if (input.equalsIgnoreCase(".")) return -1;
             if (isInputValid(input)) {
                 return Integer.parseInt(input);
@@ -110,15 +109,16 @@ public class PickupTilesCE implements CommandExecutor {
     }
 
     /**
-     * Reads user input
+     * Asks the user whether to keep pickup up tiles or not
      *
-     * @return user input
+     * @return a boolean indicating if the pickup shall stop or not
      */
-    private String getInput() {
-        try {
-            return readLine().trim();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+    private boolean stopPickup(){
+        while (true){
+            System.out.println("Do you want to pickup more tiles? (y/n)");
+            String input = Reader.getInput();
+            if (input.equalsIgnoreCase("n")) return true;
+            else if (input.equalsIgnoreCase("y")) return false;
         }
     }
 }

@@ -2,11 +2,12 @@ package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Controller.Client.NewGameMTS;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 
 public class StartOrJoinState extends InputState {
 
@@ -18,7 +19,7 @@ public class StartOrJoinState extends InputState {
     public void play() {
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
         while (input == null) {
-            getInput();
+            input = Reader.getInput();
             if (input.equals("join")) {
                 joinGame();
                 if (input.equals(".")) {
@@ -46,7 +47,7 @@ public class StartOrJoinState extends InputState {
         while (true) {
             while (true) {
                 System.out.println("Insert gameID: ");
-                getInput();
+                input = Reader.getInput();
                 if (input.equals(".")) return;
                 try {
                     socketClient.sendCommand(new CanIPlayMTS(Integer.parseInt(input)));
@@ -79,7 +80,7 @@ public class StartOrJoinState extends InputState {
         System.out.println("Insert number of players (between 2 and 4): ");
         int numOfPlayers = 0;
         do {
-            getInput();
+            input = Reader.getInput();
             if (input.equals(".")) return;
             try {
                 numOfPlayers = Integer.parseInt(input);
