@@ -66,13 +66,4 @@ public class FiveTilesDiagonalCGSTest {
         shelf = new Shelf(shelfGrid);
         assertTrue(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new FiveTilesDiagonalCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new FiveTilesDiagonalCGS().getDescription());
-    }
 }
