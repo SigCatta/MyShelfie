@@ -2,7 +2,9 @@ package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShelvesRepresentation implements VirtualModelSubject {
@@ -11,9 +13,11 @@ public class ShelvesRepresentation implements VirtualModelSubject {
      */
     private final Map<String, ShelfMTC> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
+    private List<VirtualModelObserver> observers;
 
     private ShelvesRepresentation() {
         SHELF_MESSAGES = new HashMap<>();
+        observers = new ArrayList<>();
     }
 
     public static ShelvesRepresentation getInstance() {
@@ -38,17 +42,20 @@ public class ShelvesRepresentation implements VirtualModelSubject {
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        synchronized (this){
+        for (VirtualModelObserver observer : observers) {
+            observer.update();
+        }
+        synchronized (this) {
             notifyAll();
         }
     }

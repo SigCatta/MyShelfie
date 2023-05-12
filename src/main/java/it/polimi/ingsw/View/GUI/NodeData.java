@@ -14,7 +14,7 @@ public class NodeData {
      */
     private String url;
     /**
-     * the color of the the tile
+     * the color of the tile
      */
     private Color color;
     /**

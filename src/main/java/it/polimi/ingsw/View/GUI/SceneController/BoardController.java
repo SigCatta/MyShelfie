@@ -5,7 +5,9 @@ import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.NodeData;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
+import it.polimi.ingsw.VirtualModel.*;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,30 +20,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class BoardController {
-    /**
-     * map containing as keys the color of the item tile (es. Color.BLUE) and
-     * as values the hashmap that contains as key the path of the specific tiles (es. it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/1.1.png)
-     * and as values the number of tiles of that specific type left
-     */
-    static public HashMap<Color, HashMap<String, Integer>> tilesMap;
+public class BoardController implements VirtualModelObserver {
 
     int currentColumn;
     int currentRow;
-    static List<NodeData> tilesSelected = new ArrayList<>();
-    static NodeData currentTileSelected = null;
+    private static List<NodeData> chosenTiles = new ArrayList<>();
+    private static NodeData currentTileSelected = null;
+
+    public BoardController() {
+        BoardRepresentation.getInstance().registerObserver(this);
+        ShelvesRepresentation.getInstance().registerObserver(this);
+    }
+
 
     @FXML
-    GridPane board;
-
-    @FXML
-    GridPane myShelf;
+    GridPane board, myShelf, myChosenTilesTable;
 
     @FXML
     Button pickUpDoneButton;
@@ -50,13 +47,7 @@ public class BoardController {
     Button selectTileButton;
 
     @FXML
-    ImageView itemTile1;
-
-    @FXML
-    ImageView itemTile2;
-
-    @FXML
-    ImageView itemTile3;
+    ImageView itemTile1, itemTile2, itemTile3; //TODO remove
 
     @FXML
     ImageView errorImage;
@@ -68,38 +59,40 @@ public class BoardController {
     ImageView insertDoneImage;
 
     @FXML
-    ImageView col0InsertButton;
+    ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
 
     @FXML
-    ImageView col1InsertButton;
-
-    @FXML
-    ImageView col2InsertButton;
-
-    @FXML
-    ImageView col3InsertButton;
-
-    @FXML
-    ImageView col4InsertButton;
-
-    @FXML
-    Text myNicknameText;
-
-    @FXML
-    Text player2Nickname;
-
-    @FXML
-    Text player3Nickname;
-
-    @FXML
-    Text player4Nickname;
+    Text myNicknameText, player2Nickname, player3Nickname, player4Nickname;
 
     static GameState gameState;
 
     static String myNickname;
 
+
+    /**
+     * when the board in the virtual model updates this method is called
+     * to refresh the board in the gui
+     */
+    public void updateBoard() {
+        ItemTile[][] boardModel = BoardRepresentation.getInstance().getBoard();
+        ItemRefillUtility.updateItemTileGrid(board, boardModel);
+    }
+
+    public void updateShelf() {
+        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
+        ItemRefillUtility.updateItemTileGrid(myShelf, shelfModel);
+    }
+
+    public void updateChosenTilesTable() {
+        List<ItemTile> chosenTilesTable = TilesTableRepresentation.getInstance().getTiles();
+        ItemTile[][] chosenTilesMatrix = new ItemTile[1][chosenTilesTable.size()];
+        ItemRefillUtility.updateItemTileGrid(myChosenTilesTable, chosenTilesMatrix);
+    }
+
+
     /**
      * method called everyTime the state of the game changes
+     *
      * @param gameState the current state of the game
      */
     public static void setGameState(GameState gameState) {
@@ -159,7 +152,7 @@ public class BoardController {
         if (!gameState.equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         ArrayList<Point> tilesPosition = new ArrayList<>();
-        for(NodeData node: tilesSelected) {
+        for (NodeData node : chosenTiles) {
             tilesPosition.add(node.getPosition());
         }
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
@@ -174,10 +167,10 @@ public class BoardController {
         else {
             setColInserterButtonVisible(false);
             showErrorMessage("Tiles can't be picked up!");
-            for(NodeData node: tilesSelected) {
+            for (NodeData node : chosenTiles) {
                 node.getImageView().setVisible(true);
             }
-            tilesSelected.clear();
+            chosenTiles.clear();
             itemTile1.setVisible(false);
             itemTile2.setVisible(false);
             itemTile3.setVisible(false);
@@ -229,7 +222,6 @@ public class BoardController {
     }
 
     /**
-     *
      * @return an event fired when a child node of the board matrix is selected
      */
     EventHandler<MouseEvent> nodeEventHandler(){
@@ -250,9 +242,9 @@ public class BoardController {
                 tileColor = color;
             }
         }
-        if(tilesSelected.size()<3 )   {
+        if (chosenTiles.size() < 3) {
             selectTileButton.setVisible(true);
-            if(currentTileSelected!=null) {
+            if (currentTileSelected != null) {
                 currentTileSelected.getImageView().setEffect(new Glow(0));
             }
             nodeSelected.setEffect(new Glow(0.9));
@@ -266,11 +258,11 @@ public class BoardController {
     public void onPickUpSelectedTileClicked() {
         if(currentTileSelected == null) return;
 
-        if (tilesSelected.size() == 0) {
+        if (chosenTiles.size() == 0) {
             setItemTile1Visible(currentTileSelected.getUrl());
-        } else if (tilesSelected.size() == 1) {
+        } else if (chosenTiles.size() == 1) {
             setItemTile2Visible(currentTileSelected.getUrl());
-        } else if(tilesSelected.size() == 2){
+        } else if (chosenTiles.size() == 2) {
             setItemTile3Visible(currentTileSelected.getUrl());
         } else {
             selectTileButton.setVisible(false);
@@ -278,36 +270,28 @@ public class BoardController {
         }
         // set not visible the tile picked up in the board
         currentTileSelected.getImageView().setVisible(false);
-        tilesSelected.add(currentTileSelected);
+        chosenTiles.add(currentTileSelected);
         currentTileSelected = null;
 
-        if(tilesSelected.size() >= 3) selectTileButton.setVisible(false);
+        if (chosenTiles.size() >= 3) selectTileButton.setVisible(false);
         insertDoneImage.setVisible(false);
     }
 
     /**
-     *
-     * @param color the color of the tile to be placed on the board
+     * @param itemTile the tile to be placed on the board
      * @param position of the node in the board matrix where the tile needs to be inserted
      */
-    public void placeTile(Color color, Point position) {
-        HashMap<String, Integer> specificTilesMap = tilesMap.get(color);
-        String tilePath = null;
+    public void placeTile(ItemTile itemTile, Point position) {
 
-        while (tilePath == null) {
-            int index=(int)(Math.random()*specificTilesMap.size());
-            int count = 0;
-            for(Map.Entry<String, Integer> entry : specificTilesMap.entrySet()) {
-                if(index >= count && entry.getValue()>0) {
-                    tilePath = entry.getKey();
-                    break;
-                }
-                count++;
-            }
-        }
-        specificTilesMap.put(tilePath, specificTilesMap.get(tilePath)-1);
-        tilesMap.put(color, specificTilesMap);
-        placeTile(tilePath, position);
+//        Integer imageNumber = tileToImage.get(itemTile.getId());
+//
+//        if(imageNumber == null){
+//            imageNumber = tileToImage.put(itemTile.getId(), (int)(Math.random()*3));
+//        }
+//
+//        String tilePath = ITEM_TILES_PACKAGE + "/" + itemTile.getColor() + "/" + imageNumber; //TODO filesystem problem with '/'
+//
+//        placeTile(tilePath, position);
     }
 
     public void placeTile(String path, Point position) {
@@ -322,7 +306,7 @@ public class BoardController {
         if (!gameState.equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         currentColumn = column;
-        int index = tilesSelected.indexOf(currentTileSelected);
+        int index = chosenTiles.indexOf(currentTileSelected);
         int correctededIndex; //index to use in the InsertTileMTS
 
         if(index == 0) {
@@ -352,7 +336,7 @@ public class BoardController {
         if(correct) {
             hideErrorMessage();
             currentRow = row;
-            int index = tilesSelected.indexOf(currentTileSelected);
+            int index = chosenTiles.indexOf(currentTileSelected);
 
             if(index == 0) {
                 itemTile1.setVisible(false);
@@ -371,10 +355,17 @@ public class BoardController {
         Image image = new Image(path);
         myShelf.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
 
-        if(!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible()) {
+        if (!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible()) {
             insertDoneImage.setVisible(true);
         }
 
+    }
+
+    @Override
+    public void update() {
+        updateBoard();
+        //updateShelf();
+        //updateChosenTilesTable(); //TODO it so that it doesn't do everything based on the turn
     }
 }
 
