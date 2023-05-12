@@ -15,7 +15,7 @@ public class CommandExecutorFactory {
             case "chat":
                 return new ChatCE();
             case "disconnect":
-                return new DisconnectCE(); //TODO
+                return new DisconnectCE();
             case "common_goals":
                 return new CommonGoalCE();
             case "personal_goal":

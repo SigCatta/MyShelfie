@@ -9,9 +9,6 @@ import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
 
 public class StartOrJoinState extends InputState {
-    public StartOrJoinState(InputStatePlayer player) {
-        super(player);
-    }
 
     /**
      * Asks the player to either join a game or create a new one,
@@ -39,7 +36,7 @@ public class StartOrJoinState extends InputState {
                 input = null;
             }
         }
-        player.setState(new WaitingForPlayersState(player));
+        InputStatePlayer.getInstance().setState(new WaitingForPlayersState());
     }
 
     /**

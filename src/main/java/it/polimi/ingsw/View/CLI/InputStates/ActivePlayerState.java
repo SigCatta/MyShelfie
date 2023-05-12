@@ -8,8 +8,7 @@ import it.polimi.ingsw.network.client.SocketClient;
 public class ActivePlayerState extends InputState {
     private final Reader reader;
 
-    ActivePlayerState(InputStatePlayer player, Reader reader) {
-        super(player);
+    public ActivePlayerState(Reader reader) {
         this.reader = reader;
     }
 
@@ -28,9 +27,9 @@ public class ActivePlayerState extends InputState {
 
 
         while (GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) { // waits for the model to change and updates the view
-            runInputReaderUntilModelUpdate(reader); //TODO use echos
+            runInputReaderUntilModelUpdate(reader);
         }
 
-        player.setState(new WaitingPlayerState(player, reader));
+        InputStatePlayer.getInstance().setState(new WaitingPlayerState(reader));
     }
 }

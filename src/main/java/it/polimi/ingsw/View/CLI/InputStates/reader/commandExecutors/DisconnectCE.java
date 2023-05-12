@@ -1,6 +1,8 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.ByeMTS;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.NicknameState;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.concurrent.ExecutionException;
@@ -19,7 +21,7 @@ public class DisconnectCE implements CommandExecutor {
         if (input.equalsIgnoreCase("y")) {
             System.out.println("Leaving...");
             SocketClient.getInstance().sendCommand(new ByeMTS());
-            // TODO where should the user be sent?
+            InputStatePlayer.getInstance().setState(new NicknameState());
         }
     }
 

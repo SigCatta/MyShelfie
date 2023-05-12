@@ -188,6 +188,7 @@ public class Game implements VirtualViewSubject {
 
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
+        player.setConnected(false);
         players.remove(player);
     }
 

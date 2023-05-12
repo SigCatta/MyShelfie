@@ -5,9 +5,6 @@ import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
 
 public class WaitingForPlayersState extends InputState {
-    public WaitingForPlayersState(InputStatePlayer player) {
-        super(player);
-    }
 
     /**
      * The player waits for the game to start
@@ -20,7 +17,8 @@ public class WaitingForPlayersState extends InputState {
                 waitForVM(GameRepresentation.getInstance());
             }
         }
-        player.setState(new GameStartupState(player));
+
+        InputStatePlayer.getInstance().setState(new GameStartupState());
         System.out.println("The game has started!");
     }
 }

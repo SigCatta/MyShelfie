@@ -8,8 +8,7 @@ import it.polimi.ingsw.network.client.SocketClient;
 public class WaitingPlayerState extends InputState {
     private final Reader reader;
 
-    WaitingPlayerState(InputStatePlayer player, Reader reader) {
-        super(player);
+    WaitingPlayerState(Reader reader) {
         this.reader = reader;
     }
 
@@ -29,6 +28,6 @@ public class WaitingPlayerState extends InputState {
             runInputReaderUntilModelUpdate(reader);
         }
 
-        player.setState(new ActivePlayerState(player, reader));
+        InputStatePlayer.getInstance().setState(new ActivePlayerState(reader));
     }
 }

@@ -1,13 +1,12 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Enum.EchoID;
-import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelSubject;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.concurrent.ExecutionException;
@@ -17,11 +16,6 @@ import static it.polimi.ingsw.InputReader.readLine;
 public abstract class InputState {
     String input;
     final Client socketClient = SocketClient.getInstance();
-    final InputStatePlayer player;
-
-    InputState(InputStatePlayer player) {
-        this.player = player;
-    }
 
     public abstract void play();
 

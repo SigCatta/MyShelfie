@@ -10,9 +10,6 @@ import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
 public class GameStartupState extends InputState {
-    public GameStartupState(InputStatePlayer player) {
-        super(player);
-    }
 
     /**
      * Waits for the VM to update with the model data (representations != null),
@@ -49,8 +46,8 @@ public class GameStartupState extends InputState {
 
         //now that the game startup menu is printed, the game can start. Each player gets their state assigned
         if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
-            player.setState(new ActivePlayerState(player, reader));
-        } else player.setState(new WaitingPlayerState(player, reader));
+            InputStatePlayer.getInstance().setState(new ActivePlayerState(reader));
+        } else InputStatePlayer.getInstance().setState(new WaitingPlayerState(reader));
     }
 
 }
