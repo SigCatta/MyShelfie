@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TilesTableView implements ViewElement {
+public class TilesTableView extends ViewElement {
+
+    private static TilesTableView instance;
+
+    private TilesTableView(){}
+    public static TilesTableView getInstance(){
+        if (instance == null) instance = new TilesTableView();
+        return instance;
+    }
+
     /**
      * Prints a box containing the tiles picked up from the player
      *

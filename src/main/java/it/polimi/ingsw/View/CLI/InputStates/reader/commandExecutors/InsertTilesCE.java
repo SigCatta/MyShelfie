@@ -28,7 +28,7 @@ public class InsertTilesCE implements CommandExecutor {
         }
 
         System.out.println("You can insert the following tiles");
-        new TilesTableView().getPrint(new ArrayList<>()).forEach(System.out::println);
+        TilesTableView.getInstance().getPrint(new ArrayList<>()).forEach(System.out::println);
 
         int tile = getTileIndex();
         int column = getColumn();

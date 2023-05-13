@@ -24,7 +24,7 @@ public class ShelvesCE implements CommandExecutor {
                 continue;
             }
             Printer.clearConsole();
-            ArrayList<String> output = new ShelfView().getOtherShelvsPrint(input);
+            ArrayList<String> output = ShelfView.getInstance().getOtherShelvsPrint(input);
             output.forEach(System.out::println);
             Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
             break;

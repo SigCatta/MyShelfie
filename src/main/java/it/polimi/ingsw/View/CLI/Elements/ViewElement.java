@@ -2,8 +2,8 @@ package it.polimi.ingsw.View.CLI.Elements;
 
 import java.util.ArrayList;
 
-public interface ViewElement {
+public abstract class ViewElement {
     String NULL = ".";
 
-    ArrayList<String> getPrint(ArrayList<String> output);
+    abstract ArrayList<String> getPrint(ArrayList<String> output);
 }

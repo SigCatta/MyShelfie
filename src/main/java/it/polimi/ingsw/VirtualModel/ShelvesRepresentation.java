@@ -1,9 +1,10 @@
 package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,8 @@ public class ShelvesRepresentation extends VirtualModelSubject {
     public void updateShelf(ShelfMTC shelfMessage) {
         String nickname = shelfMessage.getOwner();
         SHELF_MESSAGES.put(nickname, shelfMessage);
+        ItemTile[][] shelf = shelfMessage.getShelf();
+        if (Arrays.deepEquals(shelf, new ItemTile[shelf.length][shelf[0].length])) return; // does not notify if the shelf is empty
         if (SocketClient.getInstance().getNickname().equals(nickname)) notifyObservers();
     }
 

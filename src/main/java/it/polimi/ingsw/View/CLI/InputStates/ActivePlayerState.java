@@ -25,9 +25,10 @@ public class ActivePlayerState extends InputState {
 
         String nickname = SocketClient.getInstance().getNickname();
 
-
         while (GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) { // waits for the model to change and updates the view
-            addReaderToEchoObserver(reader);
+            synchronized (GameRepresentation.getInstance()){
+                waitForVM(GameRepresentation.getInstance());
+            }
         }
 
         InputStatePlayer.getInstance().setState(new WaitingPlayerState(reader));

@@ -37,4 +37,7 @@ public class InputStatePlayer implements Runnable {
         this.state = state;
     }
 
+    public InputState getState() {
+        return state;
+    }
 }

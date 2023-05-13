@@ -30,7 +30,7 @@ public abstract class InputState {
      * the user is using a commands, if that is the case, the methods waits for
      * the user to finish, then prints an updated home screen
      *
-     * @param reader the reader that user is be using
+     * @param reader the reader that user is using
      */
     void addReaderToEchoObserver(Reader reader) {
 

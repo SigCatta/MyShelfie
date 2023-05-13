@@ -6,7 +6,14 @@ import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BoardView implements ViewElement {
+public class BoardView extends ViewElement {
+
+    private static BoardView instance;
+    private BoardView(){}
+    public static BoardView getInstance(){
+        if (instance == null) instance = new BoardView();
+        return instance;
+    }
 
     /**
      * Prints a drawing of the game's board

@@ -8,7 +8,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PersonalGoalView implements ViewElement {
+public class PersonalGoalView extends ViewElement {
+
+    private static PersonalGoalView instance;
+
+    private PersonalGoalView(){}
+    public static PersonalGoalView getInstance(){
+        if (instance == null) instance = new PersonalGoalView();
+        return instance;
+    }
 
     /**
      * prints the player's personal goal card
