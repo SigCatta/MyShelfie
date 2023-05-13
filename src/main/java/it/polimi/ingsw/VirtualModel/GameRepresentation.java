@@ -21,7 +21,7 @@ public class GameRepresentation extends VirtualModelSubject {
         notifyObservers();
     }
 
-
+    public int getMAX_PLAYER_NUMBER() {return gameMessage.getMAX_PLAYER_NUMBER();}
     public int getGameID() {
         return gameMessage.getGameID();
     }

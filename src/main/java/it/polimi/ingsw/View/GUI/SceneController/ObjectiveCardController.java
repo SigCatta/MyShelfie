@@ -1,12 +1,19 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.JSONReader.CommonGoalReader;
+import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class ObjectiveCardController {
+    private final CommonGoalReader reader = new CommonGoalReader();
+
     @FXML
     ImageView commonGoalCard1;
 
@@ -24,9 +31,6 @@ public class ObjectiveCardController {
 
     @FXML
     Text pointCG2Text;
-
-    @FXML
-    Text myPointsText;
 
     public void setPointCG1Text(int point) {
         pointCG1Text.setText(String.valueOf(point));
@@ -52,12 +56,22 @@ public class ObjectiveCardController {
         this.card2Description.setText(description);
     }
 
-    public void setMyPointsText(int points) {
-        this.myPointsText.setText(String.valueOf(points));
-    }
-
     @FXML
     public void onGoBackClicked() {
         StageController.changeScene("fxml/board.fxml", "Chat");
+    }
+
+    @FXML
+    public void setUp() {
+        ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
+        ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
+
+        setCard1Description(reader.getDescription(cardNames.get(0)));
+        setCard2Description(reader.getDescription(cardNames.get(1)));
+        setPointCG1Text(availablePoints.get(0));
+        setPointCG2Text(availablePoints.get(1));
+
+        setCommonGoalCard1("@..\\17_MyShelfie_BGA\\common_goal_cards\\angoli_smussati\\" + cardNames.get(0) + ".jpg");
+        setCommonGoalCard2("@..\\17_MyShelfie_BGA\\common_goal_cards\\angoli_smussati\\" + cardNames.get(1) + ".jpg");
     }
 }

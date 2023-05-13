@@ -2,7 +2,9 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,8 +36,24 @@ public class EnterGameSceneController {
         if(joinGameRB.isSelected()) {
             //connect player to already existing game
             SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
+
+            synchronized (EchosRepresentation.getInstance()) {
+                try {
+                    EchosRepresentation.getInstance().wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            EchoMTC message = EchosRepresentation.getInstance().getMessage();
+            if (message.isError()) {
+                checkGameId(false);
+                return;
+            }
+            checkGameId(true);
+
         } else {
-            //player want to create a new game
+            //player wants to create a new game
             StageController.changeScene("player_num_scene.fxml","Set number of players");
         }
     }
