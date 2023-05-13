@@ -146,7 +146,6 @@ public class BoardController {
 
     /**
      * action listener for every tile on the board
-     *
      * @param imageView object associated with the action
      */
     private void attachBoardListener(ImageView imageView) {
