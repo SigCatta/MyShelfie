@@ -16,7 +16,7 @@
    <children>
       <Group>
          <children>
-            <AnchorPane prefHeight="803.0" prefWidth="1183.0">
+            <AnchorPane onMouseEntered="#setNicknames" prefHeight="803.0" prefWidth="1183.0">
                <children>
                   <AnchorPane layoutX="60.0" layoutY="44.0">
                      <children>

@@ -54,7 +54,7 @@ public class EnterGameSceneController {
 
         } else {
             //player wants to create a new game
-            StageController.changeScene("player_num_scene.fxml","Set number of players");
+            StageController.changeScene("fxml/player_number_scene.fxml","Set number of players");
         }
     }
 

@@ -6,6 +6,7 @@ import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -96,31 +97,24 @@ public class BoardController {
 
     static GameState gameState;
 
-    static String myNickname;
-
-    /**
-     * method called everyTime the state of the game changes
-     * @param gameState the current state of the game
-     */
-    public static void setGameState(GameState gameState) {
-        gameState = gameState;
-    }
-
-    /**
-     * method called everyTime activePlayer changes
-     * @param nickname = nickname; the nickname of the active player
-     */
-    public static void setMyNickname(String nickname) {
-        myNickname = nickname;
-    }
-
     @FXML
     public void setNicknames() {
-        //TODO set player nicknames text
+        myNicknameText.setText(SocketClient.getInstance().getNickname());
+
+        List<Text> nicknamesTextsList = List.of(player2Nickname, player3Nickname, player4Nickname);
+        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
+        int j=0;
+
+        for(int i=0; i<nicknames.size(); i++) {
+            if(!nicknames.get(i).equals(myNicknameText.getText())){
+                nicknamesTextsList.get(j).setText(nicknames.get(i));
+                j++;
+            }
+        }
     }
 
     public String getMyNickname() {
-        return myNickname;
+        return myNicknameText.getText();
     }
 
     public void setItemTile1Visible(String path) {

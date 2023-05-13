@@ -50,24 +50,27 @@ public class WaitingRoomController {
 
     public void updateCurrentNumText(int num) {
         currentNumText.setText(String.valueOf(num));
+        if(num == Integer.parseInt(maxNumText.getText())) {
+            setContinueButtonVisible();
+        }
     }
 
     @FXML
     public void setUp() {
         setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
 
-        while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
-            updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
-            updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
-            synchronized (GameRepresentation.getInstance()) {
-                try {
-                    GameRepresentation.getInstance().wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        new Thread(() -> {
+            while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
+                updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
+                updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
+                synchronized (GameRepresentation.getInstance()) {
+                    try {
+                        GameRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        }
-
-        setContinueButtonVisible();
+        }).start();
     }
 }
