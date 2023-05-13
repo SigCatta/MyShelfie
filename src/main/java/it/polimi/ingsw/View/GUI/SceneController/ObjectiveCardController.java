@@ -1,12 +1,16 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class ObjectiveCardController {
+import java.util.ArrayList;
+
+public class ObjectiveCardController implements VirtualModelObserver {
     @FXML
     ImageView commonGoalCard1;
 
@@ -25,8 +29,10 @@ public class ObjectiveCardController {
     @FXML
     Text pointCG2Text;
 
-    @FXML
-    Text myPointsText;
+
+    public ObjectiveCardController(){
+        CommonGoalsRepresentation.getInstance().registerObserver(this);
+    }
 
     public void setPointCG1Text(int point) {
         pointCG1Text.setText(String.valueOf(point));
@@ -52,12 +58,16 @@ public class ObjectiveCardController {
         this.card2Description.setText(description);
     }
 
-    public void setMyPointsText(int points) {
-        this.myPointsText.setText(String.valueOf(points));
-    }
-
     @FXML
     public void onGoBackClicked() {
         StageController.changeScene("fxml/board.fxml", "Chat");
+    }
+
+    @Override
+    public void update() {
+        ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
+        ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
+
+        //TODO
     }
 }

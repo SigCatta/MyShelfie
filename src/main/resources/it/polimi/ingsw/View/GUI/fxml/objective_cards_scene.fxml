@@ -98,21 +98,11 @@
                   </AnchorPane>
                   <AnchorPane layoutX="-1.0" layoutY="491.0" prefHeight="312.0" prefWidth="1200.0">
                      <children>
-                        <Text fill="WHITE" layoutX="462.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MY POINTS:" textAlignment="CENTER" wrappingWidth="161.64306640625">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="24.0" />
-                           </font>
-                        </Text>
                         <ImageView fitHeight="262.0" fitWidth="1184.0" layoutX="14.0" layoutY="-37.0">
                            <image>
                               <Image url="@../17_MyShelfie_BGA/misc/asse.png" />
                            </image>
                         </ImageView>
-                        <Text fx:id="myPointsText" fill="WHITE" layoutX="590.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" wrappingWidth="123.2430419921875">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="24.0" />
-                           </font>
-                        </Text>
                      </children>
                   </AnchorPane>
                </children>
