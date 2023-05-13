@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
@@ -44,7 +45,7 @@ public class BoardRefresher implements EndOfTurnObserver {
 
         for(int i = 0; i < board.getSize(); i++){
             for(int j = 0; j < board.getSize(); j++){
-                if(board.getBoardGrid()[i][j] != null) continue;
+                if(board.getBoardGrid()[i][j] != null && board.getBoardGrid()[i][j].getColor() != Color.EMPTY) continue;
                 if(lookUpTable[i][j]){
                     board.getBoardGrid()[i][j] = BAG.drawTile();
                 }

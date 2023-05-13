@@ -1,7 +1,19 @@
 package it.polimi.ingsw.VirtualModel;
 
-public interface VirtualModelSubject {
-    void registerObserver(VirtualModelObserver observer);
-    void removeObserver(VirtualModelObserver observer);
-    void notifyObservers();
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class VirtualModelSubject {
+    List<VirtualModelObserver> observers;
+
+    public VirtualModelSubject() {
+        observers = new ArrayList<>();
+    }
+    public void registerObserver(VirtualModelObserver observer) {
+        observers.add(observer);
+    }
+    public void removeObserver(VirtualModelObserver observer){
+        observers.remove(observer);
+    }
+    public abstract void notifyObservers();
 }

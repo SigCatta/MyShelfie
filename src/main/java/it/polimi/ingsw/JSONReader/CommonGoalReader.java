@@ -34,7 +34,12 @@ public class CommonGoalReader implements JSONFileReader {
         return drawing;
     }
 
-
+    /**
+     * Finds a common_goals's json file given its name
+     *
+     * @param cardName the common goal card's name
+     * @return the common goal's JSONOBJECT
+     */
     private JSONObject getCardObject(String cardName) {
         try {
             InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/common_cards/" + cardName + ".json");
@@ -46,6 +51,12 @@ public class CommonGoalReader implements JSONFileReader {
         }
     }
 
+    /**
+     * Finds a card's description given its name
+     *
+     * @param cardName the common goal card's name
+     * @return a String containing the card's description
+     */
     public String getDescription(String cardName) {
         return (String) Objects.requireNonNull(getCardObject(cardName)).get("DESCRIPTION");
     }

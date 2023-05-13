@@ -46,14 +46,4 @@ public class TwoSquaresCGSTest {
         shelf = new Shelf(mat3);
         assertTrue(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new TwoSquaresCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new TwoSquaresCGS().getDescription());
-    }
-
 }

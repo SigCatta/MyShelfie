@@ -4,13 +4,14 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 
 import java.util.Stack;
 
-public class EchosRepresentation implements VirtualModelSubject {
+public class EchosRepresentation extends VirtualModelSubject {
 
     private final Stack<EchoMTC> messages;
 
     private static EchosRepresentation instance;
 
     private EchosRepresentation() {
+        super();
         messages = new Stack<>();
     }
 
@@ -32,18 +33,8 @@ public class EchosRepresentation implements VirtualModelSubject {
     //TODO method that retrieves the error message
 
     @Override
-
-    public void registerObserver(VirtualModelObserver observer) {
-
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-
-    }
-
-    @Override
     public void notifyObservers() {
+        observers.forEach(VirtualModelObserver::update);
         synchronized (this){
             this.notify();
         }

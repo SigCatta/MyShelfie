@@ -5,13 +5,15 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.List;
 
-public class TilesTableRepresentation implements VirtualModelSubject{
+public class TilesTableRepresentation extends VirtualModelSubject{
 
     //TODO do singleton class and finish
     private static TilesTableRepresentation instance;
     private ChosenTilesTableMTC tilesTableMessage;
 
-    private TilesTableRepresentation(){}
+    private TilesTableRepresentation(){
+        super();
+    }
 
     public static TilesTableRepresentation getInstance(){
         if(instance == null) instance = new TilesTableRepresentation();
@@ -28,17 +30,7 @@ public class TilesTableRepresentation implements VirtualModelSubject{
     }
 
     @Override
-    public void registerObserver(VirtualModelObserver observer) {
-
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-
-    }
-
-    @Override
     public void notifyObservers() {
-
+        observers.forEach(VirtualModelObserver::update);
     }
 }

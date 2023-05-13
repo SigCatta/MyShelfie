@@ -1,23 +1,20 @@
 package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
+import it.polimi.ingsw.model.tiles.ItemTile;
+import it.polimi.ingsw.network.client.SocketClient;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class ShelvesRepresentation implements VirtualModelSubject {
-    /**
-     * nickname of the player that owns the shelf
-     */
+public class ShelvesRepresentation extends VirtualModelSubject {
     private final Map<String, ShelfMTC> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
-    private List<VirtualModelObserver> observers;
 
     private ShelvesRepresentation() {
+        super();
         SHELF_MESSAGES = new HashMap<>();
-        observers = new ArrayList<>();
     }
 
     public static ShelvesRepresentation getInstance() {
@@ -31,7 +28,9 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     public void updateShelf(ShelfMTC shelfMessage) {
         String nickname = shelfMessage.getOwner();
         SHELF_MESSAGES.put(nickname, shelfMessage);
-        notifyObservers();
+        ItemTile[][] shelf = shelfMessage.getShelf();
+        if (Arrays.deepEquals(shelf, new ItemTile[shelf.length][shelf[0].length])) return; // does not notify if the shelf is empty
+        if (SocketClient.getInstance().getNickname().equals(nickname)) notifyObservers();
     }
 
     public ShelfMTC getShelfMessage(String nickname) {
@@ -41,22 +40,7 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     //TODO method that retrieves the players
 
     @Override
-    public void registerObserver(VirtualModelObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers() {
-        for (VirtualModelObserver observer : observers) {
-            observer.update();
-        }
-        synchronized (this) {
-            notifyAll();
-        }
+       observers.forEach(VirtualModelObserver::update);
     }
 }

@@ -10,6 +10,6 @@ public class ChatExecutor implements Executor {
     public static void execute(MessageToServer message) {
         Game game = message.getGame();
         ChatMTS chatMessage = (ChatMTS) message;
-        game.getVirtualView().send(new ChatMTC(chatMessage.getChatMessage()));
+        game.getVirtualView().send(new ChatMTC(chatMessage.getChatMessage(), chatMessage.getSender()));
     }
 }

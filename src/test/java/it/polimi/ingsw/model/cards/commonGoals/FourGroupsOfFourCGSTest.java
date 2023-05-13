@@ -37,13 +37,4 @@ public class FourGroupsOfFourCGSTest {
         };
         assertFalse(ShelfUtils.checkMatrixWithDFS(matrix3, 4, 4));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new FourGroupsOfFourCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new FourGroupsOfFourCGS().getDescription());
-    }
 }

@@ -47,13 +47,4 @@ public class SixGroupsOfTwoCGSTest {
         };
         assertFalse("Test case 3 failed", ShelfUtils.checkMatrixWithDFS(mat3, 6, 2));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new SixGroupsOfTwoCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new SixGroupsOfTwoCGS().getDescription());
-    }
 }

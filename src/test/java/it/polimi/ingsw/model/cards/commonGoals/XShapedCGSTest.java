@@ -57,13 +57,4 @@ public class XShapedCGSTest {
         shelf = new Shelf(matrix4);
         assertFalse(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new XShapedCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new XShapedCGS().getDescription());
-    }
 }

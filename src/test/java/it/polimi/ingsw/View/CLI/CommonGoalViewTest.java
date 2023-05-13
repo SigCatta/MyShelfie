@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.CLI;
 
+import it.polimi.ingsw.View.CLI.Elements.CommonGoalView;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
@@ -26,7 +27,7 @@ public class CommonGoalViewTest {
         deck.add(new CommonGoalCard(new TwoSquaresCGS()));
 
         CommonGoalsRepresentation.getInstance().updateCommonGoal(new CommonGoalMTC(deck));
-        CommonGoalView cgv = new CommonGoalView();
+        CommonGoalView cgv = CommonGoalView.getInstance();
         ArrayList<String> output = cgv.getPrint(new ArrayList<>());
         output = cgv.addDescription(output);
 

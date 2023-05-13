@@ -12,17 +12,14 @@ import java.util.Arrays;
 public class Board implements VirtualViewSubject {
     private final ArrayList<VirtualViewObserver> OBSERVERS;
     private final ItemTile[][] BOARD_GRID;
-    private final Color[][] COLOR_GRID;
 
     public Board(int boardDimension) {
         BOARD_GRID = new ItemTile[boardDimension][boardDimension];
-        COLOR_GRID = new Color[boardDimension][boardDimension];
         OBSERVERS = new ArrayList<>();
     }
 
     public Board(ItemTile[][] board){ //TODO only for testing (?)
         BOARD_GRID = board;
-        COLOR_GRID = toColorArray(board);
         OBSERVERS = new ArrayList<>();
     }
 
@@ -30,26 +27,20 @@ public class Board implements VirtualViewSubject {
         return BOARD_GRID;
     }
 
-    public Color[][] getColorGrid(){
-        return COLOR_GRID;
-    }
 
     public int getSize(){
         return BOARD_GRID.length;
     }
 
-    public void setItemTile(Color color, int row, int col){
+    public void setItemTile(Color color, int row, int col){ //TODO only for testing (?)
         if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
-        COLOR_GRID[row][col] = color;
         notifyObservers();
     }
 
     public ItemTile removeItemTile(Point location) {
         ItemTile pickedUpTile = BOARD_GRID[location.x][location.y];
-        BOARD_GRID[location.x][location.y] = null;
-        COLOR_GRID[location.x][location.y] = null;
-        notifyObservers();
+        BOARD_GRID[location.x][location.y] = new ItemTile(Color.EMPTY);
         return pickedUpTile;
     }
 
@@ -67,17 +58,6 @@ public class Board implements VirtualViewSubject {
             Arrays.fill(itemTiles, null);
         }
         notifyObservers();
-    }
-
-    private Color[][] toColorArray(ItemTile[][] boardGrid){
-        Color[][] colorGrid = new Color[boardGrid.length][boardGrid[0].length];
-        for(int i = 0; i < boardGrid.length; i++){
-            for(int j = 0; j < boardGrid[0].length; j++){
-                if(boardGrid[i][j] == null) continue;
-                colorGrid[i][j] = boardGrid[i][j].getColor();
-            }
-        }
-        return colorGrid;
     }
 
     @Override

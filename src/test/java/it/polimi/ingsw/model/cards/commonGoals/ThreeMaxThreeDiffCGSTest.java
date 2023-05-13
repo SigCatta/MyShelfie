@@ -56,13 +56,4 @@ public class ThreeMaxThreeDiffCGSTest {
         shelf = new Shelf(matrix4);
         assertTrue(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new ThreeMaxThreeDiffCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new ThreeMaxThreeDiffCGS().getDescription());
-    }
 }

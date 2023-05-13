@@ -41,12 +41,6 @@ public class TwoSquaresCGS extends CommonGoalStrategy {
         // returns true if the number of squares with the same color is > 1
         return colorMap.values().stream().anyMatch(squareNum -> squareNum > 1 );
     }
-
-    @Override
-    public String getDescription() {
-        return "Due gruppi separati di 4 tessere dello stesso tipo che formano un quadrato 2x2. Le tessere dei due gruppi devono essere dello stesso tipo.";
-    }
-
 }
 
 

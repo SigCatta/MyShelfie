@@ -56,6 +56,8 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         } catch (NumberFormatException nfe){
             Server.LOGGER.severe("Client " + client.getInetAddress() + " invalid number"); //TODO remove after testing
             disconnect();
+        } catch (NullPointerException npe){
+            Server.LOGGER.severe("Client" + client.getInetAddress() + " failed to initalize ObjectInputStream");
         }
     }
     /**
