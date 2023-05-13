@@ -21,17 +21,12 @@
                               <Font name="Gill Sans MT" size="35.0" />
                            </font>
                         </Text>
-                        <Button layoutX="107.0" layoutY="524.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="GO BACK">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="continueButton" layoutX="599.0" layoutY="524.0" mnemonicParsing="false" onAction="#onContinueButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="CONTINUE" visible="false">
                            <font>
                               <Font name="Arial Black" size="18.0" />
                            </font>
                         </Button>
-                        <AnchorPane layoutX="518.0" layoutY="260.0" prefHeight="64.0" prefWidth="119.0" styleClass="label3" stylesheets="@../css/background.css">
+                        <AnchorPane layoutX="527.0" layoutY="345.0" prefHeight="64.0" prefWidth="119.0" styleClass="label3" stylesheets="@../css/background.css">
                            <children>
                               <Text fx:id="currentNumText" fill="WHITE" layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                  <font>
@@ -50,9 +45,15 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <Label layoutX="111.0" layoutY="264.0" styleClass="label3" stylesheets="@../css/background.css" text="Waiting for other players to join:" />
-                        <Label layoutX="242.0" layoutY="178.0" styleClass="label3" stylesheets="@../css/background.css" text="Players connected: " />
-                        <Text fx:id="playersNamesText" fill="WHITE" layoutX="558.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.21527099609375">
+                        <Label layoutX="120.0" layoutY="349.0" styleClass="label3" stylesheets="@../css/background.css" text="Waiting for other players to join:" />
+                        <Label layoutX="251.0" layoutY="263.0" styleClass="label3" stylesheets="@../css/background.css" text="Players connected: " />
+                        <Text fx:id="playersNamesText" fill="WHITE" layoutX="567.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.21527099609375">
+                           <font>
+                              <Font name="Gill Sans MT" size="20.0" />
+                           </font>
+                        </Text>
+                        <Label layoutX="311.0" layoutY="178.0" styleClass="label3" stylesheets="@../css/background.css" text="GameId:" />
+                        <Text fx:id="gameIdText" fill="WHITE" layoutX="558.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.21527099609375">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>

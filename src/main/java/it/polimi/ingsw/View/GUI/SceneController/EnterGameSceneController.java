@@ -37,20 +37,23 @@ public class EnterGameSceneController {
             //connect player to already existing game
             SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
 
-            synchronized (EchosRepresentation.getInstance()) {
-                try {
-                    EchosRepresentation.getInstance().wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            new Thread(() -> {
 
-            EchoMTC message = EchosRepresentation.getInstance().getMessage();
-            if (message.isError()) {
-                checkGameId(false);
-                return;
-            }
-            checkGameId(true);
+                synchronized (EchosRepresentation.getInstance()) {
+                    try {
+                        EchosRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                EchoMTC message = EchosRepresentation.getInstance().getMessage();
+                if (message.isError()) {
+                    checkGameId(false);
+                    return;
+                }
+                checkGameId(true);
+            }).start();
 
         } else {
             //player wants to create a new game
@@ -77,6 +80,7 @@ public class EnterGameSceneController {
     protected void onJoinGameRBClicked() {
         gameIdField.setVisible(true);
         gameIdText.setVisible(true);
+        setContinueButtonVisible();
     }
 
     @FXML
@@ -84,6 +88,7 @@ public class EnterGameSceneController {
         gameIdField.setVisible(false);
         gameIdText.setVisible(false);
         setContinueButtonVisible();
+        wrongGameIdImage.setVisible(false);
     }
     @FXML
     public void setContinueButtonVisible() {
@@ -102,6 +107,7 @@ public class EnterGameSceneController {
 
     @FXML
     public void onGameIdInsert()  {
+        wrongGameIdImage.setVisible(false);
         setContinueButtonVisible();
     }
 }
