@@ -6,20 +6,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
 
 public class ItemRefillUtility {
 
     private static final String ITEM_TILES_PACKAGE = ItemRefillUtility.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/").toString();
-    private static final Map<Integer, Image> TILE_TO_IMAGE = new HashMap<>();
 
 
     public static Image createImage(ItemTile tile) {
 
         int imageNumber = (int) (Math.random() * 3) + 1;
 
-        String tilePath = ITEM_TILES_PACKAGE + tile.getColor() + "/1." + imageNumber + ".png"; //TODO filesystem problem with '/'
+        String tilePath = ITEM_TILES_PACKAGE + tile.getColor() + "/1." + imageNumber + ".png";
 
         return new Image(tilePath);
     }
@@ -49,14 +47,17 @@ public class ItemRefillUtility {
 
                 if (reference[row][col] == null) continue;
 
-                Integer id = reference[row][col].getId(); //the id of the item tile
-                if (TILE_TO_IMAGE.get(id) == null) {
-                    TILE_TO_IMAGE.put(id, ItemRefillUtility.createImage(reference[row][col]));
+                int id = reference[row][col].getId(); //the id of the item tile
+                if (!ItemTileMemory.contains(id)) {
+                    ItemTileMemory.put(id, reference[row][col], new Point(row, col), createImage(reference[row][col]));
                 }
 
-                ImageView imageView = (ImageView) ItemRefillUtility.getNodeFromGridPane(gridPane, row, col);
+                ImageView imageView = (ImageView) getNodeFromGridPane(gridPane, row, col);
                 if (imageView == null) continue;
-                imageView.setImage(TILE_TO_IMAGE.get(id));
+
+                imageView.setUserData(id); //set the id of the item tile to the image
+
+                imageView.setImage(ItemTileMemory.getImage(id));
             }
         }
     }
