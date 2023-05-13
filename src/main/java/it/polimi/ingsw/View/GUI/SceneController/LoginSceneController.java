@@ -2,6 +2,10 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.StartOrJoinState;
+import it.polimi.ingsw.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,6 +37,24 @@ public class LoginSceneController {
     @FXML
     protected void onContinueButtonClick() {
         SocketClient.getInstance().sendCommand(new HandshakeMTS(getNickname()));
+
+        synchronized (EchosRepresentation.getInstance()) {
+            try {
+                EchosRepresentation.getInstance().wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        boolean correct;
+        EchoMTC message = EchosRepresentation.getInstance().getMessage();
+        if (message.isError()) {
+            correct = false;
+        } else {
+            correct = true;
+            SocketClient.getInstance().setNickname(getNickname());
+        }
+        isNicknameCorrect(correct);
     }
 
     @FXML

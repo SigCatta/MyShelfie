@@ -12,7 +12,7 @@
    <children>
       <Group>
          <children>
-            <AnchorPane prefHeight="803.0" prefWidth="1203.0">
+            <AnchorPane onMouseEntered="#setUp" prefHeight="803.0" prefWidth="1203.0">
                <children>
                   <AnchorPane layoutX="113.0" layoutY="59.0" prefHeight="686.0" prefWidth="977.0" styleClass="blackBoard" stylesheets="@../css/background.css">
                      <children>

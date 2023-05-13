@@ -38,7 +38,7 @@
                            <font>
                               <Font size="24.0" />
                            </font></Text>
-                        <Text fx:id="player1Nickname" layoutX="43.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="myNickname" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
+                        <Text fx:id="player1Nickname" layoutX="43.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player1" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
                            <font>
                               <Font size="24.0" />
                            </font></Text>

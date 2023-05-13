@@ -45,18 +45,30 @@ public class WinSceneController {
     ImageView player4CrownImage;
 
     public void setWinner() {
-        //TODO
+        List<Integer> pointList = List.of(Integer.parseInt(player1Points.getText()), Integer.parseInt(player1Points.getText()),
+                Integer.parseInt(player1Points.getText()), Integer.parseInt(player1Points.getText()));
+
+        int maxScore = pointList.stream().max(Integer::compare).orElse(0);
+        if(pointList.indexOf(maxScore)==0) {
+            player1CrownImage.setVisible(true);
+        } else if(pointList.indexOf(maxScore)==1) {
+            player2CrownImage.setVisible(true);
+        } else if(pointList.indexOf(maxScore)==2) {
+            player3CrownImage.setVisible(true);
+        } else {
+            player4CrownImage.setVisible(true);
+        }
     }
 
     @FXML
     public void init() {
-        List<Text> menuItemList = List.of(player1Nickname, player2Nickname, player3Nickname, player4Nickname);
+        List<Text> nicknamesTextsList = List.of(player1Nickname, player2Nickname, player3Nickname, player4Nickname);
+        List<Text> pointTextsList = List.of(player1Points, player2Points, player3Points, player4Points);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
 
         for(int i=0; i<nicknames.size(); i++) {
-                menuItemList.get(i).setText(nicknames.get(i));
+            nicknamesTextsList.get(i).setText(nicknames.get(i));
+            pointTextsList.get(i).setText(String.valueOf(PlayersRepresentation.getInstance().getPlayerScore(nicknames.get(i))));
         }
-
-        //TODO set points
     }
 }

@@ -11,9 +11,9 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="shelfClose" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController">
    <children>
-      <Group>
+      <Group >
          <children>
-            <AnchorPane prefHeight="800.0" prefWidth="1200.0">
+            <AnchorPane onMouseEntered="#setUp" prefHeight="800.0" prefWidth="1200.0">
                <children>
                   <AnchorPane layoutX="39.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
                      <children>

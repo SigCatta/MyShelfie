@@ -1,9 +1,15 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.GameStartupState;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 public class WaitingRoomController {
     @FXML
@@ -32,15 +38,36 @@ public class WaitingRoomController {
         continueButton.setVisible(true);
     }
 
-    public void updatePlayersNamesText(String name) {
-        playersNamesText.setText(name + ", " + playersNamesText.getText());
+    public void updatePlayersNamesText(ArrayList<String> names) {
+        for(String name: names) {
+            playersNamesText.setText(name + ", " + playersNamesText.getText());
+        }
     }
 
     public void setMaxNumText(int num) {
         maxNumText.setText(String.valueOf(num));
     }
 
-    public void updateCurrentNumText() {
-        currentNumText.setText(String.valueOf(Integer.parseInt(currentNumText.getText())+1));
+    public void updateCurrentNumText(int num) {
+        currentNumText.setText(String.valueOf(num));
+    }
+
+    @FXML
+    public void setUp() {
+        setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
+
+        while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
+            updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
+            updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
+            synchronized (GameRepresentation.getInstance()) {
+                try {
+                    GameRepresentation.getInstance().wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        setContinueButtonVisible();
     }
 }

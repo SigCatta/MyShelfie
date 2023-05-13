@@ -27,6 +27,10 @@ public class PlayersRepresentation extends VirtualModelSubject {
         return PLAYER_MESSAGES.values().stream().map(PlayerMTC::getNickname).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public int getPlayerScore(String nickname) {
+        return PLAYER_MESSAGES.get(nickname).getScore();
+    }
+
     public PlayerMTC getPlayerByNickname(String nickname) {
         return PLAYER_MESSAGES.get(nickname);
     }
