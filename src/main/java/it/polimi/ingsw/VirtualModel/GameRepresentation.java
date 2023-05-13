@@ -41,16 +41,6 @@ public class GameRepresentation extends VirtualModelSubject {
     }
 
     @Override
-    public void registerObserver(VirtualModelObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers() {
         observers.forEach(VirtualModelObserver::update);
         synchronized (this){
