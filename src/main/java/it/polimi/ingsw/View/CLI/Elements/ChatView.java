@@ -11,8 +11,10 @@ public class ChatView extends ViewElement {
 
     private static ChatView instance;
 
-    private ChatView(){}
-    public static ChatView getInstance(){
+    private ChatView() {
+    }
+
+    public static ChatView getInstance() {
         if (instance == null) instance = new ChatView();
         return instance;
     }
@@ -47,12 +49,10 @@ public class ChatView extends ViewElement {
         drawing.add(("          ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────┐"));
         drawing.add(("          │                                                   CHAT                                                   │"));
         drawing.add(("          ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤"));
-
         for (int i = 0; i < Math.min(chatHeigth - 4, messages.size()); i++) {
             ChatMTC message = messages.get(messages.size() - (i + 1));
-
             String string = "          │ " +
-                    message.getSender() +
+                    (!message.isBroadcast() ? ("\033[3m" + message.getSender() + "\033[0m") : message.getSender()) + // writes in italics if the message is private
                     ": " +
                     message.getChatMessage() +
                     padding(message);

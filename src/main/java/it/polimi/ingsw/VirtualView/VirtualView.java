@@ -14,7 +14,7 @@ import java.util.List;
 
 public class VirtualView {
 
-    private List<SocketClientHandler> clientHandlers;
+    private final List<SocketClientHandler> clientHandlers;
     private final Game GAME;
 
     public void addClient(SocketClientHandler clientHandler){
@@ -28,6 +28,10 @@ public class VirtualView {
         new BoardVV(GAME, this); // links the board observer to the board
         new CommonGoalVV(GAME, this);
         new ChosenTilesTableVV(GAME, this);
+    }
+
+    public SocketClientHandler getSocketHandlerClientByNickname(String nickname){
+        return clientHandlers.stream().filter( ch -> ch.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
     public void send(MessageToClient messageToClient){
