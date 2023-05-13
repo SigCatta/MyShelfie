@@ -1,12 +1,16 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.ByeMTS;
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.CLI.InputStates.GameStartupState;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -21,6 +25,9 @@ public class WaitingRoomController {
     Text currentNumText;
 
     @FXML
+    Text gameIdText;
+
+    @FXML
     Button continueButton;
 
     @FXML
@@ -29,10 +36,18 @@ public class WaitingRoomController {
         StageController.changeScene("fxml/board.fxml","Living room");
     }
 
+    /*
+    <Button layoutX="107.0" layoutY="524.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="GO BACK">
+                           <font>
+                              <Font name="Arial Black" size="18.0" />
+                           </font>
+                        </Button>
     @FXML
     public void onGoBackButtonClick(ActionEvent actionEvent) {
-        StageController.changeScene("fxml/login_scene.fxml","Login");
+        SocketClient.getInstance().sendCommand(new ByeMTS());
+        StageController.changeScene("fxml/enter_game_scene.fxml","Login");
     }
+     */
 
     public void setContinueButtonVisible() {
         continueButton.setVisible(true);
@@ -58,6 +73,7 @@ public class WaitingRoomController {
     @FXML
     public void setUp() {
         setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
+        gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
 
         new Thread(() -> {
             while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {

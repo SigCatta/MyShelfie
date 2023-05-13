@@ -5,6 +5,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -51,10 +53,15 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="193.0" layoutY="440.0" prefHeight="83.0" prefWidth="551.0" visible="false">
+                  <AnchorPane layoutX="193.0" layoutY="440.0" prefHeight="83.0" prefWidth="551.0">
                      <children>
-                        <TextField fx:id="gameIdField" layoutX="21.0" layoutY="33.0" prefHeight="36.0" prefWidth="331.0" />
-                        <Text fx:id="gameIdText" layoutX="27.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game id:" wrappingWidth="204.0" />
+                        <TextField fx:id="gameIdField" layoutX="21.0" layoutY="33.0" onKeyTyped="#onGameIdInsert" prefHeight="36.0" prefWidth="331.0" visible="false" />
+                        <Text fx:id="gameIdText" layoutX="27.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game id:" visible="false" wrappingWidth="204.0" />
+                        <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="382.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../17_MyShelfie_BGA/misc/warning.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </children>
