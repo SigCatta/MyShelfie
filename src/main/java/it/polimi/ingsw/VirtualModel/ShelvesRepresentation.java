@@ -1,18 +1,19 @@
 package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
+import it.polimi.ingsw.network.client.SocketClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ShelvesRepresentation implements VirtualModelSubject {
-    /**
-     * nickname of the player that owns the shelf
-     */
+    private final ArrayList<VirtualModelObserver> observers;
     private final Map<String, ShelfMTC> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
 
     private ShelvesRepresentation() {
+        this.observers = new ArrayList<>();
         SHELF_MESSAGES = new HashMap<>();
     }
 
@@ -27,7 +28,7 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     public void updateShelf(ShelfMTC shelfMessage) {
         String nickname = shelfMessage.getOwner();
         SHELF_MESSAGES.put(nickname, shelfMessage);
-        notifyObservers();
+        if (SocketClient.getInstance().getNickname().equals(nickname)) notifyObservers();
     }
 
     public ShelfMTC getShelfMessage(String nickname) {
@@ -38,18 +39,16 @@ public class ShelvesRepresentation implements VirtualModelSubject {
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        synchronized (this){
-            notifyAll();
-        }
+       observers.forEach(VirtualModelObserver::update);
     }
 }

@@ -33,7 +33,7 @@ public class PickupTilesCE implements CommandExecutor {
             int column = getColumn();
             if (column == -1) {
                 Printer.clearConsole();
-                Printer.printHomeScreen();
+                Printer.getInstance().update();
                 return;
             }
 

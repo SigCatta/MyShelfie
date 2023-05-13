@@ -44,6 +44,5 @@ public class PickupTilesExecutor implements Executor {
         game.getChosenTilesTable().addTiles(tiles);
 
         game.setGameState(GameState.INSERT_TILES);
-        game.getVirtualView().send(new EchoMTC(EchoID.CHANGE, false));
     }
 }

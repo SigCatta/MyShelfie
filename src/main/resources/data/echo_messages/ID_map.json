@@ -6,7 +6,6 @@
   "JOINED": "You joined game: ",
   "PANIC": "Something went wrong...",
   "GAMESTARTED": "This game has already started",
-  "CHANGE": "Something changed...",
   "WRONG_CHOSEN_TABLE_INDEX": "ERROR: The index chosen is not valid",
   "BADCOLUMN": "ERROR: The column chosen does not have enough spaces to contain all the tiles",
   "WRONGSTATE": "ERROR: This action can not be perform in the current state of the game",

@@ -10,6 +10,6 @@ public class RefreshCE implements CommandExecutor {
     @Override
     public void execute() {
         Printer.clearConsole();
-        Printer.printHomeScreen();
+        Printer.getInstance().update();
     }
 }

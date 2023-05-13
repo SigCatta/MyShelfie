@@ -5,11 +5,12 @@ import it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC;
 import java.util.ArrayList;
 
 public class CommonGoalsRepresentation implements VirtualModelSubject {
+    private final ArrayList<VirtualModelObserver> observers;
     private static CommonGoalsRepresentation instance;
     private CommonGoalMTC commonGoalMessage;
 
     private CommonGoalsRepresentation() {
-
+        observers = new ArrayList<>();
     }
 
     public static CommonGoalsRepresentation getInstance() {
@@ -35,18 +36,16 @@ public class CommonGoalsRepresentation implements VirtualModelSubject {
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        synchronized (this) {
-            notifyAll();
-        }
+        observers.forEach(VirtualModelObserver::update);
     }
 }

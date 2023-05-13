@@ -1,15 +1,30 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Printer {
+public class Printer implements VirtualModelObserver {
 
     static HashMap<Color, String> colorMap;
+    private static Printer instance;
+
+    private Printer() {
+        BoardRepresentation.getInstance().registerObserver(this);
+        ChatRepresentation.getInstance().registerObserver(this);
+        CommonGoalsRepresentation.getInstance().registerObserver(this);
+        GameRepresentation.getInstance().registerObserver(this);
+        PlayersRepresentation.getInstance().registerObserver(this);
+        ShelvesRepresentation.getInstance().registerObserver(this);
+    }
+
+    public static Printer getInstance(){
+        if (instance == null) instance =  new Printer();
+        return instance;
+    }
 
     /**
      * Changes the color map
@@ -19,7 +34,7 @@ public class Printer {
     public static void enableCLIColors(boolean isColored) {
         colorMap = new HashMap<>();
         if (isColored) {
-            // COLOR = ANSI_BACKGROUND_COLOR_ID + WHITE spaces + ANSI_COLOR_REadd
+            // COLOR = ANSI_BACKGROUND_COLOR_ID + WHITE spaces + ANSI_COLOR_RESET
             colorMap.put(Color.GREEN, "\033[0;102m" + " " + "\u001B[0m");
             colorMap.put(Color.YELLOW, "\033[0;103m" + " " + "\u001B[0m");
             colorMap.put(Color.BLUE, "\033[0;104m" + " " + "\u001B[0m");
@@ -57,7 +72,8 @@ public class Printer {
      * - chat (if available)<br>
      * - a list of the available commands<br>
      */
-    public static void printHomeScreen() {
+    @Override
+    public void update() {
         ArrayList<String> output = new ArrayList<>();
 
         output = new BoardView().getPrint(output);
@@ -68,6 +84,15 @@ public class Printer {
         output = addAvailableCommands(output);
 
         output.forEach(System.out::println);
+    }
+
+    /**
+     * Uses ANSI escape code to move the cursore to the top of the screen,
+     * makeing it look like the console has been cleared
+     */
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /**
@@ -96,15 +121,6 @@ public class Printer {
         }
 
         return output;
-    }
-
-    /**
-     * Uses ANSI escape code to move the cursore to the top of the screen,
-     * makeing it look like the console has been cleared
-     */
-    public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
     /**

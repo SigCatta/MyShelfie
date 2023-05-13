@@ -38,7 +38,7 @@ public class GameStartupState extends InputState {
 
         //all elements are ready
         Printer.clearConsole();
-        Printer.printHomeScreen();
+        Printer.getInstance().update();
 
         Reader reader = new Reader();
 

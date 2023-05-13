@@ -10,7 +10,6 @@ public enum EchoID {
     JOINED,
     CREATED,
     GAMESTARTED,
-    CHANGE,
     WRONG_CHOSEN_TABLE_INDEX,
     WRONGSTATE,
     NOTACTIVE,

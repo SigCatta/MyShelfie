@@ -5,10 +5,9 @@ import it.polimi.ingsw.VirtualView.Messages.BoardMTC;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BoardRepresentation implements VirtualModelSubject {
-    private List<VirtualModelObserver> observers;
+    private final ArrayList<VirtualModelObserver> observers;
     private ItemTile[][] board;
     private static BoardRepresentation instance;
 
@@ -46,23 +45,16 @@ public class BoardRepresentation implements VirtualModelSubject {
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-        if (observers == null) observers = new ArrayList<>();
         observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-        if (observers == null) return;
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualModelObserver observer : observers) {
-            observer.update();
-        }
-        synchronized (this) {
-            notifyAll();
-        }
+        observers.forEach(VirtualModelObserver::update);
     }
 }
