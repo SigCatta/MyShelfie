@@ -9,6 +9,7 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
@@ -20,7 +21,10 @@ public class LoginSceneController {
     TextField ipField;
 
     @FXML
-    Button continueButton;
+    ImageView continueButton;
+
+    @FXML
+    Label continueText;
 
     @FXML
     ImageView wrongNicknameImage;
@@ -59,8 +63,11 @@ public class LoginSceneController {
 
     @FXML
     public void setContinueButtonVisible() {
-        if(nicknameField.getText().length()>0 )
+        if(nicknameField.getText().length()>0 ) {
             continueButton.setVisible(true);
+            continueText.setVisible(true);
+        }
+
     }
 
     public void isNicknameCorrect(boolean correct)  {

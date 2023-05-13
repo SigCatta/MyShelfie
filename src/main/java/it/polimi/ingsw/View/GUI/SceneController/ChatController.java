@@ -47,7 +47,7 @@ public class ChatController {
         int j=0;
 
         for(int i=0; i<nicknames.size(); i++) {
-            if(!nicknames.get(i).equals(GameRepresentation.getInstance().getActivePlayerNickname())){
+            if(!nicknames.get(i).equals(SocketClient.getInstance().getNickname())){
                 menuItemList.get(j).setText(nicknames.get(i));
                 j++;
             }

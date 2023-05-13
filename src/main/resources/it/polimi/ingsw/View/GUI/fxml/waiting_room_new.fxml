@@ -12,9 +12,9 @@
    <children>
       <Group>
          <children>
-            <AnchorPane onMouseEntered="#setUp" prefHeight="803.0" prefWidth="1203.0">
+            <AnchorPane prefHeight="803.0" prefWidth="1203.0">
                <children>
-                  <AnchorPane layoutX="113.0" layoutY="59.0" prefHeight="686.0" prefWidth="977.0" styleClass="blackBoard" stylesheets="@../css/background.css">
+                  <AnchorPane layoutX="113.0" layoutY="59.0" onMouseEntered="#setUp" prefHeight="686.0" prefWidth="977.0" styleClass="blackBoard" stylesheets="@../css/background.css">
                      <children>
                         <Text fill="WHITE" layoutX="197.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WAITING ROOM" textAlignment="CENTER" wrappingWidth="582.8429565429688">
                            <font>
@@ -26,7 +26,7 @@
                               <Font name="Arial Black" size="18.0" />
                            </font>
                         </Button>
-                        <Button layoutX="599.0" layoutY="524.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="CONTINUE">
+                        <Button fx:id="continueButton" layoutX="599.0" layoutY="524.0" mnemonicParsing="false" onAction="#onContinueButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="CONTINUE" visible="false">
                            <font>
                               <Font name="Arial Black" size="18.0" />
                            </font>
@@ -43,7 +43,7 @@
                                     <Font name="Gill Sans MT" size="20.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="maxNumTextmaxNumText" fill="WHITE" layoutX="74.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                              <Text fx:id="maxNumText" fill="WHITE" layoutX="74.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                                  <font>
                                     <Font name="Gill Sans MT" size="20.0" />
                                  </font>
@@ -52,7 +52,7 @@
                         </AnchorPane>
                         <Label layoutX="111.0" layoutY="264.0" styleClass="label3" stylesheets="@../css/background.css" text="Waiting for other players to join:" />
                         <Label layoutX="242.0" layoutY="178.0" styleClass="label3" stylesheets="@../css/background.css" text="Players connected: " />
-                        <Text fx:id="playersNamesText" fill="WHITE" layoutX="567.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="playersNamesText" fill="WHITE" layoutX="558.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="187.21527099609375">
                            <font>
                               <Font name="Gill Sans MT" size="20.0" />
                            </font>

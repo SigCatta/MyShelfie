@@ -61,7 +61,7 @@ public class WinSceneController {
     }
 
     @FXML
-    public void init() {
+    public void setUp() {
         List<Text> nicknamesTextsList = List.of(player1Nickname, player2Nickname, player3Nickname, player4Nickname);
         List<Text> pointTextsList = List.of(player1Points, player2Points, player3Points, player4Points);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
@@ -70,5 +70,7 @@ public class WinSceneController {
             nicknamesTextsList.get(i).setText(nicknames.get(i));
             pointTextsList.get(i).setText(String.valueOf(PlayersRepresentation.getInstance().getPlayerScore(nicknames.get(i))));
         }
+
+        setWinner();
     }
 }

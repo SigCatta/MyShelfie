@@ -53,8 +53,8 @@
                   </AnchorPane>
                   <AnchorPane layoutX="193.0" layoutY="440.0" prefHeight="83.0" prefWidth="551.0" visible="false">
                      <children>
-                        <TextField layoutX="21.0" layoutY="33.0" prefHeight="36.0" prefWidth="331.0" />
-                        <Text layoutX="27.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game id:" wrappingWidth="204.0" />
+                        <TextField fx:id="gameIdField" layoutX="21.0" layoutY="33.0" prefHeight="36.0" prefWidth="331.0" />
+                        <Text fx:id="gameIdText" layoutX="27.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game id:" wrappingWidth="204.0" />
                      </children>
                   </AnchorPane>
                </children>
