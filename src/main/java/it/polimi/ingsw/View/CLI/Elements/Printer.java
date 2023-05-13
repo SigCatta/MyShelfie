@@ -16,7 +16,6 @@ public class Printer implements VirtualModelObserver {
         BoardRepresentation.getInstance().registerObserver(this);
         ChatRepresentation.getInstance().registerObserver(this);
         CommonGoalsRepresentation.getInstance().registerObserver(this);
-        GameRepresentation.getInstance().registerObserver(this);
         PlayersRepresentation.getInstance().registerObserver(this);
         ShelvesRepresentation.getInstance().registerObserver(this);
     }
@@ -73,14 +72,15 @@ public class Printer implements VirtualModelObserver {
      * - a list of the available commands<br>
      */
     @Override
-    public void update() {
+    public synchronized void update() {
+
         ArrayList<String> output = new ArrayList<>();
 
-        output = new BoardView().getPrint(output);
-        output = new ShelfView().getPrint(output);
-        output = new CommonGoalView().getPrint(output);
-        output = new PersonalGoalView().getPrint(output);
-        output = new ChatView().getPrint(output);
+        output = BoardView.getInstance().getPrint(output);
+        output = ShelfView.getInstance().getPrint(output);
+        output = CommonGoalView.getInstance().getPrint(output);
+        output = PersonalGoalView.getInstance().getPrint(output);
+        output = ChatView.getInstance().getPrint(output);
         output = addAvailableCommands(output);
 
         output.forEach(System.out::println);

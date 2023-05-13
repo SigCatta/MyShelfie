@@ -12,8 +12,9 @@ public class CommonGoalCE implements CommandExecutor {
      */
     @Override
     public void execute() {
+        CommonGoalView cgv = CommonGoalView.getInstance();
+
         Printer.clearConsole();
-        CommonGoalView cgv = new CommonGoalView();
         cgv.addDescription(cgv.getPrint(new ArrayList<>())).forEach(System.out::println);
         Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
     }

@@ -12,8 +12,9 @@ public class PersonalGoalCE implements CommandExecutor {
      */
     @Override
     public void execute() {
+        PersonalGoalView pgv = PersonalGoalView.getInstance();
+
         Printer.clearConsole();
-        PersonalGoalView pgv = new PersonalGoalView();
         pgv.addDescription(pgv.getPrint(new ArrayList<>())).forEach(System.out::println);
         Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
     }

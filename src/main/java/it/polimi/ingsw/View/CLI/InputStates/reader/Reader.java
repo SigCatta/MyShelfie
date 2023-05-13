@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader;
 
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
@@ -83,6 +84,8 @@ public class Reader implements Runnable, VirtualModelObserver {
                         throw new RuntimeException(e);
                     }
                 }
+                Printer.clearConsole();
+                Printer.getInstance().update();
             }
         }
     }

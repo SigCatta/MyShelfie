@@ -4,8 +4,6 @@ import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.VirtualView.Messages.BoardMTC;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.util.ArrayList;
-
 public class BoardRepresentation extends VirtualModelSubject {
     private ItemTile[][] board;
     private static BoardRepresentation instance;

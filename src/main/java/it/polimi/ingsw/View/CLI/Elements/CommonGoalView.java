@@ -6,8 +6,15 @@ import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class CommonGoalView implements ViewElement {
+public class CommonGoalView extends ViewElement {
     private final CommonGoalReader reader = new CommonGoalReader();
+    private static CommonGoalView instance;
+
+    private CommonGoalView(){}
+    public static CommonGoalView getInstance(){
+        if (instance == null) instance = new CommonGoalView();
+        return instance;
+    }
 
     /**
      * Adds common goal drawings on top of the given ArrayList

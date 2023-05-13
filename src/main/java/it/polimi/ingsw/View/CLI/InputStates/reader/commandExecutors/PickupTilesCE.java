@@ -46,8 +46,6 @@ public class PickupTilesCE implements CommandExecutor {
 
             if (pickedUpTiles >= 3) break;
 
-
-
             if (stopPickup()) break;
         }
 

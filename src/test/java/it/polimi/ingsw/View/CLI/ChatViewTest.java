@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ChatViewTest {
     @Test
     public void getPrintTest1(){
-        new ChatView().getPrint(new ArrayList<>()).forEach(System.out::println); // shouldn't print anything
+        ChatView.getInstance().getPrint(new ArrayList<>()).forEach(System.out::println); // shouldn't print anything
     }
     @Test
     public void getPrintTest2(){
@@ -22,6 +22,6 @@ public class ChatViewTest {
             Client.LOGGER.info("The Virtual Model was not ready");
         }
 
-        new ChatView().getPrint(new ArrayList<>()).forEach(System.out::println);
+        ChatView.getInstance().getPrint(new ArrayList<>()).forEach(System.out::println);
     }
 }

@@ -5,9 +5,17 @@ import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 
 import java.util.ArrayList;
 
-public class ChatView implements ViewElement {
+public class ChatView extends ViewElement {
     private final int chatWidth = 118;
     private final int chatHeigth = 15; // has to be at least 5
+
+    private static ChatView instance;
+
+    private ChatView(){}
+    public static ChatView getInstance(){
+        if (instance == null) instance = new ChatView();
+        return instance;
+    }
 
     /**
      * Adds the chat box to a given ArrayList

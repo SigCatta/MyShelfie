@@ -7,7 +7,15 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ShelfView implements ViewElement {
+public class ShelfView extends ViewElement {
+
+    private static ShelfView instance;
+
+    private ShelfView(){}
+    public static ShelfView getInstance(){
+        if (instance == null) instance = new ShelfView();
+        return instance;
+    }
 
     /**
      * Prints the player's shelf
