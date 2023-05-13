@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
     private Board board;
-    private int BOARD_SIZE = 5;
+    private final int BOARD_SIZE = 5;
 
     @BeforeEach
     void setUp() {
@@ -41,7 +41,7 @@ class BoardTest {
         ItemTile tile = new ItemTile(color);
         board.getBoardGrid()[location.x][location.y] = tile;
         ItemTile removedTile = board.removeItemTile(location);
-        assertNull(board.getBoardGrid()[location.x][location.y]);
+        assertSame(board.getBoardGrid()[location.x][location.y].getColor(), Color.EMPTY);
         assertEquals(tile, removedTile);
     }
 }

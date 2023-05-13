@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class Shelf implements VirtualViewSubject {
 
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> observers;
 
     /**
      * The number of columns in the shelf grid.
@@ -28,12 +28,12 @@ public class Shelf implements VirtualViewSubject {
 
     /**
      * The grid of ItemTiles representing the player's shelf.
-     * 5 |
-     * 4 |
-     * 3 |
-     * 2 |
+     * 0 |
      * 1 |
-     * 0 | _ _ _ _ _
+     * 2 |
+     * 3 |
+     * 4 |
+     * 5 | _ _ _ _ _
      *     0 1 2 3 4
      */
     private final ItemTile[][] shelfGrid;
@@ -99,7 +99,7 @@ public class Shelf implements VirtualViewSubject {
      * @return True if the column is full, false otherwise.
      */
     public boolean isColumnFull(int column) {
-        return shelfGrid[ROWS - 1][column] != null;
+        return shelfGrid[0][column] != null;
     }
 
     /**
@@ -133,7 +133,7 @@ public class Shelf implements VirtualViewSubject {
             return false;
         }
 
-        for (int i = 0; i < ROWS; i++) {
+        for (int i = ROWS - 1; i >= 0; i--) {
             Point location = new Point(i, column);
             if (getTileAtLocation(location) == null) {
                 setTileAtLocation(location, tile);

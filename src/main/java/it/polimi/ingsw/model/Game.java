@@ -176,6 +176,7 @@ public class Game implements VirtualViewSubject {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        notifyObservers();
     }
 
     public Player getPlayer(String nickname) {
@@ -187,6 +188,7 @@ public class Game implements VirtualViewSubject {
 
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
+        player.setConnected(false);
         players.remove(player);
     }
 
