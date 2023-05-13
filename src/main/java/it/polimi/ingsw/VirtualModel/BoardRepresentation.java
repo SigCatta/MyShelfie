@@ -6,13 +6,12 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 
-public class BoardRepresentation implements VirtualModelSubject {
-    private final ArrayList<VirtualModelObserver> observers;
+public class BoardRepresentation extends VirtualModelSubject {
     private ItemTile[][] board;
     private static BoardRepresentation instance;
 
     private BoardRepresentation() {
-        observers = new ArrayList<>();
+        super();
     }
 
     public static BoardRepresentation getInstance() {
@@ -41,16 +40,6 @@ public class BoardRepresentation implements VirtualModelSubject {
             }
         }
         return colorBoard;
-    }
-
-    @Override
-    public void registerObserver(VirtualModelObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-        observers.remove(observer);
     }
 
     @Override

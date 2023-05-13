@@ -5,13 +5,12 @@ import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
 import java.util.ArrayList;
 
-public class GameRepresentation implements VirtualModelSubject {
+public class GameRepresentation extends VirtualModelSubject {
     private GameMTC gameMessage;
-    private final ArrayList<VirtualModelObserver> observers;
     private static GameRepresentation instance;
 
     private GameRepresentation() {
-        observers = new ArrayList<>();
+        super();
     }
 
     public static GameRepresentation getInstance() {

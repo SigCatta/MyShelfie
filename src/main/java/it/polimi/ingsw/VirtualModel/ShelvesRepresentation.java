@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShelvesRepresentation implements VirtualModelSubject {
-    private final ArrayList<VirtualModelObserver> observers;
+public class ShelvesRepresentation extends VirtualModelSubject {
     private final Map<String, ShelfMTC> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
 
     private ShelvesRepresentation() {
-        this.observers = new ArrayList<>();
+        super();
         SHELF_MESSAGES = new HashMap<>();
     }
 
@@ -36,16 +35,6 @@ public class ShelvesRepresentation implements VirtualModelSubject {
     }
 
     //TODO method that retrieves the players
-
-    @Override
-    public void registerObserver(VirtualModelObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-        observers.remove(observer);
-    }
 
     @Override
     public void notifyObservers() {

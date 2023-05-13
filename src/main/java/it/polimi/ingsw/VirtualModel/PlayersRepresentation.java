@@ -8,15 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class PlayersRepresentation implements VirtualModelSubject {
-
-    private final ArrayList<VirtualModelObserver> observers;
+public class PlayersRepresentation extends VirtualModelSubject {
     private final Map<String, PlayerMTC> PLAYER_MESSAGES;
 
     private static PlayersRepresentation instance;
 
     private PlayersRepresentation() {
-        observers = new ArrayList<>();
+        super();
         PLAYER_MESSAGES = new HashMap<>();
     }
 
@@ -45,17 +43,6 @@ public class PlayersRepresentation implements VirtualModelSubject {
                 System.exit(0);
             }
         } else PLAYER_MESSAGES.put(nickname, playerMessage);
-    }
-
-
-    @Override
-    public void registerObserver(VirtualModelObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(VirtualModelObserver observer) {
-        observers.remove(observer);
     }
 
     @Override
