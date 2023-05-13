@@ -1,11 +1,16 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+
+import java.util.List;
+import java.util.Objects;
 
 
 public class ChatController {
@@ -37,7 +42,16 @@ public class ChatController {
      */
     @FXML
     public void init() {
-        //TODO
+        List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
+        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
+        int j=0;
+
+        for(int i=0; i<nicknames.size(); i++) {
+            if(!nicknames.get(i).equals(GameRepresentation.getInstance().getActivePlayerNickname())){
+                menuItemList.get(j).setText(nicknames.get(i));
+                j++;
+            }
+        }
     }
 
     /**
@@ -53,10 +67,10 @@ public class ChatController {
         String newMessage;
         //TODO
         if(otherPlayer) {
-            newMessage = senderNickname + " - " + message;
+            newMessage = senderNickname + " ~ " + message;
 
         } else {
-            newMessage = "Me - " + message;
+            newMessage = "Me ~ " + message;
         }
     }
 
@@ -77,7 +91,7 @@ public class ChatController {
         if(message.length()>0) {
             if(receiverNickname.equals("")) receiverNickname = "BROADCAST";
             //TODO add receiver
-            //SocketClient.getInstance().sendCommand(new ChatMTS(message));
+            SocketClient.getInstance().sendCommand(new ChatMTS(message));
 
             updateChat(message, false, null, receiverNickname);
             newMessageField.setText("");
