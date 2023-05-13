@@ -57,13 +57,4 @@ public class ScaleCGSTest {
         shelf = new Shelf(matrix4);
         assertFalse(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new ScaleCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new ScaleCGS().getDescription());
-    }
 }

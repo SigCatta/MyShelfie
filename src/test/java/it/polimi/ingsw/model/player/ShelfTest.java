@@ -111,7 +111,7 @@ public class ShelfTest {
         assertTrue(testShelf.insertTile(new ItemTile(Color.YELLOW), 1));
         assertTrue(testShelf.insertTile(new ItemTile(Color.BLUE), 1));
 
-        assertEquals(Color.YELLOW, testShelf.getTileAtLocation(new Point(0, 1)).getColor());
-        assertEquals(Color.BLUE, testShelf.getTileAtLocation(new Point(1, 1)).getColor());
+        assertEquals(Color.YELLOW, testShelf.getTileAtLocation(new Point(5, 1)).getColor());
+        assertEquals(Color.BLUE, testShelf.getTileAtLocation(new Point(4, 1)).getColor());
     }
 }

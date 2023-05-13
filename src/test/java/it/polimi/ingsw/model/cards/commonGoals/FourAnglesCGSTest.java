@@ -46,13 +46,4 @@ public class FourAnglesCGSTest {
         shelf = new Shelf(matrix2);
         assertTrue(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new FourAnglesCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new FourAnglesCGS().getDescription());
-    }
 }

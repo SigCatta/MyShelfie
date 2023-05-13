@@ -80,10 +80,6 @@ public class GamesManager {
 
     public void removePlayer(SocketClientHandler socketClientHandler){
         PLAYERS_NAME.remove(socketClientHandler.getNickname());
-        Game game = gamesData.get(socketClientHandler.getGameID());
-        if(game != null){
-            gamesData.get(socketClientHandler.getGameID()).disconnectPlayer(socketClientHandler.getNickname());
-        }
     }
 
     public void endGame(int gameID){

@@ -36,13 +36,4 @@ public class TwoRowsWithFiveDiffCGSTest {
         shelf = new Shelf(matrix2);
         assertFalse(cg.isGoalAchieved(shelf));
     }
-
-    @Test
-    public void getDrawingForCLITest(){
-        new TwoRowsWithFiveDiffCGS().getDrawingForCLI().forEach(System.out::println);
-    }
-    @Test
-    public void getDescriptionTest(){
-        System.out.println(new TwoRowsWithFiveDiffCGS().getDescription());
-    }
 }

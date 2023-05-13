@@ -12,7 +12,7 @@ public class PickUpTilesMTS extends MessageToServer implements Serializable {
     private transient int gameID;
     private transient String nickname;
 
-    private ArrayList<Point> tilesPosition;
+    private final ArrayList<Point> tilesPosition;
 
     public PickUpTilesMTS(ArrayList<Point> tilesPosition){
         this.tilesPosition = tilesPosition;
@@ -25,10 +25,6 @@ public class PickUpTilesMTS extends MessageToServer implements Serializable {
 
     public ArrayList<Point> getTilesPosition() {
         return tilesPosition;
-    }
-
-    public void addPosition(Point point){
-        this.tilesPosition.add(point);
     }
 
 }

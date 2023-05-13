@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.Controller.Client.MessageToServer;
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -36,14 +37,14 @@ public class SocketClient extends Client {
             this.readExecutionQueue = Executors.newSingleThreadExecutor();
             Client.LOGGER.info("Connection established");
             clientInstance = this;
-            new Thread(new InputStatePlayer()).start(); // from now on the user can execute commands
+            new Thread(InputStatePlayer.getInstance()).start(); // from now on the user can execute commands
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static synchronized Client getInstance() {
-        if (clientInstance == null) throw new RuntimeException(); // can't create a socket without addres and port -- should never happen!!
+        if (clientInstance == null) clientInstance = new SocketClient("localhost", 28888); // can't create a socket without addres and port -- should never happen!!
         return clientInstance;
     }
 
@@ -89,7 +90,6 @@ public class SocketClient extends Client {
             outputStm.reset();
         } catch (IOException e) {
             Client.LOGGER.severe("An error occurred while sending the message");
-            disconnect();
         }
     }
 

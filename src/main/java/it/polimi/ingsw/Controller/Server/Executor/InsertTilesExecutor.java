@@ -38,14 +38,17 @@ public class InsertTilesExecutor implements Executor {
             return;
         }
 
-        if (activePlayer.getShelf().getNumOfBoxLeftInCol(column) >= chosenTilesTable.size()) {
+        if (activePlayer.getShelf().getNumOfBoxLeftInCol(column) < chosenTilesTable.size()) {
             handler.sendCommand(new EchoMTC(EchoID.BADCOLUMN, true));
             return;
         }
 
         if (chosenTilesTable.getChosenColumn() == null) {
             chosenTilesTable.setChosenColumn(insertTileMessage.getCol());
-        } else if (chosenTilesTable.getChosenColumn() != insertTileMessage.getCol()) return;
+        } else if (chosenTilesTable.getChosenColumn() != insertTileMessage.getCol()) {
+            handler.sendCommand(new EchoMTC(EchoID.COLUMNDIFF, true));
+            return;
+        }
 
         ItemTile tile = chosenTilesTable.popTile(tilePosition);
         activePlayer.getShelf().insertTile(tile, column);
@@ -56,5 +59,6 @@ public class InsertTilesExecutor implements Executor {
             chosenTilesTable.setChosenColumn(null);
             game.setGameState(GameState.PICK_UP_TILES);
         }
+        game.getVirtualView().send(new EchoMTC(EchoID.CHANGE, false));
     }
 }
