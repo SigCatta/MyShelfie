@@ -40,7 +40,7 @@ public class WaitingRoomController {
 
     public void updatePlayersNamesText(ArrayList<String> names) {
         for(String name: names) {
-            playersNamesText.setText(name + ", " + playersNamesText.getText());
+            playersNamesText.setText(name + ", ");
         }
     }
 
