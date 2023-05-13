@@ -27,7 +27,7 @@ public class ActivePlayerState extends InputState {
 
 
         while (GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) { // waits for the model to change and updates the view
-            runInputReaderUntilModelUpdate(reader);
+            addReaderToEchoObserver(reader);
         }
 
         InputStatePlayer.getInstance().setState(new WaitingPlayerState(reader));

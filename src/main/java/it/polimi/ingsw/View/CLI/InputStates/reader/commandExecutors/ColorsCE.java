@@ -22,6 +22,6 @@ public class ColorsCE implements CommandExecutor {
 
         Printer.enableCLIColors(input.equalsIgnoreCase("y"));
         Printer.clearConsole();
-        Printer.printHomeScreen();
+        Printer.getInstance().update(); //does not need to pass a message because the model did not change
     }
 }

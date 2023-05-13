@@ -1,11 +1,8 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
-import it.polimi.ingsw.Enum.EchoID;
-import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelSubject;
-import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 
@@ -33,40 +30,12 @@ public abstract class InputState {
      * the user is using a commands, if that is the case, the methods waits for
      * the user to finish, then prints an updated home screen
      *
-     * @param reader the reader that user might be using
+     * @param reader the reader that user is be using
      */
-    void runInputReaderUntilModelUpdate(Reader reader) {
-        synchronized (EchosRepresentation.getInstance()) {
-            waitForVM(EchosRepresentation.getInstance());
-        }
+    void addReaderToEchoObserver(Reader reader) {
 
-        while (reader.isReading()) { // if the user is using a command the view does not update
-            synchronized (reader) {
-                try {
-                    reader.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+        EchosRepresentation.getInstance().registerObserver(reader);
 
-        EchoMTC message = EchosRepresentation.getInstance().getMessage();
-        if (message.getID() == EchoID.CHANGE) {
-            Printer.clearConsole();
-            Printer.printHomeScreen();
-        } else {
-            System.out.println(message.getOutput());
-            if (message.isError()) {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(700);
-                        System.out.println(".");
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                Printer.printHomeScreen();
-            }
-        }
+
     }
 }

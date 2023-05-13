@@ -1,10 +1,14 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader;
 
+import it.polimi.ingsw.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+
 import java.util.concurrent.ExecutionException;
 
 import static it.polimi.ingsw.InputReader.readLine;
 
-public class Reader implements Runnable {
+public class Reader implements Runnable, VirtualModelObserver {
     String input;
     boolean isReading;
 
@@ -55,4 +59,31 @@ public class Reader implements Runnable {
         }
     }
 
+    @Override
+    public void update() {
+        while (isReading()) { // if the user is using a command the view does not update
+            synchronized (this) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        EchoMTC message = EchosRepresentation.getInstance().getMessage();
+        if (message != null) {
+            System.out.println(message.getOutput());
+            if (message.isError()) {
+                for (int i = 0; i < 3; i++) {
+                    try {
+                        Thread.sleep(700);
+                        System.out.println(".");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+    }
 }

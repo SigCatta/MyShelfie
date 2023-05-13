@@ -10,11 +10,14 @@ import java.util.stream.Collectors;
 
 public class PlayersRepresentation implements VirtualModelSubject {
 
-    private final Map<String, PlayerMTC> PLAYER_MESSAGES = new HashMap<>();
+    private final ArrayList<VirtualModelObserver> observers;
+    private final Map<String, PlayerMTC> PLAYER_MESSAGES;
 
     private static PlayersRepresentation instance;
 
     private PlayersRepresentation() {
+        observers = new ArrayList<>();
+        PLAYER_MESSAGES = new HashMap<>();
     }
 
     public static PlayersRepresentation getInstance() {
@@ -44,20 +47,19 @@ public class PlayersRepresentation implements VirtualModelSubject {
         } else PLAYER_MESSAGES.put(nickname, playerMessage);
     }
 
-    //TODO method that retrieves the players
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        //TODO every observer must be notified when the class changes
+        observers.forEach(VirtualModelObserver::update);
     }
 }

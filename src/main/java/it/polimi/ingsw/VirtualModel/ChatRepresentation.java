@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 public class ChatRepresentation implements VirtualModelSubject {
 
-    private final ArrayList<ChatMTC> CHAT = new ArrayList<>();
+    private final ArrayList<VirtualModelObserver> observers;
+    private final ArrayList<ChatMTC> CHAT;
     private static ChatRepresentation instance;
 
     private ChatRepresentation() {
+        observers = new ArrayList<>();
+        CHAT = new ArrayList<>();
     }
 
     public static ChatRepresentation getInstance() {
@@ -32,16 +35,16 @@ public class ChatRepresentation implements VirtualModelSubject {
 
     @Override
     public void registerObserver(VirtualModelObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(VirtualModelObserver observer) {
-
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-
+        observers.forEach(VirtualModelObserver::update);
     }
 }
