@@ -90,6 +90,7 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
         <plugins>
             <!-- Testing Plugins -->
 
@@ -148,18 +149,20 @@
                     </execution>
                 </executions>
             </plugin>
-<!--
+            <!--
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.10.1</version>
+                            <configuration>
+                                <source>19</source>
+                                <target>19</target>
+                            </configuration>
+                        </plugin>
+            -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <source>19</source>
-                    <target>19</target>
-                </configuration>
-            </plugin>
--->
-            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
             </plugin>
@@ -185,7 +188,9 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
+        </pluginManagement>
     </build>
 
 </project>

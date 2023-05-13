@@ -17,12 +17,17 @@ public class Gui extends Application{
         // Create new stage
         StageController.initStage();
         //load lobby
-        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("lobby.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("fxml/lobby.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Icon 50x50px.png"));
         stage.setTitle("Lobby");
+
+        stage.setMaximized(true);
+        //String css = this.getClass().getResource("css/background.css").toExternalForm();
+        //scene.getStylesheets().add(css);
+
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         setUpBoardControllerTilesMap();
         stage.show();
         //set lobby as current stage

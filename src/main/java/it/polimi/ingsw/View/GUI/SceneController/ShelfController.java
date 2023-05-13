@@ -1,7 +1,9 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.View.GUI.TilesSelectedCointainer;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -18,10 +20,9 @@ import java.util.List;
 public class ShelfController {
     List<NodeData> tilesSelected = new ArrayList<>();
     NodeData currentTileSelected = null;
-    int currentColumn;
-    int currentRow;
+
     @FXML
-    GridPane matrix;
+    GridPane myShelf;
 
     @FXML
     ImageView personalGoalCard;
@@ -46,6 +47,9 @@ public class ShelfController {
 
     @FXML
     ImageView itemTile3;
+
+    @FXML
+    ImageView wrongColumnImage;
 
     /**
      * this method saves the tiles picked up from the board in the local variable {@code tileselected}
@@ -121,34 +125,9 @@ public class ShelfController {
 
     @FXML
     public void onColumnInserted() {
-        currentColumn = Integer.parseInt(columnChosen.getText());
-
-        if(true) {   //TODO: check if column is valid
-            insertTileButton.setVisible(true);
-            //TODO: calculate row
-
-
-        } else {
-            insertTileButton.setVisible(false);
-        }
+        insertTileButton.setVisible(true);
+        wrongColumnImage.setVisible(false);
     }
 
-    @FXML
-    public void onInsertTileClicked() {
-        int index = tilesSelected.indexOf(currentTileSelected);
-        if(index == 0) {
-            itemTile1.setVisible(false);
-        } else if(index == 1) {
-            itemTile2.setVisible(false);
-        } else {
-                itemTile3.setVisible(false);
-        }
-        insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
-    }
 
-    public void insertTile(String path, Point position) {
-        Image image = new Image(path);
-        matrix.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
-        setInsertDoneButtonVisible();
-    }
 }

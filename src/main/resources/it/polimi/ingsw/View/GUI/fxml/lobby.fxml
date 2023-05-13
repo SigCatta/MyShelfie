@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+           prefWidth="1200.0" styleClass="library_background" xmlns="http://javafx.com/javafx/19" stylesheets="@../css/background.css"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.LobbyController">
+    <children>
+        <Group>
+            <children>
+                <AnchorPane prefHeight="801.0" prefWidth="1205.0">
+                    <children>
+                        <ImageView fitHeight="189.0" fitWidth="548.0" layoutX="329.0" layoutY="84.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@../17_MyShelfie_BGA/Publisher_material/Title_2000x618px.png"/>
+                        </ImageView>
+                        <Button layoutX="369.0" layoutY="313.0" mnemonicParsing="false" prefHeight="88.0"
+                                prefWidth="467.0" styleClass="wooden_label" onAction="#onPlayButtonClick" text="Play"/>
+                        <Button layoutX="370.0" layoutY="444.0" mnemonicParsing="false" prefHeight="88.0"
+                                prefWidth="467.0" styleClass="wooden_label" onAction="#onExitButtonClick" text="Exit"/>
+                    </children>
+                </AnchorPane>
+         </children>
+      </Group>
+   </children>
+</StackPane>

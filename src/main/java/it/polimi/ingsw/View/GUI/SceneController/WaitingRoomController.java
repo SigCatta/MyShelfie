@@ -20,12 +20,12 @@ public class WaitingRoomController {
     @FXML
     public void onContinueButtonClick(ActionEvent actionEvent) {
         //start the game
-        StageController.changeScene("board.fxml","Living room");
+        StageController.changeScene("fxml/board.fxml","Living room");
     }
 
     @FXML
     public void onGoBackButtonClick(ActionEvent actionEvent) {
-        StageController.changeScene("login_scene.fxml","Login");
+        StageController.changeScene("fxml/login_scene.fxml","Login");
     }
 
     public void setContinueButtonVisible() {
@@ -33,7 +33,7 @@ public class WaitingRoomController {
     }
 
     public void updatePlayersNamesText(String name) {
-        playersNamesText.setText(playersNamesText.getText() + ", " + name);
+        playersNamesText.setText(name + ", " + playersNamesText.getText());
     }
 
     public void setMaxNumText(int num) {
