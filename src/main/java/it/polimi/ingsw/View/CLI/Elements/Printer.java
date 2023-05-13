@@ -73,7 +73,6 @@ public class Printer implements VirtualModelObserver {
      */
     @Override
     public synchronized void update() {
-        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 
         ArrayList<String> output = new ArrayList<>();
 
@@ -85,9 +84,6 @@ public class Printer implements VirtualModelObserver {
         output = addAvailableCommands(output);
 
         output.forEach(System.out::println);
-        for (StackTraceElement e : elements){
-            System.out.println(e);
-        }
     }
 
     /**
