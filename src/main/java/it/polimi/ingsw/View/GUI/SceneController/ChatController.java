@@ -24,6 +24,9 @@ public class ChatController {
     @FXML
     MenuItem player4MenuItem;
 
+    @FXML
+    MenuItem broadcastMenuItem;
+
     static String receiverNickname = "";
 
     static int myMessagesCounter = 0;
@@ -34,18 +37,27 @@ public class ChatController {
      */
     @FXML
     public void init() {
-
+        //TODO
     }
 
     /**
      * Method called every time a player writes on the chat
      * @param message the new message to be displayed
      * @param otherPlayer true if the message is from another player, false if is from this player
+     * @param senderNickname if {@param otherPlayer} is true contains the nickname of the player that sent the message
+     *                        else it contains a null string
      * @param receiverNickname if {@param otherPlayer} is false contains a null string
      *                         else it contains the nickname of the receiver of the message or "BROADCAST"
      */
-    public void updateChat(String message, boolean otherPlayer, String receiverNickname) {
+    public void updateChat(String message, boolean otherPlayer, String senderNickname, String receiverNickname) {
+        String newMessage;
         //TODO
+        if(otherPlayer) {
+            newMessage = senderNickname + " - " + message;
+
+        } else {
+            newMessage = "Me - " + message;
+        }
     }
 
     public void cleanChat() {
@@ -64,9 +76,10 @@ public class ChatController {
         String message = newMessageField.getText();
         if(message.length()>0) {
             if(receiverNickname.equals("")) receiverNickname = "BROADCAST";
+            //TODO add receiver
             //SocketClient.getInstance().sendCommand(new ChatMTS(message));
 
-            updateChat(message, false, receiverNickname);
+            updateChat(message, false, null, receiverNickname);
             newMessageField.setText("");
             receiverNickname = "";
         }
