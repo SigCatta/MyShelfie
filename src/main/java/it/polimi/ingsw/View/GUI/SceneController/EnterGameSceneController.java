@@ -14,7 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class EnterGameSceneController {
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     @FXML
     ImageView wrongGameIdImage;
     @FXML
@@ -43,7 +48,7 @@ public class EnterGameSceneController {
                 return;
             }
 
-            new Thread(() -> {
+            executor.submit(() -> {
 
                 synchronized (EchosRepresentation.getInstance()) {
                     try {
@@ -59,7 +64,7 @@ public class EnterGameSceneController {
                     return;
                 }
                 checkGameId(true);
-            }).start();
+            });
 
         } else {
             //player wants to create a new game
