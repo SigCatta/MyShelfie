@@ -10,15 +10,16 @@ import java.util.ArrayList;
 
 public class ChatViewTest {
     @Test
-    public void getPrintTest1(){
+    public void getPrintTest1() {
         ChatView.getInstance().getPrint(new ArrayList<>()).forEach(System.out::println); // shouldn't print anything
     }
+
     @Test
-    public void getPrintTest2(){
-        ChatMTC message = new ChatMTC("messaggio test", "User");
-        try{
+    public void getPrintTest2() {
+        ChatMTC message = new ChatMTC("messaggio test", "User", true);
+        try {
             ChatRepresentation.getInstance().addMessage(message);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Client.LOGGER.info("The Virtual Model was not ready");
         }
 
