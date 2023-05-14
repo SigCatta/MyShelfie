@@ -250,7 +250,8 @@
                      </children>
                   </AnchorPane>
                   <ImageView fx:id="insertDoneImage" fitHeight="53.0" fitWidth="55.0" layoutX="1131.0" layoutY="544.0"
-                             onMouseClicked="#onPickUpDoneClicked" onMousePressed="#onPickUpDoneClicked" visible="true">
+                             onMouseClicked="#onPickUpDoneClicked" onMouseEntered="#setUpChosenTilesTable"
+                             onMousePressed="#onPickUpDoneClicked" visible="true">
                      <Image url="@../17_MyShelfie_BGA/misc/green_check.png"/>
                   </ImageView>
                   <AnchorPane layoutX="832.0" layoutY="44.0" prefHeight="89.0" prefWidth="270.0">

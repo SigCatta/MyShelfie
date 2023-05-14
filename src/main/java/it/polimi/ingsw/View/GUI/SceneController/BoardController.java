@@ -8,6 +8,7 @@ import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.BoardMemory;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemTileMemory;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
 import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.*;
 import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -90,11 +91,13 @@ public class BoardController {
     public void initScene() {
         if (initialized) return;
         setUpBoard();
+        ShelfMemory.reset();
         new BoardObserver().update();
         new PlayerObserver().update();
         new ShelfObserver().update();
         new TilesTableObserver().update();
         new GameObserver().update();
+        new ErrorObserver();
         initialized = true;
     }
 
@@ -132,7 +135,7 @@ public class BoardController {
         errorImage.setVisible(true);
         System.out.println("There was an error: ");
         errorText.setVisible(true);
-        errorText.setText(EchosRepresentation.getInstance().getMessage().getOutput());
+        errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
         //TODO set a timer to make the error fade away
         Platform.runLater(() -> myChosenTilesTable.getChildren().clear());
         for (Node node : board.getChildren()) { //TODO optimize
@@ -162,6 +165,7 @@ public class BoardController {
         }
     }
 
+
     /**
      * action listener for every tile on the board
      * @param imageView object associated with the action
@@ -169,13 +173,15 @@ public class BoardController {
     private void attachBoardListener(ImageView imageView) {
         imageView.setOnMouseClicked(event -> {
 
-            if (false) { //TODO JUST FOR TESTING (TO REMOVE)
-                //TODO do not pick up if the tiles are not valid
-                if (!gameState.equals(GameState.PICK_UP_TILES)) return;
-                if (!getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
-                if (myChosenTilesTable.getChildren().size() >= 3) return;
-                if (myChosenTilesTable.getChildren().contains(imageView)) return; //TODO wrong
-            }
+
+            //TODO do not pick up if the tiles are not valid
+            if (imageView.getImage() == null) return;
+            if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
+            if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+                return;
+            if (myChosenTilesTable.getChildren().size() >= 3) return;
+            if (myChosenTilesTable.getChildren().contains(imageView)) return; //TODO wrong
+
             ImageView newImageView = new ImageView(imageView.getImage());
             newImageView.setFitHeight(70);
             newImageView.setFitWidth(70);
@@ -190,11 +196,11 @@ public class BoardController {
     @FXML
     public void onPickUpDoneClicked() {
         System.out.println("clicked the tick"); //TODO remove
-        if (false) { //TODO remove after testing
-            if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
-            if (!getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
-            if (myChosenTilesTable.getChildren().size() == 0) return;
-        }
+
+        if (myChosenTilesTable.getChildren().size() == 0) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
+        if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+            return;
 
         ArrayList<Point> tilesPosition = new ArrayList<>();
 
@@ -215,9 +221,8 @@ public class BoardController {
 
     @FXML
     public void setUpChosenTilesTable() {
-        if (false) {
-            if (!(GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES))) return;
-        }
+
+        if (!(GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES))) return;
 
         for (Node node : myChosenTilesTable.getChildren()) {
             if (node == null) return;
@@ -230,11 +235,9 @@ public class BoardController {
     private void attachChosenTileListener(ImageView imageView) {
         imageView.setOnMouseClicked(event -> {
 
-            if (false) { //TODO JUST FOR TESTING (TO REMOVE)
-                if (!gameState.equals(GameState.INSERT_TILES)) return;
-                if (!getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
-                if (selectedTileToSendToShelf != null) return;
-            }
+            if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
+            if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+                return;
 
             selectedTileToSendToShelf = (Integer) imageView.getUserData();
             System.out.println("the selected tile has id: " + selectedTileToSendToShelf); //TODO remove
@@ -267,11 +270,12 @@ public class BoardController {
     }
 
     @FXML
-    public void onInsertTileClicked(int column) {
-        if (false) { //TODO remove
-            if (!gameState.equals(GameState.INSERT_TILES)) return;
-            if (!myNickname.equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
-        }
+    public synchronized void onInsertTileClicked(int column) {
+
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
+        if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+            return;
+        if (selectedTileToSendToShelf == null) return;
 
         ItemTile tileToSend = ItemTileMemory.getTile(selectedTileToSendToShelf);
 

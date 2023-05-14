@@ -12,4 +12,8 @@ public class ShelfMemory {
     public static ImageView get(int row, int col) {
         return imagesInShelf[row][col];
     }
+
+    public static void reset() {
+        imagesInShelf = new ImageView[6][5];
+    }
 }

@@ -11,7 +11,7 @@ public class ErrorObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        if (EchosRepresentation.getInstance().getMessage().isError()) {
+        if (EchosRepresentation.getInstance().peekMessage().isError()) {
             BoardController.getInstance().updateError();
         }
     }

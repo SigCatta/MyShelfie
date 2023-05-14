@@ -48,7 +48,7 @@ public class EnterGameSceneController {
                     }
                 }
 
-                EchoMTC message = EchosRepresentation.getInstance().getMessage();
+                EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     checkGameId(false);
                     return;

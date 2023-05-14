@@ -60,7 +60,7 @@ public class StartOrJoinState extends InputState {
                 synchronized (EchosRepresentation.getInstance()) {
                     waitForVM(EchosRepresentation.getInstance());
                 }
-                EchoMTC message = EchosRepresentation.getInstance().getMessage();
+                EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     System.out.println(message.getOutput());
                     break;

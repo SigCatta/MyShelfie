@@ -72,7 +72,7 @@ public class Reader implements Runnable, VirtualModelObserver {
             }
         }
 
-        EchoMTC message = EchosRepresentation.getInstance().getMessage();
+        EchoMTC message = EchosRepresentation.getInstance().popMessage();
         if (message != null) {
             System.out.println(message.getOutput());
             if (message.isError()) {

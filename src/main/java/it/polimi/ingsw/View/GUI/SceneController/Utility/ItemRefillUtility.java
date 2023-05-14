@@ -81,7 +81,8 @@ public class ItemRefillUtility {
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
-                //if(ShelfMemory.get(row, col) != null) break;  //if the tile is memorized this means it is already in the shelf
+                if (ShelfMemory.get(row, col) != null)
+                    break;  //if the tile is memorized this means it is already in the shelf
 
                 Image image = ItemTileMemory.getImage(id);
                 ImageView imageView = new ImageView(image);
@@ -92,7 +93,7 @@ public class ItemRefillUtility {
 
                 int finalRow = row;
                 int finalCol = col;
-                Platform.runLater(() -> shelf.add(imageView, finalRow, finalCol));
+                Platform.runLater(() -> shelf.add(imageView, finalCol, finalRow));
 
             }
         }
