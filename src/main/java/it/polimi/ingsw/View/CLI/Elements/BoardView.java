@@ -1,7 +1,9 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +11,15 @@ import java.util.HashMap;
 public class BoardView extends ViewElement {
 
     private static BoardView instance;
-    private BoardView(){}
-    public static BoardView getInstance(){
+    private final boolean[][] lookUpTable;
+
+    private BoardView() {
+        LookUpTableReader reader = new LookUpTableReader();
+        int numOfPlayers = GameRepresentation.getInstance().getGameMessage().getNumOfPlayers();
+        lookUpTable = reader.getLookUpTable(numOfPlayers);
+    }
+
+    public static BoardView getInstance() {
         if (instance == null) instance = new BoardView();
         return instance;
     }
@@ -28,21 +37,25 @@ public class BoardView extends ViewElement {
 
         output.add("┌──0─┬──1─┬──2─┬──3─┬──4─┬──5─┬──6─┬──7─┬──8─┐          ");
         int rowNumber = 0;
+        int i = 0, j = 0;
         for (Color[] row : board) {
             StringBuilder string = new StringBuilder(Integer.toString(rowNumber));
             for (Color color : row) {
-                string
-                        .append(colorMap.getOrDefault(color, NULL))
-                        .append(colorMap.getOrDefault(color, NULL))
-                        .append(colorMap.getOrDefault(color, NULL))
-                        .append(colorMap.getOrDefault(color, NULL))
-                        .append("│");
+                if (!lookUpTable[i][j]) {
+                    string.append(NULL.repeat(4));
+                } else {
+                    string.append(colorMap.getOrDefault(color, " ").repeat(4));
+                }
+                string.append("│");
+                j++;
             }
+            j = 0;
             string.append("          ");
             output.add(string.toString());
             output.add(string.toString());
             output.add("├────┼────┼────┼────┼────┼────┼────┼────┼────┤          ");
             rowNumber++;
+            i++;
         }
         output.remove(output.size() - 1);
         output.add("└────┴────┴────┴────┴────┴────┴────┴────┴────┘          ");

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.board.ChosenTilesTable;
 
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -27,8 +25,6 @@ public class PickUpValidator {
         //max number of tiles that the player can take from the board in a single turn
         final int MAX_TILES = 3;
 
-        if (emptyTiles(chosenPositions, game.getBoard())) return false;
-
         if (chosenPositions.size() > MAX_TILES || chosenPositions.size() == 0) return false;
 
         if (!arePointsAdjacent(chosenPositions)) return false;
@@ -44,19 +40,6 @@ public class PickUpValidator {
         return true;
     }
 
-
-    private static boolean emptyTiles(ArrayList<Point> tilePositions, Board board) {
-        ItemTile[][] boardGrid = board.getBoardGrid();
-        for (Point pos : tilePositions) {
-            try {
-                if (boardGrid[pos.x][pos.y].getColor() == Color.EMPTY) return true;
-            } catch (NullPointerException e) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     /**
      * Checks if the points in the given list are adjacent.

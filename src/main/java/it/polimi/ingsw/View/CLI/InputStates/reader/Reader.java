@@ -54,7 +54,7 @@ public class Reader implements Runnable, VirtualModelObserver {
         try {
             return readLine().trim();
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            return getInput();
         } catch (NullPointerException e) {
             return ".";
         }

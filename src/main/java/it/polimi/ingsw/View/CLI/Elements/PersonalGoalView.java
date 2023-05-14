@@ -12,8 +12,10 @@ public class PersonalGoalView extends ViewElement {
 
     private static PersonalGoalView instance;
 
-    private PersonalGoalView(){}
-    public static PersonalGoalView getInstance(){
+    private PersonalGoalView() {
+    }
+
+    public static PersonalGoalView getInstance() {
         if (instance == null) instance = new PersonalGoalView();
         return instance;
     }
@@ -32,7 +34,6 @@ public class PersonalGoalView extends ViewElement {
         HashMap<Color, String> colorMap = Printer.getColorMap();
 
         for (Color color : Color.values()) {
-            if (color == Color.EMPTY) continue;
             Point p = personalGoal.get(color);
             goal[p.y - 1][p.x - 1] = color;
         }
@@ -45,8 +46,7 @@ public class PersonalGoalView extends ViewElement {
                 StringBuilder string = new StringBuilder("      │");
                 for (Color color : row) {
                     string
-                            .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
-                            .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
+                            .append(colorMap.getOrDefault(color, " ").repeat(2))
                             .append("│");
                 }
                 output.add(string.toString());
@@ -61,8 +61,7 @@ public class PersonalGoalView extends ViewElement {
                 StringBuilder string = new StringBuilder("      │");
                 for (Color color : row) {
                     string
-                            .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
-                            .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
+                            .append(colorMap.getOrDefault(color, " ").repeat(2))
                             .append("│");
                 }
                 output.set(i, output.get(i++).concat(string.toString()));
