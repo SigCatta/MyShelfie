@@ -21,6 +21,9 @@ public class ObjectiveCardController {
     ImageView commonGoalCard2;
 
     @FXML
+    ImageView personalGoalImage;
+
+    @FXML
     Text card1Description;
 
     @FXML
@@ -58,13 +61,14 @@ public class ObjectiveCardController {
 
     @FXML
     public void onGoBackClicked() {
-        StageController.changeScene("fxml/board.fxml", "Chat");
+        StageController.changeScene("fxml/board.fxml", "Board");
     }
 
     @FXML
     public void setUp() {
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
+        //TODO add id to PersonalGoalCard and retrieve image
 
         setCard1Description(reader.getDescription(cardNames.get(0)));
         setCard2Description(reader.getDescription(cardNames.get(1)));

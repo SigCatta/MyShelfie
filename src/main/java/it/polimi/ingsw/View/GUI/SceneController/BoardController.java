@@ -292,7 +292,7 @@ public class BoardController {
 
     @FXML
     public void onObjectivesClicked() {
-        StageController.changeScene("fxml/objectives_card_scene.fxml", "Objective cards scene");
+        StageController.changeScene("fxml/objective_cards_scene.fxml", "Objective cards scene");
     }
 
     @FXML

@@ -55,8 +55,9 @@ public class WaitingRoomController {
     }
 
     public void updatePlayersNamesText(ArrayList<String> names) {
+        playersNamesText.setText("");
         for(String name: names) {
-            playersNamesText.setText(name + ", ");
+            playersNamesText.setText(name + ", " + playersNamesText.getText());
         }
     }
 
@@ -73,6 +74,18 @@ public class WaitingRoomController {
 
     @FXML
     public void setUp() {
+        new Thread(() -> {
+            while (GameRepresentation.getInstance().getGameMessage() == null) {
+                synchronized (GameRepresentation.getInstance()) {
+                    try {
+                        GameRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }).start();
+
         setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
         gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
         gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
@@ -89,6 +102,7 @@ public class WaitingRoomController {
                     }
                 }
             }
+            updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
             updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
         }).start();
     }

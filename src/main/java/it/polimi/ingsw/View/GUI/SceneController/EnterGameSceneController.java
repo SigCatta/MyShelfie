@@ -6,6 +6,7 @@ import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -68,9 +69,11 @@ public class EnterGameSceneController {
             //change scene based on the stage of the game
             GameState gameState = GameRepresentation.getInstance().getGameMessage().getGameState();
             if(gameState.equals(GameState.PREGAME)) {
-                StageController.changeScene("fxml/waiting_room_new.fxml", "Waiting room");
+                Platform.runLater(() -> StageController.changeScene("fxml/waiting_room_new.fxml", "Waiting room")
+                );
             } else{
-                StageController.changeScene("fxml/board.fxml", "Board");
+                Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board")
+                );
             }
 
         } else wrongGameIdImage.setVisible(true);
