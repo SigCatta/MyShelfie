@@ -43,7 +43,7 @@ public class ItemRefillUtility {
      */
     public static void updateItemTileGrid(GridPane gridPane, ItemTile[][] reference) {
         for (int row = 0; row < reference.length; row++) {
-            for (int col = 0; col < reference.length; col++) {
+            for (int col = 0; col < reference[row].length; col++) {
 
                 if (reference[row][col] == null) continue;
 
@@ -61,5 +61,4 @@ public class ItemRefillUtility {
             }
         }
     }
-
 }

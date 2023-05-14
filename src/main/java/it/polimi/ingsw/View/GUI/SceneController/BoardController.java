@@ -11,6 +11,7 @@ import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.*;
 import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,6 +30,8 @@ public class BoardController {
 
     private static BoardController instance;
 
+    private boolean initialized;
+
     private static List<NodeData> nodeData = new ArrayList<>();
     private static List<Image> chosenTilesImages = new ArrayList<>();
     private static NodeData currentTileSelected = null;
@@ -42,19 +45,13 @@ public class BoardController {
 
         instance = this;
 
-        new BoardObserver();
-        new ErrorObserver();
-        new PlayerObserver();
-        new ShelfObserver();
-        new TilesTableObserver();
-        new GameObserver();
-
         //boardActionListenerInit(); //initialize the action associated with the image click
     }
 
     public static BoardController getInstance() {
         return instance;
     }
+
 
 
     @FXML
@@ -88,12 +85,23 @@ public class BoardController {
     static String myNickname;
 
 
+    @FXML
+    public void initScene() {
+        if (initialized) return;
+        setUpBoard();
+        new BoardObserver().update();
+        new PlayerObserver().update();
+        new ShelfObserver().update();
+        new TilesTableObserver().update();
+        new GameObserver().update();
+        initialized = true;
+    }
+
     /**
      * when the board in the virtual model updates this method is called
      * to refresh the board in the gui
      */
     public void updateBoard() {
-        boardActionListenerInit(); //initialize the action associated with the image click
         ItemTile[][] boardModel = BoardRepresentation.getInstance().getBoard();
         ItemRefillUtility.updateItemTileGrid(board, boardModel);
     }
@@ -105,37 +113,40 @@ public class BoardController {
 
     public void updateChosenTilesTable() {
         List<ItemTile> chosenTilesTable = TilesTableRepresentation.getInstance().getTiles();
-        myChosenTilesTable.getChildren().removeAll();
+        if (chosenTilesTable == null) return;
+        Platform.runLater(() -> myChosenTilesTable.getChildren().clear());
         for (ItemTile itemTile : chosenTilesTable) {
             ImageView imageView = new ImageView(ItemTileMemory.getImage(itemTile.getId()));
+            imageView.setFitHeight(70);
+            imageView.setFitWidth(70);
             imageView.setUserData(itemTile.getId());
-            myChosenTilesTable.getChildren().add(imageView);
+
+            //avoids exception caused by running it instantly
+            Platform.runLater(() -> myChosenTilesTable.getChildren().add(imageView));
         }
     }
 
     public void updateError() {
         errorImage.setVisible(true);
+        System.out.println("There was an error: ");
+        errorText.setVisible(true);
         errorText.setText(EchosRepresentation.getInstance().getMessage().getOutput());
         //TODO set a timer to make the error fade away
-    }
-
-    public void boardActionListenerInit() {
-        for (int i = 0; i < board.getChildren().size(); i++) {
-            if (board.getChildren().get(i) == null) return;
-            if (!(board.getChildren().get(i) instanceof ImageView)) return;
-
-            ImageView imageView = (ImageView) board.getChildren().get(i);
-
-            attachBoardListener(imageView);
+        Platform.runLater(() -> myChosenTilesTable.getChildren().clear());
+        for (Node node : board.getChildren()) { //TODO optimize
+            node.setVisible(true);
         }
     }
 
+    public void updateGame() {
+        gameState = GameRepresentation.getInstance().getGameState();
+    }
+
     /**
-     * methods called when mouse enters the board
-     * it adds to each one of the children nodes of the board matrix an event listener
+     * methods called when the scene is initialized
+     * to add to each one of the children nodes of the board matrix an event listener
      */
-    @FXML
-    public void setUpBoard() {
+    private void setUpBoard() {
         for (Node node : board.getChildren()) {
             if (node == null) return;
             if (!(node instanceof ImageView)) return;
@@ -171,6 +182,7 @@ public class BoardController {
 
     @FXML
     public void onPickUpDoneClicked() {
+        System.out.println("clicked the tick"); //TODO remove
         if (false) { //TODO remove after testing
             if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
             if (!getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
@@ -190,6 +202,7 @@ public class BoardController {
 
             tilesPosition.add(ItemTileMemory.getPoint(id));
         }
+        System.out.println("sending the tiles!"); //TODO remove
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
     }
 
@@ -217,6 +230,7 @@ public class BoardController {
             }
 
             selectedTileToSendToShelf = (Integer) imageView.getUserData();
+            System.out.println("the selected tile has id: " + selectedTileToSendToShelf); //TODO remove
         });
     }
 
@@ -247,11 +261,23 @@ public class BoardController {
 
     @FXML
     public void onInsertTileClicked(int column) {
-        if (!gameState.equals(GameState.INSERT_TILES)) return;
-        if (!getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (false) { //TODO remove
+            if (!gameState.equals(GameState.INSERT_TILES)) return;
+            if (!myNickname.equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        }
 
         ItemTile tileToSend = ItemTileMemory.getTile(selectedTileToSendToShelf);
-        int indexInTheTable = TilesTableRepresentation.getInstance().getTiles().indexOf(tileToSend);
+
+        int indexInTheTable = -1;
+
+        List<ItemTile> table = TilesTableRepresentation.getInstance().getTiles();
+        for (int i = 0; i < table.size(); i++) { //TODO optimize
+            if (table.get(i).getId() == tileToSend.getId()) {
+                indexInTheTable = i;
+                break;
+            }
+        }
+        System.out.println("the index sent was: " + indexInTheTable); //TODO remove
 
         SocketClient.getInstance().sendCommand(new InsertTileMTS(indexInTheTable, column));
     }

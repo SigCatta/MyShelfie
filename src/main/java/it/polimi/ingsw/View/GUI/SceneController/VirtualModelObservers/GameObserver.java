@@ -12,6 +12,6 @@ public class GameObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        BoardController.getInstance().updateBoard();
+        BoardController.getInstance().updateGame();
     }
 }

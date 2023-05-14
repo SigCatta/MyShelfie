@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.View.GUI.Gui;
+import it.polimi.ingsw.View.GUI.GuiTest;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Application;
@@ -36,7 +36,7 @@ public class ClientApp {
         if (cliParam) {
             //launch cli app
         } else {
-            Application.launch(Gui.class);
+            Application.launch(GuiTest.class);
         }
     }
 

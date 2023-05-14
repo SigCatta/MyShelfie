@@ -19,6 +19,7 @@ public class BoardRepresentation extends VirtualModelSubject {
 
     public void setBoard(BoardMTC board) {
         this.board = board.getColorBoard();
+        System.out.println("the board has been set"); //TODO remove
         notifyObservers();
     }
 
