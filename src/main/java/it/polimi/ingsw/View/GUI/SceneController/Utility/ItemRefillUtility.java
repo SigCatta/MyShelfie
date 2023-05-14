@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController.Utility;
 
 import it.polimi.ingsw.model.tiles.ItemTile;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,28 +38,64 @@ public class ItemRefillUtility {
     }
 
     /**
-     * updates the virtual view with the item tiles given with the reference
+     * updates the board view with the item tiles given with the reference
      *
      * @param reference the way the grid must appear after the update
      */
-    public static void updateItemTileGrid(GridPane gridPane, ItemTile[][] reference) {
+    public static void updateBoardGrid(ItemTile[][] reference) {
         for (int row = 0; row < reference.length; row++) {
             for (int col = 0; col < reference[row].length; col++) {
 
                 if (reference[row][col] == null) continue;
 
                 int id = reference[row][col].getId(); //the id of the item tile
+
                 if (!ItemTileMemory.contains(id)) {
                     ItemTileMemory.put(id, reference[row][col], new Point(row, col), createImage(reference[row][col]));
                 }
 
-                ImageView imageView = (ImageView) getNodeFromGridPane(gridPane, row, col);
-                if (imageView == null) continue;
+                ImageView imageView = BoardMemory.get(row, col);
+                BoardMemory.get(row, col).setUserData(id);
 
-                imageView.setUserData(id); //set the id of the item tile to the image
+                if (imageView == null) continue;
 
                 imageView.setImage(ItemTileMemory.getImage(id));
             }
         }
     }
+
+
+    /**
+     * since the shelf is a write-only type of object this method uses this property
+     * to optimize the update. It checks each column starting from above, and it stops
+     * inserting if the tile is already shown in the shelf.
+     *
+     * @param shelf     to be updated
+     * @param reference the correct shelf to show
+     */
+    public static void updateShelfGrid(GridPane shelf, ItemTile[][] reference) {
+        for (int col = 0; col < reference[0].length; col++) {
+            for (int row = 0; row < reference.length; row++) {
+
+                if (reference[row][col] == null) continue;
+
+                int id = reference[row][col].getId(); //the id of the item tile
+
+                //if(ShelfMemory.get(row, col) != null) break;  //if the tile is memorized this means it is already in the shelf
+
+                Image image = ItemTileMemory.getImage(id);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(40);
+                imageView.setFitWidth(40);
+
+                ShelfMemory.put(imageView, row, col);
+
+                int finalRow = row;
+                int finalCol = col;
+                Platform.runLater(() -> shelf.add(imageView, finalRow, finalCol));
+
+            }
+        }
+    }
+
 }

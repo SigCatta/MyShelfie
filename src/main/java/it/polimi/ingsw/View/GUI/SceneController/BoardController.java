@@ -5,6 +5,7 @@ import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.NodeData;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.BoardMemory;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemTileMemory;
 import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.*;
@@ -103,12 +104,13 @@ public class BoardController {
      */
     public void updateBoard() {
         ItemTile[][] boardModel = BoardRepresentation.getInstance().getBoard();
-        ItemRefillUtility.updateItemTileGrid(board, boardModel);
+        ItemRefillUtility.updateBoardGrid(boardModel);
     }
 
     public void updateShelf() {
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
-        ItemRefillUtility.updateItemTileGrid(myShelf, shelfModel);
+        System.out.println("Updating the shelf...");//TODO remove
+        ItemRefillUtility.updateShelfGrid(myShelf, shelfModel);
     }
 
     public void updateChosenTilesTable() {
@@ -150,6 +152,11 @@ public class BoardController {
         for (Node node : board.getChildren()) {
             if (node == null) return;
             if (!(node instanceof ImageView)) return;
+
+            Integer c = GridPane.getColumnIndex(node);
+            Integer r = GridPane.getRowIndex(node);
+            if (c == null || r == null) continue;
+            BoardMemory.put((ImageView) node, r, c);
 
             attachBoardListener((ImageView) node);
         }
