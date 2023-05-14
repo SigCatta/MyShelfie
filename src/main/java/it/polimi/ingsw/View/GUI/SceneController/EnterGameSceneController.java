@@ -36,7 +36,12 @@ public class EnterGameSceneController {
     protected void onContinueButtonClick() {
         if(joinGameRB.isSelected()) {
             //connect player to already existing game
-            SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
+            try {
+                SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
+            } catch (NumberFormatException e) {
+                checkGameId(false);
+                return;
+            }
 
             new Thread(() -> {
 
