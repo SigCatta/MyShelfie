@@ -13,7 +13,7 @@ public class ChatMTCTest {
         String myMessage = "Hello world!";
         String sender = "user";
 
-        ChatMTC obj = new ChatMTC(myMessage, sender); // create an instance of your object
+        ChatMTC obj = new ChatMTC(myMessage, sender, true); // create an instance of your object
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj); // serialize the object

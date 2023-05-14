@@ -14,6 +14,8 @@ public class CommandExecutorFactory {
                 return new InsertTilesCE();
             case "chat":
                 return new ChatCE();
+            case "pchat":
+                return new PChatCE();
             case "disconnect":
                 return new DisconnectCE();
             case "common_goals":

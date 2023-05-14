@@ -9,10 +9,16 @@ public class ChatMTS extends MessageToServer implements Serializable {
 
     private final String chatMessage;
     private final String sender;
+    private final String receiver;
 
-    public ChatMTS(String chatMessage) {
+    public ChatMTS(String chatMessage, String receiver) {
         this.chatMessage = chatMessage;
+        this.receiver = receiver;
         this.sender = SocketClient.getInstance().getNickname();
+    }
+
+    public String getReceiver() {
+        return receiver;
     }
 
     @Override

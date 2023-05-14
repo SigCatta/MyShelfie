@@ -14,5 +14,6 @@ public enum EchoID {
     WRONGSTATE,
     NOTACTIVE,
     BADPICKUP,
-    COLUMNDIFF
+    COLUMNDIFF,
+    NOPLAYER
 }
