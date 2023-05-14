@@ -138,7 +138,8 @@ public class Printer implements VirtualModelObserver {
             commands.add("          │ - insert -> to insert the tiles you picked up in your personal shelf                                     │");
         }
 
-        commands.add("          │ - chat -> to use the game chat and comunicate with other players                                         │");
+        commands.add("          │ - chat -> to comunicate with all other players                                                           │");
+        commands.add("          │ - pchat -> to comunicate privately with one player                                                       │");
         commands.add("          │ - disconnect -> to leave the game ☹                                                                      │");
         commands.add("          │ - refresh -> to print an updated version of the home screen                                              │");
         commands.add("          │ - colors -> to choose whether to use colors or letters to show item tiles                                │");

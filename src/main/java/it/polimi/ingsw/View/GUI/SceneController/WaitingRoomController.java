@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -25,7 +26,7 @@ public class WaitingRoomController {
     Text currentNumText;
 
     @FXML
-    Text gameIdText;
+    TextField gameIdText;
 
     @FXML
     Button continueButton;
@@ -74,6 +75,7 @@ public class WaitingRoomController {
     public void setUp() {
         setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
         gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+        gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
 
         new Thread(() -> {
             while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
@@ -87,6 +89,7 @@ public class WaitingRoomController {
                     }
                 }
             }
+            updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
         }).start();
     }
 }

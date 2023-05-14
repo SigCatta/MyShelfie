@@ -13,7 +13,7 @@ public class ChatMessageTest {
     public void dimension() throws IOException {
         try {
             SocketClient.getInstance().setNickname("User");
-            MessageToServer obj = new ChatMTS("Nemo");
+            MessageToServer obj = new ChatMTS("Nemo", null);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
             oos.writeObject(obj); // serialize the object
