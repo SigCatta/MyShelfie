@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.Controller.Client.MessageToServer;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class SocketClient extends Client {
             this.readExecutionQueue = Executors.newSingleThreadExecutor();
             Client.LOGGER.info("Connection established");
             clientInstance = this;
-            new Thread(InputStatePlayer.getInstance()).start(); // from now on the user can execute commands
+            //new Thread(InputStatePlayer.getInstance()).start(); // from now on the user can execute commands
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,10 +65,7 @@ public class SocketClient extends Client {
                     MessageToClient messageToClient = (MessageToClient) o;
                     messageToClient.update();
                 } catch (IOException | ClassNotFoundException e) {
-                    //Connection lost with the server
-                    Client.LOGGER.severe("Did you remember to implement Serilizable?");
-                    disconnect();
-                    readExecutionQueue.shutdownNow();
+                    //TODO request everything to the server
                 }
                 //TODO: notify InstructionDecoder
             }

@@ -30,15 +30,15 @@ public class PickupTilesExecutor implements Executor {
 
         if (!(game.getGameState() == GameState.PICK_UP_TILES)) {
             client.sendCommand(new EchoMTC(EchoID.WRONGSTATE, true));
-            return; //TODO send error
+            return;
         }
         if (!pickUpTilesMessage.getNickname().equals(game.getActivePlayer().getNickname())) {
             client.sendCommand(new EchoMTC(EchoID.NOTACTIVE, true));
-            return;//TODO send error
+            return;
         }
         if (!PickUpValidator.isValid(game, pickUpTilesMessage.getTilesPosition())) {
             client.sendCommand(new EchoMTC(EchoID.BADPICKUP, true));
-            return;//TODO send error
+            return;
         }
 
         ArrayList<Point> tilesPosition = pickUpTilesMessage.getTilesPosition();
