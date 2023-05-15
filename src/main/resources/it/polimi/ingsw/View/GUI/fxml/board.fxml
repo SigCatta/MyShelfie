@@ -104,10 +104,10 @@
                                     <Image url="@../17_MyShelfie_BGA/misc/small_board.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="myNicknameText" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="myNickname" textAlignment="CENTER" wrappingWidth="161.0" />
-                              <Text fx:id="player2Nickname" layoutX="14.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player2" textAlignment="CENTER" wrappingWidth="161.0" />
-                              <Text fx:id="player3Nickname" layoutX="14.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player3" textAlignment="CENTER" wrappingWidth="161.0" />
-                              <Text fx:id="player4Nickname" layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player4" textAlignment="CENTER" wrappingWidth="161.0" />
+                              <Text fx:id="myNicknameText" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="myNickname" textAlignment="CENTER" visible="false" wrappingWidth="161.0" />
+                              <Text fx:id="player2Nickname" layoutX="14.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player2" textAlignment="CENTER" visible="false" wrappingWidth="161.0" />
+                              <Text fx:id="player3Nickname" layoutX="14.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player3" textAlignment="CENTER" visible="false" wrappingWidth="161.0" />
+                              <Text fx:id="player4Nickname" layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player4" textAlignment="CENTER" visible="false" wrappingWidth="161.0" />
                            </children>
                         </AnchorPane>
                      </children>

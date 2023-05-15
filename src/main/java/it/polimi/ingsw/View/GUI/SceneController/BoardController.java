@@ -116,8 +116,6 @@ public class BoardController {
                 }
             }
         });
-
-
     }
 
 
@@ -125,6 +123,7 @@ public class BoardController {
     public void setNicknames() {
         checkForEnd();
         myNicknameText.setText(SocketClient.getInstance().getNickname());
+        myNicknameText.setVisible(true);
 
         List<Text> nicknamesTextsList = List.of(player2Nickname, player3Nickname, player4Nickname);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
@@ -133,6 +132,7 @@ public class BoardController {
         for(int i=0; i<nicknames.size(); i++) {
             if(!nicknames.get(i).equals(myNicknameText.getText())){
                 nicknamesTextsList.get(j).setText(nicknames.get(i));
+                nicknamesTextsList.get(j).setVisible(true);
                 j++;
             }
         }
