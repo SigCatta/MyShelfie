@@ -21,6 +21,7 @@ public class CommonGoalVV implements VirtualViewObserver, EndOfTurnObserver {
 
     @Override
     public void update() {
+        if (VIRTUAL_VIEW == null) return; // testing...
         VIRTUAL_VIEW.send(new CommonGoalMTC(commonGoalCards));
     }
 }
