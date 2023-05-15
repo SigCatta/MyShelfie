@@ -6,7 +6,9 @@ import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,8 +25,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class BoardController {
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
     /**
      * map containing as keys the color of the item tile (es. Color.BLUE) and
      * as values the hashmap that contains as key the path of the specific tiles (es. it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/1.1.png)
@@ -94,33 +100,46 @@ public class BoardController {
     @FXML
     Text player4Nickname;
 
-    static GameState gameState;
+    public void checkForEnd() {
+        executor.submit(() -> {
+            while (GameRepresentation.getInstance()!=null) {
+                synchronized (GameRepresentation.getInstance()) {
+                    try {
+                        GameRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
+                    Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
+                    );
+                }
+            }
+        });
 
-    static String myNickname;
 
-    /**
-     * method called everyTime the state of the game changes
-     * @param gameState the current state of the game
-     */
-    public static void setGameState(GameState gameState) {
-        gameState = gameState;
     }
 
-    /**
-     * method called everyTime activePlayer changes
-     * @param nickname = nickname; the nickname of the active player
-     */
-    public static void setMyNickname(String nickname) {
-        myNickname = nickname;
-    }
 
     @FXML
     public void setNicknames() {
-        //TODO set player nicknames text
+        checkForEnd();
+        myNicknameText.setText(SocketClient.getInstance().getNickname());
+
+        List<Text> nicknamesTextsList = List.of(player2Nickname, player3Nickname, player4Nickname);
+        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
+        int j=0;
+
+        for(int i=0; i<nicknames.size(); i++) {
+            if(!nicknames.get(i).equals(myNicknameText.getText())){
+                nicknamesTextsList.get(j).setText(nicknames.get(i));
+                j++;
+            }
+        }
     }
 
     public String getMyNickname() {
-        return myNickname;
+        return myNicknameText.getText();
     }
 
     public void setItemTile1Visible(String path) {
@@ -141,7 +160,7 @@ public class BoardController {
 
     @FXML
     public void onObjectivesClicked() {
-        StageController.changeScene("fxml/objectives_card_scene.fxml", "Objective cards scene");
+        StageController.changeScene("fxml/objective_cards_scene.fxml", "Objective cards scene");
     }
 
     @FXML
@@ -156,7 +175,7 @@ public class BoardController {
 
     @FXML
     public void onPickUpDoneClicked() {
-        if (!gameState.equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         ArrayList<Point> tilesPosition = new ArrayList<>();
         for(NodeData node: tilesSelected) {
@@ -319,7 +338,7 @@ public class BoardController {
 
     @FXML
     public void onInsertTileClicked(int column) {
-        if (!gameState.equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         currentColumn = column;
         int index = tilesSelected.indexOf(currentTileSelected);

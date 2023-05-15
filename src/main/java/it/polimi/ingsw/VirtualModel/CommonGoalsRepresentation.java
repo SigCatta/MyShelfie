@@ -19,6 +19,7 @@ public class CommonGoalsRepresentation extends VirtualModelSubject {
 
     public void updateCommonGoal(CommonGoalMTC commonGoalMessage) {
         this.commonGoalMessage = commonGoalMessage;
+        notifyObservers();
     }
 
     public ArrayList<String> getCardNames() {
