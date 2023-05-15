@@ -93,7 +93,7 @@ public class BagTest {
             numberOfAddedTiles++;
         }
 
-        assertEquals(110, numberOfAddedTiles);
+        assertEquals(132, numberOfAddedTiles);
 
     }
 
