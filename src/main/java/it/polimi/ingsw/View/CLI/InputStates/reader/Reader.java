@@ -12,6 +12,15 @@ import static it.polimi.ingsw.InputReader.readLine;
 public class Reader implements Runnable, VirtualModelObserver {
     String input;
     boolean isReading;
+    private static Reader instance;
+
+    private Reader() {
+    }
+
+    public static Reader getInstance() {
+        if (instance == null) instance = new Reader();
+        return instance;
+    }
 
     /**
      * waits for user imputs and use {@link CommandExecutorFactory} to run it
@@ -54,7 +63,7 @@ public class Reader implements Runnable, VirtualModelObserver {
         try {
             return readLine().trim();
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            return getInput();
         } catch (NullPointerException e) {
             return ".";
         }

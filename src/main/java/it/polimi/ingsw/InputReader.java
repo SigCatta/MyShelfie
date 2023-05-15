@@ -36,7 +36,7 @@ public class InputReader implements Callable<String> {
     /**
      * @return a map containing the server address and port that the user will be connected to
      */
-    public static Map<String, String> askServerInfo()  {
+    public static Map<String, String> askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";
         String defaultPort = "28888";
@@ -116,7 +116,7 @@ public class InputReader implements Callable<String> {
      */
     public static String readLine() throws ExecutionException {
         FutureTask<String> futureTask = new FutureTask<>(new InputReader());
-            executorService.submit(futureTask);
+        executorService.submit(futureTask);
 
         String input = null;
 

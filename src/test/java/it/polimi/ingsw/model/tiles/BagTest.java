@@ -65,8 +65,6 @@ public class BagTest {
                 case WHITE:
                     whiteCount++;
                     break;
-                case EMPTY:
-                    throw new RuntimeException();
             }
         }
 
