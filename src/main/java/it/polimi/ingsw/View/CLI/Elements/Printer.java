@@ -48,7 +48,6 @@ public class Printer implements VirtualModelObserver {
             colorMap.put(Color.LIGHTBLUE, "L");
             colorMap.put(Color.WHITE, "W");
         }
-        colorMap.put(Color.EMPTY, " ");
     }
 
     /**
