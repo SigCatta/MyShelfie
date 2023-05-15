@@ -2,7 +2,7 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
 import it.polimi.ingsw.Enum.GameState;
-import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.CommandExecutorFactory;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -32,8 +32,7 @@ public class PickupTilesCE implements CommandExecutor {
         while (true) {
             int column = getColumn();
             if (column == -1) {
-                Printer.clearConsole();
-                Printer.getInstance().update();
+                CommandExecutorFactory.getCommand("refresh").execute();
                 return;
             }
 
@@ -46,7 +45,9 @@ public class PickupTilesCE implements CommandExecutor {
 
             if (pickedUpTiles >= 3) break;
 
-            if (stopPickup()) break;
+            int stop = stopPickup();
+            if (stop == 1) break;
+            else if (stop == -1) return;
         }
 
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tiles));
@@ -59,10 +60,9 @@ public class PickupTilesCE implements CommandExecutor {
      * @return the selected column
      */
     private int getColumn() {
-        String input;
         while (true) {
             System.out.println("Which column would you like to select?");
-            input = Reader.getInput();
+             String input = Reader.getInput();
             if (input.equals(".")) return -1;
             if (isInputValid(input)) {
                 return Integer.parseInt(input);
@@ -109,14 +109,18 @@ public class PickupTilesCE implements CommandExecutor {
     /**
      * Asks the user whether to keep pickup up tiles or not
      *
-     * @return a boolean indicating if the pickup shall stop or not
+     * @return an integer of values:<br>
+     *   1 if the user wants to stop picking up tiles<br>
+     *   0 if the user wants to pick up more tiles<br>
+     *  -1 if the user wants to go back<br>
      */
-    private boolean stopPickup(){
-        while (true){
+    private int stopPickup() {
+        while (true) {
             System.out.println("Do you want to pickup more tiles? (y/n)");
             String input = Reader.getInput();
-            if (input.equalsIgnoreCase("n")) return true;
-            else if (input.equalsIgnoreCase("y")) return false;
+            if (input.equalsIgnoreCase("n")) return 1;
+            else if (input.equalsIgnoreCase("y")) return 0;
+            if (input.equals(".")) return -1;
         }
     }
 }

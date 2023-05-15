@@ -75,7 +75,7 @@ public class Printer implements VirtualModelObserver {
      * - a list of the available commands<br>
      */
     @Override
-    public void update() {
+    public synchronized void update() {
         while (reader.isReading()) {
             try {
                 synchronized (reader){
@@ -97,6 +97,11 @@ public class Printer implements VirtualModelObserver {
         output = addAvailableCommands(output);
 
         output.forEach(System.out::println);
+
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : elements) {
+            System.out.println(element);
+        }
     }
 
     /**

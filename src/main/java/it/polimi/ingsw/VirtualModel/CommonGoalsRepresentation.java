@@ -18,8 +18,20 @@ public class CommonGoalsRepresentation extends VirtualModelSubject {
     }
 
     public void updateCommonGoal(CommonGoalMTC commonGoalMessage) {
-        this.commonGoalMessage = commonGoalMessage;
-        notifyObservers();
+        if (this.commonGoalMessage == null) {
+            this.commonGoalMessage = commonGoalMessage;
+            notifyObservers();
+        } else { // the VM only updates if there actually are changes
+            ArrayList<Integer> newMessagePoints = commonGoalMessage.getAvailablePoints();
+            ArrayList<Integer> oldMessagePoints = this.commonGoalMessage.getAvailablePoints();
+            for (int i = 0; i < oldMessagePoints.size(); i++) {
+                if (!oldMessagePoints.get(i).equals(newMessagePoints.get(i))) {
+                    this.commonGoalMessage = commonGoalMessage;
+
+                    notifyObservers();
+                }
+            }
+        }
     }
 
     public ArrayList<String> getCardNames() {

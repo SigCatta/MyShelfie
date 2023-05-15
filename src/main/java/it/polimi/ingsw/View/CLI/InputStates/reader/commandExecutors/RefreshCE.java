@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 
 public class RefreshCE implements CommandExecutor {
 
@@ -9,6 +10,7 @@ public class RefreshCE implements CommandExecutor {
      */
     @Override
     public void execute() {
+        Reader.getInstance().setReading(false);
         Printer.clearConsole();
         Printer.getInstance().update();
     }
