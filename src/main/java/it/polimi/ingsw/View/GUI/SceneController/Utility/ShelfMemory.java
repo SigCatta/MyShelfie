@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController.Utility;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ShelfMemory {
@@ -11,6 +12,10 @@ public class ShelfMemory {
 
     public static ImageView get(int row, int col) {
         return imagesInShelf[row][col];
+    }
+
+    public static void setImage(Image image, int row, int col) {
+        imagesInShelf[row][col].setImage(image);
     }
 
     public static void reset() {

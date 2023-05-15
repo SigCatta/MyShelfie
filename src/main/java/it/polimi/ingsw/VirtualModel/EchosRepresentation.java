@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class EchosRepresentation extends VirtualModelSubject {
 
-    private final Stack<EchoMTC> messages;
+    private Stack<EchoMTC> messages;
 
     private static EchosRepresentation instance;
 
@@ -41,6 +41,13 @@ public class EchosRepresentation extends VirtualModelSubject {
         return null;
     }
 
+    /**
+     * removes all the messages from the stack
+     */
+    public void clean() {
+        messages = new Stack<>();
+    }
+
     //TODO method that retrieves the error message
 
     @Override
@@ -50,5 +57,4 @@ public class EchosRepresentation extends VirtualModelSubject {
             this.notify();
         }
     }
-
 }

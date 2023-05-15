@@ -31,7 +31,7 @@ public class BoardController {
 
     private static BoardController instance;
 
-    private boolean initialized, alreadySetUpTable;
+    private boolean initialized;
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
 
     /**
@@ -58,6 +58,9 @@ public class BoardController {
     FlowPane myChosenTilesTable;
 
     @FXML
+    AnchorPane chooseColumnPane;
+
+    @FXML
     Button selectTileButton;
 
     @FXML
@@ -76,15 +79,16 @@ public class BoardController {
     ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
 
     @FXML
-    Text myNicknameText, player2Nickname, player3Nickname, player4Nickname;
-
+    FlowPane playersPane;
 
     @FXML
     public void initScene() {
         if (initialized) return;
-        setUpBoard();
-        ShelfMemory.reset();
+        initBoard();
         initInsertButtons();
+        initPlayersName();
+        initShelf();
+
         new BoardObserver().update();
         new PlayerObserver().update();
         new ShelfObserver().update();
@@ -95,20 +99,34 @@ public class BoardController {
     }
 
     private void initInsertButtons() {
-        col0InsertButton.setOnMouseEntered(mouseEvent -> col0InsertButton.getStyleClass().add("edge-effect"));
-        col0InsertButton.setOnMouseExited(mouseEvent -> col0InsertButton.getStyleClass().remove("edge-effect"));
+        for (Node node : chooseColumnPane.getChildren()) {
+            node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
+            node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
+        }
+    }
 
-        col1InsertButton.setOnMouseEntered(mouseEvent -> col1InsertButton.getStyleClass().add("edge-effect"));
-        col1InsertButton.setOnMouseExited(mouseEvent -> col1InsertButton.getStyleClass().remove("edge-effect"));
+    private void initPlayersName() {
+        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
+        for (String nickname : nicknames) {
+            Text playerName = new Text(nickname);
+            playerName.getStyleClass().add("nickname"); //TODO change in something cooler
+            playersPane.getChildren().add(playerName);
+        }
+        updateChangeTurn();
+    }
 
-        col2InsertButton.setOnMouseEntered(mouseEvent -> col2InsertButton.getStyleClass().add("edge-effect"));
-        col2InsertButton.setOnMouseExited(mouseEvent -> col2InsertButton.getStyleClass().remove("edge-effect"));
-
-        col3InsertButton.setOnMouseEntered(mouseEvent -> col3InsertButton.getStyleClass().add("edge-effect"));
-        col3InsertButton.setOnMouseExited(mouseEvent -> col3InsertButton.getStyleClass().remove("edge-effect"));
-
-        col4InsertButton.setOnMouseEntered(mouseEvent -> col4InsertButton.getStyleClass().add("edge-effect"));
-        col4InsertButton.setOnMouseExited(mouseEvent -> col4InsertButton.getStyleClass().remove("edge-effect"));
+    private void initShelf() {
+        for (int row = 0; row < myShelf.getRowCount(); row++) {
+            for (int col = 0; col < myShelf.getColumnCount(); col++) {
+                if (ShelfMemory.get(row, col) == null) {
+                    ImageView imageView = new ImageView();
+                    imageView.setFitHeight(45);
+                    imageView.setFitWidth(45);
+                    ShelfMemory.put(imageView, row, col);
+                }
+                myShelf.add(ShelfMemory.get(row, col), col, row);
+            }
+        }
     }
 
     /**
@@ -144,24 +162,37 @@ public class BoardController {
     public void updateError() {
         errorImage.setVisible(true);
         errorText.setVisible(true);
+        errorText.setWrappingWidth(300);
 
-        System.out.println("There was an error: ");
+        System.out.println("There was an error: "); //TODO remove
         errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
         fadeTransition.play();
+
+        EchosRepresentation.getInstance().clean();
     }
 
     public void updateGame() {
 
     }
 
+    public void updateChangeTurn() {
+        for (Node text : playersPane.getChildren()) {
+            if (!(text instanceof Text)) return;
+            text.getStyleClass().remove("fancy-text");
+            if (((Text) text).getText().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
+                text.getStyleClass().add("fancy-text");
+            }
+        }
+    }
+
     /**
      * methods called when the scene is initialized
      * to add to each one of the children nodes of the board matrix an event listener
      */
-    private void setUpBoard() {
+    private void initBoard() {
         for (Node node : board.getChildren()) {
             if (node == null) return;
             if (!(node instanceof ImageView)) return;
@@ -308,8 +339,7 @@ public class BoardController {
 
         ItemTile tileToSend = ItemTileMemory.getTile(selectedTileToSendToShelf);
 
-        Point position = ItemTileMemory.getPoint(selectedTileToSendToShelf);
-        BoardMemory.get(position.x, position.y).getStyleClass().clear();
+        myChosenTilesTable.getChildren().forEach(node -> node.getStyleClass().clear());
         selectedTileToSendToShelf = -1;
 
         int indexInTheTable = -1;
@@ -325,11 +355,7 @@ public class BoardController {
 
         SocketClient.getInstance().sendCommand(new InsertTileMTS(indexInTheTable, column));
 
-        for (Node imageView : myChosenTilesTable.getChildren()) {
-            if (!(imageView instanceof ImageView)) return;
-            imageView.getStyleClass().remove("edge-effect");
-        }
-        selectedTileToSendToShelf = -1;
+        myChosenTilesTable.getChildren().forEach(image -> image.getStyleClass().clear());
     }
 
 
