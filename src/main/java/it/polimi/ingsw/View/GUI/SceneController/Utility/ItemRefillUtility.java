@@ -46,7 +46,13 @@ public class ItemRefillUtility {
         for (int row = 0; row < reference.length; row++) {
             for (int col = 0; col < reference[row].length; col++) {
 
-                if (reference[row][col] == null) continue;
+                ImageView imageView = BoardMemory.get(row, col);
+                if(imageView == null) continue;
+
+                if (reference[row][col] == null){
+                    BoardMemory.removeImage(row, col);
+                    continue;
+                }
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
@@ -54,12 +60,9 @@ public class ItemRefillUtility {
                     ItemTileMemory.put(id, reference[row][col], new Point(row, col), createImage(reference[row][col]));
                 }
 
-                ImageView imageView = BoardMemory.get(row, col);
                 BoardMemory.get(row, col).setUserData(id);
-
-                if (imageView == null) continue;
-
                 imageView.setImage(ItemTileMemory.getImage(id));
+                imageView.setOpacity(1);
             }
         }
     }

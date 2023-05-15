@@ -40,6 +40,7 @@ public class StageController {
         stage.setScene(scene);
 
         stage.setMaximized(true);
+        stage.setResizable(true);
         //stage.setFullScreen(true);
 
         stage.show();

@@ -16,6 +16,12 @@ import java.util.ArrayList;
 
 public class PickupTilesExecutor implements Executor {
 
+    /**
+     * checks if the received message contains valid positions and
+     * removes the tiles from the board sending them to the
+     * chosen tiles table
+     * @param message
+     */
     public static void execute(MessageToServer message) {
 
         Game game = message.getGame();
