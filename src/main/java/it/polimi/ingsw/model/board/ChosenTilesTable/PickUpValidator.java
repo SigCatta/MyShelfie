@@ -13,6 +13,7 @@ public class PickUpValidator {
 
     /**
      * check if the player asked for more tiles than possible then
+     * check if the player chose tiles on the same line
      * check if the player asked for consecutive cells then
      * check if the player asked for an empty cell then
      * check if the player has enough room for to fit the tiles in his shelf
@@ -27,7 +28,9 @@ public class PickUpValidator {
 
         if (chosenPositions.size() > MAX_TILES || chosenPositions.size() == 0) return false;
 
-        if (!arePointsAdjacent(chosenPositions)) return false;
+        if (!onSameLine(chosenPositions)) return false;
+
+        if (!adjacent(chosenPositions)) return false;
 
         if (tooManyTilesChosen(game, MAX_TILES)) return false;
 
@@ -40,6 +43,34 @@ public class PickUpValidator {
         return true;
     }
 
+    /**
+     * Checks if the points in a given ArrayList are on the same line (share a coordinate)
+     *
+     * @param chosenPositions an ArrayList containing the coordinates of the tiles
+     * @return a boolean indicating wheter the tiles are on the same line or not
+     */
+    private static boolean onSameLine(ArrayList<Point> chosenPositions) {
+        if (chosenPositions.size() == 1) return true;
+        int x = chosenPositions.get(0).x;
+        int y = chosenPositions.get(0).y;
+
+        boolean sameLine = true;
+        for (int i = 1; i < chosenPositions.size(); i++) {
+            if (x != chosenPositions.get(i).x) {
+                sameLine = false;
+                break;
+            }
+        }
+
+        if (sameLine) return true;
+
+        for (int i = 1; i < chosenPositions.size(); i++) {
+            if (y != chosenPositions.get(i).y) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Checks if the points in the given list are adjacent.
@@ -49,7 +80,7 @@ public class PickUpValidator {
      * @param chosenPositions the list of points to be checked for adjacency.
      * @return true, if all points in the list are adjacent, otherwise false.
      */
-    private static boolean arePointsAdjacent(ArrayList<Point> chosenPositions) {
+    private static boolean adjacent(ArrayList<Point> chosenPositions) {
         // get the row and column of the first point in the list
         int row = chosenPositions.get(0).x;
         int col = chosenPositions.get(0).y;
