@@ -1,25 +1,19 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.CommonGoalReader;
-import it.polimi.ingsw.View.GUI.Gui;
-import it.polimi.ingsw.View.GUI.NodeData;
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
-import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 public class ObjectiveCardController {
+
     private final CommonGoalReader reader = new CommonGoalReader();
 
     static private final URL COMMON_GOAL_PACKAGE = ObjectiveCardController.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/common_goal_cards/angoli_smussati/");
@@ -44,6 +38,16 @@ public class ObjectiveCardController {
 
     @FXML
     Text pointCG2Text;
+
+    private static ObjectiveCardController instance;
+
+    public ObjectiveCardController() {
+        instance = this;
+    }
+
+    public static ObjectiveCardController getInstance() {
+        return instance;
+    }
 
     public void setPointCG1Text(int point) {
         pointCG1Text.setText(String.valueOf(point));
@@ -83,13 +87,11 @@ public class ObjectiveCardController {
 
     @FXML
     public void setUp() {
+        new CommonGoalsObserver().update();
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
-        ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
 
         setCard1Description(reader.getDescription(cardNames.get(0)));
         setCard2Description(reader.getDescription(cardNames.get(1)));
-        setPointCG1Text(availablePoints.get(0));
-        setPointCG2Text(availablePoints.get(1));
 
         setCommonGoalCard1(COMMON_GOAL_PACKAGE + cardNames.get(0) + ".jpg");
         setCommonGoalCard2(COMMON_GOAL_PACKAGE + cardNames.get(1) + ".jpg");
@@ -98,5 +100,11 @@ public class ObjectiveCardController {
         String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
 
         setPersonalGoalCard(PERSONAL_GOAL_PACKAGE + personalGoalCardNum + ".jpg");
+    }
+
+    public void updateCommonGoalsPoints() {
+        ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
+        setPointCG1Text(availablePoints.get(0));
+        setPointCG2Text(availablePoints.get(1));
     }
 }
