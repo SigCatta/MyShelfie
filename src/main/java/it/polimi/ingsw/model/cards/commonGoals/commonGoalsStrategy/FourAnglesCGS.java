@@ -34,11 +34,14 @@ public class FourAnglesCGS extends CommonGoalStrategy {
         int rows = shelfGrid.length;
         int cols = shelfGrid[0].length;
         Set<Color> colorSet = new HashSet<>();
-        // check the edges
         if (shelfGrid[0][0] != null) colorSet.add(shelfGrid[0][0].getColor());
+        else return false;
         if (shelfGrid[0][cols - 1] != null) colorSet.add(shelfGrid[0][cols - 1].getColor());
+        else return false;
         if (shelfGrid[rows - 1][cols - 1] != null) colorSet.add(shelfGrid[rows - 1][cols - 1].getColor());
+        else return false;
         if (shelfGrid[rows - 1][0] != null) colorSet.add(shelfGrid[rows - 1][0].getColor());
+        else return false;
 
         return colorSet.size() == 1;
     }
