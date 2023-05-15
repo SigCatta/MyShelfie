@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+import it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.VirtualView.VirtualView;
@@ -67,10 +68,6 @@ public class Game implements VirtualViewSubject {
 
         gameState = GameState.PICK_UP_TILES;
 
-        if (virtualView != null) {//TODO this is just for testing
-            notifyObservers();
-        }
-
         new BoardRefresher(this).refillBoard();
         if (players.size() > 0) {
             this.activePlayer = players.get(0);
@@ -82,7 +79,6 @@ public class Game implements VirtualViewSubject {
                 end();
             }
         }
-        notifyObservers();
     }
 
     /**
@@ -97,6 +93,7 @@ public class Game implements VirtualViewSubject {
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
         turnHandler.attachEndOfTurn(new BoardRefresher(this));
+        turnHandler.attachEndOfTurn(new CommonGoalVV(this, this.virtualView));
     }
 
     public void end() {
@@ -144,7 +141,6 @@ public class Game implements VirtualViewSubject {
         System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
         if (players.size() == MAX_PLAYER_NUMBER) start();
 
-        player.getShelf().notifyObservers();
     }
 
     public TurnHandler getTurnHandler() {

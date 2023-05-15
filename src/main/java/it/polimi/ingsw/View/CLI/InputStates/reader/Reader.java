@@ -40,6 +40,10 @@ public class Reader implements Runnable, VirtualModelObserver {
         return isReading;
     }
 
+    public void setReading(boolean reading) {
+        isReading = reading;
+    }
+
     /**
      * Waits for the user to input a command and calls the corresponding executor
      */
