@@ -13,7 +13,7 @@ public class Bag {
 
     public Bag() {
 
-        NUMBER_OF_COLORS = Color.values().length - 1; // not counting the EMPTY color
+        NUMBER_OF_COLORS = Color.values().length;
         tilesLeft = NUMBER_OF_COLORS * TILES_PER_COLOR;
 
         for (Color color : Color.values()) {
@@ -30,7 +30,7 @@ public class Bag {
     public ItemTile drawTile() {
 
         Color randomColor = randomColor();
-        if(randomColor == null) return null;
+        if (randomColor == null) return null;
 
         return new ItemTile(randomColor);
     }
@@ -45,7 +45,7 @@ public class Bag {
      */
     Color randomColor() {
 
-        if(tilesLeft == 0) return null;
+        if (tilesLeft == 0) return null;
 
         double random = Math.random() * tilesLeft;
         tilesLeft--;
@@ -59,6 +59,8 @@ public class Bag {
                 colorNumber.replace(color, colorNumber.get(color) - 1);
                 return color;
             }
+
+
         }
 
         return null;//should not reach

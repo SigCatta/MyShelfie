@@ -54,10 +54,7 @@ public class ShelfView extends ViewElement {
             StringBuilder string = new StringBuilder("          │");
             for (Color color : row) {
                 string
-                        .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
-                        .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
-                        .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
-                        .append(colorMap.getOrDefault(color, colorMap.get(Color.EMPTY)))
+                        .append(colorMap.getOrDefault(color, " ").repeat(4))
                         .append("│");
             }
             string.append("                    ");

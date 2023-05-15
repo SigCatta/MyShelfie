@@ -40,7 +40,7 @@ public class Board implements VirtualViewSubject {
 
     public ItemTile removeItemTile(Point location) {
         ItemTile pickedUpTile = BOARD_GRID[location.x][location.y];
-        BOARD_GRID[location.x][location.y] = new ItemTile(Color.EMPTY);
+        BOARD_GRID[location.x][location.y] = null;
         return pickedUpTile;
     }
 

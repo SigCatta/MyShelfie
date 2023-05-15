@@ -7,5 +7,4 @@ public enum Color {
     LIGHTBLUE,
     PINK,
     WHITE,
-    EMPTY
 }

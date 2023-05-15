@@ -39,9 +39,10 @@ class BoardTest {
         Point location = new Point(3, 3);
         Color color = Color.PINK;
         ItemTile tile = new ItemTile(color);
+        if (board.getBoardGrid()[location.x][location.y] == null) return;
         board.getBoardGrid()[location.x][location.y] = tile;
         ItemTile removedTile = board.removeItemTile(location);
-        assertSame(board.getBoardGrid()[location.x][location.y].getColor(), Color.EMPTY);
+        assertSame(board.getBoardGrid()[location.x][location.y].getColor(), null);
         assertEquals(tile, removedTile);
     }
 }

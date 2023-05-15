@@ -41,7 +41,6 @@ public class PersonalGoal {
         int score = 0;
         if (!points.isEmpty()) {
             for (Color color : Color.values()) {
-                if (color == Color.EMPTY) continue;
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
