@@ -8,6 +8,7 @@ import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,8 +25,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class BoardController {
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
     /**
      * map containing as keys the color of the item tile (es. Color.BLUE) and
      * as values the hashmap that contains as key the path of the specific tiles (es. it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/1.1.png)
@@ -95,10 +100,30 @@ public class BoardController {
     @FXML
     Text player4Nickname;
 
-    static GameState gameState;
+    public void checkForEnd() {
+        executor.submit(() -> {
+            while (GameRepresentation.getInstance()!=null) {
+                synchronized (GameRepresentation.getInstance()) {
+                    try {
+                        GameRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
+                    Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
+                    );
+                }
+            }
+        });
+
+
+    }
+
 
     @FXML
     public void setNicknames() {
+        checkForEnd();
         myNicknameText.setText(SocketClient.getInstance().getNickname());
 
         List<Text> nicknamesTextsList = List.of(player2Nickname, player3Nickname, player4Nickname);
@@ -150,7 +175,7 @@ public class BoardController {
 
     @FXML
     public void onPickUpDoneClicked() {
-        if (!gameState.equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         ArrayList<Point> tilesPosition = new ArrayList<>();
         for(NodeData node: tilesSelected) {
@@ -313,7 +338,7 @@ public class BoardController {
 
     @FXML
     public void onInsertTileClicked(int column) {
-        if (!gameState.equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         currentColumn = column;
         int index = tilesSelected.indexOf(currentTileSelected);
