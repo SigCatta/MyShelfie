@@ -11,7 +11,7 @@
    <children>
       <Group>
          <children>
-            <AnchorPane onMouseEntered="#setNicknames" prefHeight="803.0" prefWidth="1183.0">
+            <AnchorPane onMouseEntered="#setUpNicknames" prefHeight="803.0" prefWidth="1183.0">
                <children>
                   <AnchorPane layoutX="60.0" layoutY="44.0">
                      <children>
@@ -140,7 +140,7 @@
                         </GridPane>
                         <AnchorPane layoutX="499.0" layoutY="14.0" prefHeight="157.0" prefWidth="237.0">
                            <children>
-                              <ImageView fitHeight="165.0" fitWidth="208.0" layoutX="8.0" layoutY="-14.0" onMouseClicked="#setNicknames" preserveRatio="true">
+                              <ImageView fitHeight="165.0" fitWidth="208.0" layoutX="8.0" layoutY="-14.0" onMouseClicked="#setUpNicknames" preserveRatio="true">
                                  <image>
                                     <Image url="@../17_MyShelfie_BGA/misc/small_board.png" />
                                  </image>

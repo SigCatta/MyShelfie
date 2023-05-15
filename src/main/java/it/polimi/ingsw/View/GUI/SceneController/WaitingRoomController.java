@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.PreGameObserver;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import javafx.event.ActionEvent;
@@ -27,6 +28,15 @@ public class WaitingRoomController {
     @FXML
     Button continueButton;
 
+    private static WaitingRoomController instance;
+
+    public WaitingRoomController() {
+        instance = this;
+    }
+
+    public static WaitingRoomController getInstance() {
+        return instance;
+    }
     @FXML
     public void onContinueButtonClick(ActionEvent actionEvent) {
         //start the game
@@ -71,25 +81,10 @@ public class WaitingRoomController {
 
     @FXML
     public void setUp() {
-        executor.submit(() -> {
-            while (GameRepresentation.getInstance().getGameMessage() == null) {
-                synchronized (GameRepresentation.getInstance()) {
-                    StageController.waitForVMReprensentation(GameRepresentation.getInstance());
-                }
-            }
-            updatePlayersInfo(false);
-
-            while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
-                updatePlayersInfo(true);
-                synchronized (GameRepresentation.getInstance()) {
-                    StageController.waitForVMReprensentation(GameRepresentation.getInstance());
-                }
-            }
-            updatePlayersInfo(true);
-        });
+        new PreGameObserver().update();
     }
 
-    private void updatePlayersInfo(boolean gameCreated) {
+    public void updatePlayersInfo(boolean gameCreated) {
         if(!gameCreated) {
             setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
             gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
