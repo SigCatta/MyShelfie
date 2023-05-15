@@ -41,7 +41,7 @@ public class GameStartupState extends InputState {
         Printer.getInstance().update();
 
 
-        Reader reader = new Reader();
+        Reader reader = Reader.getInstance();
 
         addReaderToEchoObserver(reader);
 

@@ -1,19 +1,29 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.CommonGoalReader;
+import it.polimi.ingsw.View.GUI.Gui;
+import it.polimi.ingsw.View.GUI.NodeData;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
+import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ObjectiveCardController {
     private final CommonGoalReader reader = new CommonGoalReader();
 
+    static private final URL COMMON_GOAL_PACKAGE = ObjectiveCardController.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/common_goal_cards/angoli_smussati/");
+    static private final URL PERSONAL_GOAL_PACKAGE = ObjectiveCardController.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/personal_goal_cards/angoli_smussati/");
     @FXML
     ImageView commonGoalCard1;
 
@@ -44,11 +54,18 @@ public class ObjectiveCardController {
     }
 
     public void setCommonGoalCard1(String commonGoalCard1Path) {
-        this.commonGoalCard1.setImage(new Image(commonGoalCard1Path));
+        commonGoalCard1.setImage(new Image(commonGoalCard1Path));
+        commonGoalCard1.setVisible(true);
     }
 
     public void setCommonGoalCard2(String commonGoalCard2Path) {
-        this.commonGoalCard2.setImage(new Image(commonGoalCard2Path));
+        commonGoalCard2.setImage(new Image(commonGoalCard2Path));
+        commonGoalCard2.setVisible(true);
+    }
+
+    public void setPersonalGoalCard(String personalGoalPath) {
+        personalGoalImage.setImage(new Image(personalGoalPath));
+        personalGoalImage.setVisible(true);
     }
 
     public void setCard1Description(String description) {
@@ -68,14 +85,18 @@ public class ObjectiveCardController {
     public void setUp() {
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
-        //TODO add id to PersonalGoalCard and retrieve image
 
         setCard1Description(reader.getDescription(cardNames.get(0)));
         setCard2Description(reader.getDescription(cardNames.get(1)));
         setPointCG1Text(availablePoints.get(0));
         setPointCG2Text(availablePoints.get(1));
 
-        setCommonGoalCard1("@..\\17_MyShelfie_BGA\\common_goal_cards\\angoli_smussati\\" + cardNames.get(0) + ".jpg");
-        setCommonGoalCard2("@..\\17_MyShelfie_BGA\\common_goal_cards\\angoli_smussati\\" + cardNames.get(1) + ".jpg");
+        setCommonGoalCard1(COMMON_GOAL_PACKAGE + cardNames.get(0) + ".jpg");
+        setCommonGoalCard2(COMMON_GOAL_PACKAGE + cardNames.get(1) + ".jpg");
+
+        String nickname = SocketClient.getInstance().getNickname();
+        String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
+
+        setPersonalGoalCard(PERSONAL_GOAL_PACKAGE + personalGoalCardNum + ".jpg");
     }
 }

@@ -46,7 +46,6 @@ public class PersonalGoalReader implements JSONFileReader {
         JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
 
         for (Color color : Color.values()) {
-            if (color == Color.EMPTY) continue;
             JSONArray arr = (JSONArray) JSONObj.get(color.name());
             Object x = arr.get(0);
             Object y = arr.get(1);

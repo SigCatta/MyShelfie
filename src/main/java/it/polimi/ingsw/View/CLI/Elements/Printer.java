@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.network.client.SocketClient;
 
@@ -11,6 +12,7 @@ public class Printer implements VirtualModelObserver {
 
     static HashMap<Color, String> colorMap;
     private static Printer instance;
+    private final Reader reader;
 
     private Printer() {
         BoardRepresentation.getInstance().registerObserver(this);
@@ -18,10 +20,12 @@ public class Printer implements VirtualModelObserver {
         CommonGoalsRepresentation.getInstance().registerObserver(this);
         PlayersRepresentation.getInstance().registerObserver(this);
         ShelvesRepresentation.getInstance().registerObserver(this);
+
+        reader = Reader.getInstance();
     }
 
-    public static Printer getInstance(){
-        if (instance == null) instance =  new Printer();
+    public static Printer getInstance() {
+        if (instance == null) instance = new Printer();
         return instance;
     }
 
@@ -48,7 +52,6 @@ public class Printer implements VirtualModelObserver {
             colorMap.put(Color.LIGHTBLUE, "L");
             colorMap.put(Color.WHITE, "W");
         }
-        colorMap.put(Color.EMPTY, " ");
     }
 
     /**
@@ -72,7 +75,17 @@ public class Printer implements VirtualModelObserver {
      * - a list of the available commands<br>
      */
     @Override
-    public synchronized void update() {
+    public void update() {
+        while (reader.isReading()) {
+            try {
+                synchronized (reader){
+                    reader.wait();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
         ArrayList<String> output = new ArrayList<>();
 

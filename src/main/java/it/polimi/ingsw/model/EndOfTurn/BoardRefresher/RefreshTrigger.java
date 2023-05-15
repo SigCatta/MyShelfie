@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
@@ -17,16 +16,16 @@ public class RefreshTrigger {
 
                 if (boardGrid[i][j] == null) continue;
 
-                if (i > 0 && isNotNullOrEmpty(boardGrid[i - 1][j])) {
+                if (i > 0 && isNotNull(boardGrid[i - 1][j])) {
                     return false;
                 }
-                if (i < boardGrid.length - 1 && isNotNullOrEmpty(boardGrid[i + 1][j])) {
+                if (i < boardGrid.length - 1 && isNotNull(boardGrid[i + 1][j])) {
                     return false;
                 }
-                if (j > 0 && isNotNullOrEmpty(boardGrid[i][j - 1])) {
+                if (j > 0 && isNotNull(boardGrid[i][j - 1])) {
                     return false;
                 }
-                if (j < boardGrid[i].length - 1 && isNotNullOrEmpty(boardGrid[i][j + 1])) {
+                if (j < boardGrid[i].length - 1 && isNotNull(boardGrid[i][j + 1])) {
                     return false;
                 }
             }
@@ -34,9 +33,8 @@ public class RefreshTrigger {
         return true;
     }
 
-    private static boolean isNotNullOrEmpty(ItemTile tile) {
-        if (tile == null) return false;
-        return tile.getColor() != Color.EMPTY;
+    private static boolean isNotNull(ItemTile tile) {
+        return tile != null;
     }
 
 }

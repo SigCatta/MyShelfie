@@ -13,11 +13,13 @@ public class GameMTC implements MessageToClient, Serializable {
     private String activePlayerNickname;
 
     private final GameState GAME_STATE;
+    private final int numOfPlayers;
 
     public GameMTC(Game game) {
         this.GAMEID = game.getGameID();
         this.MAX_PLAYER_NUMBER = game.getMAX_PLAYER_NUMBER();
         GAME_STATE = game.getGameState();
+        numOfPlayers = game.getMAX_PLAYER_NUMBER();
         if (game.getActivePlayer() != null)
             this.activePlayerNickname = game.getActivePlayer().getNickname();
     }
@@ -36,6 +38,10 @@ public class GameMTC implements MessageToClient, Serializable {
 
     public String getActivePlayerNickname() {
         return activePlayerNickname;
+    }
+
+    public int getNumOfPlayers() {
+        return numOfPlayers;
     }
 
     @Override

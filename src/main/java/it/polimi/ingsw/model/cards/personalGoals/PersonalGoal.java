@@ -17,6 +17,7 @@ public class PersonalGoal {
     private final HashMap<Color, Point> achievements;
     private final Player player;
     private final Stack<Integer> points;
+    private final String cardNumber;
 
     /**
      * Constructs a new personal goal
@@ -25,10 +26,11 @@ public class PersonalGoal {
      * @param achievements the list of objectives that have to be completed
      * @param points       stack of points the player will get after completing objectives
      */
-    PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points) {
+    PersonalGoal(Player player, HashMap<Color, Point> achievements, Stack<Integer> points, String cardNumber) {
         this.player = player;
         this.achievements = achievements;
         this.points = points;
+        this.cardNumber = cardNumber;
     }
 
     /**
@@ -41,7 +43,6 @@ public class PersonalGoal {
         int score = 0;
         if (!points.isEmpty()) {
             for (Color color : Color.values()) {
-                if (color == Color.EMPTY) continue;
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
@@ -76,5 +77,9 @@ public class PersonalGoal {
 
     public Stack<Integer> getPointStack() {
         return points;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
     }
 }

@@ -14,7 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class EnterGameSceneController {
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     @FXML
     ImageView wrongGameIdImage;
     @FXML
@@ -35,17 +40,19 @@ public class EnterGameSceneController {
     @FXML
     protected void onContinueButtonClick() {
         if(joinGameRB.isSelected()) {
+            int gameId;
             //connect player to already existing game
-            SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
+            try {
+                gameId = Integer.parseInt(gameIdField.getText());
+            } catch (NumberFormatException e) {
+                checkGameId(false);
+                return;
+            }
+            SocketClient.getInstance().sendCommand(new CanIPlayMTS(gameId));
 
-            new Thread(() -> {
-
+            executor.submit(() -> {
                 synchronized (EchosRepresentation.getInstance()) {
-                    try {
-                        EchosRepresentation.getInstance().wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    StageController.waitForVMReprensentation(EchosRepresentation.getInstance());
                 }
 
                 EchoMTC message = EchosRepresentation.getInstance().popMessage();
@@ -54,7 +61,7 @@ public class EnterGameSceneController {
                     return;
                 }
                 checkGameId(true);
-            }).start();
+            });
 
         } else {
             //player wants to create a new game

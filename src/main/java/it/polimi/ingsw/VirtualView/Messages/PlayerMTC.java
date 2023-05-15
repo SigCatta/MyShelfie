@@ -13,13 +13,20 @@ public class PlayerMTC implements MessageToClient, Serializable {
     private final boolean IS_CONNECTED;
     private final int SCORE;
     private final HashMap<Color, Point> PERSONAL_GOAL;
+    private final String PERSONAL_GOAL_CARD_NUMBER;
 
     public PlayerMTC(Player player) {
         nickname = player.getNickname();
         IS_CONNECTED = player.isConnected();
         SCORE = player.getScore();
-        if (player.getPersonalGoal() == null) PERSONAL_GOAL = null;
-        else PERSONAL_GOAL = player.getPersonalGoal().getAchievements();
+        if (player.getPersonalGoal() == null) {
+            PERSONAL_GOAL = null;
+            PERSONAL_GOAL_CARD_NUMBER = null;
+        }
+        else {
+            PERSONAL_GOAL = player.getPersonalGoal().getAchievements();
+            PERSONAL_GOAL_CARD_NUMBER = player.getPersonalGoal().getCardNumber();
+        }
     }
 
     public String getNickname() {
@@ -36,6 +43,10 @@ public class PlayerMTC implements MessageToClient, Serializable {
 
     public HashMap<Color, Point> getPersonalGoal() {
         return PERSONAL_GOAL;
+    }
+
+    public String getPERSONAL_GOAL_CARD_NUMBER() {
+        return PERSONAL_GOAL_CARD_NUMBER;
     }
 
     @Override

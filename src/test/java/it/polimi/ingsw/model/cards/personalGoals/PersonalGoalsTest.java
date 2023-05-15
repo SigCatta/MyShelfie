@@ -56,7 +56,7 @@ public class PersonalGoalsTest {
         for (int i = 6; i > 0; i--) {
             points.push(i);
         }
-        personalGoal = new PersonalGoal(player, achievements, points);
+        personalGoal = new PersonalGoal(player, achievements, points, "1");
     }
 
     @Test
