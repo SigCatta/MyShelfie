@@ -1,14 +1,10 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
-import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.CLI.InputStates.StartOrJoinState;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -51,7 +47,7 @@ public class LoginSceneController {
         }
 
         boolean correct;
-        EchoMTC message = EchosRepresentation.getInstance().getMessage();
+        EchoMTC message = EchosRepresentation.getInstance().popMessage();
         if (message.isError()) {
             correct = false;
         } else {

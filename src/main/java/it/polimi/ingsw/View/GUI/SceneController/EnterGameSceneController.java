@@ -55,7 +55,7 @@ public class EnterGameSceneController {
                     StageController.waitForVMReprensentation(EchosRepresentation.getInstance());
                 }
 
-                EchoMTC message = EchosRepresentation.getInstance().getMessage();
+                EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     checkGameId(false);
                     return;

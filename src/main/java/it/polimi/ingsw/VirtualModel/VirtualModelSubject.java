@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class VirtualModelSubject {
-    List<VirtualModelObserver> observers;
+    protected List<VirtualModelObserver> observers;
 
     public VirtualModelSubject() {
         observers = new ArrayList<>();

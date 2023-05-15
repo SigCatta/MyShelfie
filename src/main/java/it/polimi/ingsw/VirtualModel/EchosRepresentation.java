@@ -25,8 +25,19 @@ public class EchosRepresentation extends VirtualModelSubject {
         notifyObservers();
     }
 
-    public EchoMTC getMessage(){
-        if (!messages.isEmpty()) return messages.pop();
+    public EchoMTC popMessage() {
+        if (!messages.isEmpty()) {
+            EchoMTC m = messages.pop(); //TODO remove
+            System.out.println(m.getOutput());
+            return m;
+        }
+        return null;
+    }
+
+    public EchoMTC peekMessage() {
+        if (!messages.isEmpty()) {
+            return messages.peek();
+        }
         return null;
     }
 
@@ -35,7 +46,7 @@ public class EchosRepresentation extends VirtualModelSubject {
     @Override
     public void notifyObservers() {
         observers.forEach(VirtualModelObserver::update);
-        synchronized (this){
+        synchronized (this) {
             this.notify();
         }
     }

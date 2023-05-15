@@ -124,22 +124,16 @@ public class Shelf implements VirtualViewSubject {
      * @return true if the tiles were successfully inserted, false otherwise.
      */
     public boolean insertTile(ItemTile tile, int column){
-        if (tile == null) {
-            //TODO update the virtual view to send the error message to the user
-            return false;
-        }
-        if (isColumnFull(column)) {
-            //TODO update the virtual view to send the error message to the user
-            return false;
-        }
 
         for (int i = ROWS - 1; i >= 0; i--) {
-            Point location = new Point(i, column);
-            if (getTileAtLocation(location) == null) {
-                setTileAtLocation(location, tile);
+            if (shelfGrid[i][column] == null) {
+                shelfGrid[i][column] = tile;
                 break;
             }
         }
+
+        notifyObservers();
+
         return true;
     }
 
