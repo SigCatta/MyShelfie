@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.CLI.Elements.TilesTableView;
+import it.polimi.ingsw.View.CLI.InputStates.reader.CommandExecutorFactory;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.TilesTableRepresentation;
@@ -31,7 +32,15 @@ public class InsertTilesCE implements CommandExecutor {
         TilesTableView.getInstance().getPrint(new ArrayList<>()).forEach(System.out::println);
 
         int tile = getTileIndex();
+        if (tile == -1) {
+            CommandExecutorFactory.getCommand("refresh").execute();
+            return;
+        }
         int column = getColumn();
+        if (column == -1) {
+            CommandExecutorFactory.getCommand("refresh").execute();
+            return;
+        }
 
 
         SocketClient.getInstance().sendCommand(new InsertTileMTS(tile - 1, column));
@@ -48,7 +57,9 @@ public class InsertTilesCE implements CommandExecutor {
         while (true) {
             System.out.println("Which tile would you like to insert? (1 - 3)");
             try {
-                tile = Integer.parseInt(Reader.getInput());
+                String input = Reader.getInput();
+                if (input.equals(".")) return -1;
+                tile = Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 System.out.println("ERROR: Invalid number!");
                 continue;
@@ -68,7 +79,9 @@ public class InsertTilesCE implements CommandExecutor {
         while (true) {
             System.out.println("In which column would you like to insert the tile? (0 - 4)");
             try {
-                column = Integer.parseInt(Reader.getInput());
+                String input = Reader.getInput();
+                if (input.equals(".")) return -1;
+                column = Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 System.out.println("ERROR: Invalid number!");
                 continue;

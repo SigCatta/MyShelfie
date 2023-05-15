@@ -11,7 +11,7 @@ import java.util.Stack;
 
 public class CommonGoalCard implements VirtualViewSubject {
 
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> observers;
     /**
      * Stack of points that can be obtained by achieving the goal.
      */
@@ -41,7 +41,9 @@ public class CommonGoalCard implements VirtualViewSubject {
     public int calculateScore(Player player) {
         if (isGoalAchieved(player.getShelf())) {
             playersWhoCompleted.add(player);
-            return popPoints();
+            int points = popPoints();
+            notifyObservers();
+            return points;
         }
         return 0;
     }
