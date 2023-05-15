@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class GameMTC implements MessageToClient, Serializable {
 
     private final int GAMEID;
+    private final int MAX_PLAYER_NUMBER;
     private String activePlayerNickname;
 
     private final GameState GAME_STATE;
@@ -16,6 +17,7 @@ public class GameMTC implements MessageToClient, Serializable {
 
     public GameMTC(Game game) {
         this.GAMEID = game.getGameID();
+        this.MAX_PLAYER_NUMBER = game.getMAX_PLAYER_NUMBER();
         GAME_STATE = game.getGameState();
         numOfPlayers = game.getMAX_PLAYER_NUMBER();
         if (game.getActivePlayer() != null)
@@ -24,6 +26,10 @@ public class GameMTC implements MessageToClient, Serializable {
 
     public int getGameID() {
         return GAMEID;
+    }
+
+    public int getMAX_PLAYER_NUMBER() {
+        return MAX_PLAYER_NUMBER;
     }
 
     public GameState getGameState() {
