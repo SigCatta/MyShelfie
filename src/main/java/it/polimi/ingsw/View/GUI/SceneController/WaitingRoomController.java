@@ -15,8 +15,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class WaitingRoomController {
+    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     @FXML
     Text playersNamesText;
     @FXML
@@ -54,9 +58,9 @@ public class WaitingRoomController {
         continueButton.setVisible(true);
     }
 
-    public void updatePlayersNamesText(ArrayList<String> names) {
+    public void updatePlayersNamesText() {
         playersNamesText.setText("");
-        for(String name: names) {
+        for(String name: PlayersRepresentation.getInstance().getPlayersList()) {
             playersNamesText.setText(name + ", " + playersNamesText.getText());
         }
     }
@@ -65,7 +69,8 @@ public class WaitingRoomController {
         maxNumText.setText(String.valueOf(num));
     }
 
-    public void updateCurrentNumText(int num) {
+    public void updateCurrentNumText() {
+        int num = PlayersRepresentation.getInstance().getPlayersList().size();
         currentNumText.setText(String.valueOf(num));
         if(num == Integer.parseInt(maxNumText.getText())) {
             setContinueButtonVisible();
@@ -74,7 +79,7 @@ public class WaitingRoomController {
 
     @FXML
     public void setUp() {
-        new Thread(() -> {
+        executor.submit(() -> {
             while (GameRepresentation.getInstance().getGameMessage() == null) {
                 synchronized (GameRepresentation.getInstance()) {
                     try {
@@ -84,16 +89,16 @@ public class WaitingRoomController {
                     }
                 }
             }
-        }).start();
+        });
 
         setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
         gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
         gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
 
-        new Thread(() -> {
+        executor.submit(() -> {
             while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
-                updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
-                updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
+                updatePlayersNamesText();
+                updateCurrentNumText();
                 synchronized (GameRepresentation.getInstance()) {
                     try {
                         GameRepresentation.getInstance().wait();
@@ -102,8 +107,8 @@ public class WaitingRoomController {
                     }
                 }
             }
-            updatePlayersNamesText(PlayersRepresentation.getInstance().getPlayersList());
-            updateCurrentNumText(PlayersRepresentation.getInstance().getPlayersList().size());
-        }).start();
+            updatePlayersNamesText();
+            updateCurrentNumText();
+        });
     }
 }
