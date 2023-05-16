@@ -61,19 +61,11 @@ public class BoardController {
     AnchorPane chooseColumnPane;
 
     @FXML
-    Button selectTileButton;
-
-    @FXML
-    ImageView itemTile1, itemTile2, itemTile3; //TODO remove
-
-
-    @FXML
     AnchorPane errorPane;
     @FXML
     ImageView errorImage;
     @FXML
     Text errorText;
-
 
     @FXML
     ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
@@ -96,6 +88,14 @@ public class BoardController {
         new GameObserver().update();
         new ErrorObserver();
         initialized = true;
+    }
+
+    public void checkForEnd() {
+        if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
+            );
+        }
+
     }
 
     private void initInsertButtons() {

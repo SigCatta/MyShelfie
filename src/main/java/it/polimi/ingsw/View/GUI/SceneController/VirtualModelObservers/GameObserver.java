@@ -14,5 +14,6 @@ public class GameObserver implements VirtualModelObserver {
     public void update() {
         BoardController.getInstance().updateGame();
         BoardController.getInstance().updateChangeTurn();
+        BoardController.getInstance().checkForEnd();
     }
 }

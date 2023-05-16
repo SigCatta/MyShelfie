@@ -8,14 +8,16 @@ public class ChatMTC implements MessageToClient, Serializable {
 
     private final String CHAT_MESSAGE;
     private final String SENDER;
+
+    private final String RECEIVER;
     private final boolean isBroadcast;
 
-    public ChatMTC(String chatMessage, String sender, boolean isBroadcast) {
+    public ChatMTC(String chatMessage, String sender, String receiver, boolean isBroadcast) {
         this.CHAT_MESSAGE = chatMessage;
         this.SENDER = sender;
+        this.RECEIVER = receiver;
         this.isBroadcast = isBroadcast;
     }
-
 
     public String getChatMessage() {
         return CHAT_MESSAGE;
@@ -23,6 +25,10 @@ public class ChatMTC implements MessageToClient, Serializable {
 
     public String getSender() {
         return SENDER;
+    }
+
+    public String getRECEIVER() {
+        return RECEIVER;
     }
 
     public boolean isBroadcast() {

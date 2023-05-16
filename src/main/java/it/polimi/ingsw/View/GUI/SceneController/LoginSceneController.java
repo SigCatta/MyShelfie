@@ -62,6 +62,9 @@ public class LoginSceneController {
         if(nicknameField.getText().length()>0 ) {
             continueButton.setVisible(true);
             continueText.setVisible(true);
+        } else {
+            continueButton.setVisible(false);
+            continueText.setVisible(false);
         }
 
     }
