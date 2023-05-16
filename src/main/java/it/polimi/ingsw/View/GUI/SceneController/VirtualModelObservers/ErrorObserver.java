@@ -12,7 +12,7 @@ public class ErrorObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        EchoMTC message = EchosRepresentation.getInstance().popMessage();
+        EchoMTC message = EchosRepresentation.getInstance().peekMessage();
         if (message != null && message.isError()) {
             BoardController.getInstance().updateError();
         }
