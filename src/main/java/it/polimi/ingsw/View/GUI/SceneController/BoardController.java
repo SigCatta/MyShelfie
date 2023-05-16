@@ -195,6 +195,7 @@ public class BoardController implements Initializable {
 
     public void updateChangeTurn() {
         for (Node text : playersPane.getChildren()) {
+            if (text == null) return;
             if (!(text instanceof Text)) return;
             text.getStyleClass().remove("fancy-text");
             if (((Text) text).getText().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
