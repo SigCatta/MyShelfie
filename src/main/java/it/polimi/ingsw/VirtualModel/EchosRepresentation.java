@@ -52,5 +52,6 @@ public class EchosRepresentation extends VirtualModelSubject {
         synchronized (this) {
             this.notify();
         }
+        messages.pop();
     }
 }
