@@ -7,14 +7,17 @@ import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class OtherShelvesController {
+public class OtherShelvesController implements Initializable {
     @FXML
     GridPane shelf;
 
@@ -29,8 +32,8 @@ public class OtherShelvesController {
         return playerName.getText();
     }
 
-    @FXML
-    public void setUp(){
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle){
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
         int i = 0;
 
@@ -104,4 +107,6 @@ public class OtherShelvesController {
     public void onBackToBoardButtonClicked() {
         StageController.changeScene("fxml/board.fxml", "My shelf");
     }
+
+
 }

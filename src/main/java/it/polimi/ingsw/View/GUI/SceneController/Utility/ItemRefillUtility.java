@@ -98,14 +98,11 @@ public class ItemRefillUtility {
             for (int row = reference.length - 1; row >= 0; row--) {
                 if (reference[row][col] == null) {
                     ShelfMemory.setImage(null, row, col, 1);
-                    continue;
+                } else {
+                    int id = reference[row][col].getId(); //the id of the item tile
+                    Image image = ItemTileMemory.getImage(id);
+                    ShelfMemory.setImage(image, row, col, 1);
                 }
-
-                int id = reference[row][col].getId(); //the id of the item tile
-
-                Image image = ItemTileMemory.getImage(id);
-
-                ShelfMemory.setImage(image, row, col, 1);
             }
         }
     }
