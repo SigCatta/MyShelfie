@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.GUI.GuiTest;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -34,7 +35,7 @@ public class ClientApp {
 
         //TODO : implement when Cli and GUI will be done
         if (cliParam) {
-            //launch cli app
+            new Thread(InputStatePlayer.getInstance()).start();
         } else {
             Application.launch(GuiTest.class);
         }
