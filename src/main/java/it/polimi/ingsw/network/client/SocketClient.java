@@ -36,7 +36,6 @@ public class SocketClient extends Client {
             this.readExecutionQueue = Executors.newSingleThreadExecutor();
             Client.LOGGER.info("Connection established");
             clientInstance = this;
-            //new Thread(InputStatePlayer.getInstance()).start(); // from now on the user can execute commands
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
