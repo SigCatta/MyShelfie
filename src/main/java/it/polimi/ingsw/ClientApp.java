@@ -13,7 +13,7 @@ public class ClientApp {
 
     public static void main(String[] args) {
         Client client;
-        boolean cliParam = false; // default value
+        boolean cliParam = false;
 
         for (String arg : args) {
             if (arg.equals("--cli") || arg.equals("-c")) {
@@ -22,25 +22,24 @@ public class ClientApp {
             }
         }
 
-        //String nickname = askNickname();
-        //Map<String, String> serverInfo = InputReader.askServerInfo();
+        String address = "localhost";
+//        System.out.println("Insert server IP address:");
+//        address = Reader.getInput();
+//        if (address.equals("")) address = "localhost";
         try {
-            client = SocketClient.getInstance("localhost", 28888);
-            //client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")), nickname);
+            client = SocketClient.getInstance(address, 28888);
             client.readCommand(); // Starts an asynchronous reading from the server.
         } catch (Exception e) {
             System.out.println("could not connect to server");
-            return;
+            System.exit(1);
         }
 
-        //TODO : implement when Cli and GUI will be done
         if (cliParam) {
             new Thread(InputStatePlayer.getInstance()).start();
         } else {
             Application.launch(GuiTest.class);
         }
     }
-
 
 
 }
