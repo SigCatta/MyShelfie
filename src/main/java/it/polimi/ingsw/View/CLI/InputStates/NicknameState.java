@@ -18,6 +18,10 @@ public class NicknameState extends InputState {
     public void play() {
         System.out.println("Insert nickname:");
         input = Reader.getInput();
+        if (input.equals("")) {
+            System.out.println("Invalid nickname!");
+            return;
+        }
         socketClient.sendCommand(new HandshakeMTS(input));
 
         synchronized (EchosRepresentation.getInstance()) {
