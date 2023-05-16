@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.client.SocketClient;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -24,10 +25,12 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class BoardController {
+public class BoardController implements Initializable {
 
     private static BoardController instance;
 
@@ -83,11 +86,10 @@ public class BoardController {
     FlowPane playersPane;
 
     @FXML
-    AnchorPane changeScenePane;
+    ImageView changeChat, changeShelf, changeObjective;
 
-    @FXML
-    public void initScene() {
-        if (initialized) return;
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         initBoard();
         initInsertButtons();
         initPlayersName();
@@ -100,7 +102,6 @@ public class BoardController {
         new TilesTableObserver().update();
         new GameObserver().update();
         new ErrorObserver();
-        initialized = true;
     }
 
     private void initInsertButtons() {
@@ -135,14 +136,12 @@ public class BoardController {
     }
 
     public void initChangeSceneButtons(){
-        for (Node node : chooseColumnPane.getChildren()) {
-            if(!(node instanceof AnchorPane)) return;
-            for(Node image : ((AnchorPane) node).getChildren()){
-                if(!(image instanceof ImageView)) return;
-                image.setOnMouseEntered(mouseEvent -> image.getStyleClass().add("edge-effect"));
-                image.setOnMouseExited(mouseEvent -> image.getStyleClass().remove("edge-effect"));
-            }
-        }
+        changeChat.setOnMouseEntered(mouseEvent -> changeChat.getStyleClass().add("edge-effect"));
+        changeChat.setOnMouseExited(mouseEvent -> changeChat.getStyleClass().remove("edge-effect"));
+        changeShelf.setOnMouseEntered(mouseEvent -> changeShelf.getStyleClass().add("edge-effect"));
+        changeShelf.setOnMouseExited(mouseEvent -> changeShelf.getStyleClass().remove("edge-effect"));
+        changeObjective.setOnMouseEntered(mouseEvent -> changeObjective.getStyleClass().add("edge-effect"));
+        changeObjective.setOnMouseExited(mouseEvent -> changeObjective.getStyleClass().remove("edge-effect"));
     }
 
     /**
