@@ -34,7 +34,7 @@ public class PlayerNumSceneController {
 
     @FXML
     protected void onBackToMenuButtonClick() {
-        StageController.changeScene("fxml/emter_game_scene.fxml","Login");
+        StageController.changeScene("fxml/enter_game_scene.fxml", "Login");
     }
 
     public int getPlayerNum() {

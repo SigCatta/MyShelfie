@@ -1,21 +1,14 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.Controller.Client.ByeMTS;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.CLI.InputStates.GameStartupState;
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.PreGameObserver;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
-import it.polimi.ingsw.network.client.SocketClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -35,6 +28,15 @@ public class WaitingRoomController {
     @FXML
     Button continueButton;
 
+    private static WaitingRoomController instance;
+
+    public WaitingRoomController() {
+        instance = this;
+    }
+
+    public static WaitingRoomController getInstance() {
+        return instance;
+    }
     @FXML
     public void onContinueButtonClick(ActionEvent actionEvent) {
         //start the game
@@ -79,36 +81,17 @@ public class WaitingRoomController {
 
     @FXML
     public void setUp() {
-        executor.submit(() -> {
-            while (GameRepresentation.getInstance().getGameMessage() == null) {
-                synchronized (GameRepresentation.getInstance()) {
-                    try {
-                        GameRepresentation.getInstance().wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
+        new PreGameObserver().update();
+    }
 
-        setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
-        gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
-        gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
-
-        executor.submit(() -> {
-            while (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {
-                updatePlayersNamesText();
-                updateCurrentNumText();
-                synchronized (GameRepresentation.getInstance()) {
-                    try {
-                        GameRepresentation.getInstance().wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+    public void updatePlayersInfo(boolean gameCreated) {
+        if(!gameCreated) {
+            setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
+            gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+            gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+        } else {
             updatePlayersNamesText();
             updateCurrentNumText();
-        });
+        }
     }
 }

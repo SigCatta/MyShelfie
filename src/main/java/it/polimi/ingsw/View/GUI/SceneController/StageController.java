@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.View.GUI.Gui;
+import it.polimi.ingsw.VirtualModel.VirtualModelSubject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -40,8 +41,17 @@ public class StageController {
         stage.setScene(scene);
 
         stage.setMaximized(true);
-        stage.setFullScreen(true);
+        stage.setResizable(true);
+        //stage.setFullScreen(true);
 
         stage.show();
+    }
+
+    static synchronized void waitForVMReprensentation(VirtualModelSubject vmRepresentation) {
+        try {
+            vmRepresentation.wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

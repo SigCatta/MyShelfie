@@ -1,25 +1,47 @@
-.wooden_background{
+.wooden_background {
     -fx-background-image: url("../17_MyShelfie_BGA/misc/sfondo_parquet.jpg");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.library_background{
+.library_background {
     -fx-background-image: url("../17_MyShelfie_BGA/misc/library_background.jpg");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.dark_wooden_background{
+.check {
+
+    -fx-font-size: 15;
+    -fx-font-family: "sans-serif";
+    -fx-text-fill: BLACK;
+
+    -fx-background-color: #087e08;
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.edge-effect {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.edge-effect2 {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.8), 40, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.dark_wooden_background {
     -fx-background-image: url("../17_MyShelfie_BGA/misc/base_pagina2.jpg");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.chair{
+.chair {
     -fx-background-image: url("../17_MyShelfie_BGA/misc/firstplayertokenFlipped.png");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
@@ -84,14 +106,29 @@
     -fx-text-fill: BLACK;
 }
 
-.board{
+.fancy-text {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 18px;
+    -fx-fill: linear-gradient(to right, #6b3563, #3333ff);
+    -fx-stroke: #3d8532;
+    -fx-stroke-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0, 0, 2);
+}
+
+.nickname {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 17px;
+    -fx-background-color: white;
+}
+
+.board {
     -fx-background-image: url("../17_MyShelfie_BGA/boards/livingroom.png");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.shelf{
+.shelf {
     -fx-background-image: url("../17_MyShelfie_BGA/boards/bookshelf.png");
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;

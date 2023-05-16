@@ -60,7 +60,7 @@
                            <font>
                               <Font name="Gill Sans MT" size="24.0" />
                            </font></Text>
-                        <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="382.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                        <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="386.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../17_MyShelfie_BGA/misc/warning.png" />
                            </image>

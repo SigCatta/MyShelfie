@@ -2,161 +2,377 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
-import it.polimi.ingsw.View.GUI.NodeData;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.BoardMemory;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemTileMemory;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.*;
+import it.polimi.ingsw.VirtualModel.*;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class BoardController {
-    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
+    private static BoardController instance;
+
+    private boolean initialized;
+    private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
 
     /**
-     * map containing as keys the color of the item tile (es. Color.BLUE) and
-     * as values the hashmap that contains as key the path of the specific tiles (es. it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/1.1.png)
-     * and as values the number of tiles of that specific type left
+     * id of the tile to be sent to the shelf
      */
-    static public HashMap<Color, HashMap<String, Integer>> tilesMap;
+    private int selectedTileToSendToShelf = -1;
 
-    int currentColumn;
-    int currentRow;
-    static List<NodeData> tilesSelected = new ArrayList<>();
-    static NodeData currentTileSelected = null;
+
+    public BoardController() {
+
+        instance = this;
+
+        //boardActionListenerInit(); //initialize the action associated with the image click
+    }
+
+    public static BoardController getInstance() {
+        return instance;
+    }
+
 
     @FXML
-    GridPane board;
+    GridPane board, myShelf;
+    @FXML
+    FlowPane myChosenTilesTable;
 
     @FXML
-    GridPane myShelf;
-
-    @FXML
-    Button pickUpDoneButton;
+    AnchorPane chooseColumnPane;
 
     @FXML
     Button selectTileButton;
 
     @FXML
-    ImageView itemTile1;
+    ImageView itemTile1, itemTile2, itemTile3; //TODO remove
+
 
     @FXML
-    ImageView itemTile2;
-
-    @FXML
-    ImageView itemTile3;
-
+    AnchorPane errorPane;
     @FXML
     ImageView errorImage;
-
     @FXML
     Text errorText;
 
-    @FXML
-    ImageView insertDoneImage;
 
     @FXML
-    ImageView col0InsertButton;
+    ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
 
     @FXML
-    ImageView col1InsertButton;
+    FlowPane playersPane;
 
     @FXML
-    ImageView col2InsertButton;
+    AnchorPane changeScenePane;
 
     @FXML
-    ImageView col3InsertButton;
+    public void initScene() {
+        if (initialized) return;
+        initBoard();
+        initInsertButtons();
+        initPlayersName();
+        initShelf();
+        initChangeSceneButtons();
 
-    @FXML
-    ImageView col4InsertButton;
-
-    @FXML
-    Text myNicknameText;
-
-    @FXML
-    Text player2Nickname;
-
-    @FXML
-    Text player3Nickname;
-
-    @FXML
-    Text player4Nickname;
-
-    public void checkForEnd() {
-        executor.submit(() -> {
-            while (GameRepresentation.getInstance()!=null) {
-                synchronized (GameRepresentation.getInstance()) {
-                    try {
-                        GameRepresentation.getInstance().wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
-                    Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
-                    );
-                }
-            }
-        });
-
-
+        new BoardObserver().update();
+        new PlayerObserver().update();
+        new ShelfObserver().update();
+        new TilesTableObserver().update();
+        new GameObserver().update();
+        new ErrorObserver();
+        initialized = true;
     }
 
+    private void initInsertButtons() {
+        for (Node node : chooseColumnPane.getChildren()) {
+            node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
+            node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
+        }
+    }
 
-    @FXML
-    public void setNicknames() {
-        checkForEnd();
-        myNicknameText.setText(SocketClient.getInstance().getNickname());
-
-        List<Text> nicknamesTextsList = List.of(player2Nickname, player3Nickname, player4Nickname);
+    private void initPlayersName() {
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
-        int j=0;
+        for (String nickname : nicknames) {
+            Text playerName = new Text(nickname);
+            playerName.getStyleClass().add("nickname"); //TODO change in something cooler
+            playersPane.getChildren().add(playerName);
+        }
+        updateChangeTurn();
+    }
 
-        for(int i=0; i<nicknames.size(); i++) {
-            if(!nicknames.get(i).equals(myNicknameText.getText())){
-                nicknamesTextsList.get(j).setText(nicknames.get(i));
-                j++;
+    private void initShelf() {
+        for (int row = 0; row < myShelf.getRowCount(); row++) {
+            for (int col = 0; col < myShelf.getColumnCount(); col++) {
+                if (ShelfMemory.get(row, col) == null) {
+                    ImageView imageView = new ImageView();
+                    imageView.setFitHeight(45);
+                    imageView.setFitWidth(45);
+                    ShelfMemory.put(imageView, row, col);
+                }
+                myShelf.add(ShelfMemory.get(row, col), col, row);
             }
         }
     }
 
-    public String getMyNickname() {
-        return myNicknameText.getText();
+    public void initChangeSceneButtons(){
+        for (Node node : chooseColumnPane.getChildren()) {
+            if(!(node instanceof AnchorPane)) return;
+            for(Node image : ((AnchorPane) node).getChildren()){
+                if(!(image instanceof ImageView)) return;
+                node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
+                node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
+            }
+        }
     }
 
-    public void setItemTile1Visible(String path) {
-        Image image = new Image(path);
-        itemTile1.setImage(image);
-        itemTile1.setVisible(true);
+    /**
+     * when the board in the virtual model updates this method is called
+     * to refresh the board in the gui
+     */
+    public void updateBoard() {
+        ItemTile[][] boardModel = BoardRepresentation.getInstance().getBoard();
+        ItemRefillUtility.updateBoardGrid(boardModel);
     }
-    public void setItemTile2Visible(String path) {
-        Image image = new Image(path);
-        itemTile2.setImage(image);
-        itemTile2.setVisible(true);
+
+    public void updateShelf() {
+        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
+        System.out.println("Updating the shelf...");//TODO remove
+        ItemRefillUtility.updateShelfGrid(myShelf, shelfModel);
     }
-    public void setItemTile3Visible(String path) {
-        Image image = new Image(path);
-        itemTile3.setImage(image);
-        itemTile3.setVisible(true);
+
+    public void updateChosenTilesTable() {
+        List<ItemTile> chosenTilesTable = TilesTableRepresentation.getInstance().getTiles();
+        if (chosenTilesTable == null) return;
+        Platform.runLater(() -> myChosenTilesTable.getChildren().clear());
+        for (ItemTile itemTile : chosenTilesTable) {
+            ImageView imageView = new ImageView(ItemTileMemory.getImage(itemTile.getId()));
+            imageView.setFitHeight(70);
+            imageView.setFitWidth(70);
+            imageView.setUserData(itemTile.getId());
+
+            //avoids exception caused by running it instantly
+            Platform.runLater(() -> myChosenTilesTable.getChildren().add(imageView));
+        }
     }
+
+    public void updateError() {
+        errorImage.setVisible(true);
+        errorText.setVisible(true);
+        errorText.setWrappingWidth(300);
+
+        System.out.println("There was an error: "); //TODO remove
+        errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
+
+        EchosRepresentation.getInstance().clean();
+    }
+
+    public void updateGame() {
+
+    }
+
+    public void updateChangeTurn() {
+        for (Node text : playersPane.getChildren()) {
+            if (!(text instanceof Text)) return;
+            text.getStyleClass().remove("fancy-text");
+            if (((Text) text).getText().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
+                text.getStyleClass().add("fancy-text");
+            }
+        }
+    }
+
+    /**
+     * methods called when the scene is initialized
+     * to add to each one of the children nodes of the board matrix an event listener
+     */
+    private void initBoard() {
+        for (Node node : board.getChildren()) {
+            if (node == null) return;
+            if (!(node instanceof ImageView)) return;
+
+            Integer c = GridPane.getColumnIndex(node);
+            Integer r = GridPane.getRowIndex(node);
+            if (c == null || r == null) continue;
+            BoardMemory.put((ImageView) node, r, c);
+
+            attachBoardListener((ImageView) node);
+        }
+    }
+
+
+    /**
+     * action listener for every tile on the board
+     * @param imageView object associated with the action
+     */
+    private void attachBoardListener(ImageView imageView) {
+        imageView.setOnMouseClicked(event -> {
+
+            if (imageView.getImage() == null) return;
+            if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
+            //TODO do not pick up if the tiles are not valid
+            if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
+                return;
+            }
+
+            if (cardsSelectedFromBoard.contains((Integer) imageView.getUserData())) {
+                cardsSelectedFromBoard.remove((Integer) imageView.getUserData());
+                imageView.getStyleClass().clear();
+                return;
+            }
+            if (cardsSelectedFromBoard.contains((Integer) imageView.getUserData())) return;
+            if (cardsSelectedFromBoard.size() >= 3) return;
+
+            imageView.getStyleClass().add("edge-effect2");
+            cardsSelectedFromBoard.add((Integer) imageView.getUserData());
+
+        });
+
+        imageView.setOnMouseEntered(mouseEvent -> imageView.getStyleClass().add("edge-effect"));
+
+        imageView.setOnMouseExited(mouseEvent -> imageView.getStyleClass().remove("edge-effect"));
+    }
+
+
+    @FXML
+    public void onPickUpDoneClicked() {
+        System.out.println("clicked the tick"); //TODO remove
+
+        if (cardsSelectedFromBoard.size() == 0) return;
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
+        if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+            return;
+
+        ArrayList<Point> tilesPosition = new ArrayList<>();
+
+        for (Integer id : cardsSelectedFromBoard) {
+            Point position = ItemTileMemory.getPoint(id);
+            tilesPosition.add(position);
+            BoardMemory.get(position.x, position.y).getStyleClass().clear();
+        }
+
+        cardsSelectedFromBoard = new ArrayList<>();
+
+        System.out.println("sending the tiles!"); //TODO remove
+        SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
+    }
+
+    @FXML
+    public void setUpChosenTilesTable() {
+
+        if (!(GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES))) return;
+
+        for (Node node : myChosenTilesTable.getChildren()) {
+            if (node == null) return;
+            if (!(node instanceof ImageView)) return;
+
+            attachChosenTileListener((ImageView) node);
+        }
+    }
+
+    private void attachChosenTileListener(ImageView imageView) {
+        imageView.setOnMouseClicked(event -> {
+
+            if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
+            if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+                return;
+
+            //if the user is selecting the same tile it means he wants to remove it
+            if (selectedTileToSendToShelf == (int) imageView.getUserData()) {
+                selectedTileToSendToShelf = -1;
+                imageView.getStyleClass().remove("edge-effect2");
+                return;
+            }
+
+            if (selectedTileToSendToShelf >= 0) return; //if a tile was already chosen
+
+            selectedTileToSendToShelf = (int) imageView.getUserData();
+            imageView.getStyleClass().add("edge-effect2");
+
+            System.out.println("the selected tile has id: " + selectedTileToSendToShelf); //TODO remove
+        });
+
+        imageView.setOnMouseEntered(mouseEvent -> imageView.getStyleClass().add("edge-effect"));
+
+        imageView.setOnMouseExited(mouseEvent -> imageView.getStyleClass().remove("edge-effect"));
+
+    }
+
+    @FXML
+    public void onCol0InserterSelected() {
+        onInsertTileClicked(0);
+    }
+
+    @FXML
+    public void onCol1InserterSelected() {
+        onInsertTileClicked(1);
+    }
+
+    @FXML
+    public void onCol2InserterSelected() {
+        onInsertTileClicked(2);
+    }
+
+    @FXML
+    public void onCol3InserterSelected() {
+        onInsertTileClicked(3);
+    }
+
+    @FXML
+    public void onCol4InserterSelected() {
+        onInsertTileClicked(4);
+    }
+
+    @FXML
+    public synchronized void onInsertTileClicked(int column) {
+
+        if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
+        if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
+            return;
+        if (selectedTileToSendToShelf < 0) return;
+
+        ItemTile tileToSend = ItemTileMemory.getTile(selectedTileToSendToShelf);
+
+        myChosenTilesTable.getChildren().forEach(node -> node.getStyleClass().clear());
+        selectedTileToSendToShelf = -1;
+
+        int indexInTheTable = -1;
+
+        List<ItemTile> table = TilesTableRepresentation.getInstance().getTiles();
+        for (int i = 0; i < table.size(); i++) { //TODO optimize
+            if (table.get(i).getId() == tileToSend.getId()) {
+                indexInTheTable = i;
+                break;
+            }
+        }
+        System.out.println("the index sent was: " + indexInTheTable); //TODO remove
+
+        SocketClient.getInstance().sendCommand(new InsertTileMTS(indexInTheTable, column));
+
+        myChosenTilesTable.getChildren().forEach(image -> image.getStyleClass().clear());
+    }
+
 
     @FXML
     public void onObjectivesClicked() {
@@ -173,228 +389,7 @@ public class BoardController {
         StageController.changeScene("fxml/chat_scene.fxml", "Chat");
     }
 
-    @FXML
-    public void onPickUpDoneClicked() {
-        if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
-        ArrayList<Point> tilesPosition = new ArrayList<>();
-        for(NodeData node: tilesSelected) {
-            tilesPosition.add(node.getPosition());
-        }
-        SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
-    }
-
-    public void canTilesBePickedUp(boolean correctTiles) {
-        //check if tiles can be picked up
-        if(correctTiles) {
-            setColInserterButtonVisible(true);
-            hideErrorMessage();
-        }
-        else {
-            setColInserterButtonVisible(false);
-            showErrorMessage("Tiles can't be picked up!");
-            for(NodeData node: tilesSelected) {
-                node.getImageView().setVisible(true);
-            }
-            tilesSelected.clear();
-            itemTile1.setVisible(false);
-            itemTile2.setVisible(false);
-            itemTile3.setVisible(false);
-        }
-    }
-
-    @FXML
-    public void onCol0InserterSelected() {onInsertTileClicked(0);}
-
-    @FXML
-    public void onCol1InserterSelected() {onInsertTileClicked(1);}
-
-    @FXML
-    public void onCol2InserterSelected() {onInsertTileClicked(2);}
-
-    @FXML
-    public void onCol3InserterSelected() {onInsertTileClicked(3);}
-
-    @FXML
-    public void onCol4InserterSelected() {onInsertTileClicked(4);}
-
-    private void setColInserterButtonVisible(boolean correct) {
-        col0InsertButton.setVisible(correct);
-        col1InsertButton.setVisible(correct);
-        col2InsertButton.setVisible(correct);
-        col3InsertButton.setVisible(correct);
-        col4InsertButton.setVisible(correct);
-    }
-
-    private void showErrorMessage(String message) {
-        errorText.setText(message);
-        errorImage.setVisible(true);
-    }
-
-    private void hideErrorMessage() {
-        errorImage.setVisible(false);
-        errorText.setVisible(false);
-    }
-
-    /**
-     * methods called when mouse enters the board
-     * it adds to each one of the children nodes of the board matrix an event listener
-     */
-    @FXML
-    public void setUpBoard() {
-        for(Node node: board.getChildren()) {
-            node.setOnMouseClicked(nodeEventHandler());
-        }
-    }
-
-    /**
-     *
-     * @return an event fired when a child node of the board matrix is selected
-     */
-    EventHandler<MouseEvent> nodeEventHandler(){
-        return event -> {
-            ImageView nodeSelected = (ImageView) event.getTarget();
-            int row = GridPane.getRowIndex(nodeSelected);
-            int column = GridPane.getColumnIndex(nodeSelected);
-            currentTileSelected.setImageView(nodeSelected);
-            onTileSelected(nodeSelected, row, column);
-        };
-    }
-
-    public void onTileSelected(ImageView nodeSelected, int row, int column) {
-        Color tileColor = null;
-        String tileUrl = nodeSelected.getImage().getUrl();
-        for(Color color: Color.values()) {
-            if(tileUrl.contains(String.valueOf(color))) {
-                tileColor = color;
-            }
-        }
-        if(tilesSelected.size()<3 )   {
-            selectTileButton.setVisible(true);
-            if(currentTileSelected!=null) {
-                currentTileSelected.getImageView().setEffect(new Glow(0));
-            }
-            nodeSelected.setEffect(new Glow(0.9));
-            currentTileSelected = new NodeData(tileUrl, tileColor, nodeSelected, new Point(row, column));
-        } else {
-            selectTileButton.setVisible(false);
-        }
-    }
-
-    @FXML
-    public void onPickUpSelectedTileClicked() {
-        if(currentTileSelected == null) return;
-
-        if (tilesSelected.size() == 0) {
-            setItemTile1Visible(currentTileSelected.getUrl());
-        } else if (tilesSelected.size() == 1) {
-            setItemTile2Visible(currentTileSelected.getUrl());
-        } else if(tilesSelected.size() == 2){
-            setItemTile3Visible(currentTileSelected.getUrl());
-        } else {
-            selectTileButton.setVisible(false);
-            return;
-        }
-        // set not visible the tile picked up in the board
-        currentTileSelected.getImageView().setVisible(false);
-        tilesSelected.add(currentTileSelected);
-        currentTileSelected = null;
-
-        if(tilesSelected.size() >= 3) selectTileButton.setVisible(false);
-        insertDoneImage.setVisible(false);
-    }
-
-    /**
-     *
-     * @param color the color of the tile to be placed on the board
-     * @param position of the node in the board matrix where the tile needs to be inserted
-     */
-    public void placeTile(Color color, Point position) {
-        HashMap<String, Integer> specificTilesMap = tilesMap.get(color);
-        String tilePath = null;
-
-        while (tilePath == null) {
-            int index=(int)(Math.random()*specificTilesMap.size());
-            int count = 0;
-            for(Map.Entry<String, Integer> entry : specificTilesMap.entrySet()) {
-                if(index >= count && entry.getValue()>0) {
-                    tilePath = entry.getKey();
-                    break;
-                }
-                count++;
-            }
-        }
-        specificTilesMap.put(tilePath, specificTilesMap.get(tilePath)-1);
-        tilesMap.put(color, specificTilesMap);
-        placeTile(tilePath, position);
-    }
-
-    public void placeTile(String path, Point position) {
-        Image image = new Image(path);
-        ImageView imageView = new ImageView(image);
-        imageView.setVisible(true);
-        board.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
-    }
-
-    @FXML
-    public void onInsertTileClicked(int column) {
-        if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES) || !getMyNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
-
-        currentColumn = column;
-        int index = tilesSelected.indexOf(currentTileSelected);
-        int correctededIndex; //index to use in the InsertTileMTS
-
-        if(index == 0) {
-            correctededIndex = 0;
-            itemTile1.setVisible(false);
-        } else if(index == 1) {
-            if(itemTile1.isVisible()) {
-                correctededIndex = 1;
-            } else {
-                correctededIndex =0;
-            }
-            itemTile2.setVisible(false);
-        } else {
-            if(itemTile1.isVisible() && itemTile2.isVisible()) {
-                correctededIndex = 2;
-            } else if((!itemTile1.isVisible() && itemTile2.isVisible()) || (itemTile1.isVisible() && !itemTile2.isVisible())){
-                correctededIndex =1;
-            } else {
-                correctededIndex = 0;
-            }
-            itemTile3.setVisible(false);
-        }
-        SocketClient.getInstance().sendCommand(new InsertTileMTS(correctededIndex, currentColumn));
-    }
-
-    public void tileCanBeInserted(boolean correct, int row) {
-        if(correct) {
-            hideErrorMessage();
-            currentRow = row;
-            int index = tilesSelected.indexOf(currentTileSelected);
-
-            if(index == 0) {
-                itemTile1.setVisible(false);
-            } else if(index == 1) {
-                itemTile2.setVisible(false);
-            } else {
-                itemTile3.setVisible(false);
-            }
-            insertTile(currentTileSelected.getUrl(), new Point(currentRow, currentColumn));
-        } else {
-            showErrorMessage("Wrong column selected!");
-        }
-    }
-
-    public void insertTile(String path, Point position) {
-        Image image = new Image(path);
-        myShelf.add(new ImageView(image), position.y, position.x);   //add(object: elem, int: column, int: row)
-
-        if(!itemTile1.isVisible() && !itemTile2.isVisible() && !itemTile3.isVisible()) {
-            insertDoneImage.setVisible(true);
-        }
-
-    }
 }
 
 

@@ -40,25 +40,22 @@ public class EnterGameSceneController {
     @FXML
     protected void onContinueButtonClick() {
         if(joinGameRB.isSelected()) {
+            int gameId;
             //connect player to already existing game
             try {
-                SocketClient.getInstance().sendCommand(new CanIPlayMTS(Integer.parseInt(gameIdField.getText())));
+                gameId = Integer.parseInt(gameIdField.getText());
             } catch (NumberFormatException e) {
                 checkGameId(false);
                 return;
             }
+            SocketClient.getInstance().sendCommand(new CanIPlayMTS(gameId));
 
             executor.submit(() -> {
-
                 synchronized (EchosRepresentation.getInstance()) {
-                    try {
-                        EchosRepresentation.getInstance().wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    StageController.waitForVMReprensentation(EchosRepresentation.getInstance());
                 }
 
-                EchoMTC message = EchosRepresentation.getInstance().getMessage();
+                EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     checkGameId(false);
                     return;

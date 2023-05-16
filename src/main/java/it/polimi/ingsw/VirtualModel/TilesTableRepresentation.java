@@ -26,6 +26,7 @@ public class TilesTableRepresentation extends VirtualModelSubject{
     }
 
     public List<ItemTile> getTiles(){
+        if (tilesTableMessage == null) return null;
         return tilesTableMessage.getChosenTiles();
     }
 

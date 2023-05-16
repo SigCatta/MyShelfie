@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class EchosRepresentation extends VirtualModelSubject {
 
-    private final Stack<EchoMTC> messages;
+    private Stack<EchoMTC> messages;
 
     private static EchosRepresentation instance;
 
@@ -25,9 +25,27 @@ public class EchosRepresentation extends VirtualModelSubject {
         notifyObservers();
     }
 
-    public EchoMTC getMessage(){
-        if (!messages.isEmpty()) return messages.pop();
+    public EchoMTC popMessage() {
+        if (!messages.isEmpty()) {
+            EchoMTC m = messages.pop(); //TODO remove
+            System.out.println(m.getOutput());
+            return m;
+        }
         return null;
+    }
+
+    public EchoMTC peekMessage() {
+        if (!messages.isEmpty()) {
+            return messages.peek();
+        }
+        return null;
+    }
+
+    /**
+     * removes all the messages from the stack
+     */
+    public void clean() {
+        messages = new Stack<>();
     }
 
     //TODO method that retrieves the error message
@@ -35,9 +53,8 @@ public class EchosRepresentation extends VirtualModelSubject {
     @Override
     public void notifyObservers() {
         observers.forEach(VirtualModelObserver::update);
-        synchronized (this){
+        synchronized (this) {
             this.notify();
         }
     }
-
 }

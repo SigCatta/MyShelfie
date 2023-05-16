@@ -132,14 +132,15 @@ public class Shelf implements VirtualViewSubject {
             //TODO update the virtual view to send the error message to the user
             return false;
         }
-
         for (int i = ROWS - 1; i >= 0; i--) {
-            Point location = new Point(i, column);
-            if (getTileAtLocation(location) == null) {
-                setTileAtLocation(location, tile);
+            if (shelfGrid[i][column] == null) {
+                shelfGrid[i][column] = tile;
                 break;
             }
         }
+
+        notifyObservers();
+
         return true;
     }
 

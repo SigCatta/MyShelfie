@@ -6,6 +6,12 @@ import java.io.Serializable;
 
 public class ItemTile implements Serializable {
     private final Color COLOR;
+    /**
+     * used to associate an image to a card
+     * and make it in a way that it does not change
+     * throughout the game
+     */
+    private final int id;
 
     /**
      * Constructs a new item tile given the color
@@ -14,7 +20,11 @@ public class ItemTile implements Serializable {
      */
     public ItemTile(Color color) {
         this.COLOR = color;
-        //request for the tile image from database
+        id = (int) (Math.random() * Integer.MAX_VALUE);
+    }
+
+    public int getId() {
+        return id;
     }
 
     /**
@@ -23,5 +33,6 @@ public class ItemTile implements Serializable {
     public Color getColor() {
         return COLOR;
     }
+
 
 }
