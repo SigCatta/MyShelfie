@@ -16,4 +16,8 @@ public class BoardMemory {
     public static ImageView get(int row, int col) {
         return imagesInBoard[row][col];
     }
+
+    public static void removeImage(int row, int col){
+        imagesInBoard[row][col].setImage(null);
+    }
 }

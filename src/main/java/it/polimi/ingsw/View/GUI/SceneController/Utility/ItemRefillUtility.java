@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController.Utility;
 
 import it.polimi.ingsw.model.tiles.ItemTile;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,7 +45,13 @@ public class ItemRefillUtility {
         for (int row = 0; row < reference.length; row++) {
             for (int col = 0; col < reference[row].length; col++) {
 
-                if (reference[row][col] == null) continue;
+                ImageView imageView = BoardMemory.get(row, col);
+                if(imageView == null) continue;
+
+                if (reference[row][col] == null){
+                    BoardMemory.removeImage(row, col);
+                    continue;
+                }
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
@@ -54,12 +59,9 @@ public class ItemRefillUtility {
                     ItemTileMemory.put(id, reference[row][col], new Point(row, col), createImage(reference[row][col]));
                 }
 
-                ImageView imageView = BoardMemory.get(row, col);
                 BoardMemory.get(row, col).setUserData(id);
-
-                if (imageView == null) continue;
-
                 imageView.setImage(ItemTileMemory.getImage(id));
+                imageView.setOpacity(1);
             }
         }
     }
@@ -75,26 +77,18 @@ public class ItemRefillUtility {
      */
     public static void updateShelfGrid(GridPane shelf, ItemTile[][] reference) {
         for (int col = 0; col < reference[0].length; col++) {
-            for (int row = 0; row < reference.length; row++) {
+            for (int row = reference.length - 1; row >= 0; row--) {
 
-                if (reference[row][col] == null) continue;
+                if (reference[row][col] == null) break;
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
-                if (ShelfMemory.get(row, col) != null)
-                    break;  //if the tile is memorized this means it is already in the shelf
+                if (ShelfMemory.get(row, col).getImage() != null)
+                    continue;  //if the tile is memorized this means it is already in the shelf
 
                 Image image = ItemTileMemory.getImage(id);
-                ImageView imageView = new ImageView(image);
-                imageView.setFitHeight(40);
-                imageView.setFitWidth(40);
 
-                ShelfMemory.put(imageView, row, col);
-
-                int finalRow = row;
-                int finalCol = col;
-                Platform.runLater(() -> shelf.add(imageView, finalCol, finalRow));
-
+                ShelfMemory.setImage(image, row, col);
             }
         }
     }
