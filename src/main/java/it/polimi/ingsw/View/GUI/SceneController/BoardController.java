@@ -43,6 +43,7 @@ public class BoardController {
     public BoardController() {
 
         instance = this;
+        initialized = false;
 
         //boardActionListenerInit(); //initialize the action associated with the image click
     }
@@ -138,8 +139,8 @@ public class BoardController {
             if(!(node instanceof AnchorPane)) return;
             for(Node image : ((AnchorPane) node).getChildren()){
                 if(!(image instanceof ImageView)) return;
-                node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
-                node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
+                image.setOnMouseEntered(mouseEvent -> image.getStyleClass().add("edge-effect"));
+                image.setOnMouseExited(mouseEvent -> image.getStyleClass().remove("edge-effect"));
             }
         }
     }
