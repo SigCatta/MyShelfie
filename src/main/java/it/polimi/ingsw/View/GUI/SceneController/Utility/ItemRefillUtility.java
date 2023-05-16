@@ -96,7 +96,10 @@ public class ItemRefillUtility {
     public static void updateOtherShelfGrid(ItemTile[][] reference) {
         for (int col = 0; col < reference[0].length; col++) {
             for (int row = reference.length - 1; row >= 0; row--) {
-                if (reference[row][col] == null) break;
+                if (reference[row][col] == null) {
+                    ShelfMemory.setImage(null, row, col, 1);
+                    continue;
+                }
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
