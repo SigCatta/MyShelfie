@@ -25,10 +25,9 @@ public class NicknameState extends InputState {
         }
 
         EchoMTC message = EchosRepresentation.getInstance().popMessage();
-        if (message.isError()) {
-            System.out.println(message.getOutput());
-        } else {
-            System.out.println(message.getOutput());
+
+        System.out.println(message.getOutput());
+        if (!message.isError()) {
             SocketClient.getInstance().setNickname(input);
             input = null;
             InputStatePlayer.getInstance().setState(new StartOrJoinState());
