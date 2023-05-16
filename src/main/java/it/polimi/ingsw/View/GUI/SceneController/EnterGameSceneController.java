@@ -70,7 +70,7 @@ public class EnterGameSceneController {
     }
 
     public void checkGameId(boolean correct) {
-        if(correct) {   //TODO ckeck if gameId is valid
+        if(correct) {
             wrongGameIdImage.setVisible(false);   //gameId is correct
 
             //change scene based on the stage of the game

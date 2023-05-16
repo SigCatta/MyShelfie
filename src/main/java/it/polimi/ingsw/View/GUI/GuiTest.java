@@ -17,7 +17,7 @@ public class GuiTest extends Application {
         Scene scene = new Scene(fxmlLoader.load());
 
         stage.getIcons().add(new Image("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Icon 50x50px.png"));
-        stage.setTitle("Board");
+        stage.setTitle("Lobby");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
