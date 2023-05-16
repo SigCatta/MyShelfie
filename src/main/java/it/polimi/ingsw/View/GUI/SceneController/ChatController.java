@@ -10,18 +10,21 @@ import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class ChatController {
+public class ChatController implements Initializable {
     @FXML
     TextField newMessageField;
 
@@ -45,9 +48,6 @@ public class ChatController {
 
     static String receiverNickname = "";
 
-    static int myMessagesCounter = 0;
-    static int otherMessagesCounter = 0;
-
     private static ChatController instance;
 
     public ChatController() {
@@ -61,8 +61,8 @@ public class ChatController {
     /**
      * methods that sets up the names of the other player in the receiverMenu
      */
-    @FXML
-    public void init() {
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         initChat();
         List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
@@ -95,6 +95,7 @@ public class ChatController {
         int size = messages.size();
         int i=0, index;
         String header;
+        ChatMemory.clear();
 
         for (int row = chat.getRowCount()-1; row >= 0; row--) {
             index = size - 1 - i;
@@ -109,10 +110,10 @@ public class ChatController {
             if(message.isBroadcast()) {
                 header = message.getSender() +  " ~ " ;
             } else {
-                header = message.getSender() + "to" + message.getRECEIVER() +  " ~ ";
+                header = message.getSender() + " to " + message.getRECEIVER() +  " ~ ";
             }
 
-            ChatMemory.setMessage(header + messages.get(size - 1- row).getChatMessage(), row, col);
+            ChatMemory.setMessage(header + message.getChatMessage(), row, col);
             i++;
         }
     }
@@ -126,7 +127,7 @@ public class ChatController {
     public void onSendButtonClicked() {
         String message = newMessageField.getText();
         if(message.length()>0) {
-            if(receiverNickname.equals("BROADCAST")) receiverNickname = null;
+            if(receiverNickname.equals("BROADCAST") || receiverNickname.equals("")) receiverNickname = null;
             SocketClient.getInstance().sendCommand(new ChatMTS(message, receiverNickname));
 
             newMessageField.setText("");

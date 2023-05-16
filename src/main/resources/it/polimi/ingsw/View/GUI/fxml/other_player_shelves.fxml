@@ -73,12 +73,12 @@
                         </AnchorPane>
                         <AnchorPane layoutX="756.0" layoutY="59.0" prefHeight="182.0" prefWidth="375.0">
                             <children>
-                                <ImageView fitHeight="233.0" fitWidth="344.0" layoutX="32.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="310.0" fitWidth="402.0" layoutX="-12.0" layoutY="-41.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../17_MyShelfie_BGA/misc/scroll.png" />
                                     </image>
                                 </ImageView>
-                                <Text fx:id="playerName" layoutX="100.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameField" wrappingWidth="173.33673095703125">
+                                <Text fx:id="playerName" layoutX="43.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameField" textAlignment="CENTER" wrappingWidth="291.20001220703125">
                                     <font>
                                         <Font size="36.0" />
                                     </font>

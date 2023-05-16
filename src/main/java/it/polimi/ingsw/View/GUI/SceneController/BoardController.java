@@ -95,7 +95,6 @@ public class BoardController {
             Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
             );
         }
-
     }
 
     private void initInsertButtons() {
@@ -118,13 +117,13 @@ public class BoardController {
     private void initShelf() {
         for (int row = 0; row < myShelf.getRowCount(); row++) {
             for (int col = 0; col < myShelf.getColumnCount(); col++) {
-                if (ShelfMemory.get(row, col) == null) {
+                if (ShelfMemory.get(row, col, 0) == null) {
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(45);
                     imageView.setFitWidth(45);
-                    ShelfMemory.put(imageView, row, col);
+                    ShelfMemory.put(imageView, row, col, 0);
                 }
-                myShelf.add(ShelfMemory.get(row, col), col, row);
+                myShelf.add(ShelfMemory.get(row, col, 0), col, row);
             }
         }
     }
