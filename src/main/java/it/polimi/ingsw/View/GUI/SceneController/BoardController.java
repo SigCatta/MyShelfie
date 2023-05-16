@@ -82,12 +82,16 @@ public class BoardController {
     FlowPane playersPane;
 
     @FXML
+    AnchorPane changeScenePane;
+
+    @FXML
     public void initScene() {
         if (initialized) return;
         initBoard();
         initInsertButtons();
         initPlayersName();
         initShelf();
+        initChangeSceneButtons();
 
         new BoardObserver().update();
         new PlayerObserver().update();
@@ -125,6 +129,17 @@ public class BoardController {
                     ShelfMemory.put(imageView, row, col);
                 }
                 myShelf.add(ShelfMemory.get(row, col), col, row);
+            }
+        }
+    }
+
+    public void initChangeSceneButtons(){
+        for (Node node : chooseColumnPane.getChildren()) {
+            if(!(node instanceof AnchorPane)) return;
+            for(Node image : ((AnchorPane) node).getChildren()){
+                if(!(image instanceof ImageView)) return;
+                node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
+                node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
             }
         }
     }
