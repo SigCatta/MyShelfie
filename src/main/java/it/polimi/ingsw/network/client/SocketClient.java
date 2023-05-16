@@ -81,24 +81,10 @@ public class SocketClient extends Client {
                 this.nickname = message.getNickname();
                 super.setNickname(this.nickname);
             }
-            outputStm.writeObject(message);
             outputStm.reset();
+            outputStm.writeObject(message);
         } catch (IOException e) {
-
-            try {
-                Thread.sleep(1000);
-                outputStm.writeObject(message);
-                outputStm.reset();
-                return;
-            } catch (IOException | InterruptedException ex) {
-                StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-                for (StackTraceElement element : elements) {
-                    System.out.println(element);
-                }
-                Client.LOGGER.severe("An error occurred while sending the message");
-
-                throw new RuntimeException(ex);
-            }
+            Client.LOGGER.severe("An error occurred while sending the message");
         }
     }
 
