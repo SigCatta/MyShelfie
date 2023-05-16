@@ -26,12 +26,8 @@ public class EchosRepresentation extends VirtualModelSubject {
     }
 
     public EchoMTC popMessage() {
-        if (!messages.isEmpty()) {
-            EchoMTC m = messages.pop(); //TODO remove
-            System.out.println(m.getOutput());
-            return m;
-        }
-        return null;
+        if (messages.isEmpty()) return null;
+        return messages.pop();
     }
 
     public EchoMTC peekMessage() {
