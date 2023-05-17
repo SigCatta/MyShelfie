@@ -97,11 +97,6 @@ public class Printer implements VirtualModelObserver {
         output = addAvailableCommands(output);
 
         output.forEach(System.out::println);
-
-        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-        for (StackTraceElement element : elements) {
-            System.out.println(element);
-        }
     }
 
     /**

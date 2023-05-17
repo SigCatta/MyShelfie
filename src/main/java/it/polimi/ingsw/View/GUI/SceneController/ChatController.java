@@ -59,7 +59,7 @@ public class ChatController implements Initializable {
     }
 
     /**
-     * methods that sets up the names of the other player in the receiverMenu
+     * methods that sets up the names of the other player in the receiverMenu ad retrieves the messages already sent
      */
     @FXML @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
