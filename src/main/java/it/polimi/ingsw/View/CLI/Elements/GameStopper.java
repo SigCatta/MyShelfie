@@ -27,7 +27,8 @@ public class GameStopper implements VirtualModelObserver {
     }
 
     /**
-     * If the game goes into the end state
+     * If the game goes into the end state, prints an ascii art indicating whether
+     * the player lost or not and prints the leaderboard
      */
     @Override
     public void update() {
@@ -45,6 +46,10 @@ public class GameStopper implements VirtualModelObserver {
 
         System.exit(0);
     }
+
+    /**
+     * prints an ascii art indicating that the player won
+     */
 
     private void printWinnerScreen() {
 
@@ -67,6 +72,9 @@ public class GameStopper implements VirtualModelObserver {
                 "    YYYYYYYYYYYYY         OOOOOOOOO           UUUUUUUUU                       WWW             WWW                 OOOOOOOOO     NNNNNNNN         NNNNNNN      !!! \n");
     }
 
+    /**
+     * prints an ascii art indicating that the player lost
+     */
     private void printLoserScreen() {
 
         System.out.println("                                                                                                                                                                    \n" +
@@ -88,6 +96,11 @@ public class GameStopper implements VirtualModelObserver {
                 "    YYYYYYYYYYYYY         OOOOOOOOO           UUUUUUUUU           LLLLLLLLLLLLLLLLLLLLLLLL     OOOOOOOOO      SSSSSSSSSSSSSSS         TTTTTTTTTTT       ......  ......  ...... ");
     }
 
+    /**
+     * Prints the leaderboard
+     *
+     * @param players ArraList of {@link PlayerMTC} to print in the leaderboard
+     */
     private void printLeaderBoard(ArrayList<PlayerMTC> players) {
         for (int i = 0; i < players.size(); i++) {
             PlayerMTC player = players.get(i);
