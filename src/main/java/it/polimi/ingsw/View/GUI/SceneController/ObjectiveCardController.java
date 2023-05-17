@@ -103,6 +103,7 @@ public class ObjectiveCardController {
     }
 
     public void updateCommonGoalsPoints() {
+        System.out.println("Updated common goal points");
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
         setPointCG1Text(availablePoints.get(0));
         setPointCG2Text(availablePoints.get(1));

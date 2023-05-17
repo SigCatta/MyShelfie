@@ -1,19 +1,30 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ChatMemory;
+import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChatObserver;
+import it.polimi.ingsw.VirtualModel.ChatRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
+import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class ChatController {
+public class ChatController implements Initializable {
     @FXML
     TextField newMessageField;
 
@@ -32,16 +43,27 @@ public class ChatController {
     @FXML
     MenuItem broadcastMenuItem;
 
+    @FXML
+    GridPane chat;
+
     static String receiverNickname = "";
 
-    static int myMessagesCounter = 0;
-    static int otherMessagesCounter = 0;
+    private static ChatController instance;
+
+    public ChatController() {
+        instance = this;
+    }
+
+    public static ChatController getInstance() {
+        return instance;
+    }
 
     /**
      * methods that sets up the names of the other player in the receiverMenu
      */
-    @FXML
-    public void init() {
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initChat();
         List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
         int j=0;
@@ -53,32 +75,47 @@ public class ChatController {
                 j++;
             }
         }
+        new ChatObserver().update();
     }
 
-    /**
-     * Method called every time a player writes on the chat
-     * @param message the new message to be displayed
-     * @param otherPlayer true if the message is from another player, false if is from this player
-     * @param senderNickname if {@param otherPlayer} is true contains the nickname of the player that sent the message
-     *                        else it contains a null string
-     * @param receiverNickname if {@param otherPlayer} is false contains a null string
-     *                         else it contains the nickname of the receiver of the message or "BROADCAST"
-     */
-    public void updateChat(String message, boolean otherPlayer, String senderNickname, String receiverNickname) {
-        String newMessage;
-        //TODO
-        if(otherPlayer) {
-            newMessage = senderNickname + " ~ " + message;
-
-        } else {
-            newMessage = "Me ~ " + message;
+    public void initChat() {
+        for (int row = 0; row < chat.getRowCount(); row++) {
+            for (int col = 0; col < chat.getColumnCount(); col++) {
+                if (ChatMemory.getMessage(row, col) == null) {
+                    TextField textField = new TextField();
+                    ChatMemory.setMessage(textField, row, col);
+                }
+                chat.add(ChatMemory.getMessage(row, col), col, row);
+            }
         }
     }
 
-    public void cleanChat() {
-        //TODO ?
-        myMessagesCounter=0;
-        otherMessagesCounter=0;
+    public void updateChat() {
+        ArrayList<ChatMTC> messages = ChatRepresentation.getInstance().getMessages();
+        int size = messages.size();
+        int i=0, index;
+        String header;
+        ChatMemory.clear();
+
+        for (int row = chat.getRowCount()-1; row >= 0; row--) {
+            index = size - 1 - i;
+            if(index<0) return;
+            ChatMTC message = messages.get(index);
+            int col;
+            if(message.getSender().equals(SocketClient.getInstance().getNickname())) {
+                col=1;
+            } else {
+                col = 0;
+            }
+            if(message.isBroadcast()) {
+                header = message.getSender() +  " ~ " ;
+            } else {
+                header = message.getSender() + " to " + message.getRECEIVER() +  " ~ ";
+            }
+
+            ChatMemory.setMessage(header + message.getChatMessage(), row, col);
+            i++;
+        }
     }
 
     @FXML
@@ -90,11 +127,9 @@ public class ChatController {
     public void onSendButtonClicked() {
         String message = newMessageField.getText();
         if(message.length()>0) {
-            if(receiverNickname.equals("BROADCAST")) receiverNickname = null;
-            //TODO add receiver
+            if(receiverNickname.equals("BROADCAST") || receiverNickname.equals("")) receiverNickname = null;
             SocketClient.getInstance().sendCommand(new ChatMTS(message, receiverNickname));
 
-            updateChat(message, false, null, receiverNickname);
             newMessageField.setText("");
             receiverNickname = "";
         }

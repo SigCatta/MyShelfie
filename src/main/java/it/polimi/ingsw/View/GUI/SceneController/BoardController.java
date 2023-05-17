@@ -74,7 +74,6 @@ public class BoardController implements Initializable {
     @FXML
     Text errorText;
 
-
     @FXML
     ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
 
@@ -106,6 +105,13 @@ public class BoardController implements Initializable {
         new ErrorObserver();
     }
 
+    public void checkForEnd() {
+        if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
+            );
+        }
+    }
+
     private void initInsertButtons() {
         for (Node node : chooseColumnPane.getChildren()) {
             node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
@@ -126,13 +132,13 @@ public class BoardController implements Initializable {
     private void initShelf() {
         for (int row = 0; row < myShelf.getRowCount(); row++) {
             for (int col = 0; col < myShelf.getColumnCount(); col++) {
-                if (ShelfMemory.get(row, col) == null) {
+                if (ShelfMemory.get(row, col, 0) == null) {
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(45);
                     imageView.setFitWidth(45);
-                    ShelfMemory.put(imageView, row, col);
+                    ShelfMemory.put(imageView, row, col, 0);
                 }
-                myShelf.add(ShelfMemory.get(row, col), col, row);
+                myShelf.add(ShelfMemory.get(row, col, 0), col, row);
             }
         }
     }

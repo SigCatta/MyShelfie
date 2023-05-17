@@ -1,5 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers;
 
+import it.polimi.ingsw.View.GUI.SceneController.ChatController;
 import it.polimi.ingsw.VirtualModel.ChatRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 
@@ -11,6 +12,6 @@ public class ChatObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        //ChatController.getInstance().updateChat();
+        ChatController.getInstance().updateChat();
     }
 }

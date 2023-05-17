@@ -17,5 +17,6 @@ public class LobbyController {
     protected void onExitButtonClick() {
         //end game
         Platform.exit();
+        System.exit(0);
     }
 }
