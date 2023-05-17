@@ -4,22 +4,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-           prefWidth="1200.0" styleClass="wooden_background" stylesheets="@../css/background.css"
-           xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="it.polimi.ingsw.View.GUI.SceneController.BoardController">
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="wooden_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.BoardController">
    <children>
       <Group>
@@ -123,8 +109,8 @@
                               <Image url="@../17_MyShelfie_BGA/scoring_tokens/first_score_token.jpg"/>
                            </image>
                         </ImageView>
-                        <ImageView fx:id="myFirstScoreToken" visible="false" fitHeight="110.0" fitWidth="98.0"
-                                   layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="myFirstScoreToken" fitHeight="110.0" fitWidth="98.0" layoutX="14.0"
+                                   layoutY="14.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../17_MyShelfie_BGA/scoring_tokens/first_score_token.jpg"/>
                            </image>
@@ -164,7 +150,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="794.0" layoutY="638.0" prefHeight="138.0" prefWidth="382.0">
                      <children>
-                        <AnchorPane prefWidth="161.0">
+                        <AnchorPane prefHeight="129.0" prefWidth="133.0">
                            <children>
                               <Text layoutX="25.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0"
                                     styleClass="label2" text="Chat" textAlignment="CENTER"
@@ -172,9 +158,11 @@
                               <ImageView fx:id="changeChat" fitHeight="120.0" fitWidth="147.0" layoutX="7.0"
                                          onMouseClicked="#onChatClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../17_MyShelfie_BGA/misc/Hi_book.png" />
+                                    <Image url="@../17_MyShelfie_BGA/misc/Hi_book.png"/>
                                  </image>
                               </ImageView>
+                              <Circle fx:id="newMessageIcon" fill="#ff271f" layoutX="106.0" layoutY="14.0" radius="9.0"
+                                      stroke="BLACK" strokeType="INSIDE" visible="false"/>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="147.0" layoutY="2.0" prefHeight="136.0" prefWidth="119.0">
@@ -182,7 +170,9 @@
                                       layoutY="7.0" onMouseClicked="#onShelvesClicked" preserveRatio="true">
                               <Image url="@../17_MyShelfie_BGA/misc/singing_book.png"/>
                            </ImageView>
-                           <Text layoutX="3.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label2" text="Shelves" textAlignment="CENTER" wrappingWidth="98.392578125" />
+                           <Text layoutX="3.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                 styleClass="label2" text="Shelves" textAlignment="CENTER"
+                                 wrappingWidth="98.392578125"/>
                         </AnchorPane>
                         <AnchorPane layoutX="261.0" layoutY="9.0" prefHeight="127.0" prefWidth="105.0">
                            <ImageView fx:id="changeObjective" fitHeight="120.0" fitWidth="109.0"
@@ -190,9 +180,11 @@
                               <Image url="@../17_MyShelfie_BGA/misc/happy_book.png"/>
                            </ImageView>
                            <ImageView fitHeight="47.0" fitWidth="55.0" layoutX="55.0" layoutY="65.0">
-                              <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Aperto.png" />
+                              <Image url="@../17_MyShelfie_BGA/misc/Sacchetto_Aperto.png"/>
                            </ImageView>
-                           <Text layoutX="5.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label2" text="Objectives" textAlignment="CENTER" wrappingWidth="98.392578125" />
+                           <Text layoutX="5.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                 styleClass="label2" text="Objectives" textAlignment="CENTER"
+                                 wrappingWidth="98.392578125"/>
                         </AnchorPane>
                      </children>
                   </AnchorPane>

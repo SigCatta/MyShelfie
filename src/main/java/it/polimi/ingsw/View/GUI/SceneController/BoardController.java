@@ -24,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -38,6 +39,7 @@ public class BoardController implements Initializable {
     private static BoardController instance;
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
     private String myNickname;
+    private static boolean initialized;
 
     /**
      * id of the tile to be sent to the shelf
@@ -63,7 +65,8 @@ public class BoardController implements Initializable {
     GridPane board, myShelf;
     @FXML
     FlowPane myChosenTilesTable;
-
+    @FXML
+    Circle newMessageIcon;
     @FXML
     AnchorPane chooseColumnPane;
 
@@ -89,27 +92,32 @@ public class BoardController implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         initBoard();
         initInsertButtons();
         initPlayersName();
         initShelf();
         initChangeSceneButtons();
 
-        new BoardObserver().update();
-        new PlayerObserver().update();
-        new ShelfObserver().update();
-        new TilesTableObserver().update();
-        new ChangeTurnObserver().update();
-        new FirstPlayerToFinishObserver();
-        new GameStateObserver();
-        new ErrorObserver();
-    }
-
-    public void checkForEnd() {
-        if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
-            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
-            );
+        if (!initialized) {
+            new BoardObserver();
+            new PlayerObserver();
+            new ShelfObserver();
+            new TilesTableObserver();
+            new ChangeTurnObserver();
+            new FirstPlayerToFinishObserver();
+            new GameStateObserver();
+            new ErrorObserver();
+            new ChatObserver();
+            initialized = true;
         }
+
+        updateBoard();
+        updateShelf();
+        updateChosenTilesTable();
+        updateChangeTurn();
+        updateGameState();
+
     }
 
     private void initInsertButtons() {
@@ -198,6 +206,10 @@ public class BoardController implements Initializable {
             //avoids exception caused by running it instantly
             Platform.runLater(() -> myChosenTilesTable.getChildren().add(imageView));
         }
+    }
+
+    public void updateChat() {
+        newMessageIcon.setVisible(true);
     }
 
     public void updateError() {
