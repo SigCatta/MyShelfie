@@ -97,7 +97,7 @@ public class ObjectiveCardController {
         setCommonGoalCard2(COMMON_GOAL_PACKAGE + cardNames.get(1) + ".jpg");
 
         String nickname = SocketClient.getInstance().getNickname();
-        String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
+        String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
 
         setPersonalGoalCard(PERSONAL_GOAL_PACKAGE + personalGoalCardNum + ".jpg");
     }

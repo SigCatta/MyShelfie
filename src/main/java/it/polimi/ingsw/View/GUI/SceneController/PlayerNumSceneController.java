@@ -29,7 +29,7 @@ public class PlayerNumSceneController {
     protected void onContinueButtonClick() {
         //the new game has been created
         SocketClient.getInstance().sendCommand(new NewGameMTS(getPlayerNum()));
-        StageController.changeScene("fxml/waiting_room_new.fxml","Wait for others to join");
+        StageController.changeScene("fxml/waiting_room.fxml", "Wait for others to join");
     }
 
     @FXML
