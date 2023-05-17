@@ -28,7 +28,8 @@ public class TwoColSixDiffCGS extends CommonGoalStrategy {
         for (int i = 0; i < cols; i++) {
             Set<Color> colorSet = new HashSet<>();
             for (ItemTile[] row : shelfGrid) {
-                if (row[i] != null) colorSet.add(row[i].getColor());
+                if (row[i] == null) break;
+                colorSet.add(row[i].getColor());
             }
             if (colorSet.size() >= 6) countCol++;
             if (countCol >= 2) return true;
