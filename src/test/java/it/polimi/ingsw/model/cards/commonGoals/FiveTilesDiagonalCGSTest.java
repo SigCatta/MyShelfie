@@ -50,4 +50,16 @@ public class FiveTilesDiagonalCGSTest {
         };
         assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
+    @Test
+    public void isGoalAchievedTest4() {
+        ItemTile[][] mat = {
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+        };
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
 }
