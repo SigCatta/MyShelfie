@@ -14,8 +14,8 @@ import it.polimi.ingsw.network.client.SocketClient;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -24,15 +24,16 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class BoardController {
+public class BoardController implements Initializable {
 
     private static BoardController instance;
-
-    private boolean initialized;
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
+    private String myNickname;
 
     /**
      * id of the tile to be sent to the shelf
@@ -43,6 +44,8 @@ public class BoardController {
     public BoardController() {
 
         instance = this;
+
+        myNickname = SocketClient.getInstance().getNickname();
 
         //boardActionListenerInit(); //initialize the action associated with the image click
     }
@@ -74,11 +77,10 @@ public class BoardController {
     FlowPane playersPane;
 
     @FXML
-    AnchorPane changeScenePane;
+    ImageView changeChat, changeShelf, changeObjective;
 
-    @FXML
-    public void initScene() {
-        if (initialized) return;
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         initBoard();
         initInsertButtons();
         initPlayersName();
@@ -89,9 +91,9 @@ public class BoardController {
         new PlayerObserver().update();
         new ShelfObserver().update();
         new TilesTableObserver().update();
-        new GameObserver().update();
+        new ChangeTurnObserver().update();
+        new GameStateObserver();
         new ErrorObserver();
-        initialized = true;
     }
 
     public void checkForEnd() {
@@ -132,15 +134,31 @@ public class BoardController {
         }
     }
 
-    public void initChangeSceneButtons(){
-        for (Node node : chooseColumnPane.getChildren()) {
-            if(!(node instanceof AnchorPane)) return;
-            for(Node image : ((AnchorPane) node).getChildren()){
-                if(!(image instanceof ImageView)) return;
-                node.setOnMouseEntered(mouseEvent -> node.getStyleClass().add("edge-effect"));
-                node.setOnMouseExited(mouseEvent -> node.getStyleClass().remove("edge-effect"));
-            }
+    /**
+     * methods called when the scene is initialized
+     * to add to each one of the children nodes of the board matrix an event listener
+     */
+    private void initBoard() {
+        for (Node node : board.getChildren()) {
+            if (node == null) return;
+            if (!(node instanceof ImageView)) return;
+
+            Integer c = GridPane.getColumnIndex(node);
+            Integer r = GridPane.getRowIndex(node);
+            if (c == null || r == null) continue;
+            BoardMemory.put((ImageView) node, r, c);
+
+            attachBoardListener((ImageView) node);
         }
+    }
+
+    public void initChangeSceneButtons() {
+        changeChat.setOnMouseEntered(mouseEvent -> changeChat.getStyleClass().add("edge-effect"));
+        changeChat.setOnMouseExited(mouseEvent -> changeChat.getStyleClass().remove("edge-effect"));
+        changeShelf.setOnMouseEntered(mouseEvent -> changeShelf.getStyleClass().add("edge-effect"));
+        changeShelf.setOnMouseExited(mouseEvent -> changeShelf.getStyleClass().remove("edge-effect"));
+        changeObjective.setOnMouseEntered(mouseEvent -> changeObjective.getStyleClass().add("edge-effect"));
+        changeObjective.setOnMouseExited(mouseEvent -> changeObjective.getStyleClass().remove("edge-effect"));
     }
 
     /**
@@ -188,12 +206,9 @@ public class BoardController {
         EchosRepresentation.getInstance().clean();
     }
 
-    public void updateGame() {
-
-    }
-
     public void updateChangeTurn() {
         for (Node text : playersPane.getChildren()) {
+            if (text == null) return;
             if (!(text instanceof Text)) return;
             text.getStyleClass().remove("fancy-text");
             if (((Text) text).getText().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
@@ -202,27 +217,16 @@ public class BoardController {
         }
     }
 
-    /**
-     * methods called when the scene is initialized
-     * to add to each one of the children nodes of the board matrix an event listener
-     */
-    private void initBoard() {
-        for (Node node : board.getChildren()) {
-            if (node == null) return;
-            if (!(node instanceof ImageView)) return;
-
-            Integer c = GridPane.getColumnIndex(node);
-            Integer r = GridPane.getRowIndex(node);
-            if (c == null || r == null) continue;
-            BoardMemory.put((ImageView) node, r, c);
-
-            attachBoardListener((ImageView) node);
+    public void updateGameState() {
+        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }
     }
 
 
     /**
      * action listener for every tile on the board
+     *
      * @param imageView object associated with the action
      */
     private void attachBoardListener(ImageView imageView) {
@@ -249,7 +253,6 @@ public class BoardController {
         });
 
         imageView.setOnMouseEntered(mouseEvent -> imageView.getStyleClass().add("edge-effect"));
-
         imageView.setOnMouseExited(mouseEvent -> imageView.getStyleClass().remove("edge-effect"));
     }
 

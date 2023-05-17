@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -80,7 +79,7 @@ public class EnterGameSceneController {
             //change scene based on the stage of the game
             GameState gameState = GameRepresentation.getInstance().getGameMessage().getGameState();
             if(gameState.equals(GameState.PREGAME)) {
-                Platform.runLater(() -> StageController.changeScene("fxml/waiting_room_new.fxml", "Waiting room")
+                Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room")
                 );
             } else{
                 Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board")

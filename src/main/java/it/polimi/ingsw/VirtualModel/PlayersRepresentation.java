@@ -31,7 +31,7 @@ public class PlayersRepresentation extends VirtualModelSubject {
         return PLAYER_MESSAGES.get(nickname).getScore();
     }
 
-    public PlayerMTC getPlayerByNickname(String nickname) {
+    public PlayerMTC getPlayerInfoByNickname(String nickname) {
         return PLAYER_MESSAGES.get(nickname);
     }
 
