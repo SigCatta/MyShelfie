@@ -18,7 +18,7 @@ public class PlayerObserver implements VirtualModelObserver {
             WaitingRoomController.getInstance().updatePlayersInfo(true);
         }
         if(BoardController.getInstance()!=null) {
-           if(!PlayersRepresentation.getInstance().getPlayerByNickname(SocketClient.getInstance().getNickname()).isConnected()) {
+           if(!PlayersRepresentation.getInstance().getPlayerInfoByNickname(SocketClient.getInstance().getNickname()).isConnected()) {
                Platform.exit();
            }
         }
