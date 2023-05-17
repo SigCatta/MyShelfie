@@ -10,10 +10,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class FourRowsOfFiveCGSTest {
+    private final FourRowsOfFiveCGS cg = new FourRowsOfFiveCGS();
+
     @Test
-    public void isGoalAchievedTest() {
-        FourRowsOfFiveCGS cg = new FourRowsOfFiveCGS();
-        ItemTile[][] matrix1 = {
+    public void isGoalAchievedTest1() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
@@ -21,20 +22,24 @@ public class FourRowsOfFiveCGSTest {
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        Shelf shelf = new Shelf(matrix1);
-        assertTrue(cg.isGoalAchieved(shelf));
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] matrix2 = {
-                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+    @Test
+    public void isGoalAchievedTest2() {
+        ItemTile[][] mat = {
+                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
                 {new ItemTile(Color.GREEN), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
-                {new ItemTile(Color.GREEN), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
-                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), null, new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
+                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
         };
-        shelf = new Shelf(matrix2);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] matrix3 = {
+    @Test
+    public void isGoalAchievedTest3() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.YELLOW), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
@@ -42,18 +47,19 @@ public class FourRowsOfFiveCGSTest {
                 {null, new ItemTile(Color.YELLOW), new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), null},
         };
-        shelf = new Shelf(matrix3);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] matrix4 = {
-                {new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE)},
-                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN),new ItemTile( Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+    @Test
+    public void isGoalAchievedTest4() {
+        ItemTile[][] mat = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.BLUE), null, null},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
-                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.WHITE), null, null},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE)},
         };
-        shelf = new Shelf(matrix4);
-        assertTrue(cg.isGoalAchieved(shelf));
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
 }
