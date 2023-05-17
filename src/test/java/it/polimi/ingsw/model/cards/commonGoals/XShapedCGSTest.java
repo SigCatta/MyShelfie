@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.XShapedCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class XShapedCGSTest {
     private final CommonGoalStrategy cg = new XShapedCGS();
@@ -102,6 +102,7 @@ public class XShapedCGSTest {
         };
         assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest8() {
         ItemTile[][] mat = {
@@ -114,6 +115,7 @@ public class XShapedCGSTest {
         };
         assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest9() {
         ItemTile[][] mat = {

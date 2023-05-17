@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FourAnglesCGSTest {
     private final FourAnglesCGS cg = new FourAnglesCGS();
@@ -37,6 +37,7 @@ public class FourAnglesCGSTest {
         };
         assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest3() {
         ItemTile[][] mat = {
@@ -50,6 +51,7 @@ public class FourAnglesCGSTest {
 
         assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest4() {
         ItemTile[][] mat = {
@@ -63,6 +65,7 @@ public class FourAnglesCGSTest {
 
         assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest5() {
         ItemTile[][] mat = {
@@ -76,6 +79,7 @@ public class FourAnglesCGSTest {
 
         assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest6() {
         ItemTile[][] mat = {
@@ -89,6 +93,7 @@ public class FourAnglesCGSTest {
 
         assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest7() {
         ItemTile[][] mat = {
