@@ -29,7 +29,7 @@ public class PersonalGoalView extends ViewElement {
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
         String nickname = SocketClient.getInstance().getNickname();
-        HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerByNickname(nickname).getPersonalGoal();
+        HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPersonalGoal();
         Color[][] goal = new Color[6][5];
         HashMap<Color, String> colorMap = Printer.getColorMap();
 

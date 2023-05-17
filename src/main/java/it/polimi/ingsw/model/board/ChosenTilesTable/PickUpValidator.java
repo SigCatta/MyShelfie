@@ -32,7 +32,7 @@ public class PickUpValidator {
 
         if (!adjacent(chosenPositions)) return false;
 
-        if (tooManyTilesChosen(game, MAX_TILES)) return false;
+        if (tooManyTilesChosen(game, chosenPositions.size())) return false;
 
         for (Point singlePosition : chosenPositions) {
             //impossible to pick up an empty cell

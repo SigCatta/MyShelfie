@@ -1,11 +1,16 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.Shelf;
+import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 public class TurnHandlerTest {
 
@@ -53,5 +58,29 @@ public class TurnHandlerTest {
 
         Assertions.assertEquals(game.getGameState(), GameState.END);
 
+    }
+
+    @Test
+    public void finishGameTest() {
+        TurnHandler turnHandler = game.getTurnHandler();
+
+        fillShelf(game.getPlayers().get(0).getShelf());
+
+        turnHandler.changeTurn(); //change to b
+        turnHandler.changeTurn(); //change to c
+        turnHandler.changeTurn(); //change to d
+
+        turnHandler.changeTurn(); //should end the game
+
+        Assertions.assertEquals(GameState.END, game.getGameState());
+
+    }
+
+    private void fillShelf(Shelf shelf) {
+        for (int i = 0; i < shelf.getROWS(); i++) {
+            for (int j = 0; j < shelf.getCOLUMNS(); j++) {
+                shelf.setTileAtLocation(new Point(i, j), new ItemTile(Color.BLUE));
+            }
+        }
     }
 }

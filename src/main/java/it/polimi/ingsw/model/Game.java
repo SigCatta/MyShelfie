@@ -99,6 +99,7 @@ public class Game implements VirtualViewSubject {
     public void end() {
         gameState = GameState.END;
         //TODO calculate point and send to the view
+        notifyObservers();
     }
 
 
