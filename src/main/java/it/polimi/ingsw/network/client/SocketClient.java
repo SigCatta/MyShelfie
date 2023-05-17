@@ -81,6 +81,7 @@ public class SocketClient extends Client {
                 this.nickname = message.getNickname();
                 super.setNickname(this.nickname);
             }
+            outputStm.reset();
             outputStm.writeObject(message);
             outputStm.reset();
         } catch (IOException e) {
