@@ -74,6 +74,7 @@ public class Printer implements VirtualModelObserver {
      * - chat (if available)<br>
      * - a list of the available commands<br>
      */
+    @SuppressWarnings("WaitWhileHoldingTwoLocks")
     @Override
     public synchronized void update() {
         while (reader.isReading()) {

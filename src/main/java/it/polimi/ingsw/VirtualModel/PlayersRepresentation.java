@@ -35,6 +35,9 @@ public class PlayersRepresentation extends VirtualModelSubject {
         return PLAYER_MESSAGES.get(nickname);
     }
 
+    public ArrayList<PlayerMTC> getAllPlayerMTC(){
+        return getPlayersList().stream().map(this::getPlayerInfoByNickname).collect(Collectors.toCollection(ArrayList::new));
+    }
     /**
      * adds a player or updates it with the new attributes sent by the server
      */

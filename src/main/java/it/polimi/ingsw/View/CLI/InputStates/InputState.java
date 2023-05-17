@@ -33,9 +33,6 @@ public abstract class InputState {
      * @param reader the reader that user is using
      */
     void addReaderToEchoObserver(Reader reader) {
-
         EchosRepresentation.getInstance().registerObserver(reader);
-
-
     }
 }
