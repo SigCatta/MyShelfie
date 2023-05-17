@@ -52,7 +52,11 @@ public class EnterGameSceneController {
 
             executor.submit(() -> {
                 synchronized (EchosRepresentation.getInstance()) {
-                    StageController.waitForVMReprensentation(EchosRepresentation.getInstance());
+                    try {
+                        EchosRepresentation.getInstance().wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 EchoMTC message = EchosRepresentation.getInstance().popMessage();

@@ -43,15 +43,9 @@ public class StageController {
         stage.setMaximized(true);
         stage.setResizable(true);
         //stage.setFullScreen(true);
+        stage.setOnCloseRequest(event -> System.exit(0));
 
         stage.show();
     }
 
-    static synchronized void waitForVMReprensentation(VirtualModelSubject vmRepresentation) {
-        try {
-            vmRepresentation.wait();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
