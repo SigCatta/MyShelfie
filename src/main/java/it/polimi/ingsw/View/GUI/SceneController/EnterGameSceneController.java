@@ -6,13 +6,16 @@ import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -31,6 +34,12 @@ public class EnterGameSceneController {
     Text gameIdText;
 
     @FXML
+    Text errorText;
+
+    @FXML
+    AnchorPane errorPane;
+
+    @FXML
     TextField gameIdField;
 
     @FXML
@@ -44,7 +53,7 @@ public class EnterGameSceneController {
             try {
                 gameId = Integer.parseInt(gameIdField.getText());
             } catch (NumberFormatException e) {
-                checkGameId(false);
+                checkGameId(false, true);
                 return;
             }
             SocketClient.getInstance().sendCommand(new CanIPlayMTS(gameId));
@@ -58,12 +67,12 @@ public class EnterGameSceneController {
                     }
                 }
 
-                EchoMTC message = EchosRepresentation.getInstance().popMessage();
+                EchoMTC message = EchosRepresentation.getInstance().peekMessage();
                 if (message.isError()) {
-                    checkGameId(false);
+                    checkGameId(false, false);
                     return;
                 }
-                checkGameId(true);
+                checkGameId(true, false);
             });
 
         } else {
@@ -72,7 +81,7 @@ public class EnterGameSceneController {
         }
     }
 
-    public void checkGameId(boolean correct) {
+    public void checkGameId(boolean correct, boolean containsLetters) {
         if(correct) {
             wrongGameIdImage.setVisible(false);   //gameId is correct
 
@@ -86,7 +95,26 @@ public class EnterGameSceneController {
                 );
             }
 
-        } else wrongGameIdImage.setVisible(true);
+        } else updateError(containsLetters);
+    }
+
+    public void updateError(boolean containsLetters) {
+        wrongGameIdImage.setVisible(true);
+        errorText.setVisible(true);
+        errorText.setWrappingWidth(300);
+
+        System.out.println("There was an error: "); //TODO remove
+        if(containsLetters) {
+            errorText.setText("The GAME ID must contains only numbers!");
+        } else
+            errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
+
+        EchosRepresentation.getInstance().clean();
     }
 
     @FXML

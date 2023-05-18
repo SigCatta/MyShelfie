@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class LoginSceneController {
+    static final String IP_ADDRESS = "localhost";
     @FXML
     TextField nicknameField;
 
