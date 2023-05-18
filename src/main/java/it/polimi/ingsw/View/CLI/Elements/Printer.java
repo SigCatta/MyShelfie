@@ -15,6 +15,10 @@ public class Printer implements VirtualModelObserver {
     private static Printer instance;
     private final Reader reader;
 
+    /**
+     * Creates a new Printer instance and registers
+     * it to all needded Observables
+     */
     private Printer() {
         BoardRepresentation.getInstance().registerObserver(this);
         ChatRepresentation.getInstance().registerObserver(this);
@@ -80,7 +84,7 @@ public class Printer implements VirtualModelObserver {
     public synchronized void update() {
         while (reader.isReading()) {
             try {
-                synchronized (reader){
+                synchronized (reader) {
                     reader.wait();
                 }
             } catch (InterruptedException e) {

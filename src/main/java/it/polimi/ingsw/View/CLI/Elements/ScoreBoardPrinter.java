@@ -9,19 +9,25 @@ import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for printing the leaderboard when the game ends,
+ * it uses Obeservable-observer to print only if the game has ended
+ */
+
 public class ScoreBoardPrinter implements VirtualModelObserver {
     private static ScoreBoardPrinter instance;
     private boolean hasPrinted;
 
-    private ScoreBoardPrinter (){
+    private ScoreBoardPrinter() {
         hasPrinted = false;
         PlayersRepresentation.getInstance().registerObserver(this);
     }
 
-    public static ScoreBoardPrinter getInstance(){
+    public static ScoreBoardPrinter getInstance() {
         if (instance == null) instance = new ScoreBoardPrinter();
         return instance;
     }
+
     public boolean hasPrinted() {
         return hasPrinted;
     }
@@ -47,7 +53,7 @@ public class ScoreBoardPrinter implements VirtualModelObserver {
         }
 
         hasPrinted = true;
-        synchronized (this){
+        synchronized (this) {
             notifyAll();
         }
     }
