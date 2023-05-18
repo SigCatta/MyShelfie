@@ -29,51 +29,46 @@ public class PersonalGoalView extends ViewElement {
      */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
-        String nickname = SocketClient.getInstance().getNickname();
-        HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPersonalGoal();
-        Color[][] goal = new Color[6][5];
-        HashMap<Color, String> colorMap = Printer.getColorMap();
-
-        for (Color color : Color.values()) {
-            Point p = personalGoal.get(color);
-            goal[p.y - 1][p.x - 1] = color;
-        }
-
-        if (output.size() == 0) {
-            output = new ArrayList<>();
-            output.add("       PERSONAL GOAL");
-            output.add("      ┌──┬──┬──┬──┬──┐");
-            for (Color[] row : goal) {
-                StringBuilder string = new StringBuilder("      │");
-                for (Color color : row) {
-                    string
-                            .append(colorMap.getOrDefault(color, " ").repeat(2))
-                            .append("│");
-                }
-                output.add(string.toString());
-                output.add("      ├──┼──┼──┼──┼──┤");
+        ArrayList<String> personalGoalDrawing = drawShelf();
+        if (output.size() == 0) return personalGoalDrawing;
+        else if (output.get(0).contains("COMMON GOAL #")) {
+            int offset = 36; // starts printing after common goals
+            for (int i = 0; i < personalGoalDrawing.size(); i++) {
+                output.set(i + offset, output.get(i + offset).concat(personalGoalDrawing.get(i)));
             }
-            output.set(output.size() - 1, output.get(output.size() - 1).replace("├──┼──┼──┼──┼──┤", "└──┴──┴──┴──┴──┘"));
-        } else if (output.get(0).contains("COMMON GOAL #")) {
-            int i = 36; // starts printing after common goals
-            output.set(i, output.get(i++).concat("       PERSONAL GOAL"));
-            output.set(i, output.get(i++).concat("      ┌──┬──┬──┬──┬──┐"));
-            for (Color[] row : goal) {
-                StringBuilder string = new StringBuilder("      │");
-                for (Color color : row) {
-                    string
-                            .append(colorMap.getOrDefault(color, " ").repeat(2))
-                            .append("│");
-                }
-                output.set(i, output.get(i++).concat(string.toString()));
-                output.set(i, output.get(i++).concat("      ├──┼──┼──┼──┼──┤"));
-            }
-            i--;
-            output.set(i, output.get(i).replace("├──┼──┼──┼──┼──┤", "└──┴──┴──┴──┴──┘"));
         }
         return output;
     }
 
+
+    private ArrayList<String> drawShelf() {
+        String nickname = SocketClient.getInstance().getNickname();
+        HashMap<Color, Point> personalGoal = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPersonalGoal();
+        HashMap<Color, String> colorMap = Printer.getColorMap();
+        Color[][] goal = new Color[6][5];
+
+        for (Color color : Color.values()) {
+            Point p = personalGoal.get(color);
+            goal[p.x][p.y] = color;
+        }
+
+        ArrayList<String> output = new ArrayList<>();
+
+        output.add("       PERSONAL GOAL");
+        output.add("      ┌──┬──┬──┬──┬──┐");
+        for (Color[] row : goal) {
+            StringBuilder string = new StringBuilder("      │");
+            for (Color color : row) {
+                string
+                        .append(colorMap.getOrDefault(color, " ").repeat(2))
+                        .append("│");
+            }
+            output.add(string.toString());
+            output.add("      ├──┼──┼──┼──┼──┤");
+        }
+        output.set(output.size() - 1, output.get(output.size() - 1).replace("├──┼──┼──┼──┼──┤", "└──┴──┴──┴──┴──┘"));
+        return output;
+    }
 
     /**
      * Adds a brief description about personal goal cards next to the drawing of the cards

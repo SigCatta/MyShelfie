@@ -10,8 +10,10 @@ public class CommonGoalView extends ViewElement {
     private final CommonGoalReader reader = new CommonGoalReader();
     private static CommonGoalView instance;
 
-    private CommonGoalView(){}
-    public static CommonGoalView getInstance(){
+    private CommonGoalView() {
+    }
+
+    public static CommonGoalView getInstance() {
         if (instance == null) instance = new CommonGoalView();
         return instance;
     }
@@ -24,9 +26,20 @@ public class CommonGoalView extends ViewElement {
      */
     @Override
     public ArrayList<String> getPrint(ArrayList<String> output) {
+        ArrayList<String> drawing = drawCommonGoals();
+        if (output.size() == 0) return drawing;
+
+        for (int j = 0; j < Math.min(output.size(), drawing.size()); j++) {
+            output.set(j, output.get(j).concat(drawing.get(j)));
+        }
+        return output;
+    }
+
+    private ArrayList<String> drawCommonGoals() {
         ArrayList<String> drawing = new ArrayList<>();
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
+
         int i = 1;
         for (String cardName : cardNames) {
             drawing.add("       COMMON GOAL #" + i + "       " + (i > 9 ? "" : " "));
@@ -34,13 +47,7 @@ public class CommonGoalView extends ViewElement {
             drawing.add("     Available points: " + availablePoints.get(i++ - 1) + "     ");
             drawing.add("                             ");
         }
-        if (output.size() == 0) return drawing;
-
-        for (int j = 0; j < Math.min(output.size(), drawing.size()); j++) {
-            output.set(j, output.get(j).concat(drawing.get(j)));
-        }
-
-        return output;
+        return drawing;
     }
 
     /**

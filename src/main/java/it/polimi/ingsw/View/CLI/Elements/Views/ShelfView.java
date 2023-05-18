@@ -35,7 +35,7 @@ public class ShelfView extends ViewElement {
      * @param nickname the plauer's nickname
      * @return an ArrayList containing the given player's shelf
      */
-    public ArrayList<String> getOtherShelvsPrint(String nickname) {
+    public ArrayList<String> getOtherShelvesPrint(String nickname) {
         return printShelf(new ArrayList<>(), nickname);
     }
 
