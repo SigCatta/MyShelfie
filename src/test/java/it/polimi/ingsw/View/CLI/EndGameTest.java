@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.View.CLI;
 
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.Enum.GameState;
