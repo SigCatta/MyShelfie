@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
-import it.polimi.ingsw.View.CLI.Elements.ShelfView;
+import it.polimi.ingsw.View.CLI.Elements.Views.ShelfView;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 

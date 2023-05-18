@@ -1,6 +1,7 @@
-package it.polimi.ingsw.View.CLI.Elements;
+package it.polimi.ingsw.View.CLI.Elements.Views;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 

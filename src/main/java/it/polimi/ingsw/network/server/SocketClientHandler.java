@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
+import it.polimi.ingsw.network.client.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,7 +25,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
      */
     private String nickname;
     private int gameID;
-    private ObjectOutputStream output;
+    private ObjectOutputStream outputStm;
     private ObjectInputStream input;
     private boolean stop;
     /**
@@ -35,7 +36,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         pingController = new PingController(this);
 
         try {
-            this.output = new ObjectOutputStream(client.getOutputStream());
+            this.outputStm = new ObjectOutputStream(client.getOutputStream());
             this.input = new ObjectInputStream(client.getInputStream());
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
@@ -105,9 +106,16 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     @Override
     public void sendCommand(MessageToClient messageToClient){
         try {
-            output.writeObject(messageToClient);
-            output.reset();
+            outputStm.writeObject(messageToClient);
+            outputStm.reset();
         } catch (IOException e) {
+            try{
+                outputStm.close();
+                outputStm = new ObjectOutputStream(client.getOutputStream());
+                outputStm.writeObject(messageToClient);
+            } catch (IOException ignored){
+                Client.LOGGER.severe("Output stream failed");
+            }
             Server.LOGGER.severe(e.getMessage());
             disconnect();
         }

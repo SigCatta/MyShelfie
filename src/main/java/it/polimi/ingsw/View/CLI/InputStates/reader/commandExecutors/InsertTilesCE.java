@@ -2,7 +2,7 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Enum.GameState;
-import it.polimi.ingsw.View.CLI.Elements.TilesTableView;
+import it.polimi.ingsw.View.CLI.Elements.Views.TilesTableView;
 import it.polimi.ingsw.View.CLI.InputStates.reader.CommandExecutorFactory;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.Elements.Views.*;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.network.client.SocketClient;

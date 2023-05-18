@@ -84,6 +84,13 @@ public class SocketClient extends Client {
             outputStm.reset();
             outputStm.writeObject(message);
         } catch (IOException e) {
+            try{
+                outputStm.close();
+                outputStm = new ObjectOutputStream(socket.getOutputStream());
+                outputStm.writeObject(message);
+            } catch (IOException ignored){
+                Client.LOGGER.severe("Output stream failed");
+            }
             Client.LOGGER.severe("An error occurred while sending the message");
         }
     }

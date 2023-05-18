@@ -8,6 +8,7 @@ import it.polimi.ingsw.VirtualView.Messages.PlayerMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 /**
@@ -37,13 +38,23 @@ public class GameStopper implements VirtualModelObserver {
         Printer.clearConsole();
         ArrayList<PlayerMTC> players = PlayersRepresentation.getInstance().getAllPlayerMTC();
 
-        players.sort((a, b) -> b.getScore() - a.getScore());
+        PlayerMTC winner = players.stream().max(Comparator.comparingInt(PlayerMTC::getScore)).orElse(null);
+        if (winner == null) return; // should never happen...
 
-        if (players.get(0).getNickname().equals(SocketClient.getInstance().getNickname())) printWinnerScreen();
+        if (SocketClient.getInstance().getNickname().equals(winner.getNickname())) printWinnerScreen();
         else printLoserScreen();
 
-        printLeaderBoard(players);
+        ScoreBoardPrinter.getInstance().update();
 
+        while (!ScoreBoardPrinter.getInstance().hasPrinted()) {
+            synchronized (ScoreBoardPrinter.getInstance()) {
+                try {
+                    ScoreBoardPrinter.getInstance().wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
         System.exit(0);
     }
 
@@ -94,20 +105,5 @@ public class GameStopper implements VirtualModelObserver {
                 "    YYYY:::::YYYY     OO:::::::::::::OO   UU:::::::::::::UU       L::::::::::::::::::::::L OO:::::::::::::OO S::::::SSSSSS:::::S      T:::::::::T       ......  ......  ...... \n" +
                 "    Y:::::::::::Y       OO:::::::::OO       UU:::::::::UU         L::::::::::::::::::::::L   OO:::::::::OO   S:::::::::::::::SS       T:::::::::T       .::::.  .::::.  .::::. \n" +
                 "    YYYYYYYYYYYYY         OOOOOOOOO           UUUUUUUUU           LLLLLLLLLLLLLLLLLLLLLLLL     OOOOOOOOO      SSSSSSSSSSSSSSS         TTTTTTTTTTT       ......  ......  ...... ");
-    }
-
-    /**
-     * Prints the leaderboard
-     *
-     * @param players ArraList of {@link PlayerMTC} to print in the leaderboard
-     */
-    private void printLeaderBoard(ArrayList<PlayerMTC> players) {
-        for (int i = 0; i < players.size(); i++) {
-            PlayerMTC player = players.get(i);
-            if (player.getNickname().equals(SocketClient.getInstance().getNickname())) {
-                System.out.println("\u001B[1m " + (i + 1) + ". " + player.getNickname() + "     " + player.getScore() + "\033[0;1m");
-            }
-            System.out.println((i + 1) + ". " + player.getNickname() + "     " + player.getScore());
-        }
     }
 }

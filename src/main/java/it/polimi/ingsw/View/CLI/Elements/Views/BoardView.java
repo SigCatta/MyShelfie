@@ -1,7 +1,8 @@
-package it.polimi.ingsw.View.CLI.Elements;
+package it.polimi.ingsw.View.CLI.Elements.Views;
 
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.BoardRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 

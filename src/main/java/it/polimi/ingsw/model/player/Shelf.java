@@ -36,7 +36,7 @@ public class Shelf implements VirtualViewSubject {
      * 5 | _ _ _ _ _
      *     0 1 2 3 4
      */
-    private final ItemTile[][] shelfGrid;
+    private ItemTile[][] shelfGrid;
 
     /**
      * Constructs a new Shelf object
@@ -71,6 +71,9 @@ public class Shelf implements VirtualViewSubject {
         notifyObservers();
     }
 
+    public void setShelfGrid(ItemTile[][] shelfGrid){
+        this.shelfGrid = shelfGrid;
+    }
 
     /**
      * @return The List of stacks of ItemTiles representing the player's shelf.
