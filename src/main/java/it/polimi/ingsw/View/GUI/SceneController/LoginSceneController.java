@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
+import it.polimi.ingsw.InputValidator;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -79,8 +80,8 @@ public class LoginSceneController {
         } else wrongNicknameImage.setVisible(true);
     }
 
-    public void isIpCorrect(boolean correct)  {
-        if(correct) {   //TODO ckeck if ip is valid
+    public void isIpCorrect()  {
+        if(InputValidator.isValidIpAddress(ipField.getText())) {
             wrongIpImage.setVisible(false);   //ip is correct
         } else wrongIpImage.setVisible(true);
     }
