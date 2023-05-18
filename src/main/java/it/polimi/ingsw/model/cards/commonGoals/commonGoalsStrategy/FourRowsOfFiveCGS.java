@@ -22,24 +22,15 @@ public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     public boolean isGoalAchieved(Shelf shelf) {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
         int validRows = 0;
-        for (int i = 0; i < shelfGrid.length; i++) {
-            // Check if row has at least five cells
-            if (numOfNotNullCell(shelfGrid, i) < 5) {
-                continue;
-            }
+        for (ItemTile[] row : shelfGrid) {
+            if (hasLessThanFiveTiles(row)) continue;
 
-            // Count number of different colors in the row
             Set<Color> colors = new HashSet<>();
-            for (int j = 0; j < shelfGrid[i].length; j++) {
-                if (shelfGrid[i][j] != null) {
-                    colors.add(shelfGrid[i][j].getColor());
-                }
+            for (ItemTile tile : row) {
+                if (tile != null) colors.add(tile.getColor());
             }
 
-            // If row has more than three colors, move on to next row
-            if (colors.size() <= 3) {
-                validRows++;
-            }
+            if (colors.size() <= 3) validRows++;
             if (validRows >= 4) return true;
 
         }
@@ -48,17 +39,14 @@ public class FourRowsOfFiveCGS extends CommonGoalStrategy {
     }
 
     /**
-     * @param shelfGrid the Color matrix to check
-     * @param row       the row of the Color matrix to check
-     * @return the number of non-null cells
+     * @param shelfRow the row to check
+     * @return a boolean indicating if there are less than five tiles or not
      */
-    private int numOfNotNullCell(ItemTile[][] shelfGrid, int row) {
+    private boolean hasLessThanFiveTiles(ItemTile[] shelfRow) {
         int count = 0;
-        for (int col = 0; col < shelfGrid[0].length; col++) {
-            if (shelfGrid[row][col] != null) {
-                count++;
-            }
+        for (ItemTile tile : shelfRow) {
+            if (tile != null) count++;
         }
-        return count;
+        return count < 5;
     }
 }

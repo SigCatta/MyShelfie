@@ -5,22 +5,11 @@ import it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Rule:
  * Four tiles of the same type in the four corners of the bookshelf.
  */
 public class FourAnglesCGS extends CommonGoalStrategy {
-    /**
-     * @param color    The Color to check.
-     * @param itemTile The ItemTile to check.
-     * @return True if the ItemTile is not null and has the given color. False otherwise.
-     */
-    public boolean checkColor(Color color, ItemTile itemTile) {
-        return itemTile != null && itemTile.getColor().equals(color);
-    }
 
     /**
      * Checks if the goal of having all tiles on the corners with the same color is achieved.
@@ -33,16 +22,15 @@ public class FourAnglesCGS extends CommonGoalStrategy {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
         int rows = shelfGrid.length;
         int cols = shelfGrid[0].length;
-        Set<Color> colorSet = new HashSet<>();
-        if (shelfGrid[0][0] != null) colorSet.add(shelfGrid[0][0].getColor());
-        else return false;
-        if (shelfGrid[0][cols - 1] != null) colorSet.add(shelfGrid[0][cols - 1].getColor());
-        else return false;
-        if (shelfGrid[rows - 1][cols - 1] != null) colorSet.add(shelfGrid[rows - 1][cols - 1].getColor());
-        else return false;
-        if (shelfGrid[rows - 1][0] != null) colorSet.add(shelfGrid[rows - 1][0].getColor());
-        else return false;
+        try {
+            Color color = shelfGrid[0][0].getColor();
+            if (shelfGrid[0][cols - 1].getColor() != color) return false;
+            if (shelfGrid[rows - 1][cols - 1].getColor() != color) return false;
+            if (shelfGrid[rows - 1][0].getColor() != color) return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
 
-        return colorSet.size() == 1;
+        return true;
     }
 }

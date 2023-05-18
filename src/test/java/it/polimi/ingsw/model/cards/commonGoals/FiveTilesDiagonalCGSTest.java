@@ -1,30 +1,33 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FiveTilesDiagonalCGSTest {
+    private final FiveTilesDiagonalCGS cg = new FiveTilesDiagonalCGS();
+
     @Test
-    public void isGoalAchievedTest() {
-        FiveTilesDiagonalCGS cg = new FiveTilesDiagonalCGS();
-        ItemTile[][] mat1 = {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, new ItemTile(Color.BLUE), null, null, null},
-                {null, null, null, new ItemTile(Color.BLUE), null, null},
-                {null, null, null, null, new ItemTile(Color.BLUE), null},
-                {null, null, null, null, null, null}
+    public void isGoalAchievedTest1() {
+        ItemTile[][] mat = {
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
         };
-        Shelf shelf = new Shelf(mat1);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] mat2 = {
+    @Test
+    public void isGoalAchievedTest2() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
@@ -32,10 +35,12 @@ public class FiveTilesDiagonalCGSTest {
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
         };
-        shelf = new Shelf(mat2);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] mat3 = {
+    @Test
+    public void isGoalAchievedTest3() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.YELLOW), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
@@ -43,27 +48,18 @@ public class FiveTilesDiagonalCGSTest {
                 {new ItemTile(Color.GREEN), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
                 {new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE), new ItemTile(Color.PINK)},
         };
-        shelf = new Shelf(mat3);
-        assertTrue(cg.isGoalAchieved(shelf));
-
-        ItemTile[][] shelfGrid = new ItemTile[6][5];
-        shelfGrid[0][0] = new ItemTile(Color.BLUE);
-        shelfGrid[1][1] = new ItemTile(Color.BLUE);
-        shelfGrid[2][2] = new ItemTile(Color.BLUE);
-        shelfGrid[3][3] = new ItemTile(Color.BLUE);
-        shelfGrid[4][4] = new ItemTile(Color.BLUE);
-
-        shelf = new Shelf(shelfGrid);
-        assertTrue(cg.isGoalAchieved(shelf));
-
-        shelfGrid = new ItemTile[6][5];
-        shelfGrid[0][4] = new ItemTile(Color.BLUE);
-        shelfGrid[1][3] = new ItemTile(Color.BLUE);
-        shelfGrid[2][2] = new ItemTile(Color.BLUE);
-        shelfGrid[3][1] = new ItemTile(Color.BLUE);
-        shelfGrid[4][0] = new ItemTile(Color.BLUE);
-
-        shelf = new Shelf(shelfGrid);
-        assertTrue(cg.isGoalAchieved(shelf));
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
+    @Test
+    public void isGoalAchievedTest4() {
+        ItemTile[][] mat = {
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+                {null, new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE)},
+        };
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
 }
