@@ -23,31 +23,18 @@ public class TwoRowsWithFiveDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
-        int rows = shelfGrid.length;
         int columns = shelfGrid[0].length;
+        int count = 0;
 
-        for (int i = 0; i < rows; i++) {
+        for (ItemTile[] row : shelfGrid) {
             Set<Color> distinctColors = new HashSet<>();
             for (int j = 0; j < columns; j++) {
-                if (shelfGrid[i][j] != null) {
-                    distinctColors.add(shelfGrid[i][j].getColor());
-                }
+                if (row[j] == null) break;
+                distinctColors.add(row[j].getColor());
             }
-            if (distinctColors.size() >= 5) {   //first valid row found
-                for (int k = i + 1; k < rows; k++) {
-                    Set<Color> distinctColors2 = new HashSet<>();
-                    for (int j = 0; j < columns; j++) {
-                        if (shelfGrid[k][j] != null) {
-                            distinctColors2.add(shelfGrid[k][j].getColor());
-                        }
-                    }
-                    if (distinctColors2.size() >= 5 && i != k) {    //second valid row found
-                        return true;
-                    }
-                }
-            }
+            if (distinctColors.size() >= 5) count++;
+            if (count >= 2) return true;
         }
-
         return false;
     }
 }
