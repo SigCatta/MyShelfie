@@ -113,11 +113,11 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 outputStm.close();
                 outputStm = new ObjectOutputStream(client.getOutputStream());
                 outputStm.writeObject(messageToClient);
+                outputStm.reset();
             } catch (IOException ignored){
                 Client.LOGGER.severe("Output stream failed");
             }
             Server.LOGGER.severe(e.getMessage());
-            disconnect();
         }
     }
 

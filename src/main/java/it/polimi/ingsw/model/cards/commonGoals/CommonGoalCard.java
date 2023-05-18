@@ -76,6 +76,7 @@ public class CommonGoalCard implements VirtualViewSubject {
     @Override
     public void registerObserver(VirtualViewObserver observer) {
         observers.add(observer);
+        System.out.println("test");
     }
 
     @Override
