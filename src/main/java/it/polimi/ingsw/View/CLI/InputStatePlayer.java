@@ -11,13 +11,9 @@ public class InputStatePlayer implements Runnable {
     /**
      * Plaus the state which the player is, the starting state is NicknameState
      */
-    @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
-        state = new NicknameState();
-        while (true) {
-            state.play();
-        }
+        new NicknameState().play();
     }
 
     private InputStatePlayer() {
@@ -37,7 +33,4 @@ public class InputStatePlayer implements Runnable {
         this.state = state;
     }
 
-    public InputState getState() {
-        return state;
-    }
 }

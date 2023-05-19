@@ -38,8 +38,5 @@ public class ShelvesRepresentation extends VirtualModelSubject {
     @Override
     public void notifyObservers() {
        observers.forEach(VirtualModelObserver::update);
-       synchronized (this){
-           notifyAll();
-       }
     }
 }

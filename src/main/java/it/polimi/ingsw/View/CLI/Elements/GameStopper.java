@@ -44,17 +44,8 @@ public class GameStopper implements VirtualModelObserver {
         if (SocketClient.getInstance().getNickname().equals(winner.getNickname())) printWinnerScreen();
         else printLoserScreen();
 
-        ScoreBoardPrinter.getInstance().update();
+        printScoreBoard();
 
-        while (!ScoreBoardPrinter.getInstance().hasPrinted()) {
-            synchronized (ScoreBoardPrinter.getInstance()) {
-                try {
-                    ScoreBoardPrinter.getInstance().wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
         System.exit(0);
     }
 
@@ -105,5 +96,26 @@ public class GameStopper implements VirtualModelObserver {
                 "    YYYY:::::YYYY     OO:::::::::::::OO   UU:::::::::::::UU       L::::::::::::::::::::::L OO:::::::::::::OO S::::::SSSSSS:::::S      T:::::::::T       ......  ......  ...... \n" +
                 "    Y:::::::::::Y       OO:::::::::OO       UU:::::::::UU         L::::::::::::::::::::::L   OO:::::::::OO   S:::::::::::::::SS       T:::::::::T       .::::.  .::::.  .::::. \n" +
                 "    YYYYYYYYYYYYY         OOOOOOOOO           UUUUUUUUU           LLLLLLLLLLLLLLLLLLLLLLLL     OOOOOOOOO      SSSSSSSSSSSSSSS         TTTTTTTTTTT       ......  ......  ...... ");
+    }
+
+
+    /**
+     * Prints the scoreboard
+     */
+    private void printScoreBoard(){
+        if (GameRepresentation.getInstance().getGameState() != GameState.END) return;
+
+        ArrayList<PlayerMTC> players = PlayersRepresentation.getInstance().getAllPlayerMTC();
+        players.sort((a, b) -> b.getScore() - a.getScore());
+
+        System.out.println("\n");
+        for (int i = 0; i < players.size(); i++) {
+            PlayerMTC player = players.get(i);
+            if (player.getNickname().equals(SocketClient.getInstance().getNickname())) {
+                System.out.println("\u001B[1m" + (i + 1) + ". " + player.getNickname() + "     " + player.getScore() + "\033[0m");
+            } else {
+                System.out.println((i + 1) + ". " + player.getNickname() + "     " + player.getScore());
+            }
+        }
     }
 }

@@ -3,6 +3,9 @@ package it.polimi.ingsw.VirtualModel;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameRepresentation extends VirtualModelSubject {
     private GameMTC gameMessage;
     private static GameRepresentation instance;
@@ -41,9 +44,7 @@ public class GameRepresentation extends VirtualModelSubject {
 
     @Override
     public void notifyObservers() {
-        observers.forEach(VirtualModelObserver::update);
-        synchronized (this) {
-            notifyAll();
-        }
+        List<VirtualModelObserver> o = new ArrayList<>(observers);
+        o.forEach(VirtualModelObserver::update);
     }
 }

@@ -46,7 +46,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            pingController.start();
             handleClientMessages();
         }catch (IOException e) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped. (socketClientHandler)");//TODO remove after testing
@@ -79,7 +78,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             GamesManager.getInstance().onCommandReceived(message);
         }
 
-        pingController.close();
         client.close();
     }
 
