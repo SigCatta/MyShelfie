@@ -1,20 +1,20 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TwoRowsWithFiveDiffCGSTest {
+    private final TwoRowsWithFiveDiffCGS cg = new TwoRowsWithFiveDiffCGS();
 
     @Test
-    public void isGoalAchievedTest() {
-        TwoRowsWithFiveDiffCGS cg = new TwoRowsWithFiveDiffCGS();
-        ItemTile[][] matrix1 = {
+    public void isGoalAchievedTest1() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
@@ -22,10 +22,12 @@ public class TwoRowsWithFiveDiffCGSTest {
                 {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        Shelf shelf = new Shelf(matrix1);;
-        assertTrue(cg.isGoalAchieved(shelf));
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
 
-        ItemTile[][] matrix2 = {
+    @Test
+    public void isGoalAchievedTest2() {
+        ItemTile[][] mat = {
                 {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), null, new ItemTile(Color.WHITE)},
@@ -33,7 +35,19 @@ public class TwoRowsWithFiveDiffCGSTest {
                 {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.WHITE)},
                 {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
         };
-        shelf = new Shelf(matrix2);
-        assertFalse(cg.isGoalAchieved(shelf));
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
+    }
+
+    @Test
+    public void isGoalAchievedTest3() {
+        ItemTile[][] mat = {
+                {new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.PINK), new ItemTile(Color.YELLOW), new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.WHITE)},
+                {new ItemTile(Color.GREEN), new ItemTile(Color.GREEN), new ItemTile(Color.BLUE), new ItemTile(Color.WHITE), new ItemTile(Color.WHITE)},
+        };
+        assertFalse(cg.isGoalAchieved(new Shelf(mat)));
     }
 }
