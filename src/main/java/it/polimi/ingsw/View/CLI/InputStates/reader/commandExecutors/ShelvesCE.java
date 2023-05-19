@@ -1,7 +1,7 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
 import it.polimi.ingsw.View.CLI.Elements.Printer;
-import it.polimi.ingsw.View.CLI.Elements.ShelfView;
+import it.polimi.ingsw.View.CLI.Elements.Views.ShelfView;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 
@@ -24,7 +24,7 @@ public class ShelvesCE implements CommandExecutor {
                 continue;
             }
             Printer.clearConsole();
-            ArrayList<String> output = ShelfView.getInstance().getOtherShelvsPrint(input);
+            ArrayList<String> output = ShelfView.getInstance().getOtherShelvesPrint(input);
             output.forEach(System.out::println);
             Printer.addAvailableCommands(new ArrayList<>()).forEach(System.out::println);
             break;

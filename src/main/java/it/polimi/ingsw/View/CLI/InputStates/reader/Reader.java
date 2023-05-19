@@ -1,7 +1,9 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader;
 
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 
@@ -87,7 +89,8 @@ public class Reader implements Runnable, VirtualModelObserver {
 
         EchoMTC message = EchosRepresentation.getInstance().popMessage();
         if (message != null) {
-            System.out.println(message.getOutput());
+            if (message.getID().equals(EchoID.JOINED)) System.out.println(message.getOutput() + GameRepresentation.getInstance().getGameID());
+            else System.out.println(message.getOutput());
             if (message.isError()) {
                 for (int i = 0; i < 3; i++) {
                     try {

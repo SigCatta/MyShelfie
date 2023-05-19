@@ -1,13 +1,14 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 
-public class NicknameState extends InputState {
+public class NicknameState extends InputState implements VirtualModelObserver {
 
 
     /**
@@ -16,25 +17,29 @@ public class NicknameState extends InputState {
      */
     @Override
     public void play() {
-        System.out.println("Insert nickname:");
-        input = Reader.getInput();
-        if (input.equals("")) {
-            System.out.println("Invalid nickname!");
-            return;
-        }
+        do {
+            System.out.println("Insert nickname:");
+            input = Reader.getInput();
+            if (input.equals("")) System.out.println("Invalid nickname!");
+        } while (input.equals(""));
+
         socketClient.sendCommand(new HandshakeMTS(input));
+        EchosRepresentation.getInstance().registerObserver(this);
+    }
 
-        synchronized (EchosRepresentation.getInstance()) {
-            waitForVM(EchosRepresentation.getInstance());
-        }
-
+    @Override
+    public void update() {
         EchoMTC message = EchosRepresentation.getInstance().popMessage();
 
         System.out.println(message.getOutput());
-        if (!message.isError()) {
+        if (message.getID().equals(EchoID.NICKOK)) {
             SocketClient.getInstance().setNickname(input);
             input = null;
-            InputStatePlayer.getInstance().setState(new StartOrJoinState());
+            EchosRepresentation.getInstance().removeObserver(this);
+            new StartOrJoinState().play();
+        } else if (message.getID().equals(EchoID.BADNICK)) {
+            EchosRepresentation.getInstance().removeObserver(this);
+            play();
         }
     }
 }

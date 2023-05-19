@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.CLI.Elements;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.Elements.Views.*;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.*;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -14,6 +15,10 @@ public class Printer implements VirtualModelObserver {
     private static Printer instance;
     private final Reader reader;
 
+    /**
+     * Creates a new Printer instance and registers
+     * it to all needded Observables
+     */
     private Printer() {
         BoardRepresentation.getInstance().registerObserver(this);
         ChatRepresentation.getInstance().registerObserver(this);
@@ -74,11 +79,12 @@ public class Printer implements VirtualModelObserver {
      * - chat (if available)<br>
      * - a list of the available commands<br>
      */
+    @SuppressWarnings("WaitWhileHoldingTwoLocks")
     @Override
     public synchronized void update() {
         while (reader.isReading()) {
             try {
-                synchronized (reader){
+                synchronized (reader) {
                     reader.wait();
                 }
             } catch (InterruptedException e) {

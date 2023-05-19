@@ -1,6 +1,7 @@
-package it.polimi.ingsw.View.CLI.Elements;
+package it.polimi.ingsw.View.CLI.Elements.Views;
 
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
 
@@ -34,7 +35,7 @@ public class ShelfView extends ViewElement {
      * @param nickname the plauer's nickname
      * @return an ArrayList containing the given player's shelf
      */
-    public ArrayList<String> getOtherShelvsPrint(String nickname) {
+    public ArrayList<String> getOtherShelvesPrint(String nickname) {
         return printShelf(new ArrayList<>(), nickname);
     }
 
