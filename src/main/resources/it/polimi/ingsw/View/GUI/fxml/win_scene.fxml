@@ -13,7 +13,7 @@
     <children>
         <Group>
             <children>
-                <AnchorPane onMouseEntered="#setUp" prefHeight="801.0" prefWidth="1205.0">
+                <AnchorPane prefHeight="801.0" prefWidth="1205.0">
                     <children>
                   <ImageView fitHeight="693.0" fitWidth="898.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
