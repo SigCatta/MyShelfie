@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
+import it.polimi.ingsw.View.CLI.InputStates.NicknameState;
 import it.polimi.ingsw.View.GUI.Gui;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -35,7 +35,7 @@ public class ClientApp {
         }
 
         if (cliParam) {
-            new Thread(InputStatePlayer.getInstance()).start();
+            new NicknameState().play();
         } else {
             Application.launch(Gui.class);
         }

@@ -45,12 +45,12 @@ public class PersonalGoalReaderTest {
         String file = "1.json";
         HashMap<Color, Point> expected = new HashMap<>();
 
-        expected.put(Color.GREEN, new Point(5, 2));
-        expected.put(Color.YELLOW, new Point(2, 4));
-        expected.put(Color.BLUE, new Point(3, 1));
-        expected.put(Color.LIGHTBLUE, new Point(3, 6));
-        expected.put(Color.PINK, new Point(1, 1));
-        expected.put(Color.WHITE, new Point(4, 3));
+        expected.put(Color.GREEN, new Point(1, 4));
+        expected.put(Color.YELLOW, new Point(3, 1));
+        expected.put(Color.BLUE, new Point(0, 2));
+        expected.put(Color.LIGHTBLUE, new Point(5, 2));
+        expected.put(Color.PINK, new Point(0, 0));
+        expected.put(Color.WHITE, new Point(2, 3));
 
         HashMap<Color, Point> tested = reader.getPersonalGoalsData(file);
         assertEquals(tested, expected);

@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
 
-import it.polimi.ingsw.exceptions.NullPlayersException;
-import it.polimi.ingsw.exceptions.TooManyPlayersException;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.PersonalGoalReader;
+import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PersonalGoalsTest {
 
     @Test
-    public void pointStackTest() throws TooManyPlayersException, IOException, ParseException, NullPlayersException {
+    public void pointStackTest() throws TooManyPlayersException, IOException, ParseException {
         ArrayList<Player> players = new ArrayList<>();
         players.add(new Player("player1"));
         PersonalCardDealer.getCards(players);
@@ -101,5 +100,26 @@ public class PersonalGoalsTest {
     public void testGetPointStack() {
         Stack<Integer> pointsResult = personalGoal.getPointStack();
         assertEquals(points, pointsResult);
+    }
+
+    @Test
+    public void calculateScoreTest() throws IOException, ParseException {
+        Player p = new Player("TEST");
+        PersonalGoalReader pr = new PersonalGoalReader();
+
+        PersonalGoal pg = new PersonalGoal(p, pr.getPersonalGoalsData("1.json"), pr.getPointStack(), "1");
+        p.setPersonalGoal(pg);
+
+        ItemTile[][] mat = {
+                {new ItemTile(Color.PINK), null, new ItemTile(Color.BLUE), null, null},
+                {null, null, null, null, new ItemTile(Color.GREEN)},
+                {null, null, null, new ItemTile(Color.WHITE), null},
+                {null, new ItemTile(Color.YELLOW), null, null, null},
+                {null, null, null, null, null},
+                {null, null, new ItemTile(Color.LIGHTBLUE), null, null},
+        };
+
+        p.getShelf().setShelfGrid(mat);
+        assertEquals(34, p.getPersonalGoal().calculateScore());
     }
 }

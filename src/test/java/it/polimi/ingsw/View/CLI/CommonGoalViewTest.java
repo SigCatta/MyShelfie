@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.View.CLI.Elements.CommonGoalView;
+import it.polimi.ingsw.View.CLI.Elements.Views.CommonGoalView;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;

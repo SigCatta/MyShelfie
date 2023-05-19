@@ -6,22 +6,22 @@ import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 
-import java.util.ArrayList;
-
 public class CommonGoalVV implements VirtualViewObserver, EndOfTurnObserver {
-    private final ArrayList<CommonGoalCard> commonGoalCards;
+    private final Game game;
     private final VirtualView VIRTUAL_VIEW;
 
     public CommonGoalVV(Game game, VirtualView virtualView) {
-        this.commonGoalCards = game.getCommonGoals();
+        this.game = game;
         this.VIRTUAL_VIEW = virtualView;
-        this.commonGoalCards.forEach(cg -> cg.registerObserver(this));
+        for(CommonGoalCard cg : game.getCommonGoals()){
+            cg.registerObserver(this);
+        }
         update();
     }
 
     @Override
     public void update() {
         if (VIRTUAL_VIEW == null) return; // testing...
-        VIRTUAL_VIEW.send(new CommonGoalMTC(commonGoalCards));
+        VIRTUAL_VIEW.send(new CommonGoalMTC(game.getCommonGoals()));
     }
 }
