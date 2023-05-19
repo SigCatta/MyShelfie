@@ -2,24 +2,30 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.InsertTileMTS;
 import it.polimi.ingsw.Controller.Client.PickUpTilesMTS;
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.BoardMemory;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemTileMemory;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
-import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.*;
 import it.polimi.ingsw.VirtualModel.*;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -29,9 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BoardController implements Initializable {
+public class BoardController extends GuiController implements Initializable {
 
-    private static BoardController instance;
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
     private String myNickname;
 
@@ -41,25 +46,12 @@ public class BoardController implements Initializable {
     private int selectedTileToSendToShelf = -1;
 
 
-    public BoardController() {
-
-        instance = this;
-
-        myNickname = SocketClient.getInstance().getNickname();
-
-        //boardActionListenerInit(); //initialize the action associated with the image click
-    }
-
-    public static BoardController getInstance() {
-        return instance;
-    }
-
-
     @FXML
     GridPane board, myShelf;
     @FXML
     FlowPane myChosenTilesTable;
-
+    @FXML
+    Circle newMessageIcon;
     @FXML
     AnchorPane chooseColumnPane;
 
@@ -74,33 +66,32 @@ public class BoardController implements Initializable {
     ImageView col0InsertButton, col1InsertButton, col2InsertButton, col3InsertButton, col4InsertButton;
 
     @FXML
+    ImageView firstScoreToken, myFirstScoreToken;
+
+    @FXML
     FlowPane playersPane;
 
     @FXML
     ImageView changeChat, changeShelf, changeObjective;
 
-    @FXML @Override
+    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initBoard();
+
+        myNickname = SocketClient.getInstance().getNickname();
+
+        initBoard(); //TODO it is necessary only for the first time
         initInsertButtons();
         initPlayersName();
         initShelf();
         initChangeSceneButtons();
 
-        new BoardObserver().update();
-        new PlayerObserver().update();
-        new ShelfObserver().update();
-        new TilesTableObserver().update();
-        new ChangeTurnObserver().update();
-        new GameStateObserver();
-        new ErrorObserver();
-    }
+        updateBoard();
+        updateShelf();
+        updateChosenTilesTable();
+        updateChangeTurn();
+        updateGame();
 
-    public void checkForEnd() {
-        if(GameRepresentation.getInstance().getGameState().equals(GameState.END)) {
-            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Win Scene")
-            );
-        }
     }
 
     private void initInsertButtons() {
@@ -165,17 +156,23 @@ public class BoardController implements Initializable {
      * when the board in the virtual model updates this method is called
      * to refresh the board in the gui
      */
+    @Override
     public void updateBoard() {
         ItemTile[][] boardModel = BoardRepresentation.getInstance().getBoard();
         ItemRefillUtility.updateBoardGrid(boardModel);
     }
 
+    @Override
     public void updateShelf() {
+
+        //if(ConnectionPendingTimer.isPending()) ConnectionPendingTimer.cancel(); //the shelf arrived
+
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
         System.out.println("Updating the shelf...");//TODO remove
         ItemRefillUtility.updateShelfGrid(myShelf, shelfModel);
     }
 
+    @Override
     public void updateChosenTilesTable() {
         List<ItemTile> chosenTilesTable = TilesTableRepresentation.getInstance().getTiles();
         if (chosenTilesTable == null) return;
@@ -191,21 +188,23 @@ public class BoardController implements Initializable {
         }
     }
 
-    public void updateError() {
-        errorImage.setVisible(true);
-        errorText.setVisible(true);
-        errorText.setWrappingWidth(300);
-
-        System.out.println("There was an error: "); //TODO remove
-        errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0.0);
-        fadeTransition.play();
-
-        EchosRepresentation.getInstance().clean();
+    @Override
+    public void updateChat() {
+        newMessageIcon.setVisible(true);
     }
 
+    @Override
+    public void updateEcho(EchoMTC message) {
+
+        if (message.getID() == EchoID.LAST_TURN) {
+            updateLastTurn();
+        } else if(message.isError()){
+            showError(message);
+        }
+
+    }
+
+    @Override
     public void updateChangeTurn() {
         for (Node text : playersPane.getChildren()) {
             if (text == null) return;
@@ -217,10 +216,50 @@ public class BoardController implements Initializable {
         }
     }
 
+    @Override
     public void updateGameState() {
         if (GameRepresentation.getInstance().getGameState() == GameState.END) {
             Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }
+    }
+
+    private void updateLastTurn() {
+        if (new Shelf(ShelvesRepresentation.getInstance().getShelfMessage(myNickname).getShelf()).isFull()) {
+            myFirstScoreToken.setVisible(true);
+            firstScoreToken.setVisible(false);
+
+            RotateTransition rotate = new RotateTransition();
+            rotate.setNode(myFirstScoreToken);
+            rotate.setDuration(Duration.millis(1000));
+            rotate.setCycleCount(1);
+            rotate.setInterpolator(Interpolator.LINEAR);
+            rotate.setByAngle(360);
+
+            rotate.play();
+
+            return;
+        }
+
+        //black and white effect
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(-0.9);
+        firstScoreToken.setEffect(colorAdjust);
+    }
+
+
+    private void showError(EchoMTC errorMessage){
+        errorImage.setVisible(true);
+        errorText.setVisible(true);
+        errorText.setWrappingWidth(300);
+
+        System.out.println("There was an error: "); //TODO remove
+        errorText.setText(errorMessage.getOutput());
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
+
+        EchosRepresentation.getInstance().clean();
     }
 
 
@@ -316,7 +355,6 @@ public class BoardController implements Initializable {
         });
 
         imageView.setOnMouseEntered(mouseEvent -> imageView.getStyleClass().add("edge-effect"));
-
         imageView.setOnMouseExited(mouseEvent -> imageView.getStyleClass().remove("edge-effect"));
 
     }
@@ -348,6 +386,10 @@ public class BoardController implements Initializable {
 
     @FXML
     public synchronized void onInsertTileClicked(int column) {
+
+        ////Start the timer that stops this method until the shelf is updated
+        //if(ConnectionPendingTimer.isPending()) return;
+        //ConnectionPendingTimer.start(1);
 
         if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
         if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))

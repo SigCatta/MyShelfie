@@ -34,7 +34,7 @@ public class CanIPlayExecutor implements Executor {
             return;
         }
         if (game.getGameState() != GameState.PREGAME) {
-            message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.GAMESTARTED, true));
+            message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.GAMEFULL, true));
             return;
         }
 
@@ -52,6 +52,6 @@ public class CanIPlayExecutor implements Executor {
         game.getVirtualView().updateAllPlayers();
         game.getVirtualView().updateAllShelvs();
         game.notifyObservers();
-        message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.JOINED, false));
+        game.getVirtualView().send(new EchoMTC(EchoID.JOINED, false));
     }
 }

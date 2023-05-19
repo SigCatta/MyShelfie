@@ -1,8 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
-import it.polimi.ingsw.View.GUI.GuiTest;
-import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ErrorObserver;
+import it.polimi.ingsw.View.GUI.Gui;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Application;
@@ -38,7 +37,7 @@ public class ClientApp {
         if (cliParam) {
             new Thread(InputStatePlayer.getInstance()).start();
         } else {
-            Application.launch(GuiTest.class);
+            Application.launch(Gui.class);
         }
     }
 

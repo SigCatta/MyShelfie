@@ -2,49 +2,25 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class WinSceneController {
+public class WinSceneController extends GuiController implements Initializable {
     @FXML
-    Text player1Nickname;
-
-    @FXML
-    Text player2Nickname;
+    Text player1Nickname, player2Nickname, player3Nickname, player4Nickname;
 
     @FXML
-    Text player3Nickname;
+    Text player1Points, player2Points, player3Points, player4Points;
 
     @FXML
-    Text player4Nickname;
+    ImageView player1CrownImage, player2CrownImage, player3CrownImage, player4CrownImage;
 
-    @FXML
-    Text player1Points;
-
-    @FXML
-    Text player2Points;
-
-    @FXML
-    Text player3Points;
-
-    @FXML
-    Text player4Points;
-
-    @FXML
-    ImageView player1CrownImage;
-
-    @FXML
-    ImageView player2CrownImage;
-
-    @FXML
-    ImageView player3CrownImage;
-
-    @FXML
-    ImageView player4CrownImage;
-
-    public void setWinner() {
+    private void setWinner() {
         List<Integer> pointList = List.of(Integer.parseInt(player1Points.getText()), Integer.parseInt(player1Points.getText()),
                 Integer.parseInt(player1Points.getText()), Integer.parseInt(player1Points.getText()));
 
@@ -60,8 +36,13 @@ public class WinSceneController {
         }
     }
 
-    @FXML
-    public void setUp() {
+    @Override
+    public void updatePlayers(){
+        //TODO
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Text> nicknamesTextsList = List.of(player1Nickname, player2Nickname, player3Nickname, player4Nickname);
         List<Text> pointTextsList = List.of(player1Points, player2Points, player3Points, player4Points);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();

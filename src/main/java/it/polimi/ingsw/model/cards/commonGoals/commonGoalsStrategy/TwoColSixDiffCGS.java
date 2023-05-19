@@ -20,20 +20,19 @@ public class TwoColSixDiffCGS extends CommonGoalStrategy {
     @Override
     public boolean isGoalAchieved(Shelf shelf) {
         ItemTile[][] shelfGrid = shelf.getShelfGrid();
-        int rows = shelfGrid.length;
+        if (shelfGrid[0] == null) return false; // should never happen
+
         int cols = shelfGrid[0].length;
         int countCol = 0;
 
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < cols; i++) {
             Set<Color> colorSet = new HashSet<>();
-            for (int j = 0; j < cols; j++) {
-
-                if (shelfGrid[i][j] != null) {
-                    colorSet.add(shelfGrid[i][j].getColor());
-                }
+            for (ItemTile[] row : shelfGrid) {
+                if (row[i] == null) break;
+                colorSet.add(row[i].getColor());
             }
             if (colorSet.size() >= 6) countCol++;
-            if (countCol > 1) return true;
+            if (countCol >= 2) return true;
         }
 
         return false;

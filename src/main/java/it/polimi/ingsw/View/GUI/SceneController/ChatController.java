@@ -2,10 +2,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ChatMemory;
-import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
-import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChatObserver;
 import it.polimi.ingsw.VirtualModel.ChatRepresentation;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -14,17 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class ChatController implements Initializable {
+public class ChatController extends GuiController implements Initializable {
     @FXML
     TextField newMessageField;
 
@@ -48,36 +43,6 @@ public class ChatController implements Initializable {
 
     static String receiverNickname = "";
 
-    private static ChatController instance;
-
-    public ChatController() {
-        instance = this;
-    }
-
-    public static ChatController getInstance() {
-        return instance;
-    }
-
-    /**
-     * methods that sets up the names of the other player in the receiverMenu ad retrieves the messages already sent
-     */
-    @FXML @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initChat();
-        List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
-        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
-        int j=0;
-
-        for(int i=0; i<nicknames.size(); i++) {
-            if(!nicknames.get(i).equals(SocketClient.getInstance().getNickname())){
-                menuItemList.get(j).setText(nicknames.get(i));
-                menuItemList.get(j).setVisible(true);
-                j++;
-            }
-        }
-        new ChatObserver().update();
-    }
-
     public void initChat() {
         for (int row = 0; row < chat.getRowCount(); row++) {
             for (int col = 0; col < chat.getColumnCount(); col++) {
@@ -90,6 +55,7 @@ public class ChatController implements Initializable {
         }
     }
 
+    @Override
     public void updateChat() {
         ArrayList<ChatMTC> messages = ChatRepresentation.getInstance().getMessages();
         int size = messages.size();
@@ -153,5 +119,31 @@ public class ChatController implements Initializable {
     @FXML
     public void onPlayer4Clicked() {
         receiverNickname = player4MenuItem.getText();
+    }
+
+    /**
+     * sets the nicknames in the menu that lets you select the receiver of the message
+     */
+    private void initNickname(){
+        List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
+        List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
+        int j=0;
+
+        for(int i=0; i<nicknames.size(); i++) {
+            if(!nicknames.get(i).equals(SocketClient.getInstance().getNickname())){
+                menuItemList.get(j).setText(nicknames.get(i));
+                menuItemList.get(j).setVisible(true);
+                j++;
+            }
+        }
+    }
+    /**
+     * methods that sets up the names of the other player in the receiverMenu ad retrieves the messages already sent
+     */
+    @FXML @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initChat();
+        updateChat();
+        initNickname();
     }
 }
