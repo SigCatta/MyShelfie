@@ -1,11 +1,9 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
-import it.polimi.ingsw.Enum.GameState;
-import it.polimi.ingsw.VirtualModel.EchosRepresentation;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,12 +11,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-
-public class EnterGameSceneController {
-    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+public class EnterGameSceneController extends GuiController {
     @FXML
     ImageView wrongGameIdImage;
     @FXML
@@ -36,31 +31,41 @@ public class EnterGameSceneController {
     @FXML
     Button continueButton;
 
+    private boolean connectPlayer;
+
+    @Override
+    public void updateEcho(EchoMTC echoMTC){
+        switch (echoMTC.getID()) {
+            case JOINED:
+                connectPlayer();
+                break;
+            case GAMESTARTED:
+                enterGame();
+                break;
+            case GAMEFULL:
+                connectionFailed();
+                break;
+            case NOID:
+                wrongGameIdEffect();
+                break;
+        }
+    }
+
     @FXML
     protected void onContinueButtonClick() {
         if(joinGameRB.isSelected()) {
+
             int gameId;
-            //connect player to already existing game
             try {
                 gameId = Integer.parseInt(gameIdField.getText());
             } catch (NumberFormatException e) {
-                checkGameId(false);
+                wrongGameIdEffect();
                 return;
             }
+
             SocketClient.getInstance().sendCommand(new CanIPlayMTS(gameId));
-
-            executor.submit(() -> {
-                synchronized (EchosRepresentation.getInstance()) {
-                    StageController.waitForVMReprensentation(EchosRepresentation.getInstance());
-                }
-
-                EchoMTC message = EchosRepresentation.getInstance().popMessage();
-                if (message.isError()) {
-                    checkGameId(false);
-                    return;
-                }
-                checkGameId(true);
-            });
+            //activates the possibility of entering a game after the server sends the echo join message
+            connectPlayer = true;
 
         } else {
             //player wants to create a new game
@@ -68,21 +73,28 @@ public class EnterGameSceneController {
         }
     }
 
-    public void checkGameId(boolean correct) {
-        if(correct) {   //TODO ckeck if gameId is valid
-            wrongGameIdImage.setVisible(false);   //gameId is correct
+    public void connectPlayer(){
+        if(!connectPlayer) return;
+        Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room"));
+    }
 
-            //change scene based on the stage of the game
-            GameState gameState = GameRepresentation.getInstance().getGameMessage().getGameState();
-            if(gameState.equals(GameState.PREGAME)) {
-                Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room")
-                );
-            } else{
-                Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board")
-                );
-            }
+    public void enterGame(){
+        Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board"));
+    }
 
-        } else wrongGameIdImage.setVisible(true);
+    public void connectionFailed(){
+        connectPlayer = false;
+        wrongGameIdEffect();
+    }
+
+    public void wrongGameIdEffect(){
+        wrongGameIdImage.setVisible(true);
+        //TODO set the text to show the error
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), wrongGameIdImage);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
     }
 
     @FXML

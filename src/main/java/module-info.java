@@ -12,5 +12,7 @@ open module proj.ingsw.The.Compiler.Coalition {
     exports it.polimi.ingsw.View.GUI;
     exports it.polimi.ingsw.View.GUI.SceneController;
     exports it.polimi.ingsw.model.tiles;
+    exports it.polimi.ingsw.Enum;
+    exports it.polimi.ingsw.VirtualView.Messages;
     //opens it.polimi.ingsw.View.GUI.SceneController to javafx.fxml;
 }

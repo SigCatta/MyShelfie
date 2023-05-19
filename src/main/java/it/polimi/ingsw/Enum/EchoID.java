@@ -15,5 +15,6 @@ public enum EchoID {
     NOTACTIVE,
     BADPICKUP,
     COLUMNDIFF,
-    NOPLAYER
+    NOPLAYER,
+    LAST_TURN
 }

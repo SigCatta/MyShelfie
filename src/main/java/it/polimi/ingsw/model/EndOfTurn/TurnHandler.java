@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
+import it.polimi.ingsw.Enum.EchoID;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
@@ -52,7 +54,10 @@ public class TurnHandler implements EndOfTurnSubject {
         int currentIndex = players.indexOf(game.getActivePlayer());
         int nextIndex = currentIndex;
 
-        if (players.get(currentIndex).getShelf().isFull()) lastTurn = true;
+        if (players.get(currentIndex).getShelf().isFull()) {
+            lastTurn = true;
+            game.getVirtualView().send(new EchoMTC(EchoID.LAST_TURN, false));
+        }
 
         nextIndex = nextIndex + 1 >= players.size() ? 0 : nextIndex + 1;
 

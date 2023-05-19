@@ -2,6 +2,8 @@ package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.NewGameMTS;
 import it.polimi.ingsw.Controller.Server.GamesManager;
+import it.polimi.ingsw.Enum.EchoID;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV;
 import it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV;
 import it.polimi.ingsw.VirtualView.VirtualView;
@@ -33,6 +35,8 @@ public class NewGameExecutor implements Executor{
         new PlayerVV(newPlayer, virtualView);// links the player observer to the player
         new ShelfVV(newPlayer, virtualView); // links the shelf observer to the shelf
         newGame.addPlayer(newPlayer);
+
+        message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.CREATED, false));
 
         newGame.notifyObservers(); //shows the gameID to the creator of the game
     }
