@@ -1,8 +1,8 @@
 {
-  "GREEN": [4, 6],
-  "YELLOW": [1, 6],
-  "BLUE": [2, 4],
-  "LIGHTBLUE": [2, 2],
-  "PINK": [5, 5],
-  "WHITE": [3, 4]
+  "GREEN": [5, 3],
+  "YELLOW": [5, 0],
+  "BLUE": [3, 1],
+  "LIGHTBLUE": [1, 1],
+  "PINK": [4, 4],
+  "WHITE": [3, 2]
 }

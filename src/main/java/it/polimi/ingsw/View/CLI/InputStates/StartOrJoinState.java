@@ -2,14 +2,17 @@ package it.polimi.ingsw.View.CLI.InputStates;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
 import it.polimi.ingsw.Controller.Client.NewGameMTS;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
-public class StartOrJoinState extends InputState {
+public class StartOrJoinState extends InputState implements VirtualModelObserver {
+
+    private boolean triedToCreateAGame;
+    private boolean hasJoined;
 
     /**
      * Asks the player to either join a game or create a new one,
@@ -17,6 +20,8 @@ public class StartOrJoinState extends InputState {
      */
     @Override
     public void play() {
+        hasJoined = false;
+
         System.out.println("Type 'join' if you want to join a game, 'new' if you want to create a new one: ");
         while (input == null) {
             input = Reader.getInput();
@@ -37,7 +42,6 @@ public class StartOrJoinState extends InputState {
                 input = null;
             }
         }
-        InputStatePlayer.getInstance().setState(new WaitingForPlayersState());
     }
 
     /**
@@ -45,30 +49,18 @@ public class StartOrJoinState extends InputState {
      */
     private void joinGame() {
         while (true) {
-            while (true) {
-                System.out.println("Insert gameID: ");
-                input = Reader.getInput();
-                if (input.equals(".")) return;
-                try {
-                    socketClient.sendCommand(new CanIPlayMTS(Integer.parseInt(input)));
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("ERROR: gameID must be a number!");
-                }
-            }
-            while (true) {
-                synchronized (EchosRepresentation.getInstance()) {
-                    waitForVM(EchosRepresentation.getInstance());
-                }
-                EchoMTC message = EchosRepresentation.getInstance().popMessage();
-                if (message.isError()) {
-                    System.out.println(message.getOutput());
-                    break;
-                }
-                if (GameRepresentation.getInstance().getGameMessage() != null) {
-                    System.out.println(message.getOutput() + GameRepresentation.getInstance().getGameMessage().getGameID());
-                    return;
-                }
+            System.out.println("Insert gameID: ");
+            input = Reader.getInput();
+            if (input.equals(".")) return;
+
+            GameRepresentation.getInstance().registerObserver(this);
+            EchosRepresentation.getInstance().registerObserver(this);
+            triedToCreateAGame = false;
+            try {
+                socketClient.sendCommand(new CanIPlayMTS(Integer.parseInt(input)));
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: gameID must be a number!");
             }
         }
     }
@@ -90,16 +82,32 @@ public class StartOrJoinState extends InputState {
             }
             if (numOfPlayers >= 5 || numOfPlayers <= 1) System.out.println("ERROR: the number of players must be between 2 and 4!\nInsert number of players: ");
         } while (numOfPlayers >= 5 || numOfPlayers <= 1);
-        socketClient.sendCommand(new NewGameMTS(numOfPlayers));
 
-        GameMTC gameMessage = null;
-        while (gameMessage == null) {
-            synchronized (GameRepresentation.getInstance()) {
-                waitForVM(GameRepresentation.getInstance());
-            }
-            gameMessage = GameRepresentation.getInstance().getGameMessage();
-        }
-        System.out.println("The game was successfully create! The gameID is: " + gameMessage.getGameID());
+        GameRepresentation.getInstance().registerObserver(this);
+        triedToCreateAGame = true;
+        socketClient.sendCommand(new NewGameMTS(numOfPlayers));
     }
 
+    @Override
+    public void update() {
+        GameMTC gameMessage = GameRepresentation.getInstance().getGameMessage();
+        if (hasJoined) return;
+        if (triedToCreateAGame) {
+            System.out.println("The game was successfully create! The gameID is: " + gameMessage.getGameID());
+            GameRepresentation.getInstance().removeObserver(this);
+        } else {
+            if (EchosRepresentation.getInstance().peekMessage() != null) {
+                EchoMTC message = EchosRepresentation.getInstance().popMessage();
+                if (message.isError()) {
+                    System.out.println(message.getOutput());
+                    return;
+                } else if (GameRepresentation.getInstance().getGameMessage() != null) {
+                    GameRepresentation.getInstance().removeObserver(this);
+                    EchosRepresentation.getInstance().removeObserver(this);
+                }
+            }
+        }
+        hasJoined = true;
+        new WaitingForPlayersState().play();
+    }
 }

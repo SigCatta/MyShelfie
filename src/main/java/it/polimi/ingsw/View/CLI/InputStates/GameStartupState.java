@@ -1,15 +1,13 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
+import it.polimi.ingsw.View.CLI.Elements.DisconnectionHandler;
+import it.polimi.ingsw.View.CLI.Elements.GameStopper;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
-import it.polimi.ingsw.VirtualModel.BoardRepresentation;
-import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
-import it.polimi.ingsw.network.client.SocketClient;
+import it.polimi.ingsw.VirtualModel.*;
 
-public class GameStartupState extends InputState {
+public class GameStartupState extends InputState implements VirtualModelObserver {
+
 
     /**
      * Waits for the VM to update with the model data (representations != null),
@@ -18,39 +16,39 @@ public class GameStartupState extends InputState {
      */
     @Override
     public void play() {
-        while (BoardRepresentation.getInstance().getBoard() == null) {
-            synchronized (BoardRepresentation.getInstance()) {
-                waitForVM(BoardRepresentation.getInstance());
-            }
-        }
+        BoardRepresentation.getInstance().registerObserver(this);
+        ShelvesRepresentation.getInstance().registerObserver(this);
+        CommonGoalsRepresentation.getInstance().registerObserver(this);
 
-        while (ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()) == null) {
-            synchronized (ShelvesRepresentation.getInstance()) {
-                waitForVM(ShelvesRepresentation.getInstance());
-            }
-        }
+        update(); // checks if the VM data is ready (the VM won't call update if it's already been updated)
+    }
 
-        while (CommonGoalsRepresentation.getInstance().getCommonGoalMessage() == null) {
-            synchronized (CommonGoalsRepresentation.getInstance()) {
-                waitForVM(CommonGoalsRepresentation.getInstance());
-            }
-        }
+    @Override
+    public void update() {
+        if (BoardRepresentation.getInstance().getBoard() == null) return;
+        if (ShelvesRepresentation.getInstance().getShelfMessage(socketClient.getNickname()) == null) return;
+        if (CommonGoalsRepresentation.getInstance().getCommonGoalMessage() == null) return;
+
+        BoardRepresentation.getInstance().removeObserver(this);
+        ShelvesRepresentation.getInstance().removeObserver(this);
+        CommonGoalsRepresentation.getInstance().removeObserver(this);
+
 
         //all elements are ready
         Printer.clearConsole();
         Printer.getInstance().update();
 
-
         Reader reader = Reader.getInstance();
-
-        addReaderToEchoObserver(reader);
+        EchosRepresentation.getInstance().registerObserver(reader);
 
         new Thread(reader).start();
 
-        //now that the game startup menu is printed, the game can start. Each player gets their state assigned
-        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(SocketClient.getInstance().getNickname())) {
-            InputStatePlayer.getInstance().setState(new ActivePlayerState(reader));
-        } else InputStatePlayer.getInstance().setState(new WaitingPlayerState(reader));
-    }
+        GameStopper.getIntance();
+        DisconnectionHandler.getInstance();
 
+        //now that the game startup menu is printed, the game can start. Each player gets their state assigned
+        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(socketClient.getNickname())) {
+            new ActivePlayerState(reader).play();
+        } else new WaitingPlayerState(reader).play();
+    }
 }

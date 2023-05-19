@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class VirtualModelSubject {
-    protected List<VirtualModelObserver> observers;
+    protected final List<VirtualModelObserver> observers;
 
     public VirtualModelSubject() {
         observers = new ArrayList<>();
     }
-    public void registerObserver(VirtualModelObserver observer) {
+    public synchronized void registerObserver(VirtualModelObserver observer) {
         observers.add(observer);
     }
-    public void removeObserver(VirtualModelObserver observer){
+    public synchronized void removeObserver(VirtualModelObserver observer){
         observers.remove(observer);
     }
     public abstract void notifyObservers();

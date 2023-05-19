@@ -23,7 +23,7 @@ public class ScoreBoard implements EndOfTurnObserver {
     /**
      * creates a new scoreboard and assigns it a game
      */
-    public ScoreBoard(Game game){
+    public ScoreBoard(Game game) {
         this.game = game;
         this.commonGoals = game.getCommonGoals();
         this.isFirstPointAssigned = false;
@@ -50,12 +50,12 @@ public class ScoreBoard implements EndOfTurnObserver {
     public void update() {
 
         List<Player> players = game.getPlayers();
-        Player activePlayer = game.getActivePlayer();
+        Player previousActivePlayer = getPreviousActivePlayer();
 
-        scoreCommonGoalCards(activePlayer);
+        scoreCommonGoalCards(previousActivePlayer);
 
-        if (activePlayer.getShelf().isFull() && !isFirstPointAssigned) {
-            scoreFirstCompletedShelf(activePlayer);
+        if (previousActivePlayer.getShelf().isFull() && !isFirstPointAssigned) {
+            scoreFirstCompletedShelf(previousActivePlayer);
             isFirstPointAssigned = true;
         }
 
@@ -64,6 +64,17 @@ public class ScoreBoard implements EndOfTurnObserver {
             scorePersonalGoals();
             scoreAdjacency();
         }
+    }
+
+    private Player getPreviousActivePlayer() {
+        List<Player> players = game.getPlayers();
+        int activePlayerIndex = players.indexOf(game.getActivePlayer());
+
+        int previousActivePlayerIndex;
+        if (activePlayerIndex == 0) previousActivePlayerIndex = players.size() - 1;
+        else previousActivePlayerIndex = activePlayerIndex - 1;
+
+        return players.get(previousActivePlayerIndex);
     }
 
     public void endGameScoreUpdate() {

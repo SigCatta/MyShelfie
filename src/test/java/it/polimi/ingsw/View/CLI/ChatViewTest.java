@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.CLI;
 
-import it.polimi.ingsw.View.CLI.Elements.ChatView;
+import it.polimi.ingsw.View.CLI.Elements.Views.ChatView;
 import it.polimi.ingsw.VirtualModel.ChatRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import it.polimi.ingsw.network.client.Client;
