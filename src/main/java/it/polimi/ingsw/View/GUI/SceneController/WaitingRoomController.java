@@ -31,7 +31,7 @@ public class WaitingRoomController extends GuiController implements Initializabl
     @Override
     public void updateGame(){
 
-        if(GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (GameRepresentation.getInstance().getGameMessage() == null) return;
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
@@ -39,6 +39,8 @@ public class WaitingRoomController extends GuiController implements Initializabl
         //set the gameid so that the player can send it to his friends
         gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
         gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+
+        updatePlayers();
     }
 
     @Override

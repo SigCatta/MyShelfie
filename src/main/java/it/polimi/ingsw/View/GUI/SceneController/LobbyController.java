@@ -10,10 +10,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LobbyController extends GuiController implements Initializable {
+
+    private boolean initialized;
+
     @FXML
     protected void onPlayButtonClick() {
         //player must insert his info
-        Platform.runLater(() -> StageController.changeScene("fxml/login_scene.fxml","Login")
+        Platform.runLater(() -> StageController.changeScene("fxml/login_scene.fxml", "Login")
         );
 
     }
@@ -27,17 +30,21 @@ public class LobbyController extends GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO do only one time
+        if (initialized) return;
+
+        //create the observer linked to their relative Representation
+        new GameObserver();
+        new GameStateObserver();
         new BoardObserver();
         new ChangeTurnObserver();
         new ChatObserver();
         new CommonGoalsObserver();
         new EchoObserver();
         new FirstPlayerToFinishObserver();
-        new GameStateObserver();
         new PlayerObserver();
-        new PreGameObserver();
         new ShelfObserver();
         new TilesTableObserver();
+
+        initialized = true;
     }
 }
