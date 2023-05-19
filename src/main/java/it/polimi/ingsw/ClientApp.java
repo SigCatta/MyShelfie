@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.GUI.GuiTest;
+import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ErrorObserver;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Application;

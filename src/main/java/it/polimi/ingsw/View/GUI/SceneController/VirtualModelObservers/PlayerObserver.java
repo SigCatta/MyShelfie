@@ -14,6 +14,7 @@ public class PlayerObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
+
         if(WaitingRoomController.getInstance()!=null) {
             WaitingRoomController.getInstance().updatePlayersInfo(true);
         }
