@@ -1,11 +1,8 @@
 package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.PlayerMTC;
-import it.polimi.ingsw.network.client.SocketClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PlayersRepresentation extends VirtualModelSubject {
@@ -35,21 +32,19 @@ public class PlayersRepresentation extends VirtualModelSubject {
         return PLAYER_MESSAGES.get(nickname);
     }
 
-    public ArrayList<PlayerMTC> getAllPlayerMTC(){
+    public ArrayList<PlayerMTC> getAllPlayerMTC() {
         return getPlayersList().stream().map(this::getPlayerInfoByNickname).collect(Collectors.toCollection(ArrayList::new));
     }
+
     /**
      * adds a player or updates it with the new attributes sent by the server
      */
     public void updatePlayer(PlayerMTC playerMessage) {
         String nickname = playerMessage.getNickname();
-        if (!playerMessage.isConnected()) {
-            System.out.println("Player " + nickname + " disconnected");
-            PLAYER_MESSAGES.remove(nickname);
-            if (SocketClient.getInstance().getNickname().equals(nickname)) {
-                System.exit(0);
-            }
-        } else PLAYER_MESSAGES.put(nickname, playerMessage);
+        if (!playerMessage.isConnected()) System.out.println("Player " + nickname + " disconnected");
+
+        PLAYER_MESSAGES.put(nickname, playerMessage);
+        notifyObservers();
     }
 
     @Override
