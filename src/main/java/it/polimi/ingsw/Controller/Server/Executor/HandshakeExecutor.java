@@ -12,8 +12,11 @@ public class HandshakeExecutor implements Executor{
     public static void execute(HandshakeMTS message){
 
         String nickname = message.getNewNickname();
-
-        if(!GamesManager.getInstance().addNickname(nickname)){
+        if(nickname == null) {
+            message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.BADNICK, true));
+            return;
+        }
+        if (nickname.length() == 0 || !GamesManager.getInstance().addNickname(nickname)) {
             message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.BADNICK, true));
             System.out.println("nickname taken ");//TODO remove after testing
             return;

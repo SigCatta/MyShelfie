@@ -12,5 +12,6 @@
   "NOTACTIVE": "ERROR: You are not the active player",
   "BADPICKUP": "ERROR: Invalid pick up!",
   "COLUMNDIFF": "ERROR: During a turn, all tiles must be inserted in the same column",
-  "NOPLAYER": "ERROR: The player you tried to send the message to either disconnected or does not exist"
+  "NOPLAYER": "ERROR: The player you tried to send the message to either disconnected or does not exist",
+  "LAST_TURN": "This is the last turn!"
 }

@@ -83,6 +83,7 @@ public class SocketClient extends Client {
             }
             outputStm.reset();
             outputStm.writeObject(message);
+            outputStm.reset();
         } catch (IOException e) {
             try{
                 outputStm.close();

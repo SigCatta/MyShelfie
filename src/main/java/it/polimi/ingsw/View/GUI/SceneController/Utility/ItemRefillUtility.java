@@ -83,14 +83,27 @@ public class ItemRefillUtility {
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
-                if (ShelfMemory.get(row, col).getImage() != null)
+                if (ShelfMemory.get(row, col, 0).getImage() != null)
                     continue;  //if the tile is memorized this means it is already in the shelf
 
                 Image image = ItemTileMemory.getImage(id);
 
-                ShelfMemory.setImage(image, row, col);
+                ShelfMemory.setImage(image, row, col, 0);
             }
         }
     }
 
+    public static void updateOtherShelfGrid(ItemTile[][] reference) {
+        for (int col = 0; col < reference[0].length; col++) {
+            for (int row = reference.length - 1; row >= 0; row--) {
+                if (reference[row][col] == null) {
+                    ShelfMemory.setImage(null, row, col, 1);
+                } else {
+                    int id = reference[row][col].getId(); //the id of the item tile
+                    Image image = ItemTileMemory.getImage(id);
+                    ShelfMemory.setImage(image, row, col, 1);
+                }
+            }
+        }
+    }
 }
