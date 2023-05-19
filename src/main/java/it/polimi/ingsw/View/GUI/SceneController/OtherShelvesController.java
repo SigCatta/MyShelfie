@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class OtherShelvesController implements Initializable {
+public class OtherShelvesController extends GuiController implements Initializable {
     @FXML
     GridPane shelf;
 
@@ -50,13 +50,20 @@ public class OtherShelvesController implements Initializable {
             for (int col = 0; col < shelf.getColumnCount(); col++) {
                 if (ShelfMemory.get(row, col, 1) == null) {
                     ImageView imageView = new ImageView();
-                    imageView.setFitHeight(82);
-                    imageView.setFitWidth(82);
+                    imageView.setFitHeight(95);
+                    imageView.setFitWidth(95);
                     ShelfMemory.put(imageView, row, col, 1);
                 }
                 shelf.add(ShelfMemory.get(row, col, 1), col, row);
             }
         }
+    }
+
+    @Override
+    public void updateShelf() {
+        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(getPlayerName()).getShelf();
+        System.out.println("Updating " + getPlayerName() + " shelf...");//TODO remove
+        ItemRefillUtility.updateOtherShelfGrid(shelfModel);
     }
 
     @FXML
@@ -95,12 +102,6 @@ public class OtherShelvesController implements Initializable {
         }
         setPlayerName(playersList.get(index));
         updateShelf();
-    }
-
-    public void updateShelf() {
-        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(getPlayerName()).getShelf();
-        System.out.println("Updating " + getPlayerName() + " shelf...");//TODO remove
-        ItemRefillUtility.updateOtherShelfGrid(shelfModel);
     }
 
     @FXML

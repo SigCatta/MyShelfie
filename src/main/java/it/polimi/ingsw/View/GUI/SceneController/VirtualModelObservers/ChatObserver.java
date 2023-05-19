@@ -1,10 +1,8 @@
 package it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers;
 
-import it.polimi.ingsw.View.GUI.SceneController.BoardController;
-import it.polimi.ingsw.View.GUI.SceneController.ChatController;
+import it.polimi.ingsw.View.GUI.SceneController.StageController;
 import it.polimi.ingsw.VirtualModel.ChatRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
-import javafx.application.Platform;
 
 public class ChatObserver implements VirtualModelObserver {
 
@@ -14,7 +12,6 @@ public class ChatObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        Platform.runLater(() -> ChatController.getInstance().updateChat());
-        Platform.runLater(() -> BoardController.getInstance().updateChat());
+        StageController.getController().updateChat();
     }
 }

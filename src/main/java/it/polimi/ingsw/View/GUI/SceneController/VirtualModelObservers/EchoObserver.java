@@ -1,20 +1,18 @@
 package it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers;
 
-import it.polimi.ingsw.View.GUI.SceneController.BoardController;
+import it.polimi.ingsw.View.GUI.SceneController.StageController;
 import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 
-public class ErrorObserver implements VirtualModelObserver {
-    public ErrorObserver() {
+public class EchoObserver implements VirtualModelObserver {
+    public EchoObserver() {
         EchosRepresentation.getInstance().registerObserver(this);
     }
 
     @Override
     public void update() {
         EchoMTC message = EchosRepresentation.getInstance().peekMessage();
-        if (message != null && message.isError()) {
-            BoardController.getInstance().updateError();
-        }
+        StageController.getController().updateEcho(message);
     }
 }

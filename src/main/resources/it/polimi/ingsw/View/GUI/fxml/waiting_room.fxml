@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -14,7 +15,7 @@
          <children>
             <AnchorPane prefHeight="803.0" prefWidth="1203.0">
                <children>
-                  <AnchorPane layoutX="113.0" layoutY="59.0" onMouseEntered="#setUp" prefHeight="686.0"
+                  <AnchorPane layoutX="113.0" layoutY="59.0" prefHeight="686.0"
                               prefWidth="977.0" styleClass="blackBoard" stylesheets="@../css/background.css">
                      <children>
                         <Text fill="WHITE" layoutX="197.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0"
@@ -23,14 +24,6 @@
                               <Font name="Gill Sans MT" size="35.0"/>
                            </font>
                         </Text>
-                        <Button fx:id="continueButton" layoutX="599.0" layoutY="524.0" mnemonicParsing="false"
-                                onAction="#onContinueButtonClick" prefHeight="64.0" prefWidth="269.0"
-                                styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="CONTINUE"
-                                visible="false">
-                           <font>
-                              <Font name="Arial Black" size="18.0"/>
-                           </font>
-                        </Button>
                         <AnchorPane layoutX="527.0" layoutY="345.0" prefHeight="64.0" prefWidth="119.0"
                                     styleClass="label3" stylesheets="@../css/background.css">
                            <children>

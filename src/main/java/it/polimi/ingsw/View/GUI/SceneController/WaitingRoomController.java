@@ -1,23 +1,26 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.PreGameObserver;
+import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
-import javafx.event.ActionEvent;
+import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class WaitingRoomController {
-    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+public class WaitingRoomController extends GuiController implements Initializable{
     @FXML
     Text playersNamesText;
     @FXML
     Text maxNumText;
+    int maxNumberOfPlayers = -1;
 
     @FXML
     Text currentNumText;
@@ -25,73 +28,63 @@ public class WaitingRoomController {
     @FXML
     TextField gameIdText;
 
-    @FXML
-    Button continueButton;
+    @Override
+    public void updateGame(){
 
-    private static WaitingRoomController instance;
+        if(GameRepresentation.getInstance().getGameMessage() == null) return;
 
-    public WaitingRoomController() {
-        instance = this;
+        //set the max number of players field
+        maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
+
+        //set the gameid so that the player can send it to his friends
+        gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+        gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
     }
 
-    public static WaitingRoomController getInstance() {
-        return instance;
-    }
-    @FXML
-    public void onContinueButtonClick(ActionEvent actionEvent) {
-        //start the game
-        StageController.changeScene("fxml/board.fxml","Living room");
+    @Override
+    public void updateEcho(EchoMTC echoMTC) {
+        if(echoMTC.getID() == EchoID.JOINED){
+            updatePlayers();
+        }
     }
 
-    /*
-    <Button layoutX="107.0" layoutY="524.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" prefHeight="64.0" prefWidth="269.0" styleClass="join_button" stylesheets="@../css/join_game_scene.css" text="GO BACK">
-                           <font>
-                              <Font name="Arial Black" size="18.0" />
-                           </font>
-                        </Button>
-    @FXML
-    public void onGoBackButtonClick(ActionEvent actionEvent) {
-        SocketClient.getInstance().sendCommand(new ByeMTS());
-        StageController.changeScene("fxml/enter_game_scene.fxml","Login");
-    }
-     */
-
-    public void setContinueButtonVisible() {
-        continueButton.setVisible(true);
-    }
-
-    public void updatePlayersNamesText() {
+    @Override
+    public void updatePlayers(){
         playersNamesText.setText("");
-        for(String name: PlayersRepresentation.getInstance().getPlayersList()) {
+        List<String> players = PlayersRepresentation.getInstance().getPlayersList();
+        if(players == null){
+            addPlayerToString(SocketClient.getInstance().getNickname());
+            return;
+        }
+        addPlayerToString(players);
+
+        //enter the game if all the players entered
+        if(GameRepresentation.getInstance().getGameMessage() == null) return;
+        if(players.size() == GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()){
+            enterGame();
+        }
+    }
+
+    private void enterGame(){
+        Platform.runLater(() -> StageController.changeScene("fxml/board.fxml","Living room"));
+    }
+
+    private void addPlayerToString(String nickname){
+        playersNamesText.setText(nickname + ", " + playersNamesText.getText());
+    }
+
+    private void addPlayerToString(List<String> nicknames){
+        for(String name: nicknames) {
             playersNamesText.setText(name + ", " + playersNamesText.getText());
         }
+        int numberOfPlayers = PlayersRepresentation.getInstance().getPlayersList().size();
+        currentNumText.setText(String.valueOf(numberOfPlayers));
+        System.out.println(maxNumberOfPlayers);
     }
 
-    public void setMaxNumText(int num) {
-        maxNumText.setText(String.valueOf(num));
-    }
-
-    public void updateCurrentNumText() {
-        int num = PlayersRepresentation.getInstance().getPlayersList().size();
-        currentNumText.setText(String.valueOf(num));
-        if(num == Integer.parseInt(maxNumText.getText())) {
-            setContinueButtonVisible();
-        }
-    }
-
-    @FXML
-    public void setUp() {
-        new PreGameObserver().update();
-    }
-
-    public void updatePlayersInfo(boolean gameCreated) {
-        if(!gameCreated) {
-            setMaxNumText(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER());
-            gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
-            gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
-        } else {
-            updatePlayersNamesText();
-            updateCurrentNumText();
-        }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateGame();
+        updatePlayers();
     }
 }

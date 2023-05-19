@@ -13,12 +13,23 @@ import java.io.IOException;
  */
 public class StageController {
     private static Stage currentStage = new Stage();
+    private static GuiController controller;
 
-    public static void setUpStage(Stage stage, Scene scene) {
+    public static void setUpStage(Stage stage, String FXMLScene) throws IOException {
+
+        //load lobby
+        FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource(FXMLScene));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        controller = fxmlLoader.getController();
         currentStage = stage;
         stage.getIcons().add(new Image("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Icon 50x50px.png"));
         stage.setTitle("Lobby");
         stage.setScene(scene);
+    }
+
+    public static GuiController getController(){
+        return controller;
     }
 
     public static void changeScene(String FXMLScene, String title) {
@@ -28,9 +39,11 @@ public class StageController {
         double height = currentStage.getHeight();
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource(FXMLScene));
+
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
+            controller = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
