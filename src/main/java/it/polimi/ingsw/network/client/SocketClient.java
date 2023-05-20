@@ -24,7 +24,7 @@ public class SocketClient extends Client {
     private final ObjectInputStream inputStm;
     private final ExecutorService readExecutionQueue;
     private String nickname;
-    private static final int SOCKET_TIMEOUT = 10000000;
+    private static final int SOCKET_TIMEOUT = 2000;
 
     private SocketClient(String address, int port) {
 

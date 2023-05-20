@@ -420,17 +420,17 @@ public class BoardController extends GuiController implements Initializable {
 
     @FXML
     public void onObjectivesClicked() {
-        StageController.changeScene("fxml/objective_cards_scene.fxml", "Objective cards scene");
+        Platform.runLater(() -> StageController.changeScene("fxml/objective_cards_scene.fxml", "Objective cards scene"));
     }
 
     @FXML
     public void onShelvesClicked() {
-        StageController.changeScene("fxml/other_player_shelves.fxml", "Other players shelves");
+        Platform.runLater(() -> StageController.changeScene("fxml/other_player_shelves.fxml", "Other players shelves"));
     }
 
     @FXML
     public void onChatClicked() {
-        StageController.changeScene("fxml/chat_scene.fxml", "Chat");
+        Platform.runLater(() -> StageController.changeScene("fxml/chat_scene.fxml", "Chat"));
     }
 
 

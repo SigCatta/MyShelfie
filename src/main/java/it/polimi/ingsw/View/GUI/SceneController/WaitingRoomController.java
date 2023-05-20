@@ -39,6 +39,8 @@ public class WaitingRoomController extends GuiController implements Initializabl
         //set the gameid so that the player can send it to his friends
         gameIdText.setText(String.valueOf(GameRepresentation.getInstance().getGameID()));
         gameIdText.setAccessibleText(String.valueOf(GameRepresentation.getInstance().getGameID()));
+
+        updatePlayers();
     }
 
     @Override

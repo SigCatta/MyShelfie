@@ -14,6 +14,7 @@ public class FirstPlayerToFinishObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
+        if (EchosRepresentation.getInstance().peekMessage() == null) return;
         if (EchosRepresentation.getInstance().peekMessage().getID() != EchoID.LAST_TURN) return;
 
         StageController.getController().updateFirstPlayerToFinish();

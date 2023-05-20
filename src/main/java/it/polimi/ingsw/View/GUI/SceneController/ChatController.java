@@ -11,12 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class ChatController extends GuiController implements Initializable {
@@ -40,6 +41,9 @@ public class ChatController extends GuiController implements Initializable {
 
     @FXML
     GridPane chat;
+
+    @FXML
+    StackPane chat_scene;
 
     static String receiverNickname = "";
 
@@ -101,6 +105,26 @@ public class ChatController extends GuiController implements Initializable {
         }
     }
 
+    private boolean enterKeyBusy;
+
+    public void onKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+
+            if (enterKeyBusy) return;
+
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    enterKeyBusy = false;
+                    timer.cancel();
+                }
+            }, 400, 400);
+
+            onSendButtonClicked();
+            enterKeyBusy = true;
+        }
+    }
+
     @FXML
     public void onBroadcastClicked() {
         receiverNickname = "BROADCAST";
@@ -147,5 +171,6 @@ public class ChatController extends GuiController implements Initializable {
         initChat();
         updateChat();
         initNickname();
+        chat_scene.setOnKeyPressed(this::onKeyPressed);
     }
 }
