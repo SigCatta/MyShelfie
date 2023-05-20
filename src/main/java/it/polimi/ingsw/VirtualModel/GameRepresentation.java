@@ -3,9 +3,6 @@ package it.polimi.ingsw.VirtualModel;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameRepresentation extends VirtualModelSubject {
     private GameMTC gameMessage;
     private static GameRepresentation instance;
@@ -24,7 +21,10 @@ public class GameRepresentation extends VirtualModelSubject {
         notifyObservers();
     }
 
-    public int getMAX_PLAYER_NUMBER() {return gameMessage.getMAX_PLAYER_NUMBER();}
+    public int getMAX_PLAYER_NUMBER() {
+        return gameMessage.getMAX_PLAYER_NUMBER();
+    }
+
     public int getGameID() {
         return gameMessage.getGameID();
     }
@@ -40,11 +40,5 @@ public class GameRepresentation extends VirtualModelSubject {
 
     public GameMTC getGameMessage() {
         return gameMessage;
-    }
-
-    @Override
-    public void notifyObservers() {
-        List<VirtualModelObserver> o = new ArrayList<>(observers);
-        o.forEach(VirtualModelObserver::update);
     }
 }

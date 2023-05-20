@@ -38,7 +38,7 @@ public class ObjectiveCardController extends GuiController implements Initializa
     @FXML
     Text pointCG2Text;
 
-    private void initCommonGoals(){
+    private void initCommonGoals() {
         CommonGoalReader reader = new CommonGoalReader();
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
 
@@ -55,7 +55,7 @@ public class ObjectiveCardController extends GuiController implements Initializa
         commonGoalCard2.setImage(card2Image);
     }
 
-    private void initPersonalGoals(){
+    private void initPersonalGoals() {
         String nickname = SocketClient.getInstance().getNickname();
         String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
 

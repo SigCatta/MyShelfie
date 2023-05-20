@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * Represents a player in the game.
  */
 public class Player implements VirtualViewSubject {
-    private ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<VirtualViewObserver> observers;
 
-    private Shelf shelf;
+    private final Shelf shelf;
 
     /**
      * The personal goal of the player.
@@ -22,7 +22,7 @@ public class Player implements VirtualViewSubject {
     /**
      * The nickname of the player.
      */
-    private String nickname;
+    private final String nickname;
     private boolean isConnected;
     /**
      * The score of the player.
@@ -57,7 +57,7 @@ public class Player implements VirtualViewSubject {
         return personalGoal;
     }
 
-     /**
+    /**
      * Assigns a personal goal to a player if the player has not personal goals assigned yet
      *
      * @param personalGoal the personal goal which is going to be assigned to the player
@@ -67,7 +67,7 @@ public class Player implements VirtualViewSubject {
         notifyObservers();
     }
 
-     /**
+    /**
      * @return the nickname of the player
      */
     public String getNickname() {
@@ -104,7 +104,7 @@ public class Player implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

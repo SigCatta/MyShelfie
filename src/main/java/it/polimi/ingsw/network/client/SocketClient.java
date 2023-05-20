@@ -19,10 +19,10 @@ import java.util.concurrent.Executors;
  */
 public class SocketClient extends Client {
     private static Client clientInstance;
-    private Socket socket;
+    private final Socket socket;
     private ObjectOutputStream outputStm;
-    private ObjectInputStream inputStm;
-    private ExecutorService readExecutionQueue;
+    private final ObjectInputStream inputStm;
+    private final ExecutorService readExecutionQueue;
     private String nickname;
     private static final int SOCKET_TIMEOUT = 10000000;
 
@@ -85,11 +85,11 @@ public class SocketClient extends Client {
             outputStm.writeObject(message);
             outputStm.reset();
         } catch (IOException e) {
-            try{
+            try {
                 outputStm.close();
                 outputStm = new ObjectOutputStream(socket.getOutputStream());
                 outputStm.writeObject(message);
-            } catch (IOException ignored){
+            } catch (IOException ignored) {
                 Client.LOGGER.severe("Output stream failed");
             }
             Client.LOGGER.severe("An error occurred while sending the message");

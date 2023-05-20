@@ -14,17 +14,17 @@ public class CardImagesManager {
     private static HashMap<String, Image> commonGoals = new HashMap<>();
     private static Image personalGoal;
 
-    public static Image getCommonGoalImage(String cardName){
-        if(!commonGoals.containsKey(cardName)) commonGoals.put(cardName, new Image(COMMON_GOAL_PACKAGE + cardName + ".jpg"));
+    public static Image getCommonGoalImage(String cardName) {
+        if (!commonGoals.containsKey(cardName)) commonGoals.put(cardName, new Image(COMMON_GOAL_PACKAGE + cardName + ".jpg"));
         return commonGoals.get(cardName);
     }
 
-    public static Image getPersonalGoalImage(String cardName){
-        if(personalGoal != null) personalGoal = new Image(PERSONAL_GOAL_PACKAGE + cardName + ".jpg");
+    public static Image getPersonalGoalImage(String cardName) {
+        if (personalGoal != null) personalGoal = new Image(PERSONAL_GOAL_PACKAGE + cardName + ".jpg");
         return personalGoal;
     }
 
-    public void resetCommonGoals(){
+    public void resetCommonGoals() {
         commonGoals = new HashMap<>();
     }
 }

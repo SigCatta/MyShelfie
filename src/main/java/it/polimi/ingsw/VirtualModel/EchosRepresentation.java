@@ -2,8 +2,6 @@ package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class EchosRepresentation extends VirtualModelSubject {
@@ -44,16 +42,5 @@ public class EchosRepresentation extends VirtualModelSubject {
      */
     public void clean() {
         messages = new Stack<>();
-    }
-
-    //TODO method that retrieves the error message
-
-    @Override
-    public synchronized void notifyObservers() {
-        List<VirtualModelObserver> o = new ArrayList<>(observers);
-        o.forEach(VirtualModelObserver::update);
-        synchronized (this) {
-            this.notify();
-        }
     }
 }

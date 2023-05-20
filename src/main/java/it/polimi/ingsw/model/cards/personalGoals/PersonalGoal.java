@@ -46,7 +46,7 @@ public class PersonalGoal {
                 Point point = achievements.get(color);
                 Shelf shelf = player.getShelf();
                 ItemTile tileAtPoint = shelf.getTileAtLocation(point);
-                if(tileAtPoint == null) continue;
+                if (tileAtPoint == null) continue;
                 if (tileAtPoint.getColor() == color) {
                     score += getPoints();
                     achievements.remove(color);

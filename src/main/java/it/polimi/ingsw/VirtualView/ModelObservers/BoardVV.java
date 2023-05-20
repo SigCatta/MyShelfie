@@ -9,7 +9,7 @@ public class BoardVV implements VirtualViewObserver {
     private final Game GAME;
     private final VirtualView VIRTUAL_VIEW;
 
-    public BoardVV(Game game, VirtualView virtualView){
+    public BoardVV(Game game, VirtualView virtualView) {
         this.GAME = game;
         this.VIRTUAL_VIEW = virtualView;
         GAME.getBoard().registerObserver(this);

@@ -18,7 +18,7 @@ class TilesGetterTest {
     private ArrayList<Point> chosenPositions;
 
     @BeforeEach
-    void setUp()  {
+    void setUp() {
         game = new Game(4);
         game.setVirtualView(new VirtualView(game));
         board = game.getBoard();

@@ -33,7 +33,7 @@ public class OtherShelvesController extends GuiController implements Initializab
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
         int i = 0;
 
@@ -70,15 +70,15 @@ public class OtherShelvesController extends GuiController implements Initializab
     public void onPrevButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
         int index = playersList.indexOf(getPlayerName());
-        if(index == 0) {
-            index = playersList.size()-1;
+        if (index == 0) {
+            index = playersList.size() - 1;
         } else {
             index--;
         }
-        if(playersList.get(index).equals(SocketClient.getInstance().getNickname())) {
+        if (playersList.get(index).equals(SocketClient.getInstance().getNickname())) {
             index--;
-            if(index < 0) {
-                index = playersList.size()-1;
+            if (index < 0) {
+                index = playersList.size() - 1;
             }
         }
         setPlayerName(playersList.get(index));
@@ -89,14 +89,14 @@ public class OtherShelvesController extends GuiController implements Initializab
     public void onNextButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
         int index = playersList.indexOf(getPlayerName());
-        if(index == playersList.size()-1) {
+        if (index == playersList.size() - 1) {
             index = 0;
         } else {
             index++;
         }
         if (playersList.get(index).equals(SocketClient.getInstance().getNickname())) {
             index++;
-            if(index > playersList.size()-1) {
+            if (index > playersList.size() - 1) {
                 index = 0;
             }
         }

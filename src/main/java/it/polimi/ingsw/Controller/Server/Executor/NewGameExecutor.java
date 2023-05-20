@@ -10,11 +10,11 @@ import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
-public class NewGameExecutor implements Executor{
+public class NewGameExecutor implements Executor {
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.
      */
-    public static void execute(NewGameMTS message){
+    public static void execute(NewGameMTS message) {
 
         Game newGame = new Game(message.getNumberOfPlayers());
 

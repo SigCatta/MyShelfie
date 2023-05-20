@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
-import it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC;
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
 

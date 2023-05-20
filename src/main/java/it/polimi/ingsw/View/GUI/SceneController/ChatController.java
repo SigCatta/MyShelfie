@@ -59,24 +59,24 @@ public class ChatController extends GuiController implements Initializable {
     public void updateChat() {
         ArrayList<ChatMTC> messages = ChatRepresentation.getInstance().getMessages();
         int size = messages.size();
-        int i=0, index;
+        int i = 0, index;
         String header;
         ChatMemory.clear();
 
-        for (int row = chat.getRowCount()-1; row >= 0; row--) {
+        for (int row = chat.getRowCount() - 1; row >= 0; row--) {
             index = size - 1 - i;
-            if(index<0) return;
+            if (index < 0) return;
             ChatMTC message = messages.get(index);
             int col;
-            if(message.getSender().equals(SocketClient.getInstance().getNickname())) {
-                col=1;
+            if (message.getSender().equals(SocketClient.getInstance().getNickname())) {
+                col = 1;
             } else {
                 col = 0;
             }
-            if(message.isBroadcast()) {
-                header = message.getSender() +  " ~ " ;
+            if (message.isBroadcast()) {
+                header = message.getSender() + " ~ ";
             } else {
-                header = message.getSender() + " to " + message.getRECEIVER() +  " ~ ";
+                header = message.getSender() + " to " + message.getRECEIVER() + " ~ ";
             }
 
             ChatMemory.setMessage(header + message.getChatMessage(), row, col);
@@ -92,8 +92,8 @@ public class ChatController extends GuiController implements Initializable {
     @FXML
     public void onSendButtonClicked() {
         String message = newMessageField.getText();
-        if(message.length()>0) {
-            if(receiverNickname.equals("BROADCAST") || receiverNickname.equals("")) receiverNickname = null;
+        if (message.length() > 0) {
+            if (receiverNickname.equals("BROADCAST") || receiverNickname.equals("")) receiverNickname = null;
             SocketClient.getInstance().sendCommand(new ChatMTS(message, receiverNickname));
 
             newMessageField.setText("");
@@ -124,23 +124,25 @@ public class ChatController extends GuiController implements Initializable {
     /**
      * sets the nicknames in the menu that lets you select the receiver of the message
      */
-    private void initNickname(){
+    private void initNickname() {
         List<MenuItem> menuItemList = List.of(player2MenuItem, player3MenuItem, player4MenuItem);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
-        int j=0;
+        int j = 0;
 
-        for(int i=0; i<nicknames.size(); i++) {
-            if(!nicknames.get(i).equals(SocketClient.getInstance().getNickname())){
-                menuItemList.get(j).setText(nicknames.get(i));
+        for (String nickname : nicknames) {
+            if (!nickname.equals(SocketClient.getInstance().getNickname())) {
+                menuItemList.get(j).setText(nickname);
                 menuItemList.get(j).setVisible(true);
                 j++;
             }
         }
     }
+
     /**
      * methods that sets up the names of the other player in the receiverMenu ad retrieves the messages already sent
      */
-    @FXML @Override
+    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initChat();
         updateChat();

@@ -50,6 +50,7 @@ public class FiveTilesDiagonalCGSTest {
         };
         assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
+
     @Test
     public void isGoalAchievedTest4() {
         ItemTile[][] mat = {

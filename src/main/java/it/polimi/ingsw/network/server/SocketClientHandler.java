@@ -17,7 +17,7 @@ import java.net.Socket;
 public class SocketClientHandler extends ClientHandler implements Runnable {
     private final Socket client;
 
-    private PingController pingController;
+    private final PingController pingController;
 
     /**
      * Each handler is assigned to only one client,
@@ -28,6 +28,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     private ObjectOutputStream outputStm;
     private ObjectInputStream input;
     private boolean stop;
+
     /**
      * @param client the client asking to connect
      */
@@ -47,19 +48,20 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void run() {
         try {
             handleClientMessages();
-        }catch (IOException e) {
+        } catch (IOException e) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped. (socketClientHandler)");//TODO remove after testing
             disconnect();
-        } catch (ClassNotFoundException classNotFoundException){
+        } catch (ClassNotFoundException classNotFoundException) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " class not found"); //TODO remove after testing
             disconnect();
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " invalid number"); //TODO remove after testing
             disconnect();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Server.LOGGER.severe("Client" + client.getInetAddress() + " failed to initalize ObjectInputStream");
         }
     }
+
     /**
      * gets the messages from the input and forwards them to the GamesManager that handles the traffic
      */
@@ -102,17 +104,17 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     }
 
     @Override
-    public void sendCommand(MessageToClient messageToClient){
+    public void sendCommand(MessageToClient messageToClient) {
         try {
             outputStm.writeObject(messageToClient);
             outputStm.reset();
         } catch (IOException e) {
-            try{
+            try {
                 outputStm.close();
                 outputStm = new ObjectOutputStream(client.getOutputStream());
                 outputStm.writeObject(messageToClient);
                 outputStm.reset();
-            } catch (IOException ignored){
+            } catch (IOException ignored) {
                 Client.LOGGER.severe("Output stream failed");
             }
             Server.LOGGER.severe(e.getMessage());
@@ -126,12 +128,15 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
     public PingController getPingController() {
         return pingController;
     }
+
     public int getGameID() {
         return gameID;
     }
+
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }

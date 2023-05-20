@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class ShelfMTC implements MessageToClient, Serializable {
     private final ItemTile[][] SHELF;
@@ -25,14 +26,11 @@ public class ShelfMTC implements MessageToClient, Serializable {
     }
 
     public Color[][] getShelfForCLI() {
-        Color[][] colors = new Color[SHELF.length][SHELF[0].length];
-        for (int i = 0; i < SHELF.length; i++) {
-            for (int j = 0; j < SHELF[0].length; j++) {
-                colors[i][j] = SHELF[i][j] == null ? null : SHELF[i][j].getColor();
-            }
-        }
-        //TODO might be more efficient to delete the double for loop and return the matrix [[]...[]]
-        return colors;
+        return Arrays.stream(SHELF)
+                .map(row -> Arrays.stream(row)
+                        .map(itemTile -> itemTile == null ? null : itemTile.getColor())
+                        .toArray(Color[]::new))
+                .toArray(Color[][]::new);
     }
 
     @Override

@@ -52,8 +52,8 @@ public class LoginSceneController extends GuiController implements Initializable
     StackPane login_scene;
 
     @Override
-    public void updateEcho(EchoMTC echoMTC){
-        switch (echoMTC.getID()){
+    public void updateEcho(EchoMTC echoMTC) {
+        switch (echoMTC.getID()) {
             case BADNICK:
                 badNicknameEffect(echoMTC);
                 break;
@@ -63,10 +63,8 @@ public class LoginSceneController extends GuiController implements Initializable
         }
     }
 
-    public void isIpCorrect()  {
-        if(InputValidator.isValidIpAddress(ipField.getText())) {
-            wrongIpImage.setVisible(false);   //ip is correct
-        } else wrongIpImage.setVisible(true);
+    public void isIpCorrect() {
+        wrongIpImage.setVisible(!InputValidator.isValidIpAddress(ipField.getText()));   //ip is correct
     }
 
 
@@ -78,7 +76,7 @@ public class LoginSceneController extends GuiController implements Initializable
 
     @FXML
     protected void onContinueButtonClick() {
-        if(ConnectionPendingTimer.isPending()) return;
+        if (ConnectionPendingTimer.isPending()) return;
 
         SocketClient.getInstance().sendCommand(new HandshakeMTS(nicknameField.getText()));
 
@@ -107,11 +105,11 @@ public class LoginSceneController extends GuiController implements Initializable
     /**
      * if the ConnectionPendingTimer expires show this message
      */
-    private void showCouldNotConnectMessage(){
+    private void showCouldNotConnectMessage() {
         //TODO
     }
 
-    private void badNicknameEffect(EchoMTC message){
+    private void badNicknameEffect(EchoMTC message) {
         nicknameErrorPane.setVisible(true);
         wrongNicknameText.setWrappingWidth(200);
 
@@ -122,8 +120,8 @@ public class LoginSceneController extends GuiController implements Initializable
         fadeTransition.play();
     }
 
-    private void goToCreateGame(){
-        if(ConnectionPendingTimer.isPending()){
+    private void goToCreateGame() {
+        if (ConnectionPendingTimer.isPending()) {
             ConnectionPendingTimer.cancel();
         }
         SocketClient.getInstance().setNickname(nicknameField.getText());

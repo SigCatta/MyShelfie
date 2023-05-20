@@ -2,7 +2,9 @@ package it.polimi.ingsw.VirtualModel;
 
 import it.polimi.ingsw.VirtualView.Messages.PlayerMTC;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PlayersRepresentation extends VirtualModelSubject {
@@ -45,10 +47,5 @@ public class PlayersRepresentation extends VirtualModelSubject {
 
         PLAYER_MESSAGES.put(nickname, playerMessage);
         notifyObservers();
-    }
-
-    @Override
-    public void notifyObservers() {
-        observers.forEach(VirtualModelObserver::update);
     }
 }

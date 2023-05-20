@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.server.SocketClientHandler;
 
 import java.util.Timer;
 
-public class PingController extends Thread{
+public class PingController extends Thread {
     private final Timer TIMER;
     private final int PING_TIMEOUT = 1000;
     private final int DELAY = 100;
@@ -43,13 +43,13 @@ public class PingController extends Thread{
      */
     public void onPongReceived() {
         pingToDisconnect = MAX_PING_FAILURES;
-        if(connectionLost) {
+        if (connectionLost) {
             connectionLost = false;
             GamesManager.getInstance().onConnectionRestored(SOCKET_HANDLER);
         }
     }
 
-    public int decrementPingToDisconnect(){
+    public int decrementPingToDisconnect() {
         return pingToDisconnect--;
     }
 
@@ -60,7 +60,7 @@ public class PingController extends Thread{
     /**
      * ping failed for too many times, that means the client was disconnected
      */
-    public void clientConnectionLost(){
+    public void clientConnectionLost() {
         connectionLost = true;
         GamesManager.getInstance().onConnectionLost(SOCKET_HANDLER);
     }

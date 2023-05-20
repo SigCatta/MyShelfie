@@ -32,11 +32,4 @@ public class ShelvesRepresentation extends VirtualModelSubject {
     public ShelfMTC getShelfMessage(String nickname) {
         return SHELF_MESSAGES.get(nickname);
     }
-
-    //TODO method that retrieves the players
-
-    @Override
-    public void notifyObservers() {
-       observers.forEach(VirtualModelObserver::update);
-    }
 }

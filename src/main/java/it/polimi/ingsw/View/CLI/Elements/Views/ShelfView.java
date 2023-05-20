@@ -12,8 +12,10 @@ public class ShelfView extends ViewElement {
 
     private static ShelfView instance;
 
-    private ShelfView(){}
-    public static ShelfView getInstance(){
+    private ShelfView() {
+    }
+
+    public static ShelfView getInstance() {
         if (instance == null) instance = new ShelfView();
         return instance;
     }

@@ -33,8 +33,8 @@ public class PlayerNumSceneController extends GuiController {
     private boolean continueClicked;
 
     @Override
-    public void updateEcho(EchoMTC echoMTC){
-        switch (echoMTC.getID()){
+    public void updateEcho(EchoMTC echoMTC) {
+        switch (echoMTC.getID()) {
             case CREATED:
                 Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Wait for others to join"));
                 break;
@@ -46,7 +46,7 @@ public class PlayerNumSceneController extends GuiController {
 
     @FXML
     protected void onContinueButtonClick() {
-        if(continueClicked) return;
+        if (continueClicked) return;
 
         //the new game has been created
         SocketClient.getInstance().sendCommand(new NewGameMTS(getPlayerNum()));
@@ -59,9 +59,9 @@ public class PlayerNumSceneController extends GuiController {
     }
 
     public int getPlayerNum() {
-        if(twoPlayers.isSelected()) {
+        if (twoPlayers.isSelected()) {
             return 2;
-        } else if(threePlayers.isSelected()) {
+        } else if (threePlayers.isSelected()) {
             return 3;
         } else
             return 4;

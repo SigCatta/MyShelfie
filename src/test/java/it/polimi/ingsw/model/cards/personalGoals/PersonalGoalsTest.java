@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.cards.personalGoals;
 
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.PersonalGoalReader;
-import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
@@ -25,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PersonalGoalsTest {
 
     @Test
-    public void pointStackTest() throws TooManyPlayersException, IOException, ParseException {
+    public void pointStackTest() throws IOException, ParseException {
         ArrayList<Player> players = new ArrayList<>();
         players.add(new Player("player1"));
         PersonalCardDealer.getCards(players);

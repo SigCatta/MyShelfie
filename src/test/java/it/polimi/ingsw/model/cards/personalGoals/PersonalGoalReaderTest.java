@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
-import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import it.polimi.ingsw.Enum.Color;
+import it.polimi.ingsw.JSONReader.PersonalGoalReader;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class ScoreBoard implements EndOfTurnObserver {
 
-    private Game game;
+    private final Game game;
     private boolean isFirstPointAssigned;
-    private ArrayList<CommonGoalCard> commonGoals;
+    private final ArrayList<CommonGoalCard> commonGoals;
 
 
     /**

@@ -4,111 +4,117 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController">
-   <children>
-      <Group>
-         <children>
-            <AnchorPane prefHeight="800.0" prefWidth="1200.0">
-               <children>
-                  <AnchorPane layoutX="-1.0" layoutY="491.0" prefHeight="312.0" prefWidth="1200.0">
-                     <children>
-                        <ImageView fitHeight="262.0" fitWidth="1184.0" layoutX="14.0" layoutY="-37.0">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/asse.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="39.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS AVAILABLE:" textAlignment="CENTER" wrappingWidth="123.2430419921875">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="18.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="443.0" fitWidth="445.0" layoutX="-25.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/open_book.png" />
-                           </image>
-                        </ImageView>
-                        <TextFlow layoutX="209.0" layoutY="76.0" prefHeight="193.0" prefWidth="123.0">
-                           <children>
-                              <Text fx:id="card1Description" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Desciption:" textAlignment="CENTER" wrappingWidth="149.423828125">
-                                 <font>
-                                    <Font name="Book Antiqua" size="14.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </TextFlow>
-                        <Text fx:id="pointCG1Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" wrappingWidth="123.2430419921875">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="22.0" />
-                           </font>
-                        </Text>
-                        <ImageView fx:id="commonGoalCard1" fitHeight="79.0" fitWidth="111.0" layoutX="75.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/EightTilesSameColor.jpg" />
-                           </image></ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="747.0" layoutY="160.0" prefHeight="401.0" prefWidth="421.0">
-                     <children>
-                        <Text fx:id="pointCG2Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER" wrappingWidth="123.2430419921875">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="22.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="455.0" fitWidth="434.0" layoutX="20.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/open_book.png" />
-                           </image>
-                        </ImageView>
-                        <TextFlow layoutX="249.0" layoutY="90.0" prefHeight="185.0" prefWidth="123.0">
-                           <children>
-                              <Text fx:id="card2Description" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Desciption:" textAlignment="CENTER" wrappingWidth="123.423828125">
-                                 <font>
-                                    <Font name="Book Antiqua" size="14.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </TextFlow>
-                        <Text fill="WHITE" layoutX="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS AVAILABLE:" textAlignment="CENTER" wrappingWidth="123.2430419921875">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="18.0" />
-                           </font>
-                        </Text>
-                        <ImageView fx:id="commonGoalCard2" fitHeight="79.0" fitWidth="111.0" layoutX="118.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FiveTilesDiagonal.jpg" />
-                           </image></ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="463.0" layoutY="184.0" prefHeight="330.0" prefWidth="274.0">
-                     <children>
-                        <ImageView fitHeight="312.0" fitWidth="212.0" layoutX="34.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/personal_goal_cards/Personal_Goals6.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="personalGoalImage" fitHeight="368.0" fitWidth="276.0" layoutX="1.0" layoutY="-16.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/wood_frame.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="68.0" layoutY="624.0" prefHeight="147.0" prefWidth="191.0">
-                     <children>
-                        <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0" onMouseClicked="#onGoBackClicked" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/back_arrow.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </Group>
-   </children>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background"
+           stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController">
+    <children>
+        <Group>
+            <children>
+                <AnchorPane prefHeight="800.0" prefWidth="1200.0">
+                    <children>
+                        <AnchorPane layoutX="-1.0" layoutY="491.0" prefHeight="312.0" prefWidth="1200.0">
+                            <children>
+                                <ImageView fitHeight="262.0" fitWidth="1184.0" layoutX="14.0" layoutY="-37.0">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/asse.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="39.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <Text fill="WHITE" layoutX="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS AVAILABLE:" textAlignment="CENTER" wrappingWidth="123.2430419921875">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="18.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="443.0" fitWidth="445.0" layoutX="-25.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/open_book.png"/>
+                                    </image>
+                                </ImageView>
+                                <TextFlow layoutX="209.0" layoutY="76.0" prefHeight="193.0" prefWidth="123.0">
+                                    <children>
+                                        <Text fx:id="card1Description" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Desciption:" textAlignment="CENTER" wrappingWidth="149.423828125">
+                                            <font>
+                                                <Font name="Book Antiqua" size="14.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <Text fx:id="pointCG1Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
+                                      wrappingWidth="123.2430419921875">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="22.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="commonGoalCard1" fitHeight="79.0" fitWidth="111.0" layoutX="75.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/EightTilesSameColor.jpg"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="747.0" layoutY="160.0" prefHeight="401.0" prefWidth="421.0">
+                            <children>
+                                <Text fx:id="pointCG2Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
+                                      wrappingWidth="123.2430419921875">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="22.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="455.0" fitWidth="434.0" layoutX="20.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/open_book.png"/>
+                                    </image>
+                                </ImageView>
+                                <TextFlow layoutX="249.0" layoutY="90.0" prefHeight="185.0" prefWidth="123.0">
+                                    <children>
+                                        <Text fx:id="card2Description" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Desciption:" textAlignment="CENTER" wrappingWidth="123.423828125">
+                                            <font>
+                                                <Font name="Book Antiqua" size="14.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <Text fill="WHITE" layoutX="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="POINTS AVAILABLE:" textAlignment="CENTER" wrappingWidth="123.2430419921875">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="18.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="commonGoalCard2" fitHeight="79.0" fitWidth="111.0" layoutX="118.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/common_goal_cards/angoli_smussati/FiveTilesDiagonal.jpg"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="463.0" layoutY="184.0" prefHeight="330.0" prefWidth="274.0">
+                            <children>
+                                <ImageView fitHeight="312.0" fitWidth="212.0" layoutX="34.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/personal_goal_cards/Personal_Goals6.png"/>
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="personalGoalImage" fitHeight="368.0" fitWidth="276.0" layoutX="1.0" layoutY="-16.0" pickOnBounds="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/wood_frame.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="68.0" layoutY="624.0" prefHeight="147.0" prefWidth="191.0">
+                            <children>
+                                <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0" onMouseClicked="#onGoBackClicked" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/back_arrow.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </Group>
+    </children>
 </StackPane>

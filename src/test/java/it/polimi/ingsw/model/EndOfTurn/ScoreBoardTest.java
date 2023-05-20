@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ScoreBoardTest {
     Game game;
     List<Player> players;
+
     @BeforeEach
-    public void init() throws TooManyCardsRequestedException {
+    public void init() {
         game = new Game(4);
         game.addPlayer(new Player("player1"));
         game.addPlayer(new Player("player2"));
@@ -23,6 +23,7 @@ public class ScoreBoardTest {
         new TurnHandler(game);
         players = game.getPlayers();
     }
+
     @Test
     public void getWinnerTest1() { // general case
         players.get(0).updateScore(1);

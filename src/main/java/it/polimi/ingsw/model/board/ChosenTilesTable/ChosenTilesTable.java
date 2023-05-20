@@ -11,28 +11,28 @@ import java.util.List;
 public class ChosenTilesTable implements VirtualViewSubject {
     private final List<VirtualViewObserver> observers = new ArrayList<>();
 
-    private List<ItemTile> chosenTiles = new ArrayList<>();
+    private final List<ItemTile> chosenTiles = new ArrayList<>();
 
     private Board board;
     private Integer chosenColumn;
 
-    public void addTiles(ArrayList<ItemTile> tiles){
+    public void addTiles(ArrayList<ItemTile> tiles) {
         chosenTiles.addAll(tiles);
         chosenColumn = null;
         notifyObservers();
     }
 
-    public ItemTile popTile(int index){
+    public ItemTile popTile(int index) {
         ItemTile chosenTile = chosenTiles.remove(index);
         notifyObservers();
         return chosenTile;
     }
 
-    public ItemTile getTile(int index){
+    public ItemTile getTile(int index) {
         return chosenTiles.get(index);
     }
 
-    public int size(){
+    public int size() {
         return chosenTiles.size();
     }
 
@@ -60,7 +60,7 @@ public class ChosenTilesTable implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

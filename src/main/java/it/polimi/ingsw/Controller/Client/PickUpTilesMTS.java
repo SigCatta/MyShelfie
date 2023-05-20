@@ -14,7 +14,7 @@ public class PickUpTilesMTS extends MessageToServer implements Serializable {
 
     private final ArrayList<Point> tilesPosition;
 
-    public PickUpTilesMTS(ArrayList<Point> tilesPosition){
+    public PickUpTilesMTS(ArrayList<Point> tilesPosition) {
         this.tilesPosition = tilesPosition;
     }
 

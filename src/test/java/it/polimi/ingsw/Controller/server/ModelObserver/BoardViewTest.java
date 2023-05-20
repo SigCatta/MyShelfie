@@ -13,8 +13,9 @@ public class BoardViewTest {
     BoardVV boardView;
     VirtualView virtualView;
     Game game;
+
     @BeforeEach
-    public void setup(){
+    public void setup() {
         game = new Game(3);
         game.start();
         BoardRefresher boardRefresher = new BoardRefresher(game);
@@ -24,7 +25,7 @@ public class BoardViewTest {
     }
 
     @Test
-    public void isObserver(){
-        game.getBoard().removeItemTile(new Point(6,6));
+    public void isObserver() {
+        game.getBoard().removeItemTile(new Point(6, 6));
     }
 }

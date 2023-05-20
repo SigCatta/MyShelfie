@@ -18,7 +18,7 @@ public class Board implements VirtualViewSubject {
         OBSERVERS = new ArrayList<>();
     }
 
-    public Board(ItemTile[][] board){ //TODO only for testing (?)
+    public Board(ItemTile[][] board) { //TODO only for testing (?)
         BOARD_GRID = board;
         OBSERVERS = new ArrayList<>();
     }
@@ -28,12 +28,12 @@ public class Board implements VirtualViewSubject {
     }
 
 
-    public int getSize(){
+    public int getSize() {
         return BOARD_GRID.length;
     }
 
-    public void setItemTile(Color color, int row, int col){ //TODO only for testing (?)
-        if(row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
+    public void setItemTile(Color color, int row, int col) { //TODO only for testing (?)
+        if (row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
         notifyObservers();
     }
@@ -44,16 +44,16 @@ public class Board implements VirtualViewSubject {
         return pickedUpTile;
     }
 
-    public ArrayList<ItemTile> removeItemTiles(ArrayList<Point> positions){
+    public ArrayList<ItemTile> removeItemTiles(ArrayList<Point> positions) {
         ArrayList<ItemTile> tiles = new ArrayList<>();
-        for(Point p : positions){
+        for (Point p : positions) {
             tiles.add(removeItemTile(p));
         }
         notifyObservers();
         return tiles;
     }
 
-    public void emptyBoard(){
+    public void emptyBoard() {
         for (ItemTile[] itemTiles : BOARD_GRID) {
             Arrays.fill(itemTiles, null);
         }
@@ -75,7 +75,7 @@ public class Board implements VirtualViewSubject {
      */
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : OBSERVERS){
+        for (VirtualViewObserver observer : OBSERVERS) {
             observer.update();
         }
     }

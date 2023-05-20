@@ -198,7 +198,7 @@ public class BoardController extends GuiController implements Initializable {
 
         if (message.getID() == EchoID.LAST_TURN) {
             updateLastTurn();
-        } else if(message.isError()){
+        } else if (message.isError()) {
             showError(message);
         }
 
@@ -247,7 +247,7 @@ public class BoardController extends GuiController implements Initializable {
     }
 
 
-    private void showError(EchoMTC errorMessage){
+    private void showError(EchoMTC errorMessage) {
         errorImage.setVisible(true);
         errorText.setVisible(true);
         errorText.setWrappingWidth(300);

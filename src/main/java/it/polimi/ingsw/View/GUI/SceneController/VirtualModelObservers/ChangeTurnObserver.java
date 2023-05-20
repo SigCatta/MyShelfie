@@ -15,7 +15,7 @@ public class ChangeTurnObserver implements VirtualModelObserver {
     @Override
     public void update() {
 
-        if(previousPlayer != null && !previousPlayer.equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
+        if (previousPlayer != null && !previousPlayer.equals(GameRepresentation.getInstance().getActivePlayerNickname())) return;
 
         // done if it is the first turn or the turn is changed
         previousPlayer = GameRepresentation.getInstance().getActivePlayerNickname();

@@ -45,9 +45,4 @@ public class CommonGoalsRepresentation extends VirtualModelSubject {
     public ArrayList<Integer> getAvailablePoints() {
         return commonGoalMessage.getAvailablePoints();
     }
-
-    @Override
-    public void notifyObservers() {
-        observers.forEach(VirtualModelObserver::update);
-    }
 }

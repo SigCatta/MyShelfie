@@ -19,7 +19,6 @@ public class BoardRepresentation extends VirtualModelSubject {
 
     public void setBoard(BoardMTC board) {
         this.board = board.getColorBoard();
-        System.out.println("the board has been set"); //TODO remove
         notifyObservers();
     }
 
@@ -39,10 +38,5 @@ public class BoardRepresentation extends VirtualModelSubject {
             }
         }
         return colorBoard;
-    }
-
-    @Override
-    public void notifyObservers() {
-        observers.forEach(VirtualModelObserver::update);
     }
 }

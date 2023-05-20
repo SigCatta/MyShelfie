@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class WaitingRoomController extends GuiController implements Initializable{
+public class WaitingRoomController extends GuiController implements Initializable {
     @FXML
     Text playersNamesText;
     @FXML
@@ -29,9 +29,9 @@ public class WaitingRoomController extends GuiController implements Initializabl
     TextField gameIdText;
 
     @Override
-    public void updateGame(){
+    public void updateGame() {
 
-        if(GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (GameRepresentation.getInstance().getGameMessage() == null) return;
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
@@ -43,38 +43,38 @@ public class WaitingRoomController extends GuiController implements Initializabl
 
     @Override
     public void updateEcho(EchoMTC echoMTC) {
-        if(echoMTC.getID() == EchoID.JOINED){
+        if (echoMTC.getID() == EchoID.JOINED) {
             updatePlayers();
         }
     }
 
     @Override
-    public void updatePlayers(){
+    public void updatePlayers() {
         playersNamesText.setText("");
         List<String> players = PlayersRepresentation.getInstance().getPlayersList();
-        if(players == null){
+        if (players == null) {
             addPlayerToString(SocketClient.getInstance().getNickname());
             return;
         }
         addPlayerToString(players);
 
         //enter the game if all the players entered
-        if(GameRepresentation.getInstance().getGameMessage() == null) return;
-        if(players.size() == GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()){
+        if (GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (players.size() == GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()) {
             enterGame();
         }
     }
 
-    private void enterGame(){
-        Platform.runLater(() -> StageController.changeScene("fxml/board.fxml","Living room"));
+    private void enterGame() {
+        Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Living room"));
     }
 
-    private void addPlayerToString(String nickname){
+    private void addPlayerToString(String nickname) {
         playersNamesText.setText(nickname + ", " + playersNamesText.getText());
     }
 
-    private void addPlayerToString(List<String> nicknames){
-        for(String name: nicknames) {
+    private void addPlayerToString(List<String> nicknames) {
+        for (String name : nicknames) {
             playersNamesText.setText(name + ", " + playersNamesText.getText());
         }
         int numberOfPlayers = PlayersRepresentation.getInstance().getPlayersList().size();

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
            prefWidth="1200.0" styleClass="library_background" xmlns="http://javafx.com/javafx/19" stylesheets="@../css/background.css"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.LobbyController">
@@ -25,7 +24,7 @@
                                 prefWidth="467.0" styleClass="wooden_label" onAction="#onExitButtonClick" text="Exit"/>
                     </children>
                 </AnchorPane>
-         </children>
-      </Group>
-   </children>
+            </children>
+        </Group>
+    </children>
 </StackPane>

@@ -14,9 +14,11 @@ import static java.lang.Math.min;
 
 public class AdjacencyScoreCalculation {
 
-    /** calculate the points gained from the adjacency of tiles
+    /**
+     * calculate the points gained from the adjacency of tiles
      * in the shelf, if three or more colors touch each other,
-            * then the player should gain points
+     * then the player should gain points
+     *
      * @return points
      */
     public static int calculateScore(Player activePlayer) {
@@ -43,7 +45,8 @@ public class AdjacencyScoreCalculation {
     }
 
 
-    /** @param shelf the shelf of the player
+    /**
+     * @param shelf the shelf of the player
      * @return a list containing the list of points in each cluster
      */
     private static List<Integer> findClusters(ItemTile[][] shelf) {
@@ -57,8 +60,8 @@ public class AdjacencyScoreCalculation {
                 ItemTile currentTile = shelf[row][col];
 
                 Color currentColor;
-                if(currentTile == null) currentColor = null;
-                else{
+                if (currentTile == null) currentColor = null;
+                else {
                     currentColor = currentTile.getColor();
                 }
 
@@ -76,12 +79,11 @@ public class AdjacencyScoreCalculation {
     }
 
     /**
-     *
-     * @param shelf the shelf representation with colors instead of tiles
-     * @param row current row
-     * @param col current column
+     * @param shelf        the shelf representation with colors instead of tiles
+     * @param row          current row
+     * @param col          current column
      * @param currentColor color of the current cluster
-     * @param seen positions already visited
+     * @param seen         positions already visited
      * @return a list with the size of tiles in a certain group
      */
     private static List<Integer> dfs(ItemTile[][] shelf, int row, int col, Color currentColor, Set<String> seen) {
@@ -89,7 +91,7 @@ public class AdjacencyScoreCalculation {
         if (row < 0 || row >= shelf.length || col < 0 || col >= shelf[0].length || currentColor == null) {
             return new ArrayList<>();
         }
-        if(shelf[row][col] != null && shelf[row][col].getColor() != currentColor){
+        if (shelf[row][col] != null && shelf[row][col].getColor() != currentColor) {
             return new ArrayList<>();
         }
 
@@ -99,7 +101,7 @@ public class AdjacencyScoreCalculation {
         }
         seen.add(key);
 
-        if(shelf[row][col] == null) return new ArrayList<>();
+        if (shelf[row][col] == null) return new ArrayList<>();
 
         List<Integer> partialCounts = new ArrayList<>();
         partialCounts.add(1);

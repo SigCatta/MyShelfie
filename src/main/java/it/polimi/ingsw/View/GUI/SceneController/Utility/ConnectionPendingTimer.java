@@ -8,7 +8,7 @@ public class ConnectionPendingTimer {
      * used to measure the time taken by the server to respond,
      * if it is too much it sends an error message
      */
-    private static Timer connectionPendingTimer = new Timer();
+    private static final Timer connectionPendingTimer = new Timer();
     /**
      * used to keep track if the connectionPendingTimer is counting,
      * when it is, the connectionPending will stop requesting to
@@ -16,9 +16,9 @@ public class ConnectionPendingTimer {
      */
     private static boolean connectionPending;
 
-    public static void start(int time){
+    public static void start(int time) {
 
-        if(connectionPending){
+        if (connectionPending) {
             cancel();
         }
 
@@ -28,7 +28,7 @@ public class ConnectionPendingTimer {
             int secondsPassed = 0;
 
             public void run() {
-                if(connectionPending && secondsPassed > time){
+                if (connectionPending && secondsPassed > time) {
                     connectionPending = false;
                     cancel();
                 }
@@ -40,12 +40,12 @@ public class ConnectionPendingTimer {
         connectionPendingTimer.scheduleAtFixedRate(task, 0, 1000);
     }
 
-    public static void cancel(){
+    public static void cancel() {
         connectionPendingTimer.cancel();
         connectionPending = false;
     }
 
-    public static boolean isPending(){
+    public static boolean isPending() {
         return connectionPending;
     }
 }
