@@ -1,11 +1,10 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
-import it.polimi.ingsw.View.CLI.InputStatePlayer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
-import it.polimi.ingsw.network.client.SocketClient;
+import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 
-public class WaitingPlayerState extends InputState {
+public class WaitingPlayerState extends InputState implements VirtualModelObserver {
     private final Reader reader;
 
     WaitingPlayerState(Reader reader) {
@@ -21,15 +20,17 @@ public class WaitingPlayerState extends InputState {
     @Override
     public void play() {
         System.out.println("You are not the active player...");
+        GameRepresentation.getInstance().registerObserver(this);
+    }
 
-        String nickname = SocketClient.getInstance().getNickname();
+    @Override
+    public void update() {
+        String nickname = socketClient.getNickname();
 
-        while (!GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) { // waits for the model to change and updates the view
-            synchronized (GameRepresentation.getInstance()){
-                waitForVM(GameRepresentation.getInstance());
-            }
+        if (GameRepresentation.getInstance().getActivePlayerNickname().equals(nickname)) {
+            GameRepresentation.getInstance().removeObserver(this);
+            new ActivePlayerState(reader).play();
         }
 
-        InputStatePlayer.getInstance().setState(new ActivePlayerState(reader));
     }
 }

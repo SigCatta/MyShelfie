@@ -1,6 +1,6 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
-import it.polimi.ingsw.View.CLI.Elements.CommonGoalView;
+import it.polimi.ingsw.View.CLI.Elements.Views.CommonGoalView;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 
 import java.util.ArrayList;
