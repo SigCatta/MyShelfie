@@ -5,10 +5,14 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
-public class PlayerNumSceneController extends GuiController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PlayerNumSceneController extends GuiController implements Initializable {
     @FXML
     ToggleGroup playerNumToggle;
     /**
@@ -59,11 +63,16 @@ public class PlayerNumSceneController extends GuiController {
     }
 
     public int getPlayerNum() {
-        if(twoPlayers.isSelected()) {
+        if (twoPlayers.isSelected()) {
             return 2;
-        } else if(threePlayers.isSelected()) {
+        } else if (threePlayers.isSelected()) {
             return 3;
         } else
             return 4;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        continueClicked = false;
     }
 }

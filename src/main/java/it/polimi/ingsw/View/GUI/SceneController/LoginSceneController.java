@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Client.HandshakeMTS;
 import it.polimi.ingsw.InputValidator;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ConnectionPendingTimer;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -23,7 +24,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginSceneController extends GuiController implements Initializable {
-    static final String IP_ADDRESS = "localhost";
 
     @FXML
     TextField nicknameField;
@@ -45,6 +45,8 @@ public class LoginSceneController extends GuiController implements Initializable
     @FXML
     AnchorPane nicknameErrorPane;
     @FXML
+    AnchorPane ipErrorPane;
+    @FXML
     ImageView wrongIpImage;
     @FXML
     Text wrongIpText;
@@ -52,8 +54,8 @@ public class LoginSceneController extends GuiController implements Initializable
     StackPane login_scene;
 
     @Override
-    public void updateEcho(EchoMTC echoMTC){
-        switch (echoMTC.getID()){
+    public void updateEcho(EchoMTC echoMTC) {
+        switch (echoMTC.getID()) {
             case BADNICK:
                 badNicknameEffect(echoMTC);
                 break;
@@ -61,12 +63,6 @@ public class LoginSceneController extends GuiController implements Initializable
                 goToCreateGame();
                 break;
         }
-    }
-
-    public void isIpCorrect()  {
-        if(InputValidator.isValidIpAddress(ipField.getText())) {
-            wrongIpImage.setVisible(false);   //ip is correct
-        } else wrongIpImage.setVisible(true);
     }
 
 
@@ -78,11 +74,25 @@ public class LoginSceneController extends GuiController implements Initializable
 
     @FXML
     protected void onContinueButtonClick() {
-        if(ConnectionPendingTimer.isPending()) return;
+        if (ConnectionPendingTimer.isPending()) return;
+
+        if (!InputValidator.isValidIpAddress(ipField.getText())) {
+            showCouldNotConnectMessage();
+            return;
+        }
+
+        Client client;
+        try {
+            client = SocketClient.getInstance(ipField.getText(), 28888);
+            client.readCommand(); // Starts an asynchronous reading from the server.
+        } catch (Exception e) {
+            showCouldNotConnectMessage();
+            return;
+        }
 
         SocketClient.getInstance().sendCommand(new HandshakeMTS(nicknameField.getText()));
 
-        ConnectionPendingTimer.start(2);
+        ConnectionPendingTimer.start(1);
     }
 
 
@@ -107,8 +117,16 @@ public class LoginSceneController extends GuiController implements Initializable
     /**
      * if the ConnectionPendingTimer expires show this message
      */
-    private void showCouldNotConnectMessage(){
-        //TODO
+    private void showCouldNotConnectMessage() {
+        ipErrorPane.setVisible(true);
+        wrongIpImage.setVisible(true);
+        wrongIpImage.setVisible(true);
+        wrongIpText.setText("Can't connect to the server...");
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), ipErrorPane);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
     }
 
     private void badNicknameEffect(EchoMTC message){
@@ -133,5 +151,6 @@ public class LoginSceneController extends GuiController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_scene.setOnKeyPressed(this::onKeyPressed);
+        ipField.setText("localhost");
     }
 }

@@ -102,7 +102,7 @@ public class EnterGameSceneController extends GuiController {
 
         System.out.println("There was an error: "); //TODO remove
         if(containsLetters) {
-            errorText.setText("The GAME ID must contains only numbers!");
+            errorText.setText("The GAME ID must contain only numbers!");
         } else
             errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
 
@@ -133,17 +133,9 @@ public class EnterGameSceneController extends GuiController {
     }
     @FXML
     public void setContinueButtonVisible() {
-        if(joinGameRB.isSelected()) {
-            if(gameIdField.getText().length()>0)
-                continueButton.setVisible(true);
-            else continueButton.setVisible(false);
-        } else if(newGameRB.isSelected()){
-            continueButton.setVisible(true);
-        } else continueButton.setVisible(false);
-    }
-
-    public String getGameId() {
-        return gameIdField.getText();
+        if (joinGameRB.isSelected()) {
+            continueButton.setVisible(gameIdField.getText().length() > 0);
+        } else continueButton.setVisible(newGameRB.isSelected());
     }
 
     @FXML

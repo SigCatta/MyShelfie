@@ -3,7 +3,6 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.View.CLI.InputStates.NicknameState;
 import it.polimi.ingsw.View.GUI.Gui;
 import it.polimi.ingsw.network.client.Client;
-import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Application;
 
 /**
@@ -21,18 +20,16 @@ public class ClientApp {
                 break;
             }
         }
-
-        String address = "localhost";
-//        System.out.println("Insert server IP address:");
-//        address = Reader.getInput();
-//        if (address.equals("")) address = "localhost";
-        try {
-            client = SocketClient.getInstance(address, 28888);
-            client.readCommand(); // Starts an asynchronous reading from the server.
-        } catch (Exception e) {
-            System.out.println("could not connect to server");
-            System.exit(1);
-        }
+//
+//        String address = "localhost";
+//
+//        try {
+//            client = SocketClient.getInstance(address, 28888);
+//            client.readCommand(); // Starts an asynchronous reading from the server.
+//        } catch (Exception e) {
+//            System.out.println("could not connect to server");
+//            System.exit(1);
+//        }
 
         if (cliParam) {
             new NicknameState().play();

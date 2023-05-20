@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 public class LobbyController extends GuiController implements Initializable {
 
-    private boolean initialized;
+    private static boolean initialized;
 
     @FXML
     protected void onPlayButtonClick() {
