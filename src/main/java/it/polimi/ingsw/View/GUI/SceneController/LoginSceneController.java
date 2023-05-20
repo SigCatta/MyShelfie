@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.HandshakeMTS;
+import it.polimi.ingsw.InputValidator;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ConnectionPendingTimer;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
@@ -22,6 +23,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginSceneController extends GuiController implements Initializable {
+    static final String IP_ADDRESS = "localhost";
+
     @FXML
     TextField nicknameField;
 
@@ -59,6 +62,13 @@ public class LoginSceneController extends GuiController implements Initializable
                 break;
         }
     }
+
+    public void isIpCorrect()  {
+        if(InputValidator.isValidIpAddress(ipField.getText())) {
+            wrongIpImage.setVisible(false);   //ip is correct
+        } else wrongIpImage.setVisible(true);
+    }
+
 
     @FXML
     protected void onGoBackButtonClick() {

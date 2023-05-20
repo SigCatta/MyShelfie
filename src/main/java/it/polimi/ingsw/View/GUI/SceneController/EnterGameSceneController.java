@@ -1,6 +1,7 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.CanIPlayMTS;
+import it.polimi.ingsw.VirtualModel.EchosRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 import javafx.animation.FadeTransition;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -31,6 +33,12 @@ public class EnterGameSceneController extends GuiController {
     @FXML
     Button continueButton;
 
+    @FXML
+    Text errorText;
+
+    @FXML
+    AnchorPane errorPane;
+
     private boolean connectPlayer;
 
     @Override
@@ -46,7 +54,7 @@ public class EnterGameSceneController extends GuiController {
                 connectionFailed();
                 break;
             case NOID:
-                wrongGameIdEffect();
+                wrongGameIdEffect(false);
                 break;
         }
     }
@@ -59,7 +67,7 @@ public class EnterGameSceneController extends GuiController {
             try {
                 gameId = Integer.parseInt(gameIdField.getText());
             } catch (NumberFormatException e) {
-                wrongGameIdEffect();
+                wrongGameIdEffect(true);
                 return;
             }
 
@@ -84,12 +92,24 @@ public class EnterGameSceneController extends GuiController {
 
     public void connectionFailed(){
         connectPlayer = false;
-        wrongGameIdEffect();
+        wrongGameIdEffect(false);
     }
 
-    public void wrongGameIdEffect(){
+    public void wrongGameIdEffect(boolean containsLetters){
         wrongGameIdImage.setVisible(true);
-        //TODO set the text to show the error
+        errorText.setVisible(true);
+        errorText.setWrappingWidth(300);
+
+        System.out.println("There was an error: "); //TODO remove
+        if(containsLetters) {
+            errorText.setText("The GAME ID must contains only numbers!");
+        } else
+            errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
+
+        FadeTransition textFadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
+        textFadeTransition.setFromValue(1.0);
+        textFadeTransition.setToValue(0.0);
+        textFadeTransition.play();
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), wrongGameIdImage);
         fadeTransition.setFromValue(1.0);

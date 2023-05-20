@@ -53,7 +53,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="193.0" layoutY="424.0" prefHeight="105.0" prefWidth="551.0">
+                  <AnchorPane layoutX="193.0" layoutY="424.0" prefHeight="183.0" prefWidth="843.0">
                      <children>
                         <TextField fx:id="gameIdField" layoutX="21.0" layoutY="57.0" onKeyTyped="#onGameIdInsert" prefHeight="36.0" prefWidth="331.0" visible="false" />
                         <Text fx:id="gameIdText" fill="#fffcfc" layoutX="27.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME ID:" visible="false" wrappingWidth="204.0">
@@ -65,6 +65,15 @@
                               <Image url="@../17_MyShelfie_BGA/misc/warning.png" />
                            </image>
                         </ImageView>
+                        <AnchorPane fx:id="errorPane" layoutX="430.0" layoutY="32.0" prefHeight="119.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="errorText" layoutX="9.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.20004272460938">
+                                 <font>
+                                    <Font name="Arial" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </children>
