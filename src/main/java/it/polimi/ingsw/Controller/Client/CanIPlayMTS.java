@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class CanIPlayMTS extends MessageToServer implements Serializable {
 
-    private int newGameID;
+    private final int newGameID;
 
     public CanIPlayMTS(int newGameID) {
         this.newGameID = newGameID;

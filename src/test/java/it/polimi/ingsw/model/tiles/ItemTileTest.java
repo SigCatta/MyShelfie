@@ -10,7 +10,7 @@ public class ItemTileTest {
     private static ItemTile itemTile;
 
     @Test
-    public void string(){
+    public void string() {
         System.out.println(Color.GREEN);
     }
 

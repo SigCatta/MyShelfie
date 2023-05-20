@@ -25,12 +25,10 @@ public class CanIPlayExecutor implements Executor {
 
         if (game == null) {
             message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.NOID, true));
-            System.out.println("Insert a valid game id"); //TODO remove
             return;
         }
         if (game.getPlayers().size() == game.getMAX_PLAYER_NUMBER()) {
             message.getSocketClientHandler().sendCommand(new EchoMTC(EchoID.GAMEFULL, true));
-            System.out.println("The chosen game is already full");//TODO remove
             return;
         }
         if (game.getGameState() != GameState.PREGAME) {

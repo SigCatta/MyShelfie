@@ -4,25 +4,36 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 
 public abstract class GuiController {
 
-    public void updateGame(){}
+    public void updateGame() {
+    }
 
-    public void updatePlayers(){}
+    public void updatePlayers() {
+    }
 
-    public void updateEcho(EchoMTC echoMessage){}
+    public void updateEcho(EchoMTC echoMessage) {
+    }
 
-    public void updateBoard(){}
+    public void updateBoard() {
+    }
 
-    public void updateShelf(){}
+    public void updateShelf() {
+    }
 
-    public void updateChosenTilesTable(){}
+    public void updateChosenTilesTable() {
+    }
 
-    public void updateChat(){}
+    public void updateChat() {
+    }
 
-    public void updateCommonGoals(){}
+    public void updateCommonGoals() {
+    }
 
-    public void updateChangeTurn(){}
+    public void updateChangeTurn() {
+    }
 
-    public void updateFirstPlayerToFinish(){} //TODO remove and put it into update game state
+    public void updateFirstPlayerToFinish() {
+    } //TODO remove and put it into update game state
 
-    public void updateGameState(){}
+    public void updateGameState() {
+    }
 }

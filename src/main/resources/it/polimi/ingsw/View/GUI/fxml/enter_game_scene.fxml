@@ -6,78 +6,79 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.EnterGameSceneController">
-   <children>
-      <Group>
-         <children>
-            <AnchorPane prefHeight="802.0" prefWidth="1202.0" styleClass="blackBoard" stylesheets="@../css/background.css">
-               <children>
-                  <AnchorPane layoutX="150.0" layoutY="300.0" prefHeight="81.0" prefWidth="901.0">
-                     <children>
-                        <RadioButton fx:id="newGameRB" layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNewGameRBClicked" prefHeight="62.0" prefWidth="204.0" text="NEW GAME">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="18.0" />
-                           </font>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="gameToggle" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="joinGameRB" layoutX="654.0" layoutY="28.0" mnemonicParsing="false" onAction="#onJoinGameRBClicked" text="JOIN GAME" toggleGroup="$gameToggle">
-                           <font>
-                              <Font name="Gill Sans MT Bold" size="18.0" />
-                           </font>
-                        </RadioButton>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="245.0" layoutY="100.0" prefHeight="200.0" prefWidth="712.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="202.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NICKNAME REGISTERED! NOW CHOOSE THE TYPE OF GAME" textAlignment="CENTER" wrappingWidth="308.04296875">
-                           <font>
-                              <Font name="Gill Sans MT" size="24.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="236.0" layoutY="523.0" prefHeight="144.0" prefWidth="773.0">
-                     <children>
-                        <Button fx:id="continueButton" layoutX="520.0" layoutY="61.0" mnemonicParsing="false"
-                                onAction="#onContinueButtonClick" prefHeight="83.0" prefWidth="296.0" text="CONTINUE">
-                           <font>
-                              <Font name="Arial Black" size="18.0"/>
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="208.0" layoutY="381.0" prefHeight="183.0" prefWidth="843.0">
-                     <children>
-                        <TextField fx:id="gameIdField" layoutX="21.0" layoutY="57.0" onKeyTyped="#onGameIdInsert"
-                                   prefHeight="36.0" prefWidth="331.0" visible="false"/>
-                        <Text fx:id="gameIdText" fill="#fffcfc" layoutX="27.0" layoutY="31.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="GAME ID:" visible="false" wrappingWidth="204.0">
-                           <font>
-                              <Font name="Gill Sans MT" size="24.0"/>
-                           </font>
-                        </Text>
-                        <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="386.0"
-                                   layoutY="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/misc/warning.png"/>
-                           </image>
-                        </ImageView>
-                        <AnchorPane fx:id="errorPane" layoutX="430.0" layoutY="32.0" prefHeight="119.0" prefWidth="200.0">
-                           <children>
-                              <Text fx:id="errorText" layoutX="9.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.20004272460938">
-                                 <font>
-                                    <Font name="Arial" size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background"
+           stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.polimi.ingsw.View.GUI.SceneController.EnterGameSceneController">
+    <children>
+        <Group>
+            <children>
+                <AnchorPane prefHeight="802.0" prefWidth="1202.0" styleClass="blackBoard" stylesheets="@../css/background.css">
+                    <children>
+                        <AnchorPane layoutX="150.0" layoutY="300.0" prefHeight="81.0" prefWidth="901.0">
+                            <children>
+                                <RadioButton fx:id="newGameRB" layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNewGameRBClicked" prefHeight="62.0" prefWidth="204.0"
+                                             text="NEW GAME">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="18.0"/>
+                                    </font>
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="gameToggle"/>
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="joinGameRB" layoutX="654.0" layoutY="28.0" mnemonicParsing="false" onAction="#onJoinGameRBClicked" text="JOIN GAME" toggleGroup="$gameToggle">
+                                    <font>
+                                        <Font name="Gill Sans MT Bold" size="18.0"/>
+                                    </font>
+                                </RadioButton>
+                            </children>
                         </AnchorPane>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </Group>
-   </children>
+                        <AnchorPane layoutX="245.0" layoutY="100.0" prefHeight="200.0" prefWidth="712.0">
+                            <children>
+                                <Text fill="WHITE" layoutX="202.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NICKNAME REGISTERED! NOW CHOOSE THE TYPE OF GAME" textAlignment="CENTER"
+                                      wrappingWidth="308.04296875">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="24.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="193.0" layoutY="523.0" prefHeight="144.0" prefWidth="816.0">
+                            <children>
+                                <Button fx:id="continueButton" layoutX="496.0" layoutY="26.0" mnemonicParsing="false" onAction="#onContinueButtonClick" prefHeight="83.0" prefWidth="296.0"
+                                        text="CONTINUE" visible="false">
+                                    <font>
+                                        <Font name="Arial Black" size="18.0"/>
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="193.0" layoutY="424.0" prefHeight="183.0" prefWidth="843.0">
+                            <children>
+                                <TextField fx:id="gameIdField" layoutX="21.0" layoutY="57.0" onKeyTyped="#onGameIdInsert" prefHeight="36.0" prefWidth="331.0" visible="false"/>
+                                <Text fx:id="gameIdText" fill="#fffcfc" layoutX="27.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME ID:" visible="false" wrappingWidth="204.0">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="24.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="wrongGameIdImage" fitHeight="34.0" fitWidth="81.0" layoutX="386.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/misc/warning.png"/>
+                                    </image>
+                                </ImageView>
+                                <AnchorPane fx:id="errorPane" layoutX="430.0" layoutY="32.0" prefHeight="119.0" prefWidth="200.0">
+                                    <children>
+                                        <Text fx:id="errorText" layoutX="9.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="219.20004272460938">
+                                            <font>
+                                                <Font name="Arial" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </Group>
+    </children>
 </StackPane>

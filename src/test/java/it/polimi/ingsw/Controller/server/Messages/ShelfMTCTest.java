@@ -1,8 +1,8 @@
 package it.polimi.ingsw.Controller.server.Messages;
 
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
 

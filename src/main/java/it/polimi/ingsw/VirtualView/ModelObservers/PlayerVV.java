@@ -12,7 +12,7 @@ public class PlayerVV implements VirtualViewObserver, MessageToClient, Serializa
     private final Player PLAYER;
     private final VirtualView VIRTUAL_VIEW;
 
-    public PlayerVV(Player player, VirtualView virtualView){
+    public PlayerVV(Player player, VirtualView virtualView) {
         this.PLAYER = player;
         this.VIRTUAL_VIEW = virtualView;
         PLAYER.registerObserver(this);

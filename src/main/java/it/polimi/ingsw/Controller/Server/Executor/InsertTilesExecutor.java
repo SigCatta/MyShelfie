@@ -54,7 +54,7 @@ public class InsertTilesExecutor implements Executor {
         activePlayer.getShelf().insertTile(tile, column);
 
         //there are no more tiles to be inserted
-        if(chosenTilesTable.size() == 0){
+        if (chosenTilesTable.size() == 0) {
             game.getTurnHandler().changeTurn();
             chosenTilesTable.setChosenColumn(null);
             game.setGameState(GameState.PICK_UP_TILES);

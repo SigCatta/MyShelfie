@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
  * This way it is possible to access a place in the board with O(1)
  */
 public class BoardMemory {
-    private static ImageView[][] imagesInBoard = new ImageView[9][9];
+    private static final ImageView[][] imagesInBoard = new ImageView[9][9];
 
     public static void put(ImageView imageView, int row, int col) {
         imagesInBoard[row][col] = imageView;
@@ -17,7 +17,7 @@ public class BoardMemory {
         return imagesInBoard[row][col];
     }
 
-    public static void removeImage(int row, int col){
+    public static void removeImage(int row, int col) {
         imagesInBoard[row][col].setImage(null);
     }
 }

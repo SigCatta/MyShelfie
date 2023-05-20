@@ -16,7 +16,7 @@ public class ChatViewTest {
 
     @Test
     public void getPrintTest2() {
-        ChatMTC message = new ChatMTC("messaggio test", "User", null,true);
+        ChatMTC message = new ChatMTC("messaggio test", "User", null, true);
         try {
             ChatRepresentation.getInstance().addMessage(message);
         } catch (NullPointerException e) {

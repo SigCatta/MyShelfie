@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.WinSceneController">
+<?import javafx.scene.text.*?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background"
+           stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.View.GUI.SceneController.WinSceneController">
     <children>
         <Group>
             <children>
                 <AnchorPane prefHeight="801.0" prefWidth="1205.0">
                     <children>
-                  <ImageView fitHeight="693.0" fitWidth="898.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../17_MyShelfie_BGA/misc/scroll_orizz.png" />
-                     </image>
-                  </ImageView>
+                        <ImageView fitHeight="693.0" fitWidth="898.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../17_MyShelfie_BGA/misc/scroll_orizz.png"/>
+                            </image>
+                        </ImageView>
                         <ImageView fitHeight="125.0" fitWidth="642.0" layoutX="422.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../17_MyShelfie_BGA/Publisher_material/Title_2000x618px.png" />
+                            <Image url="@../17_MyShelfie_BGA/Publisher_material/Title_2000x618px.png"/>
                         </ImageView>
-                  <Label layoutX="517.0" layoutY="219.0" prefHeight="38.0" prefWidth="200.0" styleClass="label1" text="SCOREBOARD" textFill="#9e9a59" />
-                  <AnchorPane layoutX="347.0" layoutY="276.0" prefHeight="271.0" prefWidth="589.0">
-                     <children>
-                        <Text fx:id="player4Nickname" layoutX="43.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player4" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font></Text>
-                        <Text fx:id="player3Nickname" layoutX="43.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player3" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font></Text>
-                        <Text fx:id="player2Nickname" layoutX="43.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player2" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font></Text>
-                        <Text fx:id="player1Nickname" layoutX="43.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player1" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font></Text>
-                        <Text fx:id="player1Points" layoutX="224.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="player2Points" layoutX="224.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="player3Points" layoutX="224.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="player4Points" layoutX="224.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Text>
-                        <ImageView fx:id="player1CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="player2CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="player3CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="player4CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
+                        <Label layoutX="517.0" layoutY="219.0" prefHeight="38.0" prefWidth="200.0" styleClass="label1" text="SCOREBOARD" textFill="#9e9a59"/>
+                        <AnchorPane layoutX="347.0" layoutY="276.0" prefHeight="271.0" prefWidth="589.0">
+                            <children>
+                                <Text fx:id="player4Nickname" layoutX="43.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player4" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player3Nickname" layoutX="43.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player3" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player2Nickname" layoutX="43.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player2" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player1Nickname" layoutX="43.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="player1" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player1Points" layoutX="224.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player2Points" layoutX="224.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player3Points" layoutX="224.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="player4Points" layoutX="224.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false"
+                                      wrappingWidth="161.0">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="player1CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png"/>
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="player2CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png"/>
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="player3CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png"/>
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="player4CrownImage" fitHeight="85.0" fitWidth="61.0" layoutX="440.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                    <image>
+                                        <Image url="@../17_MyShelfie_BGA/scoring_tokens/crown.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
                     </children>
                 </AnchorPane>
-         </children>
-      </Group>
-   </children>
+            </children>
+        </Group>
+    </children>
 </StackPane>

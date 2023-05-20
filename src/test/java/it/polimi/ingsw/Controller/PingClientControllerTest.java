@@ -18,8 +18,9 @@ class PingClientControllerTest {
         socketClientHandler = new SocketClientHandler(new Socket());
         pingController = new PingController(socketClientHandler);
     }
+
     @Test
-    public void isPingSent(){
+    public void isPingSent() {
     }
 
 }

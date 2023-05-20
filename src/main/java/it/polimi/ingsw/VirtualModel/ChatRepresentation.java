@@ -26,13 +26,4 @@ public class ChatRepresentation extends VirtualModelSubject {
         CHAT.add(chatMessage);
         notifyObservers();
     }
-
-    //TODO Note: if the client is not interested in the chat he can simply unsubscribe (remove from the observer list)
-    //TODO and the messages will still be stored in the queue, so when he wants to read it again he can read all the
-    //TODO messages he didn't read before
-
-    @Override
-    public void notifyObservers() {
-        observers.forEach(VirtualModelObserver::update);
-    }
 }

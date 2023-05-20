@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.RefreshTrigger;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.Enum.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ public class RefreshTriggerTest {
     Game game;
 
     @BeforeEach
-    void setUp() throws TooManyCardsRequestedException {
+    void setUp() {
         game = new Game(4);
         game.getBoard().emptyBoard();
         game.start();

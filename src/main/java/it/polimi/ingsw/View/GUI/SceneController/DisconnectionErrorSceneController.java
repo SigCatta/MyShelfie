@@ -14,7 +14,7 @@ public class DisconnectionErrorSceneController {
 
     @FXML
     protected void onLobbyButtonClick() {
-        Platform.runLater(() -> StageController.changeScene("fxml/lobby.fxml","Login")
+        Platform.runLater(() -> StageController.changeScene("fxml/lobby.fxml", "Login")
         );
     }
 

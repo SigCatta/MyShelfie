@@ -22,12 +22,12 @@ public class TurnHandler implements EndOfTurnSubject {
     /**
      * The list of observers subscribed to notifications when a turn ends.
      */
-    private List<EndOfTurnObserver> observers;
+    private final List<EndOfTurnObserver> observers;
 
     /**
      * The list of players in the game.
      */
-    private List<Player> players;
+    private final List<Player> players;
 
     /**
      * A flag indicating whether the current turn is the last one of the game.

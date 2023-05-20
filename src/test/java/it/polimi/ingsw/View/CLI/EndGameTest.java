@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 
 public class EndGameTest {
 
-    @Test @Disabled
+    @Test
+    @Disabled
     public void endTest() {
         GameStopper.getIntance();
         SocketClient.getInstance().setNickname("TEST");

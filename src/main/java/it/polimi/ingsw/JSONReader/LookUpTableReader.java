@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class LookUpTableReader implements JSONFileReader{
+public class LookUpTableReader implements JSONFileReader {
 
     protected final JSONParser jsonParser;
 
-    public LookUpTableReader(){
+    public LookUpTableReader() {
         this.jsonParser = new JSONParser();
     }
 
@@ -28,11 +28,11 @@ public class LookUpTableReader implements JSONFileReader{
 
         boolean[][] lookUpTable = null;
 
-        if(numOfPlayers < 2) numOfPlayers = 2;
-        else if(numOfPlayers > 4) numOfPlayers = 4;
+        if (numOfPlayers < 2) numOfPlayers = 2;
+        else if (numOfPlayers > 4) numOfPlayers = 4;
 
 
-        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/boards/" +  numOfPlayers + ".json");
+        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/boards/" + numOfPlayers + ".json");
         assert inputSream != null;
         InputStreamReader reader = new InputStreamReader(inputSream);
         try {

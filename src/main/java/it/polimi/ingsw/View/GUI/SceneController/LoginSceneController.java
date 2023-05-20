@@ -129,7 +129,7 @@ public class LoginSceneController extends GuiController implements Initializable
         fadeTransition.play();
     }
 
-    private void badNicknameEffect(EchoMTC message){
+    private void badNicknameEffect(EchoMTC message) {
         nicknameErrorPane.setVisible(true);
         wrongNicknameText.setWrappingWidth(200);
 
@@ -140,8 +140,8 @@ public class LoginSceneController extends GuiController implements Initializable
         fadeTransition.play();
     }
 
-    private void goToCreateGame(){
-        if(ConnectionPendingTimer.isPending()){
+    private void goToCreateGame() {
+        if (ConnectionPendingTimer.isPending()) {
             ConnectionPendingTimer.cancel();
         }
         SocketClient.getInstance().setNickname(nicknameField.getText());

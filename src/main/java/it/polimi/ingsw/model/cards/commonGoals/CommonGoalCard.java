@@ -85,7 +85,7 @@ public class CommonGoalCard implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver o : observers){
+        for (VirtualViewObserver o : observers) {
             o.update();
         }
     }

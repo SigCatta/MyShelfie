@@ -9,11 +9,20 @@ public abstract class VirtualModelSubject {
     public VirtualModelSubject() {
         observers = new ArrayList<>();
     }
+
     public synchronized void registerObserver(VirtualModelObserver observer) {
         observers.add(observer);
     }
-    public synchronized void removeObserver(VirtualModelObserver observer){
+
+    public synchronized void removeObserver(VirtualModelObserver observer) {
         observers.remove(observer);
     }
-    public abstract void notifyObservers();
+
+    public void notifyObservers() {
+        ArrayList<VirtualModelObserver> obs = new ArrayList<>(observers);
+        obs.forEach(VirtualModelObserver::update);
+        synchronized (this) {
+            notifyAll();
+        }
+    }
 }

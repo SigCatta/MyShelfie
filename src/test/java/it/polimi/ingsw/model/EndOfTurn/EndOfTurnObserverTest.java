@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.EndOfTurn;
 
-import it.polimi.ingsw.exceptions.TooManyCardsRequestedException;
+import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.JSONReader.LookUpTableReader;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
-import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ public class EndOfTurnObserverTest {
 
 
     @BeforeEach
-    public void setUp() throws TooManyCardsRequestedException {
+    public void setUp() {
         game = new Game(4);
         game.addPlayer(new Player("player1"));
         game.addPlayer(new Player("player2"));
@@ -36,11 +35,11 @@ public class EndOfTurnObserverTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
@@ -59,11 +58,11 @@ public class EndOfTurnObserverTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
@@ -84,11 +83,11 @@ public class EndOfTurnObserverTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }
@@ -111,11 +110,11 @@ public class EndOfTurnObserverTest {
         LookUpTableReader lookUpTableReader = new LookUpTableReader();
         boolean[][] gottenTable = lookUpTableReader.getLookUpTable(game.getPlayers().size());
 
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(gottenTable[i][j]){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (gottenTable[i][j]) {
                     assertNotNull(game.getBoard().getBoardGrid()[i][j]);
-                }else{
+                } else {
                     assertNull(game.getBoard().getBoardGrid()[i][j]);
                 }
             }

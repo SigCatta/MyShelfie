@@ -102,7 +102,7 @@ public class GameStopper implements VirtualModelObserver {
     /**
      * Prints the scoreboard
      */
-    private void printScoreBoard(){
+    private void printScoreBoard() {
         if (GameRepresentation.getInstance().getGameState() != GameState.END) return;
 
         ArrayList<PlayerMTC> players = PlayersRepresentation.getInstance().getAllPlayerMTC();

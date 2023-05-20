@@ -13,11 +13,13 @@ public abstract class MessageToServer {
     private transient Game game;
     private transient String nickname;
     private transient SocketClientHandler socketClientHandler;
+
     public abstract void update();
 
     public int getGameID() {
         return gameId;
     }
+
     public void setGameId(int gameId) {
         this.gameId = gameId;
     }
@@ -29,6 +31,7 @@ public abstract class MessageToServer {
     public void setGame(Game game) {
         this.game = game;
     }
+
     public String getNickname() {
         return nickname;
     }
@@ -36,9 +39,11 @@ public abstract class MessageToServer {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
     public SocketClientHandler getSocketClientHandler() {
         return socketClientHandler;
     }
+
     public void setSocketClientHandler(SocketClientHandler socketClientHandler) {
         this.socketClientHandler = socketClientHandler;
     }

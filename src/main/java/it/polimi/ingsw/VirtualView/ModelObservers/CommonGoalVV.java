@@ -13,7 +13,7 @@ public class CommonGoalVV implements VirtualViewObserver, EndOfTurnObserver {
     public CommonGoalVV(Game game, VirtualView virtualView) {
         this.game = game;
         this.VIRTUAL_VIEW = virtualView;
-        for(CommonGoalCard cg : game.getCommonGoals()){
+        for (CommonGoalCard cg : game.getCommonGoals()) {
             cg.registerObserver(this);
         }
         update();

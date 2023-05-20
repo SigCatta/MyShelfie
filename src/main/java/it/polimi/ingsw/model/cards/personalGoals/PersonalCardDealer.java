@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.cards.personalGoals;
 
 import it.polimi.ingsw.JSONReader.PersonalGoalReader;
-import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.player.Player;
 import org.json.simple.parser.ParseException;
 
@@ -24,13 +23,12 @@ public class PersonalCardDealer {
      *
      * @param players a list of the players whom will be assigned a personal goal card
      * @throws IOException             if the file does not exist or, for any other reason cannot be opened for reading
-     * @throws TooManyPlayersException if there are more players than available cards
      * @throws ParseException          if an incorrect JSON is being parsed
      */
-    public static void getCards(ArrayList<Player> players) throws IOException, ParseException, TooManyPlayersException {
+    public static void getCards(ArrayList<Player> players) throws IOException, ParseException {
 
         int numOfFiles = Objects.requireNonNull(personalCardsDirectory.list()).length - 1; // not counting points.json
-        if (numOfFiles < players.size()) throw new TooManyPlayersException();
+        if (numOfFiles < players.size()) throw new ArrayIndexOutOfBoundsException();
 
         Stack<String> cards = new Stack<>();
         do {

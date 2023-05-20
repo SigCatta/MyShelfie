@@ -42,7 +42,7 @@ public class EnterGameSceneController extends GuiController {
     private boolean connectPlayer;
 
     @Override
-    public void updateEcho(EchoMTC echoMTC){
+    public void updateEcho(EchoMTC echoMTC) {
         switch (echoMTC.getID()) {
             case JOINED:
                 connectPlayer();
@@ -61,7 +61,7 @@ public class EnterGameSceneController extends GuiController {
 
     @FXML
     protected void onContinueButtonClick() {
-        if(joinGameRB.isSelected()) {
+        if (joinGameRB.isSelected()) {
 
             int gameId;
             try {
@@ -77,25 +77,25 @@ public class EnterGameSceneController extends GuiController {
 
         } else {
             //player wants to create a new game
-            StageController.changeScene("fxml/player_number_scene.fxml","Set number of players");
+            StageController.changeScene("fxml/player_number_scene.fxml", "Set number of players");
         }
     }
 
-    public void connectPlayer(){
-        if(!connectPlayer) return;
+    public void connectPlayer() {
+        if (!connectPlayer) return;
         Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room"));
     }
 
-    public void enterGame(){
+    public void enterGame() {
         Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board"));
     }
 
-    public void connectionFailed(){
+    public void connectionFailed() {
         connectPlayer = false;
         wrongGameIdEffect(false);
     }
 
-    public void wrongGameIdEffect(boolean containsLetters){
+    public void wrongGameIdEffect(boolean containsLetters) {
         wrongGameIdImage.setVisible(true);
         errorText.setVisible(true);
         errorText.setWrappingWidth(300);
@@ -118,19 +118,20 @@ public class EnterGameSceneController extends GuiController {
     }
 
     @FXML
-    protected void onJoinGameRBClicked() {
+    public void onJoinGameRBClicked() {
         gameIdField.setVisible(true);
         gameIdText.setVisible(true);
         setContinueButtonVisible();
     }
 
     @FXML
-    protected void onNewGameRBClicked() {
+    public void onNewGameRBClicked() {
         gameIdField.setVisible(false);
         gameIdText.setVisible(false);
         setContinueButtonVisible();
         wrongGameIdImage.setVisible(false);
     }
+
     @FXML
     public void setContinueButtonVisible() {
         if (joinGameRB.isSelected()) {
@@ -139,7 +140,7 @@ public class EnterGameSceneController extends GuiController {
     }
 
     @FXML
-    public void onGameIdInsert()  {
+    public void onGameIdInsert() {
         wrongGameIdImage.setVisible(false);
         setContinueButtonVisible();
     }

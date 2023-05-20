@@ -12,7 +12,7 @@ public class InsertTileMTS extends MessageToServer implements Serializable {
     private final int TILE_POSITION;
     private final int COL;
 
-    public InsertTileMTS(int tilePosition, int col){
+    public InsertTileMTS(int tilePosition, int col) {
         this.TILE_POSITION = tilePosition;
         this.COL = col;
     }

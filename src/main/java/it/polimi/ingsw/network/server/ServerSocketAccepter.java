@@ -14,7 +14,7 @@ public class ServerSocketAccepter implements Runnable {
     /**
      * Constructor for the SocketServer class.
      *
-     * @param port   the port on which the socket server should listen for connections
+     * @param port the port on which the socket server should listen for connections
      */
     public ServerSocketAccepter(int port) {
         this.port = port;

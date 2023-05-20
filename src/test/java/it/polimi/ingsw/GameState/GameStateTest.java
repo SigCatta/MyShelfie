@@ -1,17 +1,17 @@
 package it.polimi.ingsw.GameState;
 
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.model.player.Player;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class GameStateTest {
 
     @Test
-    public void stateSuccessionTest(){
+    public void stateSuccessionTest() {
         Game game = new Game(999);
         game.setVirtualView(new VirtualView(game));
         assertSame(game.getGameState(), GameState.PREGAME);

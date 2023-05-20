@@ -9,7 +9,7 @@ import java.util.List;
 public class ChosenTilesTableMTC implements MessageToClient, Serializable {
     private final List<ItemTile> CHOSEN_TILES;
 
-    public ChosenTilesTableMTC(List<ItemTile> chosenTiles){
+    public ChosenTilesTableMTC(List<ItemTile> chosenTiles) {
         this.CHOSEN_TILES = chosenTiles;
     }
 

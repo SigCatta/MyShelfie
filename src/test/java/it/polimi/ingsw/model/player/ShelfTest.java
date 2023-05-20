@@ -16,11 +16,12 @@ public class ShelfTest {
     private int COLUMNS;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         testShelf = new Shelf();
         ROWS = testShelf.getROWS();
         COLUMNS = testShelf.getCOLUMNS();
     }
+
     @Test
     public void initializationTest() {
         ItemTile[][] shelfGrid = testShelf.getShelfGrid();
@@ -33,24 +34,24 @@ public class ShelfTest {
     }
 
     @Test
-    public void testSetTileAtLocation()  {
+    public void testSetTileAtLocation() {
         // Test getting tile from non-empty location
         ItemTile testTile = new ItemTile(Color.BLUE);
-        Point nonEmptyLocation = new Point(2,4);
+        Point nonEmptyLocation = new Point(2, 4);
         testShelf.setTileAtLocation(nonEmptyLocation, testTile);
         assertEquals(testTile, testShelf.getTileAtLocation(nonEmptyLocation));
     }
 
     @Test
-    public void testGetTileAtLocation()  {
+    public void testGetTileAtLocation() {
         // Test getting tile from empty location
-        Point emptyLocation = new Point(3,3);
+        Point emptyLocation = new Point(3, 3);
         assertNull(testShelf.getTileAtLocation(emptyLocation));
 
 
         // Test getting tile from non-empty location
         ItemTile testTile = new ItemTile(Color.BLUE);
-        Point nonEmptyLocation = new Point(2,4);
+        Point nonEmptyLocation = new Point(2, 4);
         testShelf.getShelfGrid()[2][4] = testTile;
         assertEquals(testTile, testShelf.getTileAtLocation(nonEmptyLocation));
     }

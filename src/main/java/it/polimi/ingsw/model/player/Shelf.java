@@ -34,7 +34,7 @@ public class Shelf implements VirtualViewSubject {
      * 3 |
      * 4 |
      * 5 | _ _ _ _ _
-     *     0 1 2 3 4
+     * 0 1 2 3 4
      */
     private ItemTile[][] shelfGrid;
 
@@ -71,7 +71,7 @@ public class Shelf implements VirtualViewSubject {
         notifyObservers();
     }
 
-    public void setShelfGrid(ItemTile[][] shelfGrid){
+    public void setShelfGrid(ItemTile[][] shelfGrid) {
         this.shelfGrid = shelfGrid;
     }
 
@@ -126,15 +126,9 @@ public class Shelf implements VirtualViewSubject {
      * @param column the column on which to insert the tiles.
      * @return true if the tiles were successfully inserted, false otherwise.
      */
-    public boolean insertTile(ItemTile tile, int column){
-        if (tile == null) {
-            //TODO update the virtual view to send the error message to the user
-            return false;
-        }
-        if (isColumnFull(column)) {
-            //TODO update the virtual view to send the error message to the user
-            return false;
-        }
+    public boolean insertTile(ItemTile tile, int column) {
+        if (tile == null || isColumnFull(column)) return false;
+
         for (int i = ROWS - 1; i >= 0; i--) {
             if (shelfGrid[i][column] == null) {
                 shelfGrid[i][column] = tile;
@@ -143,7 +137,6 @@ public class Shelf implements VirtualViewSubject {
         }
 
         notifyObservers();
-
         return true;
     }
 
@@ -168,7 +161,7 @@ public class Shelf implements VirtualViewSubject {
 
     @Override
     public void notifyObservers() {
-        for(VirtualViewObserver observer : observers){
+        for (VirtualViewObserver observer : observers) {
             observer.update();
         }
     }

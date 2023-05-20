@@ -22,8 +22,7 @@ public class PlayerMTC implements MessageToClient, Serializable {
         if (player.getPersonalGoal() == null) {
             PERSONAL_GOAL = null;
             PERSONAL_GOAL_CARD_NUMBER = null;
-        }
-        else {
+        } else {
             PERSONAL_GOAL = player.getPersonalGoal().getAchievements();
             PERSONAL_GOAL_CARD_NUMBER = player.getPersonalGoal().getCardNumber();
         }
