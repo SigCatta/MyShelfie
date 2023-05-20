@@ -21,8 +21,5 @@ public abstract class VirtualModelSubject {
     public void notifyObservers() {
         ArrayList<VirtualModelObserver> obs = new ArrayList<>(observers);
         obs.forEach(VirtualModelObserver::update);
-        synchronized (this) {
-            notifyAll();
-        }
     }
 }
