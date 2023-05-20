@@ -1,8 +1,10 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.View.CLI.InputStates.NicknameState;
+import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.View.GUI.Gui;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.client.SocketClient;
 import javafx.application.Application;
 
 /**
@@ -11,7 +13,6 @@ import javafx.application.Application;
 public class ClientApp {
 
     public static void main(String[] args) {
-        Client client;
         boolean cliParam = false;
 
         for (String arg : args) {
@@ -20,21 +21,28 @@ public class ClientApp {
                 break;
             }
         }
-//
-//        String address = "localhost";
-//
-//        try {
-//            client = SocketClient.getInstance(address, 28888);
-//            client.readCommand(); // Starts an asynchronous reading from the server.
-//        } catch (Exception e) {
-//            System.out.println("could not connect to server");
-//            System.exit(1);
-//        }
 
         if (cliParam) {
+            askForIP();
             new NicknameState().play();
         } else {
             Application.launch(Gui.class);
+        }
+    }
+
+    private static void askForIP() {
+        Client client;
+
+        System.out.println("Insert server IP address:");
+        String address = Reader.getInput();
+        if (address.equals("")) address = "localhost";
+
+        try {
+            client = SocketClient.getInstance(address, 28888);
+            client.readCommand();
+        } catch (Exception e) {
+            System.out.println("could not connect to server");
+            System.exit(1);
         }
     }
 
