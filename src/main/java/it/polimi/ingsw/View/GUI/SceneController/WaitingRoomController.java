@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WaitingRoomController extends GuiController implements Initializable {
     @FXML
@@ -31,7 +33,9 @@ public class WaitingRoomController extends GuiController implements Initializabl
     @Override
     public void updateGame() {
 
-        if (GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (GameRepresentation.getInstance().getGameMessage() == null) {
+            tryRoutine();
+        }
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
@@ -65,6 +69,20 @@ public class WaitingRoomController extends GuiController implements Initializabl
         if (players.size() == GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()) {
             enterGame();
         }
+    }
+
+    /**
+     * in rare cases the waiting room in not notified by the virtual model so this method is used to check
+     * if the virtual model was updated by the game
+     */
+    private void tryRoutine() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> updateGame());
+            }
+        }, 1000);
     }
 
     private void enterGame() {

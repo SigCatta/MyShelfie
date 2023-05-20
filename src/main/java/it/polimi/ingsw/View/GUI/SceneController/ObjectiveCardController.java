@@ -65,7 +65,7 @@ public class ObjectiveCardController extends GuiController implements Initializa
     }
 
     @Override
-    public void updateCommonGoals() {
+    public void updateMyScore() {
         System.out.println("Updated common goal points"); //TODO remove
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
         setPointCG1Text(availablePoints.get(0));
@@ -98,5 +98,6 @@ public class ObjectiveCardController extends GuiController implements Initializa
     public void initialize(URL var1, ResourceBundle var2) {
         initCommonGoals();
         initPersonalGoals();
+        updateMyScore();
     }
 }

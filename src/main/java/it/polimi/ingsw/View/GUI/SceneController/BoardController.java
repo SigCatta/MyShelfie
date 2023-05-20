@@ -25,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -44,6 +45,7 @@ public class BoardController extends GuiController implements Initializable {
      * id of the tile to be sent to the shelf
      */
     private int selectedTileToSendToShelf = -1;
+    private final String SCORE_TOKEN_IMAGE = "it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/scoring_tokens/scoring.jpg";
 
 
     @FXML
@@ -75,6 +77,11 @@ public class BoardController extends GuiController implements Initializable {
     ImageView changeChat, changeShelf, changeObjective;
 
     @FXML
+    StackPane pointsPane;
+    @FXML
+    Text pointNumber;
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -91,6 +98,7 @@ public class BoardController extends GuiController implements Initializable {
         updateChosenTilesTable();
         updateChangeTurn();
         updateGame();
+        if (pointsPane.getChildren().size() > 0) updateMyScore();
 
     }
 
@@ -114,13 +122,13 @@ public class BoardController extends GuiController implements Initializable {
     private void initShelf() {
         for (int row = 0; row < myShelf.getRowCount(); row++) {
             for (int col = 0; col < myShelf.getColumnCount(); col++) {
-                if (ShelfMemory.get(row, col, 0) == null) {
+                if (ShelfMemory.get(row, col) == null) {
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(45);
                     imageView.setFitWidth(45);
-                    ShelfMemory.put(imageView, row, col, 0);
+                    ShelfMemory.put(imageView, row, col);
                 }
-                myShelf.add(ShelfMemory.get(row, col, 0), col, row);
+                myShelf.add(ShelfMemory.get(row, col), col, row);
             }
         }
     }
@@ -169,7 +177,7 @@ public class BoardController extends GuiController implements Initializable {
 
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
         System.out.println("Updating the shelf...");//TODO remove
-        ItemRefillUtility.updateShelfGrid(myShelf, shelfModel);
+        ItemRefillUtility.updateShelfGrid(shelfModel);
     }
 
     @Override
@@ -221,6 +229,13 @@ public class BoardController extends GuiController implements Initializable {
         if (GameRepresentation.getInstance().getGameState() == GameState.END) {
             Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }
+    }
+
+    @Override
+    public void updateMyScore() {
+        pointsPane.setVisible(true);
+        int points = PlayersRepresentation.getInstance().getPlayerScore(myNickname);
+        pointNumber.setText(Integer.toString(points));
     }
 
     private void updateLastTurn() {
