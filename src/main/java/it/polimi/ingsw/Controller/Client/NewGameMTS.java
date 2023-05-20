@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class NewGameMTS extends MessageToServer implements Serializable {
     private final int NUMBER_OF_PLAYERS;
 
-    public NewGameMTS(int numberOfPlayers){
+    public NewGameMTS(int numberOfPlayers) {
         this.NUMBER_OF_PLAYERS = numberOfPlayers;
     }
 

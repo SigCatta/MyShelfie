@@ -10,7 +10,7 @@ public class GameVV implements VirtualViewObserver {
     private final Game GAME;
     private final VirtualView VIRTUAL_VIEW;
 
-    public GameVV(Game game, VirtualView virtualView){
+    public GameVV(Game game, VirtualView virtualView) {
         this.GAME = game;
         this.VIRTUAL_VIEW = virtualView;
         GAME.registerObserver(this);

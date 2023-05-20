@@ -24,7 +24,7 @@ public class XShapedCGS extends CommonGoalStrategy {
 
                 // Check for main diagonal
                 if (shelfGrid[i - 1][j - 1].getColor().equals(shelfGrid[i][j].getColor())
-                        && shelfGrid[i + 1][j + 1].getColor().equals(shelfGrid[i][j].getColor()) ) {
+                        && shelfGrid[i + 1][j + 1].getColor().equals(shelfGrid[i][j].getColor())) {
                     // Check for secondary diagonal
                     if (shelfGrid[i - 1][j + 1].getColor().equals(shelfGrid[i][j].getColor())
                             && shelfGrid[i + 1][j - 1].getColor().equals(shelfGrid[i][j].getColor())) {

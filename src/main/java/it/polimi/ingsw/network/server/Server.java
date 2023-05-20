@@ -25,7 +25,7 @@ public class Server {
     }
 
     public static Server getInstance() {
-        if(serverInstance == null) serverInstance = new Server();
+        if (serverInstance == null) serverInstance = new Server();
         return serverInstance;
     }
 

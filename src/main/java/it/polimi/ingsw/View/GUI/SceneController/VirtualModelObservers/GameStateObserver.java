@@ -15,7 +15,7 @@ public class GameStateObserver implements VirtualModelObserver {
 
     @Override
     public void update() {
-        if(previousState != null && previousState != GameRepresentation.getInstance().getGameState()) return;
+        if (previousState != null && previousState != GameRepresentation.getInstance().getGameState()) return;
 
         previousState = GameRepresentation.getInstance().getGameState();
 

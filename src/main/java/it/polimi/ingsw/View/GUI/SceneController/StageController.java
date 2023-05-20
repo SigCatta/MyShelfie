@@ -28,7 +28,7 @@ public class StageController {
         stage.setScene(scene);
     }
 
-    public static GuiController getController(){
+    public static GuiController getController() {
         return controller;
     }
 

@@ -25,11 +25,11 @@ public class WinSceneController extends GuiController implements Initializable {
                 Integer.parseInt(player1Points.getText()), Integer.parseInt(player1Points.getText()));
 
         int maxScore = pointList.stream().max(Integer::compare).orElse(0);
-        if(pointList.indexOf(maxScore)==0) {
+        if (pointList.indexOf(maxScore) == 0) {
             player1CrownImage.setVisible(true);
-        } else if(pointList.indexOf(maxScore)==1) {
+        } else if (pointList.indexOf(maxScore) == 1) {
             player2CrownImage.setVisible(true);
-        } else if(pointList.indexOf(maxScore)==2) {
+        } else if (pointList.indexOf(maxScore) == 2) {
             player3CrownImage.setVisible(true);
         } else {
             player4CrownImage.setVisible(true);
@@ -37,7 +37,7 @@ public class WinSceneController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updatePlayers(){
+    public void updatePlayers() {
         //TODO
     }
 
@@ -47,7 +47,7 @@ public class WinSceneController extends GuiController implements Initializable {
         List<Text> pointTextsList = List.of(player1Points, player2Points, player3Points, player4Points);
         List<String> nicknames = PlayersRepresentation.getInstance().getPlayersList();
 
-        for(int i=0; i<nicknames.size(); i++) {
+        for (int i = 0; i < nicknames.size(); i++) {
             nicknamesTextsList.get(i).setText(nicknames.get(i));
             pointTextsList.get(i).setText(String.valueOf(PlayersRepresentation.getInstance().getPlayerScore(nicknames.get(i))));
         }

@@ -17,11 +17,11 @@ public class VirtualView {
     private final List<SocketClientHandler> clientHandlers;
     private final Game GAME;
 
-    public void addClient(SocketClientHandler clientHandler){
+    public void addClient(SocketClientHandler clientHandler) {
         clientHandlers.add(clientHandler);
     }
 
-    public VirtualView(Game game){
+    public VirtualView(Game game) {
         this.GAME = game;
         clientHandlers = new ArrayList<>();
         new GameVV(GAME, this); //the user needs this information even before the beginning of the game
@@ -30,20 +30,21 @@ public class VirtualView {
         new ChosenTilesTableVV(GAME, this);
     }
 
-    public SocketClientHandler getSocketHandlerClientByNickname(String nickname){
-        return clientHandlers.stream().filter( ch -> ch.getNickname().equals(nickname)).findFirst().orElse(null);
+    public SocketClientHandler getSocketHandlerClientByNickname(String nickname) {
+        return clientHandlers.stream().filter(ch -> ch.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
-    public void send(MessageToClient messageToClient){
-        for(SocketClientHandler clientHandler : clientHandlers){
+    public void send(MessageToClient messageToClient) {
+        for (SocketClientHandler clientHandler : clientHandlers) {
             clientHandler.sendCommand(messageToClient);
         }
     }
 
-    public void updateAllPlayers(){
+    public void updateAllPlayers() {
         GAME.getPlayers().forEach(Player::notifyObservers);
     }
-    public void updateAllShelvs(){
+
+    public void updateAllShelvs() {
         GAME.getPlayers().forEach(p -> p.getShelf().notifyObservers());
     }
 }

@@ -1,10 +1,10 @@
-.join_label{
+.join_label {
     -fx-font-size: 25;
     -fx-font-family: "Arial Black";
     -fx-text-fill: BLACK;
 }
 
-.join_button{
+.join_button {
     -fx-background-color: WHITE;
     -fx-font: 16px "Arial Black";
     -fx-padding: 10;

@@ -2,9 +2,9 @@ package it.polimi.ingsw.network.Server;
 
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerSocketAccepter;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.Socket;

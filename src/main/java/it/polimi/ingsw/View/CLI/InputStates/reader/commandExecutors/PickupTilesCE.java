@@ -62,7 +62,7 @@ public class PickupTilesCE implements CommandExecutor {
     private int getColumn() {
         while (true) {
             System.out.println("Which column would you like to select?");
-             String input = Reader.getInput();
+            String input = Reader.getInput();
             if (input.equals(".")) return -1;
             if (isInputValid(input)) {
                 return Integer.parseInt(input);
@@ -110,9 +110,9 @@ public class PickupTilesCE implements CommandExecutor {
      * Asks the user whether to keep pickup up tiles or not
      *
      * @return an integer of values:<br>
-     *   1 if the user wants to stop picking up tiles<br>
-     *   0 if the user wants to pick up more tiles<br>
-     *  -1 if the user wants to go back<br>
+     * 1 if the user wants to stop picking up tiles<br>
+     * 0 if the user wants to pick up more tiles<br>
+     * -1 if the user wants to go back<br>
      */
     private int stopPickup() {
         while (true) {

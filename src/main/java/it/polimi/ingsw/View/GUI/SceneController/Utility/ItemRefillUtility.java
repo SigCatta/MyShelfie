@@ -46,9 +46,9 @@ public class ItemRefillUtility {
             for (int col = 0; col < reference[row].length; col++) {
 
                 ImageView imageView = BoardMemory.get(row, col);
-                if(imageView == null) continue;
+                if (imageView == null) continue;
 
-                if (reference[row][col] == null){
+                if (reference[row][col] == null) {
                     BoardMemory.removeImage(row, col);
                     continue;
                 }

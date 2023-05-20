@@ -20,11 +20,11 @@ public class BagTest {
     @Test
     void drawItemTiles() {
         ArrayList<ItemTile> itemTiles = new ArrayList<>();
-        for (int i = 0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             itemTiles.add(bag.drawTile());
         }
         Assertions.assertEquals(10, itemTiles.size());
-        for(ItemTile itemTile : itemTiles){
+        for (ItemTile itemTile : itemTiles) {
             Assertions.assertNotNull(itemTile);
         }
     }
@@ -44,9 +44,9 @@ public class BagTest {
         int pinkCount = 0;
         int whiteCount = 0;
 
-        for(int i = 0; i < 132; i++){
+        for (int i = 0; i < 132; i++) {
             Color color = bag.randomColor();
-            switch (color){
+            switch (color) {
                 case BLUE:
                     blueCount++;
                     break;
@@ -81,15 +81,15 @@ public class BagTest {
     @Test
     void drawTooManyItemTiles() {
         ArrayList<ItemTile> itemTiles = new ArrayList<>();
-        for (int i = 0; i < 200; i++){
+        for (int i = 0; i < 200; i++) {
             itemTiles.add(bag.drawTile());
         }
 
         Assertions.assertEquals(200, itemTiles.size());
 
         int numberOfAddedTiles = 0;
-        for(ItemTile itemTile : itemTiles){
-            if(itemTile == null)continue;
+        for (ItemTile itemTile : itemTiles) {
+            if (itemTile == null) continue;
             numberOfAddedTiles++;
         }
 

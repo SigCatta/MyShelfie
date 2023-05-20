@@ -18,7 +18,7 @@ public class PlayerObserver implements VirtualModelObserver {
         ArrayList<PlayerMTC> messages = PlayersRepresentation.getInstance().getAllPlayerMTC();
         for (PlayerMTC p : messages) {
             if (!p.isConnected()) {
-                Platform.runLater(() -> StageController.changeScene("fxml/disconnection_error.fxml","Disconnection error")
+                Platform.runLater(() -> StageController.changeScene("fxml/disconnection_error.fxml", "Disconnection error")
                 );
                 return;
             }

@@ -11,11 +11,12 @@ public class ShelfVV implements VirtualViewObserver, MessageToClient, Serializab
     private final VirtualView VIRTUAL_VIEW;
     private final Player OWNER;
 
-    public ShelfVV(Player player, VirtualView virtualView){
+    public ShelfVV(Player player, VirtualView virtualView) {
         this.OWNER = player;
         this.VIRTUAL_VIEW = virtualView;
         player.getShelf().registerObserver(this);
     }
+
     @Override
     public void update() {
         VIRTUAL_VIEW.send(new ShelfMTC(OWNER));

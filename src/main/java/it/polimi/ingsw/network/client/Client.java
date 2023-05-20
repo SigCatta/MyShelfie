@@ -8,10 +8,10 @@ import java.util.logging.Logger;
  * Abstract class to communicate with the server. Every type of connection must implement this interface.
  */
 //TODO: client is observed by the clientControllers
-public abstract class Client  {
+public abstract class Client {
 
     protected String nickname;
-    protected  int gameId;
+    protected int gameId;
     public static final Logger LOGGER = Logger.getLogger(Client.class.getName());
 
     /**

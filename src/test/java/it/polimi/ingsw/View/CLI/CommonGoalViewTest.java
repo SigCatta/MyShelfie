@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CommonGoalViewTest {
     @Test
-    public void getPrintTest1(){
+    public void getPrintTest1() {
         ArrayList<CommonGoalCard> deck = new ArrayList<>();
         deck.add(new CommonGoalCard(new EightTilesSameColorCGS()));
         deck.add(new CommonGoalCard(new FiveTilesDiagonalCGS()));

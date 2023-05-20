@@ -29,23 +29,23 @@ public class BoardRefresher implements EndOfTurnObserver {
 
 
     /**
-     *  it uses the class BoardLookUpTableJSON to get the lookUpTable from the json database.
-     *  Once it gets the matrix, it stores it in the local variable, so it will not be
-     *  necessary to query the database multiple times.
-     *  Using the lookup table, refillBoard draws tiles from the bag and refills the board
+     * it uses the class BoardLookUpTableJSON to get the lookUpTable from the json database.
+     * Once it gets the matrix, it stores it in the local variable, so it will not be
+     * necessary to query the database multiple times.
+     * Using the lookup table, refillBoard draws tiles from the bag and refills the board
      */
     public void refillBoard() {
 
         int numberOfPlayers = GAME.getPlayers().size();
 
-        if(lookUpTable == null){
+        if (lookUpTable == null) {
             lookUpTable = new LookUpTableReader().getLookUpTable(numberOfPlayers);
         }
 
-        for(int i = 0; i < board.getSize(); i++){
-            for(int j = 0; j < board.getSize(); j++){
-                if(board.getBoardGrid()[i][j] != null) continue;
-                if(lookUpTable[i][j]){
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = 0; j < board.getSize(); j++) {
+                if (board.getBoardGrid()[i][j] != null) continue;
+                if (lookUpTable[i][j]) {
                     board.getBoardGrid()[i][j] = BAG.drawTile();
                 }
             }

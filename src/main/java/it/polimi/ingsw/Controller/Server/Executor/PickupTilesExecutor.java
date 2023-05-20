@@ -20,7 +20,8 @@ public class PickupTilesExecutor implements Executor {
      * checks if the received message contains valid positions and
      * removes the tiles from the board sending them to the
      * chosen tiles table
-     * @param message
+     *
+     * @param message {@link PickUpTilesMTS} containing which tiles to pick up
      */
     public static void execute(MessageToServer message) {
 

@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.player.Shelf;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SixGroupsOfTwoCGSTest {
     private final SixGroupsOfTwoCGS cg = new SixGroupsOfTwoCGS();

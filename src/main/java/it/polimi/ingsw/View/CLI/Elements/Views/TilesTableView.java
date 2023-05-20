@@ -13,8 +13,10 @@ public class TilesTableView extends ViewElement {
 
     private static TilesTableView instance;
 
-    private TilesTableView(){}
-    public static TilesTableView getInstance(){
+    private TilesTableView() {
+    }
+
+    public static TilesTableView getInstance() {
         if (instance == null) instance = new TilesTableView();
         return instance;
     }

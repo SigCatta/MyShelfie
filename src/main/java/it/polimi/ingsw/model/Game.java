@@ -7,7 +7,6 @@ import it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
 import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
 import it.polimi.ingsw.VirtualView.VirtualView;
-import it.polimi.ingsw.exceptions.TooManyPlayersException;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
 import it.polimi.ingsw.model.EndOfTurn.TurnHandler;
@@ -61,7 +60,6 @@ public class Game implements VirtualViewSubject {
      * Starts the actual game (no more players can connect)
      */
     public void start() {
-        System.out.println("the game started!"); // TODO remove
         bag = new Bag();
 
         turnHandlerInitializer();
@@ -74,7 +72,7 @@ public class Game implements VirtualViewSubject {
 
             try {
                 PersonalCardDealer.getCards(players);
-            } catch (IOException | ParseException | TooManyPlayersException e) {
+            } catch (IOException | ParseException | ArrayIndexOutOfBoundsException e) {
                 virtualView.send(new EchoMTC(EchoID.PANIC, true)); // should never reach
                 end();
             }
@@ -98,7 +96,6 @@ public class Game implements VirtualViewSubject {
 
     public void end() {
         gameState = GameState.END;
-        //TODO calculate point and send to the view
         notifyObservers();
     }
 
@@ -139,7 +136,7 @@ public class Game implements VirtualViewSubject {
 
         players.add(player);
 
-        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID); //TODO remove
+        System.out.println("the player " + player.getNickname() + " connected successfully to game " + gameID);
         if (players.size() == MAX_PLAYER_NUMBER) start();
 
     }
