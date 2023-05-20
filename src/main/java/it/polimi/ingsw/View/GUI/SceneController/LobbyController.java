@@ -44,6 +44,7 @@ public class LobbyController extends GuiController implements Initializable {
         new PlayerObserver();
         new ShelfObserver();
         new TilesTableObserver();
+        new MyScoreObserver();
 
         initialized = true;
     }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.JSONReader.CommonGoalReader;
 import it.polimi.ingsw.model.player.Shelf;
 
 /**
@@ -8,7 +7,6 @@ import it.polimi.ingsw.model.player.Shelf;
  * It contains the logic to calculate weather a common goal has been achieved by a player
  */
 public abstract class CommonGoalStrategy {
-    CommonGoalReader reader = new CommonGoalReader();
 
     /**
      * @param shelf the shelf being checked for goal achievement

@@ -28,6 +28,9 @@ public abstract class GuiController {
     public void updateCommonGoals() {
     }
 
+    public void updateMyScore() {
+    }
+
     public void updateChangeTurn() {
     }
 

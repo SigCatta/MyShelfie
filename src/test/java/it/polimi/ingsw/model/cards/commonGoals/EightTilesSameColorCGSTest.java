@@ -49,4 +49,31 @@ public class EightTilesSameColorCGSTest {
         };
         assertTrue(cg.isGoalAchieved(new Shelf(mat)));
     }
+
+    @Test
+    public void isGoalAchievedTest4() {
+        ItemTile[][] mat = new ItemTile[][]{
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {new ItemTile(Color.WHITE), null, null, new ItemTile(Color.GREEN), null},
+                {new ItemTile(Color.WHITE), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.GREEN), null},
+                {new ItemTile(Color.WHITE), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.PINK), null},
+                {new ItemTile(Color.WHITE), new ItemTile(Color.PINK), new ItemTile(Color.PINK), new ItemTile(Color.GREEN), new ItemTile(Color.PINK)},
+        };
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
+
+
+    @Test
+    public void isGoalAchievedTest5() {
+        ItemTile[][] mat = new ItemTile[][]{
+                {null, null, null, null, null},
+                {new ItemTile(Color.WHITE), null, null, null, null},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.YELLOW), new ItemTile(Color.YELLOW), null, null},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.GREEN), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), null},
+                {new ItemTile(Color.BLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), null},
+                {new ItemTile(Color.YELLOW), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), new ItemTile(Color.LIGHTBLUE), null},
+        };
+        assertTrue(cg.isGoalAchieved(new Shelf(mat)));
+    }
 }
