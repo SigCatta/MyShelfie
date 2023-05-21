@@ -40,7 +40,6 @@ public class LobbyController extends GuiController implements Initializable {
         new ChatObserver();
         new CommonGoalsObserver();
         new EchoObserver();
-        new FirstPlayerToFinishObserver();
         new PlayerObserver();
         new ShelfObserver();
         new TilesTableObserver();

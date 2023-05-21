@@ -40,12 +40,12 @@ public class BoardController extends GuiController implements Initializable {
 
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
     private String myNickname;
+    private static boolean initialized = false;
 
     /**
      * id of the tile to be sent to the shelf
      */
     private int selectedTileToSendToShelf = -1;
-    private final String SCORE_TOKEN_IMAGE = "it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/scoring_tokens/scoring.jpg";
 
 
     @FXML
@@ -87,7 +87,7 @@ public class BoardController extends GuiController implements Initializable {
 
         myNickname = SocketClient.getInstance().getNickname();
 
-        initBoard(); //TODO it is necessary only for the first time
+        initBoard();
         initInsertButtons();
         initPlayersName();
         initShelf();
@@ -172,9 +172,6 @@ public class BoardController extends GuiController implements Initializable {
 
     @Override
     public void updateShelf() {
-
-        //if(ConnectionPendingTimer.isPending()) ConnectionPendingTimer.cancel(); //the shelf arrived
-
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
         System.out.println("Updating the shelf...");//TODO remove
         ItemRefillUtility.updateShelfGrid(shelfModel);
@@ -401,11 +398,6 @@ public class BoardController extends GuiController implements Initializable {
 
     @FXML
     public synchronized void onInsertTileClicked(int column) {
-
-        ////Start the timer that stops this method until the shelf is updated
-        //if(ConnectionPendingTimer.isPending()) return;
-        //ConnectionPendingTimer.start(1);
-
         if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
         if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
             return;

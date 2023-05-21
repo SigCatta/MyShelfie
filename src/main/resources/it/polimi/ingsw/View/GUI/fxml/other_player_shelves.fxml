@@ -13,7 +13,7 @@
     <children>
         <Group>
             <children>
-                <AnchorPane onMouseMoved="#reloadShelf" prefHeight="801.0" prefWidth="1199.0">
+                <AnchorPane prefHeight="801.0" prefWidth="1199.0">
                     <children>
                         <AnchorPane fx:id="MyBookShelf" prefHeight="327.0" prefWidth="322.0">
                             <children>
