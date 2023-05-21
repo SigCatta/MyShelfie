@@ -13,8 +13,6 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class OtherShelvesController extends GuiController implements Initializable {
@@ -25,8 +23,6 @@ public class OtherShelvesController extends GuiController implements Initializab
 
     private static String currentPlayerNickname = null;
     private static int currentPlayerIndex = 0;
-
-    public boolean canReload;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -90,23 +86,6 @@ public class OtherShelvesController extends GuiController implements Initializab
         currentPlayerNickname = playersList.get(currentPlayerIndex);
         playerName.setText(currentPlayerNickname);
         updateShelf();
-    }
-
-    @FXML
-    public void reloadShelf() {
-
-        if (!canReload) return;
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                canReload = true;
-            }
-        }, 1000, 1000);
-
-        updateShelf();
-        canReload = false;
     }
 
     @FXML

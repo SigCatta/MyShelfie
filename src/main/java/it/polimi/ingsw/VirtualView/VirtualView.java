@@ -44,7 +44,7 @@ public class VirtualView {
         GAME.getPlayers().forEach(Player::notifyObservers);
     }
 
-    public void updateAllShelvs() {
+    public void updateAllShelves() {
         GAME.getPlayers().forEach(p -> p.getShelf().notifyObservers());
     }
 }

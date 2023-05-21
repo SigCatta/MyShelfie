@@ -75,7 +75,7 @@ public class WaitingRoomController extends GuiController implements Initializabl
      * in rare cases the waiting room in not notified by the virtual model so this method is used to check
      * if the virtual model was updated by the game
      */
-    private void tryRoutine() {
+    private void tryRoutine() { //TODO test this
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
