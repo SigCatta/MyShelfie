@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
@@ -97,6 +98,7 @@ public class Game implements VirtualViewSubject {
     public void end() {
         gameState = GameState.END;
         notifyObservers();
+        GamesManager.getInstance().endGame(gameID);
     }
 
 

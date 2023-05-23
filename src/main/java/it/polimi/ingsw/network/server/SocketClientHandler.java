@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.Controller.Client.ByeMTS;
 import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
@@ -59,6 +60,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             disconnect();
         } catch (NullPointerException npe) {
             Server.LOGGER.severe("Client" + client.getInetAddress() + " failed to initalize ObjectInputStream");
+            disconnect();
         }
     }
 
@@ -97,7 +99,13 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             Server.LOGGER.severe(e.getMessage());
         }
 
-        GamesManager.getInstance().removePlayer(this);
+        //notify everyone that the player disconnected
+        ByeMTS byeMTS = new ByeMTS();
+        byeMTS.setNickname(nickname);
+        byeMTS.setGameId(gameID);
+        byeMTS.setSocketClientHandler(this);
+
+        GamesManager.getInstance().onCommandReceived(byeMTS);
         pingController.close();
 
         stop = true;

@@ -1,10 +1,12 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
+import it.polimi.ingsw.network.server.SocketClientHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,8 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WaitingRoomController extends GuiController implements Initializable {
     @FXML
@@ -29,9 +33,18 @@ public class WaitingRoomController extends GuiController implements Initializabl
     TextField gameIdText;
 
     @Override
-    public void updateGame() {
+    public synchronized void updateGame() {
 
-        if (GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (GameRepresentation.getInstance().getGameMessage() == null) {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    StageController.getController().updateGame();
+                }
+            }, 1000);
+            return;
+        }
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));

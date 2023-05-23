@@ -10,10 +10,9 @@ public class ByeExecutor implements Executor {
 
         Game game = message.getGame();
 
-        String nickname = message.getNickname();
-
-        game.disconnectPlayer(nickname);
+        //end the message if one player disconnects
+        game.end();
         //disconnect the player from the gamesManager list
-        GamesManager.getInstance().removePlayer(message.getSocketClientHandler());
+        GamesManager.getInstance().endGame(message.getGameID());
     }
 }
