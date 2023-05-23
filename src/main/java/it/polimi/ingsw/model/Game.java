@@ -98,7 +98,6 @@ public class Game implements VirtualViewSubject {
     public void end() {
         gameState = GameState.END;
         notifyObservers();
-        GamesManager.getInstance().endGame(gameID);
     }
 
 
@@ -184,8 +183,16 @@ public class Game implements VirtualViewSubject {
 
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
-        player.setConnected(false);
-        players.remove(player);
+
+        for (Player p : players){
+            if(p.isConnected()){
+                player.setConnected(false);
+                return;
+            }
+        }
+
+        GamesManager.getInstance().endGame(gameID);
+
     }
 
     public GameState getGameState() {
