@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * Represents a player in the game.
  */
-public class Player implements VirtualViewSubject {
-    private final ArrayList<VirtualViewObserver> observers;
+public class Player implements ModelSubject {
+    private final ArrayList<ModelObserver> observers;
 
     private final Shelf shelf;
 
@@ -93,18 +93,18 @@ public class Player implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver observer : observers) {
+        for (ModelObserver observer : observers) {
             observer.update();
         }
     }

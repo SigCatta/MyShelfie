@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.player;
 
 
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
@@ -12,9 +12,9 @@ import java.util.Arrays;
 /**
  * A class representing the player's shelf.
  */
-public class Shelf implements VirtualViewSubject {
+public class Shelf implements ModelSubject {
 
-    private final ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<ModelObserver> observers;
 
     /**
      * The number of columns in the shelf grid.
@@ -150,18 +150,18 @@ public class Shelf implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver observer : observers) {
+        for (ModelObserver observer : observers) {
             observer.update();
         }
     }
