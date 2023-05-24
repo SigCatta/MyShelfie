@@ -1,0 +1,154 @@
+@startuml
+class it.polimi.ingsw.Controller.Server.Executor.HandshakeExecutor {
++ {static} void execute(HandshakeMTS)
+}
+class it.polimi.ingsw.Controller.Server.Executor.ConnectionRestoredExecutor {
++ {static} void execute(Game,String)
+}
+class it.polimi.ingsw.Controller.Server.Executor.PickupTilesExecutor {
++ {static} void execute(MessageToServer)
+}
+class it.polimi.ingsw.Controller.Server.Executor.NewGameExecutor {
++ {static} void execute(NewGameMTS)
+}
+class it.polimi.ingsw.Controller.Client.ByeMTS {
++ void update()
+}
+abstract class it.polimi.ingsw.Controller.Client.MessageToServer {
+- int gameId
+- Game game
+- String nickname
+- SocketClientHandler socketClientHandler
++ {abstract}void update()
++ int getGameID()
++ void setGameId(int)
++ Game getGame()
++ void setGame(Game)
++ String getNickname()
++ void setNickname(String)
++ SocketClientHandler getSocketClientHandler()
++ void setSocketClientHandler(SocketClientHandler)
+}
+class it.polimi.ingsw.Controller.Server.GamesManager {
+- HashMap<Integer,Game> gamesData
+- Set<String> PLAYERS_NAME
+- {static} GamesManager gamesManagerInstance
++ {static} GamesManager getInstance()
++ void putGame(int,Game)
++ Game getGame(int)
++ boolean addNickname(String)
++ void onCommandReceived(MessageToServer)
++ int createID()
++ void removePlayer(SocketClientHandler)
++ void endGame(int)
++ void onConnectionLost(SocketClientHandler)
++ void onConnectionRestored(SocketClientHandler)
+}
+class it.polimi.ingsw.Controller.Server.Executor.InsertTilesExecutor {
++ {static} void execute(InsertTileMTS)
+}
+interface it.polimi.ingsw.Controller.Server.Executor.Executor {
+}
+class it.polimi.ingsw.Controller.Server.Executor.ByeExecutor {
++ {static} void execute(MessageToServer)
+}
+class it.polimi.ingsw.Controller.Client.CanIPlayMTS {
+- int newGameID
++ void update()
++ int getNewGameID()
+}
+class it.polimi.ingsw.Controller.Client.HandshakeMTS {
+- String newNickname
++ void update()
++ String getNewNickname()
+}
+class it.polimi.ingsw.Controller.Client.ChatMTS {
+- String chatMessage
+- String sender
+- String receiver
++ String getReceiver()
++ void update()
++ String getSender()
++ String getChatMessage()
+}
+class it.polimi.ingsw.Controller.Client.NewGameMTS {
+- int NUMBER_OF_PLAYERS
++ void update()
++ int getNumberOfPlayers()
+}
+class it.polimi.ingsw.Controller.Client.InsertTileMTS {
+- int TILE_POSITION
+- int COL
++ void update()
++ int getCol()
++ int getTilePosition()
+}
+class it.polimi.ingsw.Controller.Server.PingPong.PingController {
+- Timer TIMER
+- int PING_TIMEOUT
+- int DELAY
+- boolean connectionLost
+- int MAX_PING_FAILURES
+- int pingToDisconnect
+- SocketClientHandler SOCKET_HANDLER
++ void run()
++ void onPongReceived()
++ int decrementPingToDisconnect()
++ SocketClientHandler getSocketHandler()
++ void clientConnectionLost()
++ void close()
+}
+class it.polimi.ingsw.Controller.Server.PingPong.PingRoutine {
+- SocketClientHandler SOCKET_CLIENT_HANDLER
+- PingController pingController
++ void run()
+}
+class it.polimi.ingsw.Controller.Server.Executor.CanIPlayExecutor {
++ {static} void execute(CanIPlayMTS)
+}
+class it.polimi.ingsw.Controller.Server.Executor.PongExecutor {
++ {static} void execute(PongMTS)
+}
+class it.polimi.ingsw.Controller.Server.Executor.ChatExecutor {
++ {static} void execute(MessageToServer)
+}
+class it.polimi.ingsw.Controller.Client.PickUpTilesMTS {
+- int gameID
+- String nickname
+- ArrayList<Point> tilesPosition
++ void update()
++ ArrayList<Point> getTilesPosition()
+}
+class it.polimi.ingsw.Controller.Client.PongMTS {
++ void update()
+}
+
+
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.HandshakeExecutor
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.PickupTilesExecutor
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.NewGameExecutor
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.ByeMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.ByeMTS
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.InsertTilesExecutor
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.ByeExecutor
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.CanIPlayMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.CanIPlayMTS
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.HandshakeMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.HandshakeMTS
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.ChatMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.ChatMTS
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.NewGameMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.NewGameMTS
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.InsertTileMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.InsertTileMTS
+it.polimi.ingsw.Controller.Server.PingPong.Thread <|-- it.polimi.ingsw.Controller.Server.PingPong.PingController
+it.polimi.ingsw.Controller.Server.PingPong.Runnable <|.. it.polimi.ingsw.Controller.Server.PingPong.PingRoutine
+java.util.TimerTask <|-- it.polimi.ingsw.Controller.Server.PingPong.PingRoutine
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.CanIPlayExecutor
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.PongExecutor
+it.polimi.ingsw.Controller.Server.Executor.Executor <|.. it.polimi.ingsw.Controller.Server.Executor.ChatExecutor
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.PickUpTilesMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.PickUpTilesMTS
+java.io.Serializable <|.. it.polimi.ingsw.Controller.Client.PongMTS
+it.polimi.ingsw.Controller.Client.MessageToServer <|-- it.polimi.ingsw.Controller.Client.PongMTS
+@enduml

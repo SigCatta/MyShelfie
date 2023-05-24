@@ -1,0 +1,156 @@
+@startuml
+class it.polimi.ingsw.VirtualView.Messages.ChatMTC {
+- String CHAT_MESSAGE
+- String SENDER
+- String RECEIVER
+- boolean isBroadcast
++ String getChatMessage()
++ String getSender()
++ String getRECEIVER()
++ boolean isBroadcast()
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.PlayerMTC {
+- String nickname
+- boolean IS_CONNECTED
+- int SCORE
+- HashMap<Color,Point> PERSONAL_GOAL
+- String PERSONAL_GOAL_CARD_NUMBER
++ String getNickname()
++ boolean isConnected()
++ int getScore()
++ HashMap<Color,Point> getPersonalGoal()
++ String getPERSONAL_GOAL_CARD_NUMBER()
++ void update()
+}
+interface it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver {
+~ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC {
+- List<ItemTile> CHOSEN_TILES
++ List<ItemTile> getChosenTiles()
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.BoardMTC {
+- ItemTile[][] BOARD
++ ItemTile[][] getColorBoard()
++ void update()
+}
+class it.polimi.ingsw.VirtualView.VirtualView {
+- List<SocketClientHandler> clientHandlers
+- Game GAME
++ void addClient(SocketClientHandler)
++ SocketClientHandler getSocketHandlerClientByNickname(String)
++ void send(MessageToClient)
++ void updateAllPlayers()
++ void updateAllShelvs()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV {
+- Game game
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+interface it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject {
+~ void registerObserver(VirtualViewObserver)
+~ void removeObserver(VirtualViewObserver)
+~ void notifyObservers()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.GameVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.ShelfMTC {
+- ItemTile[][] SHELF
+- String OWNER
++ String getOwner()
++ ItemTile[][] getShelf()
++ Color[][] getShelfForCLI()
++ void update()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.BoardVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC {
+- ArrayList<String> cardNames
+- ArrayList<Integer> availablePoints
++ ArrayList<String> getCardNames()
++ ArrayList<Integer> getAvailablePoints()
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.PingMTC {
++ void update()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV {
+- Player PLAYER
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.EchoMTC {
+- boolean errorFlag
+- EchoID id
++ void update()
++ boolean isError()
++ String getOutput()
++ EchoID getID()
+}
+interface it.polimi.ingsw.VirtualView.Messages.MessageToClient {
+~ void update()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV {
+- VirtualView VIRTUAL_VIEW
+- Player OWNER
++ void update()
+}
+class it.polimi.ingsw.VirtualView.ModelObservers.ChosenTilesTableVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class it.polimi.ingsw.VirtualView.Messages.GameMTC {
+- int GAMEID
+- int MAX_PLAYER_NUMBER
+- String activePlayerNickname
+- GameState GAME_STATE
+- int numOfPlayers
++ int getGameID()
++ int getMAX_PLAYER_NUMBER()
++ GameState getGameState()
++ String getActivePlayerNickname()
++ int getNumOfPlayers()
++ void update()
+}
+
+
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.ChatMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.ChatMTC
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.PlayerMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.PlayerMTC
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.BoardMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.BoardMTC
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV
+it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.GameVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.ShelfMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.ShelfMTC
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.BoardVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.CommonGoalMTC
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.PingMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.PingMTC
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.ModelObservers.PlayerVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.EchoMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.EchoMTC
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.ModelObservers.ShelfVV
+it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver <|.. it.polimi.ingsw.VirtualView.ModelObservers.ChosenTilesTableVV
+it.polimi.ingsw.VirtualView.Messages.MessageToClient <|.. it.polimi.ingsw.VirtualView.Messages.GameMTC
+java.io.Serializable <|.. it.polimi.ingsw.VirtualView.Messages.GameMTC
+@enduml

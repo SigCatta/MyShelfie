@@ -1,0 +1,556 @@
+@startuml
+class it.polimi.ingsw.View.GUI.SceneController.WinSceneController {
+~ Text player1Nickname
+~ Text player1Points
+~ ImageView player1CrownImage
+- void setWinner()
++ void updatePlayers()
++ void initialize(URL,ResourceBundle)
+}
+abstract class it.polimi.ingsw.View.CLI.Elements.Views.ViewElement {
+~ String NULL
+~ {abstract}ArrayList<String> getPrint(ArrayList<String>)
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.ChatView {
+- int chatWidth
+- int chatHeigth
+- {static} ChatView instance
++ {static} ChatView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> getChatPrint()
+- String padding(ChatMTC)
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.ChatMemory {
+- {static} TextField[][] messageInChat
++ {static} TextField getMessage(int,int)
++ {static} void setMessage(TextField,int,int)
++ {static} void setMessage(String,int,int)
++ {static} void clear()
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.BoardView {
+- {static} BoardView instance
+- boolean[][] lookUpTable
++ {static} BoardView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.InsertTilesCE {
++ void execute()
+- int getTileIndex()
+- int getColumn()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PickupTilesCE {
++ void execute()
+- int getColumn()
+- int getRow()
+- boolean isInputValid(String)
+- int stopPickup()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ShelvesCE {
++ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.OtherShelvesController {
+~ GridPane shelf
+~ Text playerName
++ void setPlayerName(String)
++ String getPlayerName()
++ void initialize(URL,ResourceBundle)
+- void initShelf()
++ void updateShelf()
++ void onPrevButtonClicked()
++ void onNextButtonClicked()
++ void onBackToBoardButtonClicked()
+}
+class it.polimi.ingsw.View.GUI.SceneController.LobbyController {
+- {static} boolean initialized
+# void onPlayButtonClick()
+# void onExitButtonClick()
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ColorsCE {
++ void execute()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.InvalidCE {
++ void execute()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ChatCE {
++ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.DisconnectionErrorSceneController {
+# void onExitButtonClick()
+# void onLobbyButtonClick()
+}
+class it.polimi.ingsw.View.GUI.SceneController.BoardController {
+- List<Integer> cardsSelectedFromBoard
+- String myNickname
+- int selectedTileToSendToShelf
+~ GridPane board
+~ FlowPane myChosenTilesTable
+~ Circle newMessageIcon
+~ AnchorPane chooseColumnPane
+~ AnchorPane errorPane
+~ ImageView errorImage
+~ Text errorText
+~ ImageView col0InsertButton
+~ ImageView firstScoreToken
+~ FlowPane playersPane
+~ ImageView changeChat
++ void initialize(URL,ResourceBundle)
+- void initInsertButtons()
+- void initPlayersName()
+- void initShelf()
+- void initBoard()
++ void initChangeSceneButtons()
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateEcho(EchoMTC)
++ void updateChangeTurn()
++ void updateGameState()
+- void updateLastTurn()
+- void showError(EchoMTC)
+- void attachBoardListener(ImageView)
++ void onPickUpDoneClicked()
++ void setUpChosenTilesTable()
+- void attachChosenTileListener(ImageView)
++ void onCol0InserterSelected()
++ void onCol1InserterSelected()
++ void onCol2InserterSelected()
++ void onCol3InserterSelected()
++ void onCol4InserterSelected()
++ void onInsertTileClicked(int)
++ void onObjectivesClicked()
++ void onShelvesClicked()
++ void onChatClicked()
+}
+abstract class it.polimi.ingsw.View.CLI.InputStates.InputState {
+~ String input
+~ Client socketClient
++ {abstract}void play()
+}
+class it.polimi.ingsw.View.GUI.TilesSelectedCointainer {
+~ {static} List<NodeData> tilesSelected
++ {static} void setTilesSelected(List<NodeData>)
++ {static} List<NodeData> getTilesSelected()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.BoardObserver {
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.WaitingRoomController {
+~ Text playersNamesText
+~ Text maxNumText
+~ int maxNumberOfPlayers
+~ Text currentNumText
+~ TextField gameIdText
++ void updateGame()
++ void updateEcho(EchoMTC)
++ void updatePlayers()
+- void enterGame()
+- void addPlayerToString(String)
+- void addPlayerToString(List<String>)
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.CLI.InputStates.ActivePlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class it.polimi.ingsw.View.CLI.InputStates.WaitingPlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class it.polimi.ingsw.View.CLI.InputStates.WaitingForPlayersState {
++ void play()
++ void update()
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.TilesTableView {
+- {static} TilesTableView instance
++ {static} TilesTableView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.CommonGoalView {
+- CommonGoalReader reader
+- {static} CommonGoalView instance
++ {static} CommonGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawCommonGoals()
++ ArrayList<String> addDescription(ArrayList<String>)
+- ArrayList<String> applyMargin(int,String)
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory {
+- {static} ImageView[][] imagesInMyShelf
+- {static} ImageView[][] imagesInOtherShelf
++ {static} void put(ImageView,int,int,int)
++ {static} ImageView get(int,int,int)
++ {static} void setImage(Image,int,int,int)
++ {static} void reset(int)
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.GameObserver {
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ShelfObserver {
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.EchoObserver {
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.CardImagesManager {
+- {static} URL COMMON_GOAL_PACKAGE
+- {static} URL PERSONAL_GOAL_PACKAGE
+- {static} HashMap<String,Image> commonGoals
+- {static} HashMap<String,Image> personalGoals
++ {static} Image getCommonGoalImage(String)
++ {static} Image getPersonalGoalImage(String)
++ void resetCommonGoals()
++ void resetPersonalGoals()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.RefreshCE {
++ void execute()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommonGoalCE {
++ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.ConnectionPendingTimer {
+- {static} Timer connectionPendingTimer
+- {static} boolean connectionPending
++ {static} void start(int)
++ {static} void cancel()
++ {static} boolean isPending()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.GameStateObserver {
++ GameState previousState
++ void update()
+}
+class it.polimi.ingsw.View.CLI.Elements.GameStopper {
+- {static} GameStopper instance
++ {static} GameStopper getIntance()
++ void update()
+- void printWinnerScreen()
+- void printLoserScreen()
+- void printScoreBoard()
+}
+class it.polimi.ingsw.View.GUI.NodeData {
+- String url
+- Color color
+- ImageView imageView
+- Point position
++ Color getColor()
++ void setColor(Color)
++ String getUrl()
++ void setUrl(String)
++ ImageView getImageView()
++ void setImageView(ImageView)
++ Point getPosition()
++ void setPosition(Point)
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.DisconnectCE {
++ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.FirstPlayerToFinishObserver {
++ void update()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PChatCE {
++ void execute()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.Reader {
+~ String input
+~ boolean isReading
+- {static} Reader instance
++ {static} Reader getInstance()
++ void run()
++ boolean isReading()
++ void setReading(boolean)
+- void chooseCommand()
++ {static} String getInput()
++ void update()
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE {
++ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.PlayerObserver {
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChangeTurnObserver {
+- String previousPlayer
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.EnterGameSceneController {
+~ ImageView wrongGameIdImage
+~ RadioButton newGameRB
+~ RadioButton joinGameRB
+~ Text gameIdText
+~ TextField gameIdField
+~ Button continueButton
+~ Text errorText
+~ AnchorPane errorPane
+- boolean connectPlayer
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
++ void connectPlayer()
++ void enterGame()
++ void connectionFailed()
++ void wrongGameIdEffect(boolean)
++ void onJoinGameRBClicked()
++ void onNewGameRBClicked()
++ void setContinueButtonVisible()
++ void onGameIdInsert()
+}
+interface it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor {
+~ void execute()
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.ItemTileMemory {
+- {static} Map<Integer,ItemTile> ID_TO_ITEM_TILE
+- {static} Map<Integer,Point> ID_TO_POSITION
+- {static} Map<Integer,Image> TILE_TO_IMAGE
++ {static} void put(int,ItemTile)
++ {static} void put(int,Point)
++ {static} void put(int,Image)
++ {static} void put(int,ItemTile,Point)
++ {static} void put(int,ItemTile,Point,Image)
++ {static} Point getPoint(int)
++ {static} ItemTile getTile(int)
++ {static} Image getImage(int)
++ {static} boolean contains(int)
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.TilesTableObserver {
++ void update()
+}
+class it.polimi.ingsw.View.CLI.Elements.Printer {
+~ {static} HashMap<Color,String> colorMap
+- {static} Printer instance
+- Reader reader
++ {static} Printer getInstance()
++ {static} void enableCLIColors(boolean)
++ {static} HashMap<Color,String> getColorMap()
++ void update()
++ {static} void clearConsole()
++ {static} ArrayList<String> addAvailableCommands(ArrayList<String>)
+- {static} ArrayList<String> getAvailableCommands()
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.ShelfView {
+- {static} ShelfView instance
++ {static} ShelfView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
++ ArrayList<String> getOtherShelvesPrint(String)
+- ArrayList<String> printShelf(ArrayList<String>,String)
+}
+class it.polimi.ingsw.View.CLI.InputStates.StartOrJoinState {
+- boolean triedToCreateAGame
+- boolean hasJoined
++ void play()
+- void joinGame()
+- void createNewGame()
++ void update()
+}
+class it.polimi.ingsw.View.GUI.Gui {
++ void start(Stage)
++ {static} void main(String[])
+}
+class it.polimi.ingsw.View.GUI.SceneController.LoginSceneController {
+~ TextField nicknameField
+~ TextField ipField
+~ ImageView continueButton
+~ Label continueText
+~ ImageView wrongNicknameImage
+~ Text wrongNicknameText
+~ AnchorPane nicknameErrorPane
+~ AnchorPane ipErrorPane
+~ ImageView wrongIpImage
+~ Text wrongIpText
+~ StackPane login_scene
++ void updateEcho(EchoMTC)
+# void onGoBackButtonClick()
+# void onContinueButtonClick()
++ void setContinueButtonVisible()
++ void onKeyPressed(KeyEvent)
+- void showCouldNotConnectMessage()
+- void badNicknameEffect(EchoMTC)
+- void goToCreateGame()
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController {
+~ ImageView commonGoalCard1
+~ ImageView commonGoalCard2
+~ ImageView personalGoalImage
+~ Text card1Description
+~ Text card2Description
+~ Text pointCG1Text
+~ Text pointCG2Text
+- void initCommonGoals()
+- void initPersonalGoals()
++ void updateCommonGoals()
++ void setPointCG1Text(int)
++ void setPointCG2Text(int)
++ void setCard1Description(String)
++ void setCard2Description(String)
++ void onGoBackClicked()
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.GUI.SceneController.StageController {
+- {static} Stage currentStage
+- {static} GuiController controller
++ {static} void setUpStage(Stage,String)
++ {static} GuiController getController()
++ {static} void changeScene(String,String)
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChatObserver {
++ void update()
+}
+class it.polimi.ingsw.View.CLI.InputStates.NicknameState {
++ void play()
++ void update()
+}
+class it.polimi.ingsw.View.CLI.Elements.Views.PersonalGoalView {
+- {static} PersonalGoalView instance
++ {static} PersonalGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawShelf()
++ ArrayList<String> addDescription(ArrayList<String>)
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.BoardMemory {
+- {static} ImageView[][] imagesInBoard
++ {static} void put(ImageView,int,int)
++ {static} ImageView get(int,int)
++ {static} void removeImage(int,int)
+}
+class it.polimi.ingsw.View.CLI.InputStates.reader.CommandExecutorFactory {
++ {static} CommandExecutor getCommand(String)
+}
+class it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility {
+- {static} String ITEM_TILES_PACKAGE
++ {static} Image createImage(ItemTile)
++ {static} Node getNodeFromGridPane(GridPane,int,int)
++ {static} void updateBoardGrid(ItemTile[][])
++ {static} void updateShelfGrid(GridPane,ItemTile[][])
++ {static} void updateOtherShelfGrid(ItemTile[][])
+}
+class it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController {
+~ ToggleGroup playerNumToggle
+~ RadioButton twoPlayers
+~ RadioButton threePlayers
+~ RadioButton fourPlayers
+- boolean continueClicked
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
+# void onBackToMenuButtonClick()
++ int getPlayerNum()
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.CLI.Elements.DisconnectionHandler {
+- {static} DisconnectionHandler instance
++ {static} DisconnectionHandler getInstance()
++ void update()
+- void handleDisconnection()
+}
+class it.polimi.ingsw.View.GUI.SceneController.ChatController {
+~ TextField newMessageField
+~ SplitMenuButton receiverMenu
+~ MenuItem player2MenuItem
+~ MenuItem player3MenuItem
+~ MenuItem player4MenuItem
+~ MenuItem broadcastMenuItem
+~ GridPane chat
+~ StackPane chat_scene
+~ {static} String receiverNickname
+- boolean enterKeyBusy
++ void initChat()
++ void updateChat()
++ void onBackToBoardClicked()
++ void onSendButtonClicked()
++ void onKeyPressed(KeyEvent)
++ void onBroadcastClicked()
++ void onPlayer2Clicked()
++ void onPlayer3Clicked()
++ void onPlayer4Clicked()
+- void initNickname()
++ void initialize(URL,ResourceBundle)
+}
+class it.polimi.ingsw.View.CLI.InputStates.GameStartupState {
++ void play()
++ void update()
+}
+class it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver {
++ void update()
+}
+abstract class it.polimi.ingsw.View.GUI.SceneController.GuiController {
++ void updateGame()
++ void updatePlayers()
++ void updateEcho(EchoMTC)
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateCommonGoals()
++ void updateChangeTurn()
++ void updateFirstPlayerToFinish()
++ void updateGameState()
+}
+
+
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.WinSceneController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.WinSceneController
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.ChatView
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.BoardView
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.InsertTilesCE
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PickupTilesCE
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ShelvesCE
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.OtherShelvesController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.OtherShelvesController
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.LobbyController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.LobbyController
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ColorsCE
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.InvalidCE
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.ChatCE
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.BoardController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.BoardController
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.BoardObserver
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.WaitingRoomController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.WaitingRoomController
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.ActivePlayerState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.ActivePlayerState
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.WaitingPlayerState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.WaitingPlayerState
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.WaitingForPlayersState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.WaitingForPlayersState
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.TilesTableView
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.CommonGoalView
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.GameObserver
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ShelfObserver
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.EchoObserver
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.RefreshCE
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommonGoalCE
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.GameStateObserver
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.Elements.GameStopper
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.DisconnectCE
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.FirstPlayerToFinishObserver
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PChatCE
+it.polimi.ingsw.View.CLI.InputStates.reader.Runnable <|.. it.polimi.ingsw.View.CLI.InputStates.reader.Reader
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.reader.Reader
+it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.PlayerObserver
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChangeTurnObserver
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.EnterGameSceneController
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.TilesTableObserver
+it.polimi.ingsw.View.CLI.Elements.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.Elements.Printer
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.ShelfView
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.StartOrJoinState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.StartOrJoinState
+javafx.application.Application <|-- it.polimi.ingsw.View.GUI.Gui
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.LoginSceneController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.LoginSceneController
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.ChatObserver
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.NicknameState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.NicknameState
+it.polimi.ingsw.View.CLI.Elements.Views.ViewElement <|-- it.polimi.ingsw.View.CLI.Elements.Views.PersonalGoalView
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.PlayerNumSceneController
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.Elements.DisconnectionHandler
+javafx.fxml.Initializable <|.. it.polimi.ingsw.View.GUI.SceneController.ChatController
+it.polimi.ingsw.View.GUI.SceneController.GuiController <|-- it.polimi.ingsw.View.GUI.SceneController.ChatController
+it.polimi.ingsw.View.CLI.InputStates.VirtualModelObserver <|.. it.polimi.ingsw.View.CLI.InputStates.GameStartupState
+it.polimi.ingsw.View.CLI.InputStates.InputState <|-- it.polimi.ingsw.View.CLI.InputStates.GameStartupState
+it.polimi.ingsw.VirtualModel.VirtualModelObserver <|.. it.polimi.ingsw.View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver
+@enduml

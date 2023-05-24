@@ -1,0 +1,67 @@
+@startuml
+class it.polimi.ingsw.network.server.ServerSocketAccepter {
+- int port
+~ ServerSocket serverSocket
++ void run()
+}
+class it.polimi.ingsw.network.server.SocketClientHandler {
+- Socket client
+- PingController pingController
+- String nickname
+- int gameID
+- ObjectOutputStream outputStm
+- ObjectInputStream input
+- boolean stop
++ void run()
+- void handleClientMessages()
++ void disconnect()
++ void sendCommand(MessageToClient)
++ String getNickname()
++ void setNickname(String)
++ PingController getPingController()
++ int getGameID()
++ void setGameID(int)
+}
+abstract class it.polimi.ingsw.network.server.ClientHandler {
++ {abstract}void disconnect()
++ {abstract}void sendCommand(MessageToClient)
+}
+class it.polimi.ingsw.network.server.Server {
+- {static} Server serverInstance
+- Set<String> nicknameSet
++ {static} Logger LOGGER
++ {static} Server getInstance()
+}
+abstract class it.polimi.ingsw.network.client.Client {
+# String nickname
+# int gameId
++ {static} Logger LOGGER
++ {abstract}void sendCommand(MessageToServer)
++ {abstract}void readCommand()
++ {abstract}void disconnect()
++ String getNickname()
++ void setNickname(String)
++ int getGameId()
++ void setGameId(int)
+}
+class it.polimi.ingsw.network.client.SocketClient {
+- {static} Client clientInstance
+- Socket socket
+- ObjectOutputStream outputStm
+- ObjectInputStream inputStm
+- ExecutorService readExecutionQueue
+- String nickname
+- {static} int SOCKET_TIMEOUT
++ {static} Client getInstance()
++ {static} Client getInstance(String,int)
++ void readCommand()
++ void sendCommand(MessageToServer)
++ void disconnect()
+}
+
+
+it.polimi.ingsw.network.server.Runnable <|.. it.polimi.ingsw.network.server.ServerSocketAccepter
+it.polimi.ingsw.network.server.Runnable <|.. it.polimi.ingsw.network.server.SocketClientHandler
+it.polimi.ingsw.network.server.ClientHandler <|-- it.polimi.ingsw.network.server.SocketClientHandler
+it.polimi.ingsw.network.client.Client <|-- it.polimi.ingsw.network.client.SocketClient
+@enduml
