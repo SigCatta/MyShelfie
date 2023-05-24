@@ -4,6 +4,7 @@ import it.polimi.ingsw.Controller.Client.ByeMTS;
 import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
+import it.polimi.ingsw.Controller.Server.PingPong.PingRoutine;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 import it.polimi.ingsw.network.client.Client;
 
@@ -36,7 +37,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
     public SocketClientHandler(Socket client) {
         this.client = client;
         pingController = new PingController(this);
-
+        pingController.start();
         try {
             this.outputStm = new ObjectOutputStream(client.getOutputStream());
             this.input = new ObjectInputStream(client.getInputStream());
@@ -117,6 +118,9 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
             outputStm.writeObject(messageToClient);
             outputStm.reset();
         } catch (IOException e) {
+            if (messageToClient instanceof PingRoutine){
+                Server.LOGGER.severe("PING failed");
+            }
             try {
                 outputStm.close();
                 outputStm = new ObjectOutputStream(client.getOutputStream());

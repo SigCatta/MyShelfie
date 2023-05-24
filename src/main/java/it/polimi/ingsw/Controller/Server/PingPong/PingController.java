@@ -8,7 +8,7 @@ import java.util.Timer;
 
 public class PingController extends Thread {
     private final Timer TIMER;
-    private final int PING_TIMEOUT = 1000;
+    private final int PING_TIMEOUT = 5000;
     private final int DELAY = 100;
     private boolean connectionLost;
 
