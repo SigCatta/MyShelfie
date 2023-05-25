@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Controller.Server.Executor;
 
 import it.polimi.ingsw.Controller.Client.MessageToServer;
-import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.model.Game;
 
 public class ByeExecutor implements Executor {
@@ -10,10 +9,9 @@ public class ByeExecutor implements Executor {
 
         Game game = message.getGame();
 
-        String nickname = message.getNickname();
-
-        game.disconnectPlayer(nickname);
-        //disconnect the player from the gamesManager list
-        GamesManager.getInstance().removePlayer(message.getSocketClientHandler());
+        //end the game if one player disconnects
+        if (game == null) return;
+        game.end();
+        game.disconnectPlayer(message.getNickname());
     }
 }

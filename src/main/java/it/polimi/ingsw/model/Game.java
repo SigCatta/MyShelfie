@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
@@ -182,8 +183,16 @@ public class Game implements ModelSubject {
 
     public void disconnectPlayer(String playerNickname) {
         Player player = getPlayer(playerNickname);
-        player.setConnected(false);
-        players.remove(player);
+
+        for (Player p : players){
+            if(p.isConnected()){
+                player.setConnected(false);
+                return;
+            }
+        }
+
+        GamesManager.getInstance().endGame(gameID);
+
     }
 
     public GameState getGameState() {

@@ -33,7 +33,4 @@ public abstract class GuiController {
 
     public void updateFirstPlayerToFinish() {
     } //TODO remove and put it into update game state
-
-    public void updateGameState() {
-    }
 }

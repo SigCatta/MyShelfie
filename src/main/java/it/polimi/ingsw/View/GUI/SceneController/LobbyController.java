@@ -34,7 +34,6 @@ public class LobbyController extends GuiController implements Initializable {
 
         //create the observer linked to their relative Representation
         new GameObserver();
-        new GameStateObserver();
         new BoardObserver();
         new ChangeTurnObserver();
         new ChatObserver();

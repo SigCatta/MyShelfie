@@ -1,10 +1,13 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.JSONReader.CommonGoalReader;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.CardImagesManager;
 import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -62,6 +65,13 @@ public class ObjectiveCardController extends GuiController implements Initializa
 
         //set the image of the personal goal
         personalGoalImage.setImage(CardImagesManager.getPersonalGoalImage(personalGoalCardNum));
+    }
+
+    @Override
+    public void updateGame() {
+        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
+        }
     }
 
     @Override
