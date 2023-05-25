@@ -5,8 +5,8 @@ import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher;
 import it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard;
@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class Game implements VirtualViewSubject {
+public class Game implements ModelSubject {
 
-    private final ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<ModelObserver> observers;
     private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
@@ -204,18 +204,18 @@ public class Game implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver observer : observers) {
+        for (ModelObserver observer : observers) {
             observer.update();
         }
     }

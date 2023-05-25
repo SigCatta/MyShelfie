@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.player.Player;
 
 import java.io.Serializable;
 
-public class ShelfVV implements VirtualViewObserver, MessageToClient, Serializable {
+public class ShelfVV implements ModelObserver, MessageToClient, Serializable {
     private final VirtualView VIRTUAL_VIEW;
     private final Player OWNER;
 

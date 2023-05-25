@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards.commonGoals;
 
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Shelf;
 
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class CommonGoalCard implements VirtualViewSubject {
+public class CommonGoalCard implements ModelSubject {
 
-    private final ArrayList<VirtualViewObserver> observers;
+    private final ArrayList<ModelObserver> observers;
     /**
      * Stack of points that can be obtained by achieving the goal.
      */
@@ -74,18 +74,18 @@ public class CommonGoalCard implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver o : observers) {
+        for (ModelObserver o : observers) {
             o.update();
         }
     }
