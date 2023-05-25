@@ -22,6 +22,10 @@ public class BoardRepresentation extends VirtualModelSubject {
         notifyObservers();
     }
 
+    public void setBoard(ItemTile[][] board) { // for testing
+        this.board = board;
+    }
+
     public ItemTile[][] getBoard() {
         return board;
     }

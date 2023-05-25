@@ -60,7 +60,7 @@ public class ScoreBoard implements EndOfTurnObserver {
         }
 
         //it is the last turn of the last player
-        if (isFirstPointAssigned && game.getActivePlayer() == players.get(0)) { //TODO check
+        if (isFirstPointAssigned && game.getActivePlayer() == players.get(players.size() - 1)) {
             scorePersonalGoals();
             scoreAdjacency();
         }
@@ -77,8 +77,7 @@ public class ScoreBoard implements EndOfTurnObserver {
         return players.get(previousActivePlayerIndex);
     }
 
-    @SuppressWarnings("unused")
-    public void endGameScoreUpdate() { //TODO maybe remove?
+    public void endGameScoreUpdate() {
         //done for every player in the game
         scorePersonalGoals();
         scoreAdjacency();

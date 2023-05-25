@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class PickUpTilesMTS extends MessageToServer implements Serializable {
 
+    private transient int gameID;
+    private transient String nickname;
+
     private final ArrayList<Point> tilesPosition;
 
     public PickUpTilesMTS(ArrayList<Point> tilesPosition) {

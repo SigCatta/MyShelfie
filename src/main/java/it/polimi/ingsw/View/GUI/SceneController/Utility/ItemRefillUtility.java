@@ -9,8 +9,7 @@ import java.awt.*;
 
 public class ItemRefillUtility {
 
-    private static final String ITEM_TILES_PACKAGE = ItemRefillUtility.class.getClassLoader()
-            .getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/").toString();
+    private static final String ITEM_TILES_PACKAGE = ItemRefillUtility.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/").toString();
 
 
     public static Image createImage(ItemTile tile) {

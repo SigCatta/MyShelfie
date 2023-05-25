@@ -3,6 +3,7 @@ package it.polimi.ingsw.View.GUI.SceneController;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -34,15 +35,15 @@ public class WinSceneController extends GuiController implements Initializable {
             }
         }
 
-        crowns.forEach(imageView -> imageView.setVisible(false));
+        crowns.forEach(imageView -> { imageView.setVisible(false);});
         crowns.get(highestIndex).setVisible(true);
     }
 
     @Override
     public void updatePlayers() {
         ArrayList<String> players = PlayersRepresentation.getInstance().getPlayersList();
-        nicknamesText.forEach(name -> name.setVisible(false));
-        pointsText.forEach(point -> point.setVisible(false));
+        nicknamesText.forEach(name -> { name.setVisible(false);});
+        pointsText.forEach(point -> { point.setVisible(false);});
 
         for(int i = 0; i < players.size(); i++){
             nicknamesText.get(i).setVisible(true);

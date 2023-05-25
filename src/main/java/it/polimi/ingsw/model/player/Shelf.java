@@ -155,7 +155,6 @@ public class Shelf implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }

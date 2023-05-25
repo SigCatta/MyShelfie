@@ -98,7 +98,6 @@ public class Player implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }

@@ -27,12 +27,12 @@ import java.util.NoSuchElementException;
 public class Game implements ModelSubject {
 
     private final ArrayList<ModelObserver> observers;
-    private final int BOARD_DIMENSION = 9;
+    private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
     private Bag bag;
-    private final Board board;
+    private Board board;
     private final ChosenTilesTable chosenTilesTable;
     private GameState gameState;
     private final ArrayList<CommonGoalCard> commonGoals;
@@ -121,6 +121,14 @@ public class Game implements ModelSubject {
         return bag;
     }
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public int getMAX_TILES_FROM_BOARD() {
+        return MAX_TILES_FROM_BOARD;
+    }
+
     public ChosenTilesTable getChosenTilesTable() {
         return chosenTilesTable;
     }
@@ -201,7 +209,6 @@ public class Game implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }

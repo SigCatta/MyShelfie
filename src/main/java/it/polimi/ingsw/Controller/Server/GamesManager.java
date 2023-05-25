@@ -80,6 +80,10 @@ public class GamesManager {
         return gameID;
     }
 
+    public void removePlayer(SocketClientHandler socketClientHandler) {
+        PLAYERS_NAME.remove(socketClientHandler.getNickname());
+    }
+
     public void endGame(int gameID) {
         //remove all the player's nickname from the server
         for(Player player : gamesData.get(gameID).getPlayers()){

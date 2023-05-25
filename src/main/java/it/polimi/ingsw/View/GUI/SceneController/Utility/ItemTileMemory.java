@@ -13,6 +13,23 @@ public class ItemTileMemory {
     private static final Map<Integer, Image> TILE_TO_IMAGE = new HashMap<>();
 
 
+    public static void put(int id, ItemTile itemTile) {
+        ID_TO_ITEM_TILE.put(id, itemTile);
+    }
+
+    public static void put(int id, Point position) {
+        ID_TO_POSITION.put(id, position);
+    }
+
+    public static void put(int id, Image image) {
+        TILE_TO_IMAGE.put(id, image);
+    }
+
+    public static void put(int id, ItemTile itemTile, Point position) {
+        ID_TO_ITEM_TILE.put(id, itemTile);
+        ID_TO_POSITION.put(id, position);
+    }
+
     public static void put(int id, ItemTile itemTile, Point position, Image image) {
         ID_TO_ITEM_TILE.put(id, itemTile);
         ID_TO_POSITION.put(id, position);

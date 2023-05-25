@@ -100,7 +100,7 @@ public class SocketClient extends Client {
      * Disconnect the socket from the server.
      */
     @Override
-    public void disconnect() { //TODO check for usage
+    public void disconnect() {
         try {
             if (!socket.isClosed()) {
                 if (readExecutionQueue != null)
@@ -112,6 +112,7 @@ public class SocketClient extends Client {
         } catch (IOException e) {
             Client.LOGGER.severe("Could not disconnect.");
         }
+
     }
 
 }
