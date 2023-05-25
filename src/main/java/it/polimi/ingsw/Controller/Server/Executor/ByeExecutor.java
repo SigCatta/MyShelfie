@@ -11,6 +11,7 @@ public class ByeExecutor implements Executor {
 
         //end the game if one player disconnects
         if (game == null) return;
+
         game.end();
         game.disconnectPlayer(message.getNickname());
     }
