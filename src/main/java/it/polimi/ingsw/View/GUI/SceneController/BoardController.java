@@ -98,7 +98,7 @@ public class BoardController extends GuiController implements Initializable {
         updateChosenTilesTable();
         updateChangeTurn();
         updateGame();
-        if (pointsPane.getChildren().size() > 0) updateMyScore();
+        if (pointsPane.getChildren().size() > 0) updatePlayers();
 
     }
 
@@ -229,7 +229,7 @@ public class BoardController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updateMyScore() {
+    public void updatePlayers() {
         pointsPane.setVisible(true);
         int points = PlayersRepresentation.getInstance().getPlayerScore(myNickname);
         pointNumber.setText(Integer.toString(points));

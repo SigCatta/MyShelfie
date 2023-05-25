@@ -40,6 +40,7 @@ public class OtherShelvesController extends GuiController implements Initializab
     public void updateShelf() {
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(currentPlayerNickname).getShelf();
         System.out.println("Updating " + currentPlayerNickname + " shelf...");//TODO remove
+        playerName.setText(currentPlayerNickname);
         ItemRefillUtility.updateOtherShelfGrid(shelf, shelfModel);
     }
 
