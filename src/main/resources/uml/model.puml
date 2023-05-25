@@ -1,27 +1,27 @@
 @startuml
-class it.polimi.ingsw.model.EndOfTurn.BoardRefresher.RefreshTrigger {
+class model.EndOfTurn.BoardRefresher.RefreshTrigger {
 + {static} boolean isBoardRefreshable(Board)
 - {static} boolean isNotNull(ItemTile)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS {
+class model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS {
+class model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.AdjacencyScoreCalculation {
+class model.EndOfTurn.ScoreCalculation.AdjacencyScoreCalculation {
 + {static} int calculateScore(Player)
 - {static} List<Integer> findClusters(ItemTile[][])
 - {static} List<Integer> dfs(ItemTile[][],int,int,Color,Set<String>)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.XShapedCGS {
+class model.cards.commonGoals.commonGoalsStrategy.XShapedCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.cards.personalGoals.PersonalCardDealer {
+class model.cards.personalGoals.PersonalCardDealer {
 - {static} File personalCardsDirectory
 + {static} void getCards(ArrayList<Player>)
 }
-class it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher {
+class model.EndOfTurn.BoardRefresher.BoardRefresher {
 - Board board
 - Bag BAG
 - Game GAME
@@ -29,28 +29,28 @@ class it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher {
 + void refillBoard()
 + void update()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ScaleCGS {
+class model.cards.commonGoals.commonGoalsStrategy.ScaleCGS {
 + boolean isGoalAchieved(Shelf)
 + boolean hasIncreasingColumns(ItemTile[][],boolean)
 }
-class it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard {
-- ArrayList<VirtualViewObserver> observers
+class model.cards.commonGoals.CommonGoalCard {
+- ArrayList<ModelObserver> observers
 # Stack<Integer> pointsStack
 - CommonGoalStrategy commonGoalStrategy
 - HashSet<Player> playersWhoCompleted
-- void initStackPoints()
+- void initStackPoints(int)
 + int calculateScore(Player)
 + boolean hasCompleted(Player)
 - boolean isGoalAchieved(Shelf)
 + int popPoints()
 + int peekPoints()
 + String getCardName()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.model.Game {
-- ArrayList<VirtualViewObserver> observers
+class model.Game {
+- ArrayList<ModelObserver> observers
 - int BOARD_DIMENSION
 - int MAX_PLAYER_NUMBER
 - VirtualView virtualView
@@ -73,8 +73,6 @@ class it.polimi.ingsw.model.Game {
 + Player getActivePlayer()
 + void setActivePlayer(Player)
 + Bag getBag()
-+ void setBoard(Board)
-+ int getMAX_TILES_FROM_BOARD()
 + ChosenTilesTable getChosenTilesTable()
 + void addPlayer(Player)
 + TurnHandler getTurnHandler()
@@ -87,31 +85,30 @@ class it.polimi.ingsw.model.Game {
 + void disconnectPlayer(String)
 + GameState getGameState()
 + VirtualView getVirtualView()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-interface it.polimi.ingsw.model.EndOfTurn.EndOfTurnSubject {
+interface model.EndOfTurn.EndOfTurnSubject {
 ~ void attachEndOfTurn(EndOfTurnObserver)
 ~ void notifyObservers()
 }
-class it.polimi.ingsw.model.EndOfTurn.TurnHandler {
+class model.EndOfTurn.TurnHandler {
 + Game game
 - List<EndOfTurnObserver> observers
 - List<Player> players
 - boolean lastTurn
 + void changeTurn()
-+ boolean isLastTurn()
 + void startLastTurn()
 + void attachEndOfTurn(EndOfTurnObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS {
+class model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS {
 + boolean isGoalAchieved(Shelf)
 - boolean hasLessThanFiveTiles(ItemTile[])
 }
-class it.polimi.ingsw.model.player.Shelf {
-- ArrayList<VirtualViewObserver> observers
+class model.player.Shelf {
+- ArrayList<ModelObserver> observers
 - int COLUMNS
 - int ROWS
 - ItemTile[][] shelfGrid
@@ -125,21 +122,21 @@ class it.polimi.ingsw.model.player.Shelf {
 + int getROWS()
 + boolean insertTile(ItemTile,int)
 + boolean isFull()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.model.tiles.ItemTile {
+class model.tiles.ItemTile {
 - Color COLOR
 - int id
 + int getId()
 + Color getColor()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS {
+class model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.board.Board {
-- ArrayList<VirtualViewObserver> OBSERVERS
+class model.board.Board {
+- ArrayList<ModelObserver> OBSERVERS
 - ItemTile[][] BOARD_GRID
 + ItemTile[][] getBoardGrid()
 + int getSize()
@@ -147,21 +144,21 @@ class it.polimi.ingsw.model.board.Board {
 + ItemTile removeItemTile(Point)
 + ArrayList<ItemTile> removeItemTiles(ArrayList<Point>)
 + void emptyBoard()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS {
+class model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.player.ShelfUtils {
+class model.player.ShelfUtils {
 + {static} boolean checkMatrixWithDFS(ItemTile[][],int,int)
 - {static} int dfs(ItemTile[][],boolean[][],int,int,Color)
 }
-interface it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver {
+interface model.EndOfTurn.EndOfTurnObserver {
 ~ void update()
 }
-class it.polimi.ingsw.model.tiles.Bag {
+class model.tiles.Bag {
 - int NUMBER_OF_COLORS
 - int TILES_PER_COLOR
 - int tilesLeft
@@ -169,46 +166,43 @@ class it.polimi.ingsw.model.tiles.Bag {
 + ItemTile drawTile()
 ~ Color randomColor()
 }
-class it.polimi.ingsw.model.cards.commonGoals.CommonCardDealer {
+class model.cards.commonGoals.CommonCardDealer {
 + {static} List<CommonGoalStrategy> possibleCommonGoals
 + {static} List<CommonGoalStrategy> pickCardStrategies(int)
-+ {static} List<CommonGoalCard> pickCommonGoalCards(int)
++ {static} List<CommonGoalCard> pickCommonGoalCards(int,int)
 - {static} void initCommonGoals()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS {
+class model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable {
-- List<VirtualViewObserver> observers
+class model.board.ChosenTilesTable.ChosenTilesTable {
+- List<ModelObserver> observers
 - List<ItemTile> chosenTiles
-- Board board
 - Integer chosenColumn
 + void addTiles(ArrayList<ItemTile>)
 + ItemTile popTile(int)
-+ ItemTile getTile(int)
 + int size()
 + Integer getChosenColumn()
 + void setChosenColumn(Integer)
 + List<ItemTile> getChosenTiles()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-abstract class it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy {
-~ CommonGoalReader reader
+abstract class model.cards.commonGoals.CommonGoalStrategy {
 + {abstract}boolean isGoalAchieved(Shelf)
 + String getCardName()
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS {
+class model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS {
+class model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS {
+class model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS {
 + boolean isGoalAchieved(Shelf)
 }
-class it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard {
+class model.EndOfTurn.ScoreCalculation.ScoreBoard {
 - Game game
 - boolean isFirstPointAssigned
 - ArrayList<CommonGoalCard> commonGoals
@@ -220,8 +214,8 @@ class it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard {
 - void scorePersonalGoals()
 - void scoreAdjacency()
 }
-class it.polimi.ingsw.model.player.Player {
-- ArrayList<VirtualViewObserver> observers
+class model.player.Player {
+- ArrayList<ModelObserver> observers
 - Shelf shelf
 - PersonalGoal personalGoal
 - String nickname
@@ -235,11 +229,11 @@ class it.polimi.ingsw.model.player.Player {
 + void updateScore(int)
 + void setConnected(boolean)
 + boolean isConnected()
-+ void registerObserver(VirtualViewObserver)
-+ void removeObserver(VirtualViewObserver)
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.model.cards.personalGoals.PersonalGoal {
+class model.cards.personalGoals.PersonalGoal {
 - HashMap<Color,Point> achievements
 - Player player
 - Stack<Integer> points
@@ -250,38 +244,38 @@ class it.polimi.ingsw.model.cards.personalGoals.PersonalGoal {
 + Stack<Integer> getPointStack()
 + String getCardNumber()
 }
-class it.polimi.ingsw.model.board.ChosenTilesTable.PickUpValidator {
+class model.board.ChosenTilesTable.PickUpValidator {
 + {static} boolean isValid(Game,ArrayList<Point>)
 - {static} boolean onSameLine(ArrayList<Point>)
 - {static} boolean adjacent(ArrayList<Point>)
 - {static} boolean hasFreeAdjacentNeighbor(ItemTile[][],Point)
 - {static} boolean tooManyTilesChosen(Game,int)
 }
-class it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS {
+class model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS {
 + boolean isGoalAchieved(Shelf)
 }
 
 
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.XShapedCGS
-it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver <|.. it.polimi.ingsw.model.EndOfTurn.BoardRefresher.BoardRefresher
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ScaleCGS
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.Game
-it.polimi.ingsw.model.EndOfTurn.EndOfTurnSubject <|.. it.polimi.ingsw.model.EndOfTurn.TurnHandler
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.player.Shelf
-java.io.Serializable <|.. it.polimi.ingsw.model.tiles.ItemTile
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.board.Board
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.board.ChosenTilesTable.ChosenTilesTable
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
-it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver <|.. it.polimi.ingsw.model.EndOfTurn.ScoreCalculation.ScoreBoard
-it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject <|.. it.polimi.ingsw.model.player.Player
-it.polimi.ingsw.model.cards.commonGoals.CommonGoalStrategy <|-- it.polimi.ingsw.model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.XShapedCGS
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.BoardRefresher.BoardRefresher
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ScaleCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.cards.commonGoals.CommonGoalCard
+VirtualView.ModelObservers.ModelSubject <|.. model.Game
+model.EndOfTurn.EndOfTurnSubject <|.. model.EndOfTurn.TurnHandler
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Shelf
+java.io.Serializable <|.. model.tiles.ItemTile
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.board.Board
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.board.ChosenTilesTable.ChosenTilesTable
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Player
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS
 @enduml

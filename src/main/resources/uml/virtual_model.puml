@@ -1,44 +1,43 @@
 @startuml
-class it.polimi.ingsw.VirtualModel.ShelvesRepresentation {
+class VirtualModel.ShelvesRepresentation {
 - Map<String,ShelfMTC> SHELF_MESSAGES
 - {static} ShelvesRepresentation instance
 + {static} ShelvesRepresentation getInstance()
 + void updateShelf(ShelfMTC)
 + ShelfMTC getShelfMessage(String)
 }
-class it.polimi.ingsw.VirtualModel.ChatRepresentation {
+class VirtualModel.ChatRepresentation {
 - ArrayList<ChatMTC> CHAT
 - {static} ChatRepresentation instance
 + {static} ChatRepresentation getInstance()
 + ArrayList<ChatMTC> getMessages()
 + void addMessage(ChatMTC)
 }
-interface it.polimi.ingsw.VirtualModel.VirtualModelObserver {
+interface VirtualModel.VirtualModelObserver {
 ~ void update()
 }
-class it.polimi.ingsw.VirtualModel.TilesTableRepresentation {
+class VirtualModel.TilesTableRepresentation {
 - {static} TilesTableRepresentation instance
 - ChosenTilesTableMTC tilesTableMessage
 + {static} TilesTableRepresentation getInstance()
 + void updateTable(ChosenTilesTableMTC)
 + List<ItemTile> getTiles()
 }
-abstract class it.polimi.ingsw.VirtualModel.VirtualModelSubject {
+abstract class VirtualModel.VirtualModelSubject {
 # List<VirtualModelObserver> observers
 + void registerObserver(VirtualModelObserver)
 + void removeObserver(VirtualModelObserver)
 + void notifyObservers()
 }
-class it.polimi.ingsw.VirtualModel.BoardRepresentation {
+class VirtualModel.BoardRepresentation {
 - ItemTile[][] board
 - {static} BoardRepresentation instance
 + {static} BoardRepresentation getInstance()
 + void setBoard(BoardMTC)
-+ void setBoard(ItemTile[][])
 + ItemTile[][] getBoard()
 + Color[][] getBoardColors()
 }
-class it.polimi.ingsw.VirtualModel.EchosRepresentation {
+class VirtualModel.EchosRepresentation {
 - Stack<EchoMTC> messages
 - {static} EchosRepresentation instance
 + {static} EchosRepresentation getInstance()
@@ -47,7 +46,7 @@ class it.polimi.ingsw.VirtualModel.EchosRepresentation {
 + EchoMTC peekMessage()
 + void clean()
 }
-class it.polimi.ingsw.VirtualModel.PlayersRepresentation {
+class VirtualModel.PlayersRepresentation {
 - Map<String,PlayerMTC> PLAYER_MESSAGES
 - {static} PlayersRepresentation instance
 + {static} PlayersRepresentation getInstance()
@@ -57,7 +56,7 @@ class it.polimi.ingsw.VirtualModel.PlayersRepresentation {
 + ArrayList<PlayerMTC> getAllPlayerMTC()
 + void updatePlayer(PlayerMTC)
 }
-class it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation {
+class VirtualModel.CommonGoalsRepresentation {
 - {static} CommonGoalsRepresentation instance
 - CommonGoalMTC commonGoalMessage
 + {static} CommonGoalsRepresentation getInstance()
@@ -66,7 +65,7 @@ class it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation {
 + CommonGoalMTC getCommonGoalMessage()
 + ArrayList<Integer> getAvailablePoints()
 }
-class it.polimi.ingsw.VirtualModel.GameRepresentation {
+class VirtualModel.GameRepresentation {
 - GameMTC gameMessage
 - {static} GameRepresentation instance
 + {static} GameRepresentation getInstance()
@@ -79,12 +78,12 @@ class it.polimi.ingsw.VirtualModel.GameRepresentation {
 }
 
 
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.ShelvesRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.ChatRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.TilesTableRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.BoardRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.EchosRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.PlayersRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation
-it.polimi.ingsw.VirtualModel.VirtualModelSubject <|-- it.polimi.ingsw.VirtualModel.GameRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ShelvesRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ChatRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.TilesTableRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.BoardRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.EchosRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.PlayersRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.CommonGoalsRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.GameRepresentation
 @enduml

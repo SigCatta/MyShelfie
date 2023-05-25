@@ -1,10 +1,10 @@
 @startuml
-class it.polimi.ingsw.network.server.ServerSocketAccepter {
+class network.server.ServerSocketAccepter {
 - int port
 ~ ServerSocket serverSocket
 + void run()
 }
-class it.polimi.ingsw.network.server.SocketClientHandler {
+class network.server.SocketClientHandler {
 - Socket client
 - PingController pingController
 - String nickname
@@ -22,29 +22,25 @@ class it.polimi.ingsw.network.server.SocketClientHandler {
 + int getGameID()
 + void setGameID(int)
 }
-abstract class it.polimi.ingsw.network.server.ClientHandler {
+abstract class network.server.ClientHandler {
 + {abstract}void disconnect()
 + {abstract}void sendCommand(MessageToClient)
 }
-class it.polimi.ingsw.network.server.Server {
+class network.server.Server {
 - {static} Server serverInstance
-- Set<String> nicknameSet
 + {static} Logger LOGGER
 + {static} Server getInstance()
 }
-abstract class it.polimi.ingsw.network.client.Client {
+abstract class network.client.Client {
 # String nickname
-# int gameId
 + {static} Logger LOGGER
 + {abstract}void sendCommand(MessageToServer)
 + {abstract}void readCommand()
 + {abstract}void disconnect()
 + String getNickname()
 + void setNickname(String)
-+ int getGameId()
-+ void setGameId(int)
 }
-class it.polimi.ingsw.network.client.SocketClient {
+class network.client.SocketClient {
 - {static} Client clientInstance
 - Socket socket
 - ObjectOutputStream outputStm
@@ -60,8 +56,8 @@ class it.polimi.ingsw.network.client.SocketClient {
 }
 
 
-it.polimi.ingsw.network.server.Runnable <|.. it.polimi.ingsw.network.server.ServerSocketAccepter
-it.polimi.ingsw.network.server.Runnable <|.. it.polimi.ingsw.network.server.SocketClientHandler
-it.polimi.ingsw.network.server.ClientHandler <|-- it.polimi.ingsw.network.server.SocketClientHandler
-it.polimi.ingsw.network.client.Client <|-- it.polimi.ingsw.network.client.SocketClient
+network.server.Runnable <|.. network.server.ServerSocketAccepter
+network.server.Runnable <|.. network.server.SocketClientHandler
+network.server.ClientHandler <|-- network.server.SocketClientHandler
+network.client.Client <|-- network.client.SocketClient
 @enduml

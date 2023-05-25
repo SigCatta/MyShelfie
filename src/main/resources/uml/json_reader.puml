@@ -1,0 +1,24 @@
+@startuml
+class JSONReader.PersonalGoalReader {
+- JSONParser jsonParser
++ HashMap<Color,Point> getPersonalGoalsData(String)
++ Stack<Integer> getPointStack()
+}
+class JSONReader.LookUpTableReader {
+# JSONParser jsonParser
++ boolean[][] getLookUpTable(int)
+}
+interface JSONReader.JSONFileReader {
+}
+class JSONReader.CommonGoalReader {
+# JSONParser jsonParser
++ ArrayList<String> getDrawing(String)
+- JSONObject getCardObject(String)
++ String getDescription(String)
+}
+
+
+JSONReader.JSONFileReader <|.. JSONReader.PersonalGoalReader
+JSONReader.JSONFileReader <|.. JSONReader.LookUpTableReader
+JSONReader.JSONFileReader <|.. JSONReader.CommonGoalReader
+@enduml

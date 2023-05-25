@@ -1,5 +1,5 @@
 @startuml
-enum it.polimi.ingsw.Enum.Color {
+enum Enum.Color {
 +  GREEN
 +  YELLOW
 +  BLUE
@@ -7,7 +7,7 @@ enum it.polimi.ingsw.Enum.Color {
 +  PINK
 +  WHITE
 }
-enum it.polimi.ingsw.Enum.EchoID {
+enum Enum.EchoID {
 +  PANIC
 +  NOID
 +  GAMEFULL
@@ -25,7 +25,7 @@ enum it.polimi.ingsw.Enum.EchoID {
 +  NOPLAYER
 +  LAST_TURN
 }
-enum it.polimi.ingsw.Enum.GameState {
+enum Enum.GameState {
 +  PREGAME
 +  PICK_UP_TILES
 +  INSERT_TILES

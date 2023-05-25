@@ -1,0 +1,203 @@
+@startuml
+abstract class View.CLI.Elements.Views.ViewElement {
+~ String NULL
++ {abstract}ArrayList<String> getPrint(ArrayList<String>)
+}
+class View.CLI.Elements.Views.ChatView {
+- int chatWidth
+- int chatHeigth
+- {static} ChatView instance
++ {static} ChatView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> getChatPrint()
+- String padding(ChatMTC)
+}
+class View.CLI.InputStates.reader.commandExecutors.RefreshCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.CommonGoalCE {
++ void execute()
+}
+class View.CLI.Elements.Views.BoardView {
+- {static} BoardView instance
+- boolean[][] lookUpTable
++ {static} BoardView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class View.CLI.InputStates.reader.commandExecutors.InsertTilesCE {
++ void execute()
+- int getTileIndex()
+- int getColumn()
+}
+class View.CLI.InputStates.reader.commandExecutors.PickupTilesCE {
++ void execute()
+- int getColumn()
+- int getRow()
+- boolean isInputValid(String)
+- int stopPickup()
+}
+class View.CLI.Elements.GameStopper {
+- {static} GameStopper instance
++ {static} GameStopper getIntance()
++ void update()
+- void printWinnerScreen()
+- void printLoserScreen()
+- void printScoreBoard()
+}
+class View.CLI.InputStates.reader.commandExecutors.DisconnectCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.ShelvesCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.PChatCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.Reader {
+~ String input
+~ boolean isReading
+- {static} Reader instance
++ {static} Reader getInstance()
++ void run()
++ boolean isReading()
++ void setReading(boolean)
+- void chooseCommand()
++ {static} String getInput()
++ void update()
+}
+class View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE {
++ void execute()
+}
+interface View.CLI.InputStates.reader.commandExecutors.CommandExecutor {
+~ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.ColorsCE {
++ void execute()
+}
+class View.CLI.Elements.Printer {
+~ {static} HashMap<Color,String> colorMap
+- {static} Printer instance
+- Reader reader
++ {static} Printer getInstance()
++ {static} void enableCLIColors(boolean)
++ {static} HashMap<Color,String> getColorMap()
++ void update()
++ {static} void clearConsole()
++ {static} ArrayList<String> addAvailableCommands(ArrayList<String>)
+- {static} ArrayList<String> getAvailableCommands()
+}
+class View.CLI.InputStates.reader.commandExecutors.InvalidCE {
++ void execute()
+}
+class View.CLI.Elements.Views.ShelfView {
+- {static} ShelfView instance
++ {static} ShelfView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
++ ArrayList<String> getOtherShelvesPrint(String)
+- ArrayList<String> printShelf(ArrayList<String>,String)
+}
+class View.CLI.InputStates.reader.commandExecutors.ChatCE {
++ void execute()
+}
+class View.CLI.InputStates.StartOrJoinState {
+- boolean triedToCreateAGame
+- boolean hasJoined
++ void play()
+- void joinGame()
+- void createNewGame()
++ void update()
+}
+class View.CLI.InputStates.NicknameState {
++ void play()
++ void update()
+}
+abstract class View.CLI.InputStates.InputState {
+~ String input
+~ Client socketClient
++ {abstract}void play()
+}
+class View.CLI.Elements.Views.PersonalGoalView {
+- {static} PersonalGoalView instance
++ {static} PersonalGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawShelf()
++ ArrayList<String> addDescription(ArrayList<String>)
+}
+class View.CLI.InputStates.ActivePlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class View.CLI.InputStates.reader.CommandExecutorFactory {
++ {static} CommandExecutor getCommand(String)
+}
+class View.CLI.InputStates.WaitingPlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class View.CLI.InputStates.WaitingForPlayersState {
++ void play()
++ void update()
+}
+class View.CLI.Elements.DisconnectionHandler {
+- {static} DisconnectionHandler instance
++ {static} DisconnectionHandler getInstance()
++ void update()
+- void handleDisconnection()
+}
+class View.CLI.Elements.Views.TilesTableView {
+- {static} TilesTableView instance
++ {static} TilesTableView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class View.CLI.Elements.Views.CommonGoalView {
+- CommonGoalReader reader
+- {static} CommonGoalView instance
++ {static} CommonGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawCommonGoals()
++ ArrayList<String> addDescription(ArrayList<String>)
+- ArrayList<String> applyMargin(int,String)
+}
+class View.CLI.InputStates.GameStartupState {
++ void play()
++ void update()
+}
+
+
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.ChatView
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.RefreshCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.CommonGoalCE
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.BoardView
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.InsertTilesCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PickupTilesCE
+VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.GameStopper
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.DisconnectCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ShelvesCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PChatCE
+View.CLI.InputStates.reader.Runnable <|.. View.CLI.InputStates.reader.Reader
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.reader.Reader
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ColorsCE
+VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.Printer
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.InvalidCE
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.ShelfView
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ChatCE
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.StartOrJoinState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.StartOrJoinState
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.NicknameState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.NicknameState
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.PersonalGoalView
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.ActivePlayerState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.ActivePlayerState
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingPlayerState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingPlayerState
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingForPlayersState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingForPlayersState
+VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.DisconnectionHandler
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.TilesTableView
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.CommonGoalView
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.GameStartupState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.GameStartupState
+@enduml
