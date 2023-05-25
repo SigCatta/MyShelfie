@@ -10,7 +10,6 @@ public abstract class ClientHandler {
     /**
      * Disconnects from the client.
      */
-    @SuppressWarnings("unused")
     public abstract void disconnect();
 
     /**
@@ -18,6 +17,5 @@ public abstract class ClientHandler {
      *
      * @param messageToClient the message to be sent.
      */
-    @SuppressWarnings("unused")
     public abstract void sendCommand(MessageToClient messageToClient);
 }

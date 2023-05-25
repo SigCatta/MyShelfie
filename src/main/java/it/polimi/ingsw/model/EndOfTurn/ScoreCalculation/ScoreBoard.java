@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.EndOfTurn.ScoreCalculation;
 
+import it.polimi.ingsw.Enum.GameState;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
 import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
@@ -13,11 +15,12 @@ import java.util.List;
  * either a personal or common goal, fill their shelf before the others or place tiles of the same colors
  * adjacently in the shelf, it is called at the end of each turn to check if a player can earn any points
  */
-public class ScoreBoard implements EndOfTurnObserver {
+public class ScoreBoard implements EndOfTurnObserver, ModelObserver {
 
     private final Game game;
     private boolean isFirstPointAssigned;
     private final ArrayList<CommonGoalCard> commonGoals;
+    private boolean calculatedEndGame;
 
 
     /**
@@ -26,7 +29,9 @@ public class ScoreBoard implements EndOfTurnObserver {
     public ScoreBoard(Game game) {
         this.game = game;
         this.commonGoals = game.getCommonGoals();
+        game.registerObserver(this);
         this.isFirstPointAssigned = false;
+        this.calculatedEndGame = false;
     }
 
     /**
@@ -60,9 +65,8 @@ public class ScoreBoard implements EndOfTurnObserver {
         }
 
         //it is the last turn of the last player
-        if (isFirstPointAssigned && game.getActivePlayer() == players.get(0)) { //TODO check
-            scorePersonalGoals();
-            scoreAdjacency();
+        if ((isFirstPointAssigned && game.getActivePlayer() == players.get(0)) || game.getGameState().equals(GameState.END)) {
+            endGameScoreUpdate();
         }
     }
 
@@ -77,8 +81,9 @@ public class ScoreBoard implements EndOfTurnObserver {
         return players.get(previousActivePlayerIndex);
     }
 
-    @SuppressWarnings("unused")
-    public void endGameScoreUpdate() { //TODO maybe remove?
+    public void endGameScoreUpdate() {
+        if (calculatedEndGame) return;
+        calculatedEndGame = true;
         //done for every player in the game
         scorePersonalGoals();
         scoreAdjacency();

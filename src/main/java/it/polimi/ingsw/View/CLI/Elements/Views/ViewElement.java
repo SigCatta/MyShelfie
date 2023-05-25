@@ -5,5 +5,5 @@ import java.util.ArrayList;
 public abstract class ViewElement {
     final String NULL = ".";
 
-    public abstract ArrayList<String> getPrint(ArrayList<String> output);
+    abstract ArrayList<String> getPrint(ArrayList<String> output);
 }

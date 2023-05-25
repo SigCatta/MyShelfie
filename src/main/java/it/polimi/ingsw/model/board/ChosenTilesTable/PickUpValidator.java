@@ -108,9 +108,7 @@ public class PickUpValidator {
 
             int prevValue = chosenPositions.get(0).x;
             for (int i = 1; i < chosenPositions.size(); i++) {
-                if (chosenPositions.get(i).x != prevValue + i) {
-                    return false;
-                }
+                if (chosenPositions.get(i).x != prevValue + i) return false;
                 if (chosenPositions.get(i).y != col) return false;
             }
 
@@ -119,9 +117,7 @@ public class PickUpValidator {
 
             int prevValue = chosenPositions.get(0).y;
             for (int i = 1; i < chosenPositions.size(); i++) {
-                if (chosenPositions.get(i).y != prevValue + i) {
-                    return false;
-                }
+                if (chosenPositions.get(i).y != prevValue + i) return false;
                 if (chosenPositions.get(i).x != row) return false;
             }
         }
@@ -146,13 +142,10 @@ public class PickUpValidator {
                 || singlePositions.y == 0 || singlePositions.y == BOARD_DIMENSION - 1) return true;
 
 
-        if (boardGrid[row - 1][col] == null) {
-            return true;
-        } else if (boardGrid[row + 1][col] == null) {
-            return true;
-        } else if (boardGrid[row][col - 1] == null) {
-            return true;
-        } else return boardGrid[row][col + 1] == null;
+        if (boardGrid[row - 1][col] == null) return true;
+        if (boardGrid[row + 1][col] == null) return true;
+        if (boardGrid[row][col - 1] == null) return true;
+        return boardGrid[row][col + 1] == null;
 
     }
 
@@ -166,7 +159,7 @@ public class PickUpValidator {
         for (int i = 0; i < shelf.getCOLUMNS(); i++) {
             if (shelf.getNumOfBoxLeftInCol(i) >= size) return false;    //there is still enough free cell in at least a column
         }
-        return true;    //not enough free cell in any columns
+        return true;    //not enough free cells in any columns
     }
 
 }

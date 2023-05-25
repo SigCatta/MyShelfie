@@ -63,7 +63,11 @@ public class Shelf implements ModelSubject {
      * @return The ItemTile at the specified location or null if there is none.
      */
     public ItemTile getTileAtLocation(Point location) {
-        return shelfGrid[location.x][location.y];
+        try {
+            return shelfGrid[location.x][location.y];
+        } catch (NullPointerException e){
+            return null;
+        }
     }
 
     public void setTileAtLocation(Point location, ItemTile tile) {
@@ -155,15 +159,12 @@ public class Shelf implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (ModelObserver observer : observers) {
-            observer.update();
-        }
+        observers.forEach(ModelObserver::update);
     }
 }

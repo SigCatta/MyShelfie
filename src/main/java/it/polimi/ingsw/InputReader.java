@@ -32,22 +32,6 @@ public class InputReader implements Callable<String> {
         return input;
     }
 
-    public static String askNickname() {
-        String nickname = null;
-        do {
-            System.out.print("Enter your nickname: ");
-
-
-            try {
-                nickname = readLine();
-            } catch (ExecutionException e) {
-                System.out.println("User input canceled.");
-            }
-        } while (nickname == null || nickname.equals(""));
-
-        return nickname;
-    }
-
     /**
      * @return the string read from the input.
      * @throws ExecutionException if the input stream thread is interrupted.

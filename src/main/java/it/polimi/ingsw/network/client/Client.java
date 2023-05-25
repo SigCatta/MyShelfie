@@ -28,7 +28,6 @@ public abstract class Client {
     /**
      * Disconnects from the server.
      */
-    @SuppressWarnings("unused")
     public abstract void disconnect();
 
     public String getNickname() {

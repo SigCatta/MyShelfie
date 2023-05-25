@@ -26,5 +26,4 @@ public class CardImagesManager {
             personalGoals.put(cardName, new Image(PERSONAL_GOAL_PACKAGE + cardName + ".jpg"));
         return personalGoals.get(cardName);
     }
-
 }

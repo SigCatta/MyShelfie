@@ -97,6 +97,8 @@ public class TurnHandler implements EndOfTurnSubject {
      */
     @Override
     public void notifyObservers() {
-        observers.forEach(EndOfTurnObserver::update);
+        for (EndOfTurnObserver observer : observers) {
+            observer.update();
+        }
     }
 }

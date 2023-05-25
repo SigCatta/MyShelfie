@@ -7,6 +7,5 @@ public abstract class InputState {
     String input;
     final Client socketClient = SocketClient.getInstance();
 
-    @SuppressWarnings("unused")
     public abstract void play();
 }

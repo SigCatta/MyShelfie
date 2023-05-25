@@ -20,11 +20,11 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 
 
 ### Librerie e Plugins
-|Libreria/Plugin|Descrizione|
-|---------------|-----------|
-|__Maven__|Strumento di automazione della compilazione.|
-|__JavaFx__|Libreria grafica per realizzare interfacce utente.|
-|__JUnit__|Framework di unit testing.|
+| Libreria/Plugin | Descrizione                                        |
+|-----------------|----------------------------------------------------|
+| __Maven__       | Strumento di automazione della compilazione.       |
+| __JavaFx__      | Libreria grafica per realizzare interfacce utente. |
+| __JUnit__       | Framework di unit testing.                         |
 
 ## Funzionalità
 ### Funzionalità Sviluppate

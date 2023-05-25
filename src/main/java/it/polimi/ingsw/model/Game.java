@@ -74,7 +74,7 @@ public class Game implements ModelSubject {
             try {
                 PersonalCardDealer.getCards(players);
             } catch (IOException | ParseException | ArrayIndexOutOfBoundsException e) {
-                virtualView.send(new EchoMTC(EchoID.PANIC, true)); // should never reach
+                virtualView.send(new EchoMTC(EchoID.PANIC, true));
                 end();
             }
         }
@@ -167,24 +167,22 @@ public class Game implements ModelSubject {
     }
 
     public Player getPlayer(String nickname) {
-        for (Player player : players) {
-            if (player.getNickname().equals(nickname)) return player;
-        }
-        return null;// should never reach
+        return players.stream().filter(p -> p.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
+    /**
+     * Disconnects the player from the game, also terminates
+     * the game if players are disconnected
+     *
+     * @param playerNickname player to disconnect
+     */
     public void disconnectPlayer(String playerNickname) {
-        Player player = getPlayer(playerNickname);
+        getPlayer(playerNickname).setConnected(false);
 
-        for (Player p : players){
-            if(p.isConnected()){
-                player.setConnected(false);
-                return;
-            }
+        for (Player p : players) {
+            if (p.isConnected()) return;
         }
-
         GamesManager.getInstance().endGame(gameID);
-
     }
 
     public GameState getGameState() {
@@ -201,7 +199,6 @@ public class Game implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }

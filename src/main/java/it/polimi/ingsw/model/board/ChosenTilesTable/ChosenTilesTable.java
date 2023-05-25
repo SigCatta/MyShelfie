@@ -48,15 +48,12 @@ public class ChosenTilesTable implements ModelSubject {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (ModelObserver observer : observers) {
-            observer.update();
-        }
+        observers.forEach(ModelObserver::update);
     }
 }
