@@ -27,9 +27,7 @@ abstract class network.server.ClientHandler {
 + {abstract}void sendCommand(MessageToClient)
 }
 class network.server.Server {
-- {static} Server serverInstance
 + {static} Logger LOGGER
-+ {static} Server getInstance()
 }
 abstract class network.client.Client {
 # String nickname

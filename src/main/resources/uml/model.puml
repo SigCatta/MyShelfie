@@ -206,6 +206,7 @@ class model.EndOfTurn.ScoreCalculation.ScoreBoard {
 - Game game
 - boolean isFirstPointAssigned
 - ArrayList<CommonGoalCard> commonGoals
+- boolean calculatedEndGame
 - void scoreCommonGoalCards(Player)
 + void update()
 - Player getPreviousActivePlayer()
@@ -276,6 +277,7 @@ model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGo
 model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
 model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
 model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
 VirtualView.ModelObservers.ModelSubject <|.. model.player.Player
 model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS
 @enduml

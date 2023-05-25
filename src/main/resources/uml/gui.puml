@@ -88,6 +88,10 @@ class View.GUI.SceneController.Utility.ItemTileMemory {
 - {static} Map<Integer,ItemTile> ID_TO_ITEM_TILE
 - {static} Map<Integer,Point> ID_TO_POSITION
 - {static} Map<Integer,Image> TILE_TO_IMAGE
++ {static} void put(int,ItemTile)
++ {static} void put(int,Point)
++ {static} void put(int,Image)
++ {static} void put(int,ItemTile,Point)
 + {static} void put(int,ItemTile,Point,Image)
 + {static} Point getPoint(int)
 + {static} ItemTile getTile(int)

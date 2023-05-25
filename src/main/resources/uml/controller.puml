@@ -39,6 +39,7 @@ class Controller.Server.GamesManager {
 + boolean addNickname(String)
 + void onCommandReceived(MessageToServer)
 + int createID()
++ void removePlayer(SocketClientHandler)
 + void endGame(int)
 + void onConnectionLost(SocketClientHandler)
 + void onConnectionRestored(SocketClientHandler)

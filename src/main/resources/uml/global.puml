@@ -30,9 +30,7 @@ class model.cards.commonGoals.commonGoalsStrategy.ScaleCGS {
 + boolean hasIncreasingColumns(ItemTile[][],boolean)
 }
 class network.server.Server {
-- {static} Server serverInstance
 + {static} Logger LOGGER
-+ {static} Server getInstance()
 }
 class network.client.SocketClient {
 - {static} Client clientInstance
@@ -396,6 +394,10 @@ class View.GUI.SceneController.Utility.ItemTileMemory {
 - {static} Map<Integer,ItemTile> ID_TO_ITEM_TILE
 - {static} Map<Integer,Point> ID_TO_POSITION
 - {static} Map<Integer,Image> TILE_TO_IMAGE
++ {static} void put(int,ItemTile)
++ {static} void put(int,Point)
++ {static} void put(int,Image)
++ {static} void put(int,ItemTile,Point)
 + {static} void put(int,ItemTile,Point,Image)
 + {static} Point getPoint(int)
 + {static} ItemTile getTile(int)
@@ -604,7 +606,7 @@ class View.GUI.SceneController.WinSceneController {
 }
 abstract class View.CLI.Elements.Views.ViewElement {
 ~ String NULL
-+ {abstract}ArrayList<String> getPrint(ArrayList<String>)
+~ {abstract}ArrayList<String> getPrint(ArrayList<String>)
 }
 class View.CLI.Elements.Views.ChatView {
 - int chatWidth
@@ -636,6 +638,7 @@ class Controller.Server.GamesManager {
 + boolean addNickname(String)
 + void onCommandReceived(MessageToServer)
 + int createID()
++ void removePlayer(SocketClientHandler)
 + void endGame(int)
 + void onConnectionLost(SocketClientHandler)
 + void onConnectionRestored(SocketClientHandler)
@@ -741,7 +744,6 @@ class InputReader {
 - {static} ExecutorService executorService
 - BufferedReader br
 + String call()
-+ {static} String askNickname()
 + {static} String readLine()
 }
 class View.GUI.SceneController.VirtualModelObservers.BoardObserver {
@@ -1043,6 +1045,7 @@ class model.EndOfTurn.ScoreCalculation.ScoreBoard {
 - Game game
 - boolean isFirstPointAssigned
 - ArrayList<CommonGoalCard> commonGoals
+- boolean calculatedEndGame
 - void scoreCommonGoalCards(Player)
 + void update()
 - Player getPreviousActivePlayer()
@@ -1297,6 +1300,7 @@ network.server.Runnable <|.. network.server.ServerSocketAccepter
 java.io.Serializable <|.. Controller.Client.HandshakeMTS
 Controller.Client.MessageToServer <|-- Controller.Client.HandshakeMTS
 model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
 java.io.Serializable <|.. Controller.Client.InsertTileMTS
 Controller.Client.MessageToServer <|-- Controller.Client.InsertTileMTS
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PingMTC
