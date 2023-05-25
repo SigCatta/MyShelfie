@@ -4,8 +4,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="library_background"
-           stylesheets="@../css/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+           prefWidth="1200.0" styleClass="library_background" stylesheets="@../css/background.css"
+           xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="it.polimi.ingsw.View.GUI.SceneController.ObjectiveCardController">
     <children>
         <Group>
@@ -42,7 +43,8 @@
                                         </Text>
                                     </children>
                                 </TextFlow>
-                                <Text fx:id="pointCG1Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
+                                <Text fx:id="pointCG1Text" fill="WHITE" layoutX="160.0" layoutY="10.0"
+                                      strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
                                       wrappingWidth="123.2430419921875">
                                     <font>
                                         <Font name="Gill Sans MT Bold" size="22.0"/>
@@ -57,7 +59,8 @@
                         </AnchorPane>
                         <AnchorPane layoutX="747.0" layoutY="160.0" prefHeight="401.0" prefWidth="421.0">
                             <children>
-                                <Text fx:id="pointCG2Text" fill="WHITE" layoutX="160.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
+                                <Text fx:id="pointCG2Text" fill="WHITE" layoutX="160.0" layoutY="10.0"
+                                      strokeType="OUTSIDE" strokeWidth="0.0" text="8" textAlignment="CENTER"
                                       wrappingWidth="123.2430419921875">
                                     <font>
                                         <Font name="Gill Sans MT Bold" size="22.0"/>
@@ -104,9 +107,11 @@
                                 </ImageView>
                             </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="68.0" layoutY="624.0" prefHeight="147.0" prefWidth="191.0">
+                        <AnchorPane layoutX="68.0" layoutY="624.0" onMouseClicked="#onGoBackClicked" prefHeight="147.0"
+                                    prefWidth="191.0">
                             <children>
-                                <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0" onMouseClicked="#onGoBackClicked" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="147.0" fitWidth="160.0" layoutX="22.0" layoutY="3.0"
+                                           pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../17_MyShelfie_BGA/misc/back_arrow.png"/>
                                     </image>
