@@ -77,6 +77,7 @@ public class CommonGoalCard implements ModelSubject {
     }
 
     public int peekPoints() {
+        if (pointsStack.isEmpty()) return 0;
         return pointsStack.peek();
     }
 
