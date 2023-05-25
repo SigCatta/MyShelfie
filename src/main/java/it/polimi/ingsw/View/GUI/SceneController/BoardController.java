@@ -209,7 +209,14 @@ public class BoardController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updateChangeTurn() {
+    public void updateGame() {
+        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
+        }
+        updateChangeTurn();
+    }
+
+    private void updateChangeTurn() {
         for (Node text : playersPane.getChildren()) {
             if (text == null) return;
             if (!(text instanceof Text)) return;
@@ -217,13 +224,6 @@ public class BoardController extends GuiController implements Initializable {
             if (((Text) text).getText().equals(GameRepresentation.getInstance().getActivePlayerNickname())) {
                 text.getStyleClass().add("fancy-text");
             }
-        }
-    }
-
-    @Override
-    public void updateGame() {
-        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
-            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }
     }
 
