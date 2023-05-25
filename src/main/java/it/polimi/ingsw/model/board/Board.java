@@ -46,9 +46,8 @@ public class Board implements ModelSubject {
 
     public ArrayList<ItemTile> removeItemTiles(ArrayList<Point> positions) {
         ArrayList<ItemTile> tiles = new ArrayList<>();
-        for (Point p : positions) {
-            tiles.add(removeItemTile(p));
-        }
+        positions.forEach(p -> tiles.add(removeItemTile(p)));
+
         notifyObservers();
         return tiles;
     }
@@ -75,8 +74,6 @@ public class Board implements ModelSubject {
      */
     @Override
     public void notifyObservers() {
-        for (ModelObserver observer : OBSERVERS) {
-            observer.update();
-        }
+        OBSERVERS.forEach(ModelObserver::update);
     }
 }

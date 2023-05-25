@@ -26,10 +26,6 @@ public class ChosenTilesTable implements ModelSubject {
         return chosenTile;
     }
 
-    public ItemTile getTile(int index) {
-        return chosenTiles.get(index);
-    }
-
     public int size() {
         return chosenTiles.size();
     }
@@ -58,8 +54,6 @@ public class ChosenTilesTable implements ModelSubject {
 
     @Override
     public void notifyObservers() {
-        for (ModelObserver observer : observers) {
-            observer.update();
-        }
+        observers.forEach(ModelObserver::update);
     }
 }

@@ -55,14 +55,10 @@ public class BoardRefresher implements EndOfTurnObserver {
 
     @Override
     public void update() {
-
-        if (board == null) {
+        try {
+            if (RefreshTrigger.isBoardRefreshable(board)) refillBoard();
+        } catch (NullPointerException e) {
             GAME.getVirtualView().send(new EchoMTC(EchoID.PANIC, true));
-            return; //should never reach
-        }
-
-        if (RefreshTrigger.isBoardRefreshable(board)) {
-            refillBoard();
         }
     }
 }

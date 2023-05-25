@@ -50,19 +50,16 @@ public class Bag {
         double random = Math.random() * tilesLeft;
         tilesLeft--;
 
+
         int partialCount = 0;
         for (Color color : Color.values()) {
-
             partialCount += colorNumber.get(color);
 
             if (partialCount >= random) {
                 colorNumber.replace(color, colorNumber.get(color) - 1);
                 return color;
             }
-
-
         }
-
-        return null;//should not reach
+        return null;
     }
 }

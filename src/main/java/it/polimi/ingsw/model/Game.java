@@ -27,12 +27,12 @@ import java.util.NoSuchElementException;
 public class Game implements ModelSubject {
 
     private final ArrayList<ModelObserver> observers;
-    private final int BOARD_DIMENSION = 9, MAX_TILES_FROM_BOARD = 3;
+    private final int BOARD_DIMENSION = 9;
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
     private Bag bag;
-    private Board board;
+    private final Board board;
     private final ChosenTilesTable chosenTilesTable;
     private GameState gameState;
     private final ArrayList<CommonGoalCard> commonGoals;
@@ -74,7 +74,7 @@ public class Game implements ModelSubject {
             try {
                 PersonalCardDealer.getCards(players);
             } catch (IOException | ParseException | ArrayIndexOutOfBoundsException e) {
-                virtualView.send(new EchoMTC(EchoID.PANIC, true)); // should never reach
+                virtualView.send(new EchoMTC(EchoID.PANIC, true));
                 end();
             }
         }
@@ -119,14 +119,6 @@ public class Game implements ModelSubject {
 
     public Bag getBag() {
         return bag;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public int getMAX_TILES_FROM_BOARD() {
-        return MAX_TILES_FROM_BOARD;
     }
 
     public ChosenTilesTable getChosenTilesTable() {
@@ -175,24 +167,22 @@ public class Game implements ModelSubject {
     }
 
     public Player getPlayer(String nickname) {
-        for (Player player : players) {
-            if (player.getNickname().equals(nickname)) return player;
-        }
-        return null;// should never reach
+        return players.stream().filter(p -> p.getNickname().equals(nickname)).findFirst().orElse(null);
     }
 
+    /**
+     * Disconnects the player from the game, also terminates
+     * the game if players are disconnected
+     *
+     * @param playerNickname player to disconnect
+     */
     public void disconnectPlayer(String playerNickname) {
-        Player player = getPlayer(playerNickname);
+        getPlayer(playerNickname).setConnected(false);
 
-        for (Player p : players){
-            if(p.isConnected()){
-                player.setConnected(false);
-                return;
-            }
+        for (Player p : players) {
+            if (p.isConnected()) return;
         }
-
         GamesManager.getInstance().endGame(gameID);
-
     }
 
     public GameState getGameState() {

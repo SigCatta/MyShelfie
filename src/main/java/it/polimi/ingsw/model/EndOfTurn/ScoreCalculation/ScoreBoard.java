@@ -61,8 +61,7 @@ public class ScoreBoard implements EndOfTurnObserver {
 
         //it is the last turn of the last player
         if (isFirstPointAssigned && game.getActivePlayer() == players.get(players.size() - 1)) {
-            scorePersonalGoals();
-            scoreAdjacency();
+            endGameScoreUpdate();
         }
     }
 

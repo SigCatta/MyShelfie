@@ -16,18 +16,10 @@ public class RefreshTrigger {
 
                 if (boardGrid[i][j] == null) continue;
 
-                if (i > 0 && isNotNull(boardGrid[i - 1][j])) {
-                    return false;
-                }
-                if (i < boardGrid.length - 1 && isNotNull(boardGrid[i + 1][j])) {
-                    return false;
-                }
-                if (j > 0 && isNotNull(boardGrid[i][j - 1])) {
-                    return false;
-                }
-                if (j < boardGrid[i].length - 1 && isNotNull(boardGrid[i][j + 1])) {
-                    return false;
-                }
+                if (i > 0 && isNotNull(boardGrid[i - 1][j])) return false;
+                if (i < boardGrid.length - 1 && isNotNull(boardGrid[i + 1][j])) return false;
+                if (j > 0 && isNotNull(boardGrid[i][j - 1])) return false;
+                if (j < boardGrid[i].length - 1 && isNotNull(boardGrid[i][j + 1])) return false;
             }
         }
         return true;

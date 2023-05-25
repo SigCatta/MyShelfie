@@ -161,8 +161,6 @@ public class Shelf implements ModelSubject {
 
     @Override
     public void notifyObservers() {
-        for (ModelObserver observer : observers) {
-            observer.update();
-        }
+        observers.forEach(ModelObserver::update);
     }
 }

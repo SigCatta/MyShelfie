@@ -97,8 +97,6 @@ public class CommonGoalCard implements ModelSubject {
 
     @Override
     public void notifyObservers() {
-        for (ModelObserver o : observers) {
-            o.update();
-        }
+       observers.forEach(ModelObserver::update);
     }
 }
