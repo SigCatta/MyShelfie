@@ -20,7 +20,7 @@ public class WaitingRoomController extends GuiController implements Initializabl
     Text playersNamesText;
     @FXML
     Text maxNumText;
-    int maxNumberOfPlayers = -1;
+    final int maxNumberOfPlayers = -1;
 
     @FXML
     Text currentNumText;

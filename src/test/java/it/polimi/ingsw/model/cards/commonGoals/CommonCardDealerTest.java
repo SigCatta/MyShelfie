@@ -53,7 +53,7 @@ public class CommonCardDealerTest {
 
     @Test
     public void getCards1() {
-        List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(2);
+        List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(2, 4);
 
         assertNotNull(commonGoalCards);
         for (int i = 0; i < 2; i++) {
@@ -67,7 +67,7 @@ public class CommonCardDealerTest {
 
     @Test
     public void getCards2() {
-        List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(6);
+        List<CommonGoalCard> commonGoalCards = CommonCardDealer.pickCommonGoalCards(6, 4);
 
         assertNotNull(commonGoalCards);
         for (int i = 0; i < 6; i++) {

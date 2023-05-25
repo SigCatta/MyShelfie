@@ -3,7 +3,7 @@ package it.polimi.ingsw.View.CLI.Elements.Views;
 import java.util.ArrayList;
 
 public abstract class ViewElement {
-    String NULL = ".";
+    final String NULL = ".";
 
-    abstract ArrayList<String> getPrint(ArrayList<String> output);
+    public abstract ArrayList<String> getPrint(ArrayList<String> output);
 }

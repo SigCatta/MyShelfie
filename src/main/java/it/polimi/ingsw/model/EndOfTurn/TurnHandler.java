@@ -17,7 +17,7 @@ public class TurnHandler implements EndOfTurnSubject {
     /**
      * The game associated with this turn handler.
      */
-    public Game game;
+    public final Game game;
 
     /**
      * The list of observers subscribed to notifications when a turn ends.
@@ -76,15 +76,6 @@ public class TurnHandler implements EndOfTurnSubject {
     }
 
     /**
-     * Gets the flag indicating whether the current turn is the last one of the game.
-     *
-     * @return true if the current turn is the last one, otherwise false.
-     */
-    public boolean isLastTurn() {
-        return lastTurn;
-    }
-
-    /**
      * Sets the flag indicating that the current turn is the last one of the game.
      */
     public void startLastTurn() {
@@ -106,8 +97,6 @@ public class TurnHandler implements EndOfTurnSubject {
      */
     @Override
     public void notifyObservers() {
-        for (EndOfTurnObserver observer : observers) {
-            observer.update();
-        }
+        observers.forEach(EndOfTurnObserver::update);
     }
 }

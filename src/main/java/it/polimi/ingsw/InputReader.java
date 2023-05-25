@@ -3,8 +3,6 @@ package it.polimi.ingsw;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.*;
 
 /**
@@ -18,6 +16,7 @@ public class InputReader implements Callable<String> {
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    @SuppressWarnings("BusyWait")
     @Override
     public String call() throws IOException, InterruptedException {
         String input;
@@ -31,67 +30,6 @@ public class InputReader implements Callable<String> {
         // reset the stream to the marked position
         br.reset();
         return input;
-    }
-
-    /**
-     * @return a map containing the server address and port that the user will be connected to
-     */
-    public static Map<String, String> askServerInfo() {
-        Map<String, String> serverInfo = new HashMap<>();
-        String defaultAddress = "localhost";
-        String defaultPort = "28888";
-        boolean validInput;
-
-        System.out.println("Please specify the following settings. The default value is shown between brackets.");
-
-        do {
-            System.out.print("Enter the server address [" + defaultAddress + "]: ");
-
-            String address;
-            try {
-                address = readLine();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                address = "";
-            }
-
-            if (address.equals("")) {
-                serverInfo.put("address", defaultAddress);
-                validInput = true;
-            } else if (InputValidator.isValidIpAddress(address)) {
-                serverInfo.put("address", address);
-                validInput = true;
-            } else {
-                System.out.println("Invalid address!");
-                validInput = false;
-            }
-        } while (!validInput);
-
-        do {
-            System.out.print("Enter the server port [" + defaultPort + "]: ");
-            String port;
-            try {
-                port = readLine();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-                port = "";
-            }
-
-            if (port.equals("")) {
-                serverInfo.put("port", defaultPort);
-                validInput = true;
-            } else {
-                if (InputValidator.isValidPort(port)) {
-                    serverInfo.put("port", port);
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid port!");
-                    validInput = false;
-                }
-            }
-        } while (!validInput);
-
-        return serverInfo;
     }
 
     public static String askNickname() {

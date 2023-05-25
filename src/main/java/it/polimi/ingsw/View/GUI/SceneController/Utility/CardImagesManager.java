@@ -11,9 +11,9 @@ public class CardImagesManager {
     private static final URL COMMON_GOAL_PACKAGE = ObjectiveCardController.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/common_goal_cards/angoli_smussati/");
     private static final URL PERSONAL_GOAL_PACKAGE = ObjectiveCardController.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/personal_goal_cards/angoli_smussati/");
 
-    private static HashMap<String, Image> commonGoals = new HashMap<>();
+    private static final HashMap<String, Image> commonGoals = new HashMap<>();
 
-    private static HashMap<String, Image> personalGoals = new HashMap<>();
+    private static final HashMap<String, Image> personalGoals = new HashMap<>();
 
     public static Image getCommonGoalImage(String cardName) {
         if (!commonGoals.containsKey(cardName))
@@ -27,11 +27,4 @@ public class CardImagesManager {
         return personalGoals.get(cardName);
     }
 
-    public void resetCommonGoals() {
-        commonGoals = new HashMap<>();
-    }
-
-    public void resetPersonalGoals() {
-        personalGoals = new HashMap<>();
-    }
 }

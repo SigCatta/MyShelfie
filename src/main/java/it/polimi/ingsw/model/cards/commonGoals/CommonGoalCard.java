@@ -20,17 +20,28 @@ public class CommonGoalCard implements ModelSubject {
     private final CommonGoalStrategy commonGoalStrategy;
     private final HashSet<Player> playersWhoCompleted;
 
-    public CommonGoalCard(CommonGoalStrategy commonGoalStrategy) {
+    public CommonGoalCard(CommonGoalStrategy commonGoalStrategy, int numOfPlayers) {
         playersWhoCompleted = new HashSet<>();
         observers = new ArrayList<>();
-        initStackPoints();
+        initStackPoints(numOfPlayers);
         this.commonGoalStrategy = commonGoalStrategy;
     }
 
-    private void initStackPoints() {
+    private void initStackPoints(int numOfPlayers) {
         pointsStack = new Stack<>();
-        for (int i = 1; i <= 4; i++) {
-            pointsStack.push(i * 2);
+        switch (numOfPlayers){
+            case 2:
+                pointsStack.push(4);
+                pointsStack.push(8);
+            case 3:
+                pointsStack.push(4);
+                pointsStack.push(6);
+                pointsStack.push(8);
+            case 4:
+                pointsStack.push(2);
+                pointsStack.push(4);
+                pointsStack.push(6);
+                pointsStack.push(8);
         }
     }
 
@@ -66,6 +77,7 @@ public class CommonGoalCard implements ModelSubject {
     }
 
     public int peekPoints() {
+        if (pointsStack.isEmpty()) return 0;
         return pointsStack.peek();
     }
 
@@ -79,6 +91,7 @@ public class CommonGoalCard implements ModelSubject {
     }
 
     @Override
+    @SuppressWarnings("unused")
     public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
