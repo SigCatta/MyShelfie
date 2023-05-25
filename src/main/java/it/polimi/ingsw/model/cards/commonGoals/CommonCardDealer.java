@@ -46,12 +46,12 @@ public class CommonCardDealer {
      * @param number: the number of commonGoal cards requested
      * @return a list of {@param number} CommonGoal .
      */
-    public static List<CommonGoalCard> pickCommonGoalCards(int number) {
+    public static List<CommonGoalCard> pickCommonGoalCards(int number, int numOfPlayers) {
         List<CommonGoalCard> commonGoalCards = new ArrayList<>();
         List<CommonGoalStrategy> gameCGStrategies = pickCardStrategies(number);
 
         for (int i = 0; i < number; i++) {
-            CommonGoalCard cg = new CommonGoalCard(gameCGStrategies.get(i));
+            CommonGoalCard cg = new CommonGoalCard(gameCGStrategies.get(i), numOfPlayers);
             commonGoalCards.add(cg);
         }
         return commonGoalCards;

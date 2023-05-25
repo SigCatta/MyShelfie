@@ -13,18 +13,18 @@ public class CommonGoalViewTest {
     @Test
     public void getPrintTest1() {
         ArrayList<CommonGoalCard> deck = new ArrayList<>();
-        deck.add(new CommonGoalCard(new EightTilesSameColorCGS()));
-        deck.add(new CommonGoalCard(new FiveTilesDiagonalCGS()));
-        deck.add(new CommonGoalCard(new FourAnglesCGS()));
-        deck.add(new CommonGoalCard(new FourGroupsOfFourCGS()));
-        deck.add(new CommonGoalCard(new FourRowsOfFiveCGS()));
-        deck.add(new CommonGoalCard(new ScaleCGS()));
-        deck.add(new CommonGoalCard(new SixGroupsOfTwoCGS()));
-        deck.add(new CommonGoalCard(new ThreeMaxThreeDiffCGS()));
-        deck.add(new CommonGoalCard(new TwoColSixDiffCGS()));
-        deck.add(new CommonGoalCard(new TwoRowsWithFiveDiffCGS()));
-        deck.add(new CommonGoalCard(new TwoSquaresCGS()));
-        deck.add(new CommonGoalCard(new TwoSquaresCGS()));
+        deck.add(new CommonGoalCard(new EightTilesSameColorCGS(), 4));
+        deck.add(new CommonGoalCard(new FiveTilesDiagonalCGS(), 4));
+        deck.add(new CommonGoalCard(new FourAnglesCGS(), 4));
+        deck.add(new CommonGoalCard(new FourGroupsOfFourCGS(), 4));
+        deck.add(new CommonGoalCard(new FourRowsOfFiveCGS(), 4));
+        deck.add(new CommonGoalCard(new ScaleCGS(), 4));
+        deck.add(new CommonGoalCard(new SixGroupsOfTwoCGS(), 4));
+        deck.add(new CommonGoalCard(new ThreeMaxThreeDiffCGS(), 4));
+        deck.add(new CommonGoalCard(new TwoColSixDiffCGS(), 4));
+        deck.add(new CommonGoalCard(new TwoRowsWithFiveDiffCGS(), 4));
+        deck.add(new CommonGoalCard(new TwoSquaresCGS(), 4));
+        deck.add(new CommonGoalCard(new TwoSquaresCGS(), 4));
 
         CommonGoalsRepresentation.getInstance().updateCommonGoal(new CommonGoalMTC(deck));
         CommonGoalView cgv = CommonGoalView.getInstance();

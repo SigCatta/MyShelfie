@@ -50,7 +50,7 @@ public class Game implements ModelSubject {
     public Game(int MAX_PLAYER_NUMBER) {
         observers = new ArrayList<>();
         this.MAX_PLAYER_NUMBER = MAX_PLAYER_NUMBER;
-        commonGoals = (ArrayList<CommonGoalCard>) CommonCardDealer.pickCommonGoalCards(2);
+        commonGoals = (ArrayList<CommonGoalCard>) CommonCardDealer.pickCommonGoalCards(2, MAX_PLAYER_NUMBER);
         gameState = GameState.PREGAME;
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
