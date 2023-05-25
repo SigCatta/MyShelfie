@@ -28,8 +28,10 @@ public class WaitingRoomController extends GuiController implements Initializabl
     @FXML
     TextField gameIdText;
 
+    private boolean entered;
+
     @Override
-    public void updateGame() {
+    public synchronized void updateGame() {
 
         if (GameRepresentation.getInstance().getGameMessage() == null) return;
 
@@ -51,7 +53,7 @@ public class WaitingRoomController extends GuiController implements Initializabl
     }
 
     @Override
-    public void updatePlayers() {
+    public synchronized void updatePlayers() {
         playersNamesText.setText("");
         List<String> players = PlayersRepresentation.getInstance().getPlayersList();
         if (players == null) {
@@ -67,7 +69,10 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
     }
 
-    private void enterGame() {
+    private synchronized void enterGame() {
+        if(entered) return;
+        entered = true;
+
         Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Living room"));
     }
 

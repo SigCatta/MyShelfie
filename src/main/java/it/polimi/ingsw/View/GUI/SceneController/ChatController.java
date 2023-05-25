@@ -1,11 +1,14 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
 import it.polimi.ingsw.Controller.Client.ChatMTS;
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ChatMemory;
 import it.polimi.ingsw.VirtualModel.ChatRepresentation;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
@@ -56,6 +59,13 @@ public class ChatController extends GuiController implements Initializable {
                 }
                 chat.add(ChatMemory.getMessage(row, col), col, row);
             }
+        }
+    }
+
+    @Override
+    public void updateGame() {
+        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }
     }
 

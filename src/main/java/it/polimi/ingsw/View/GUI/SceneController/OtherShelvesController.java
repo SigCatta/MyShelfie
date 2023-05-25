@@ -1,11 +1,14 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
+import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
+import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -24,84 +27,71 @@ public class OtherShelvesController extends GuiController implements Initializab
     @FXML
     Text playerName;
 
-    public void setPlayerName(String nickname) {
-        this.playerName.setText(nickname);
-    }
-
-    public String getPlayerName() {
-        return playerName.getText();
-    }
+    private static String currentPlayerNickname = null;
+    private static int currentPlayerIndex = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
-        int i = 0;
-
-        while (playersList.get(i).equals(SocketClient.getInstance().getNickname())) {
-            i++;
-        }
-        setPlayerName(playersList.get(i));
-        initShelf();
+        if (currentPlayerNickname == null) getFirstPlayerThatIsNotMe();
         updateShelf();
-    }
-
-    private void initShelf() {
-        for (int row = 0; row < shelf.getRowCount(); row++) {
-            for (int col = 0; col < shelf.getColumnCount(); col++) {
-                if (ShelfMemory.get(row, col, 1) == null) {
-                    ImageView imageView = new ImageView();
-                    imageView.setFitHeight(95);
-                    imageView.setFitWidth(95);
-                    ShelfMemory.put(imageView, row, col, 1);
-                }
-                shelf.add(ShelfMemory.get(row, col, 1), col, row);
-            }
-        }
     }
 
     @Override
     public void updateShelf() {
-        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(getPlayerName()).getShelf();
-        System.out.println("Updating " + getPlayerName() + " shelf...");//TODO remove
-        ItemRefillUtility.updateOtherShelfGrid(shelfModel);
-        initShelf();
+        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(currentPlayerNickname).getShelf();
+        System.out.println("Updating " + currentPlayerNickname + " shelf...");//TODO remove
+        playerName.setText(currentPlayerNickname);
+        ItemRefillUtility.updateOtherShelfGrid(shelf, shelfModel);
+    }
+
+    /**
+     * used to initialize the shelf when it is clicked for the first time
+     */
+    private void getFirstPlayerThatIsNotMe() {
+        List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
+
+        //get the first player that is not me
+        if (playersList.get(currentPlayerIndex).equals(SocketClient.getInstance().getNickname())) {
+            currentPlayerIndex++;
+        }
+        currentPlayerNickname = playersList.get(currentPlayerIndex);
+        playerName.setText(currentPlayerNickname);
     }
 
     @FXML
     public void onPrevButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
-        int index = playersList.indexOf(getPlayerName());
-        if (index == 0) {
-            index = playersList.size() - 1;
-        } else {
-            index--;
-        }
-        if (playersList.get(index).equals(SocketClient.getInstance().getNickname())) {
-            index--;
-            if (index < 0) {
-                index = playersList.size() - 1;
+
+        //decrement the index unless it is zero
+        currentPlayerIndex = currentPlayerIndex <= 0 ? playersList.size() - 1 : currentPlayerIndex - 1;
+
+        if (playersList.get(currentPlayerIndex).equals(SocketClient.getInstance().getNickname())) {
+            currentPlayerIndex--;
+            if (currentPlayerIndex < 0) {
+                currentPlayerIndex = playersList.size() - 1;
             }
         }
-        setPlayerName(playersList.get(index));
+
+        currentPlayerNickname = playersList.get(currentPlayerIndex);
+        playerName.setText(currentPlayerNickname);
         updateShelf();
     }
 
     @FXML
     public void onNextButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
-        int index = playersList.indexOf(getPlayerName());
-        if (index == playersList.size() - 1) {
-            index = 0;
-        } else {
-            index++;
-        }
-        if (playersList.get(index).equals(SocketClient.getInstance().getNickname())) {
-            index++;
-            if (index > playersList.size() - 1) {
-                index = 0;
+
+        //increment the index unless it is at the maximum size
+        currentPlayerIndex = currentPlayerIndex >= playersList.size() - 1 ? 0 : currentPlayerIndex + 1;
+
+        if (playersList.get(currentPlayerIndex).equals(SocketClient.getInstance().getNickname())) {
+            currentPlayerIndex++;
+            if (currentPlayerIndex > playersList.size() - 1) {
+                currentPlayerIndex = 0;
             }
         }
-        setPlayerName(playersList.get(index));
+        currentPlayerNickname = playersList.get(currentPlayerIndex);
+        playerName.setText(currentPlayerNickname);
         updateShelf();
     }
 

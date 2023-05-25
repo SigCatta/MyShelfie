@@ -19,9 +19,10 @@ public class CommonGoalsRepresentation extends VirtualModelSubject {
 
     public void updateCommonGoal(CommonGoalMTC commonGoalMessage) {
         if (this.commonGoalMessage == null) {
-            this.commonGoalMessage = commonGoalMessage;
-            notifyObservers();
-        } else { // the VM only updates if there actually are changes
+        this.commonGoalMessage = commonGoalMessage;
+        notifyObservers();
+        }
+        else { // the VM only updates if there actually are changes
             ArrayList<Integer> newMessagePoints = commonGoalMessage.getAvailablePoints();
             ArrayList<Integer> oldMessagePoints = this.commonGoalMessage.getAvailablePoints();
             for (int i = 0; i < oldMessagePoints.size(); i++) {

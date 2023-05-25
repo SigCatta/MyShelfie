@@ -25,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -75,12 +76,17 @@ public class BoardController extends GuiController implements Initializable {
     ImageView changeChat, changeShelf, changeObjective;
 
     @FXML
+    StackPane pointsPane;
+    @FXML
+    Text pointNumber;
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         myNickname = SocketClient.getInstance().getNickname();
 
-        initBoard(); //TODO it is necessary only for the first time
+        initBoard();
         initInsertButtons();
         initPlayersName();
         initShelf();
@@ -91,6 +97,7 @@ public class BoardController extends GuiController implements Initializable {
         updateChosenTilesTable();
         updateChangeTurn();
         updateGame();
+        if (pointsPane.getChildren().size() > 0) updatePlayers();
 
     }
 
@@ -114,13 +121,13 @@ public class BoardController extends GuiController implements Initializable {
     private void initShelf() {
         for (int row = 0; row < myShelf.getRowCount(); row++) {
             for (int col = 0; col < myShelf.getColumnCount(); col++) {
-                if (ShelfMemory.get(row, col, 0) == null) {
+                if (ShelfMemory.get(row, col) == null) {
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(45);
                     imageView.setFitWidth(45);
-                    ShelfMemory.put(imageView, row, col, 0);
+                    ShelfMemory.put(imageView, row, col);
                 }
-                myShelf.add(ShelfMemory.get(row, col, 0), col, row);
+                myShelf.add(ShelfMemory.get(row, col), col, row);
             }
         }
     }
@@ -164,12 +171,9 @@ public class BoardController extends GuiController implements Initializable {
 
     @Override
     public void updateShelf() {
-
-        //if(ConnectionPendingTimer.isPending()) ConnectionPendingTimer.cancel(); //the shelf arrived
-
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
         System.out.println("Updating the shelf...");//TODO remove
-        ItemRefillUtility.updateShelfGrid(myShelf, shelfModel);
+        ItemRefillUtility.updateShelfGrid(shelfModel);
     }
 
     @Override
@@ -205,7 +209,14 @@ public class BoardController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updateChangeTurn() {
+    public void updateGame() {
+        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
+            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
+        }
+        updateChangeTurn();
+    }
+
+    private void updateChangeTurn() {
         for (Node text : playersPane.getChildren()) {
             if (text == null) return;
             if (!(text instanceof Text)) return;
@@ -217,10 +228,10 @@ public class BoardController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updateGameState() {
-        if (GameRepresentation.getInstance().getGameState() == GameState.END) {
-            Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
-        }
+    public void updatePlayers() {
+        pointsPane.setVisible(true);
+        int points = PlayersRepresentation.getInstance().getPlayerScore(myNickname);
+        pointNumber.setText(Integer.toString(points));
     }
 
     private void updateLastTurn() {
@@ -386,11 +397,6 @@ public class BoardController extends GuiController implements Initializable {
 
     @FXML
     public synchronized void onInsertTileClicked(int column) {
-
-        ////Start the timer that stops this method until the shelf is updated
-        //if(ConnectionPendingTimer.isPending()) return;
-        //ConnectionPendingTimer.start(1);
-
         if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;
         if (!SocketClient.getInstance().getNickname().equals(GameRepresentation.getInstance().getActivePlayerNickname()))
             return;
