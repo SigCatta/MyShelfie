@@ -40,7 +40,6 @@ public class BoardController extends GuiController implements Initializable {
 
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
     private String myNickname;
-    private static boolean initialized = false;
 
     /**
      * id of the tile to be sent to the shelf
