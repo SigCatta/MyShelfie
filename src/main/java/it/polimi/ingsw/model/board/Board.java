@@ -65,6 +65,7 @@ public class Board implements ModelSubject {
         OBSERVERS.add(observer);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void removeObserver(ModelObserver observer) {
         OBSERVERS.remove(observer);

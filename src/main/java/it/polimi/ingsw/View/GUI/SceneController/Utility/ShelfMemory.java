@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ShelfMemory {
-    private static ImageView[][] imagesInMyShelf = new ImageView[6][5];
+    private static final ImageView[][] imagesInMyShelf = new ImageView[6][5];
 
     public static void put(ImageView imageView, int row, int col) {
         imagesInMyShelf[row][col] = imageView;
@@ -16,9 +16,5 @@ public class ShelfMemory {
 
     public static void setImage(Image image, int row, int col) {
         imagesInMyShelf[row][col].setImage(image);
-    }
-
-    public static void reset() {
-        imagesInMyShelf = new ImageView[6][5];
     }
 }
