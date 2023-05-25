@@ -4,7 +4,7 @@ import it.polimi.ingsw.VirtualView.Messages.ChosenTilesTableMTC;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 
-public class ChosenTilesTableVV implements VirtualViewObserver {
+public class ChosenTilesTableVV implements ModelObserver {
     private final Game GAME;
     private final VirtualView VIRTUAL_VIEW;
 

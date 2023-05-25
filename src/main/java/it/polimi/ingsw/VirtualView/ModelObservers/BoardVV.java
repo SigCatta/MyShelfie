@@ -4,7 +4,7 @@ import it.polimi.ingsw.VirtualView.Messages.BoardMTC;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 
-public class BoardVV implements VirtualViewObserver {
+public class BoardVV implements ModelObserver {
 
     private final Game GAME;
     private final VirtualView VIRTUAL_VIEW;

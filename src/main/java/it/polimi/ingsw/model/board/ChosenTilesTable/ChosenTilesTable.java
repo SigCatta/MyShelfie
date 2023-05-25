@@ -1,19 +1,17 @@
 package it.polimi.ingsw.model.board.ChosenTilesTable;
 
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
-import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChosenTilesTable implements VirtualViewSubject {
-    private final List<VirtualViewObserver> observers = new ArrayList<>();
+public class ChosenTilesTable implements ModelSubject {
+    private final List<ModelObserver> observers = new ArrayList<>();
 
     private final List<ItemTile> chosenTiles = new ArrayList<>();
 
-    private Board board;
     private Integer chosenColumn;
 
     public void addTiles(ArrayList<ItemTile> tiles) {
@@ -49,18 +47,18 @@ public class ChosenTilesTable implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver observer : observers) {
+        for (ModelObserver observer : observers) {
             observer.update();
         }
     }

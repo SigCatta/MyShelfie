@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.EndOfTurn.EndOfTurnObserver;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 
-public class CommonGoalVV implements VirtualViewObserver, EndOfTurnObserver {
+public class CommonGoalVV implements ModelObserver, EndOfTurnObserver {
     private final Game game;
     private final VirtualView VIRTUAL_VIEW;
 

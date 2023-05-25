@@ -222,7 +222,7 @@ public class BoardController extends GuiController implements Initializable {
     }
 
     @Override
-    public void updateGameState() {
+    public void updateGame() {
         if (GameRepresentation.getInstance().getGameState() == GameState.END) {
             Platform.runLater(() -> StageController.changeScene("fxml/win_scene.fxml", "Game Finished"));
         }

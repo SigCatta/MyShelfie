@@ -28,12 +28,9 @@ public abstract class GuiController {
     public void updateCommonGoals() {
     }
 
-    public void updateMyScore() {
-    }
-
     public void updateChangeTurn() {
     }
 
-    public void updateGameState() {
-    }
+    public void updateFirstPlayerToFinish() {
+    } //TODO remove and put it into update game state
 }

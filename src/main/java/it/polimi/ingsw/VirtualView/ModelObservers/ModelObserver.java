@@ -1,5 +1,5 @@
 package it.polimi.ingsw.VirtualView.ModelObservers;
 
-public interface VirtualViewObserver {
+public interface ModelObserver {
     void update();
 }

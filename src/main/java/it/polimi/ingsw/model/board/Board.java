@@ -1,16 +1,16 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.Enum.Color;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewObserver;
-import it.polimi.ingsw.VirtualView.ModelObservers.VirtualViewSubject;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelObserver;
+import it.polimi.ingsw.VirtualView.ModelObservers.ModelSubject;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Board implements VirtualViewSubject {
-    private final ArrayList<VirtualViewObserver> OBSERVERS;
+public class Board implements ModelSubject {
+    private final ArrayList<ModelObserver> OBSERVERS;
     private final ItemTile[][] BOARD_GRID;
 
     public Board(int boardDimension) {
@@ -61,12 +61,12 @@ public class Board implements VirtualViewSubject {
     }
 
     @Override
-    public void registerObserver(VirtualViewObserver observer) {
+    public void registerObserver(ModelObserver observer) {
         OBSERVERS.add(observer);
     }
 
     @Override
-    public void removeObserver(VirtualViewObserver observer) {
+    public void removeObserver(ModelObserver observer) {
         OBSERVERS.remove(observer);
     }
 
@@ -75,7 +75,7 @@ public class Board implements VirtualViewSubject {
      */
     @Override
     public void notifyObservers() {
-        for (VirtualViewObserver observer : OBSERVERS) {
+        for (ModelObserver observer : OBSERVERS) {
             observer.update();
         }
     }
