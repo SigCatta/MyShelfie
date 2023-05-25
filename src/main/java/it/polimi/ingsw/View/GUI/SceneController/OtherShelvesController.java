@@ -1,17 +1,12 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.Enum.GameState;
 import it.polimi.ingsw.View.GUI.SceneController.Utility.ItemRefillUtility;
-import it.polimi.ingsw.View.GUI.SceneController.Utility.ShelfMemory;
-import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualModel.ShelvesRepresentation;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.client.SocketClient;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
