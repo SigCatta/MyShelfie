@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Virtual model representation of the shelves
+ */
 public class ShelvesRepresentation extends VirtualModelSubject {
     private final Map<String, ShelfMTC> SHELF_MESSAGES;
     private static ShelvesRepresentation instance;
@@ -21,7 +24,7 @@ public class ShelvesRepresentation extends VirtualModelSubject {
     }
 
     /**
-     * updates the shelf with the new one sent by the server
+     * Updates the shelf with the new one sent by the server
      */
     public void updateShelf(ShelfMTC shelfMessage) {
         String nickname = shelfMessage.getOwner();
@@ -29,6 +32,11 @@ public class ShelvesRepresentation extends VirtualModelSubject {
         if (SocketClient.getInstance().getNickname().equals(nickname)) notifyObservers();
     }
 
+    /**
+     * Returns a player's shelf
+     *
+     * @param nickname the player's nickname
+     */
     public ShelfMTC getShelfMessage(String nickname) {
         return SHELF_MESSAGES.get(nickname);
     }
