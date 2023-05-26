@@ -4,6 +4,9 @@ import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 
+/**
+ * Player is active
+ */
 public class ActivePlayerState extends InputState implements VirtualModelObserver {
     private final Reader reader;
 
@@ -13,10 +16,8 @@ public class ActivePlayerState extends InputState implements VirtualModelObserve
 
 
     /**
-     * Tells the user he is the active player, starts a thread to read any eventual player commands
-     * and waits for any changes in the model, if the player is using a command, the view will update
-     * after the command has been executed
-     * If the player at any points stops being the active player, the state changes to waiting
+     * Tells the user he is the active player, registers to {@link GameRepresentation}
+     * observers to be notified when the turn ends
      */
     @Override
     public void play() {
@@ -24,6 +25,10 @@ public class ActivePlayerState extends InputState implements VirtualModelObserve
         GameRepresentation.getInstance().registerObserver(this);
     }
 
+
+    /**
+     * If the turn ends and the user is not using any commands, its state will switch to waiting
+     */
     @Override
     public void update() {
         String nickname = socketClient.getNickname();

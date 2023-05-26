@@ -8,6 +8,9 @@ import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
 
+/**
+ * Asks the player for a nickname and sends it to the server
+ */
 public class NicknameState extends InputState implements VirtualModelObserver {
 
 
@@ -27,6 +30,9 @@ public class NicknameState extends InputState implements VirtualModelObserver {
         EchosRepresentation.getInstance().registerObserver(this);
     }
 
+    /**
+     * Outputs the server's answer
+     */
     @Override
     public void update() {
         EchoMTC message = EchosRepresentation.getInstance().popMessage();

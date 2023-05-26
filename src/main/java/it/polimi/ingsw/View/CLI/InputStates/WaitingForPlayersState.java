@@ -4,10 +4,13 @@ import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 
+/**
+ * Player is waiting for other players to join and for the game to start
+ */
 public class WaitingForPlayersState extends InputState implements VirtualModelObserver {
 
     /**
-     * The player waits for the game to start
+     * Waits for the game to start
      */
     @Override
     public void play() {
@@ -21,6 +24,9 @@ public class WaitingForPlayersState extends InputState implements VirtualModelOb
         }
     }
 
+    /**
+     * Each time a player connects, the user is sent a list of players connected
+     */
     @Override
     public void update() {
         if (GameRepresentation.getInstance().getGameMessage().getActivePlayerNickname() == null) {

@@ -6,13 +6,14 @@ import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.VirtualModel.*;
 
+/**
+ * Waits for game data to load
+ */
 public class GameStartupState extends InputState implements VirtualModelObserver {
 
-
     /**
-     * Waits for the VM to update with the model data (representations != null),
-     * prints the startup menu when the virtual model is ready.
-     * After printing the menu the state is updated depending on the active player
+     * Registers to {@link BoardRepresentation}, {@link ShelvesRepresentation} and {@link CommonGoalsRepresentation}
+     * to be notified when they are available
      */
     @Override
     public void play() {
@@ -23,6 +24,11 @@ public class GameStartupState extends InputState implements VirtualModelObserver
         update(); // checks if the VM data is ready (the VM won't call update if it's already been updated)
     }
 
+
+    /**
+     * Waits for the VM to update with the model data (representations != null),
+     * prints the startup menu when the virtual model is ready.
+     */
     @Override
     public void update() {
         if (BoardRepresentation.getInstance().getBoard() == null) return;
@@ -43,7 +49,7 @@ public class GameStartupState extends InputState implements VirtualModelObserver
 
         new Thread(reader).start();
 
-        GameStopper.getIntance();
+        GameStopper.getInstance();
         DisconnectionHandler.getInstance();
 
         //now that the game startup menu is printed, the game can start. Each player gets their state assigned

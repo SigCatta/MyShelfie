@@ -1,5 +1,9 @@
 package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 
+
+/**
+ * Tells the user an input in invalid
+ */
 public class InvalidCE implements CommandExecutor {
 
     /**

@@ -11,11 +11,14 @@ import it.polimi.ingsw.network.client.SocketClient;
 
 import java.util.ArrayList;
 
+/**
+ * Allows the user to insert tiles into his shelf
+ */
 public class InsertTilesCE implements CommandExecutor {
 
     /**
      * Asks the user for a tile to insert in the shelf and where to insert it,
-     * then sends a message to the server to insert the choosen tiles
+     * then sends a message to the server to insert the chosen tiles
      */
     @Override
     public void execute() {
@@ -48,9 +51,9 @@ public class InsertTilesCE implements CommandExecutor {
 
     /**
      * Asks the user to choose which tile to insert in his shelf
-     * from the ones he has picke up eralier
+     * from the ones he has picked up earlier
      *
-     * @return the index of the coosen tile in the tiles table
+     * @return the index of the chosen tile in the tiles table
      */
     private int getTileIndex() {
         int tile;

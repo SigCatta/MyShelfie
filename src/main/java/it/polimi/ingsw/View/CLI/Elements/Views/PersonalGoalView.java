@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Provides the necessary tools to print a drawing of the player's personal goal card
+ */
 public class PersonalGoalView extends ViewElement {
 
     private static PersonalGoalView instance;
@@ -73,8 +76,8 @@ public class PersonalGoalView extends ViewElement {
     /**
      * Adds a brief description about personal goal cards next to the drawing of the cards
      *
-     * @param output a drwoing of a personal card
-     * @return a drowing of the personal card (argument) next to a brief description
+     * @param output a drowning of a personal card
+     * @return a drawing of the personal card (argument) next to a brief description
      */
     public ArrayList<String> addDescription(ArrayList<String> output) {
         if (output.size() == 0) return null;

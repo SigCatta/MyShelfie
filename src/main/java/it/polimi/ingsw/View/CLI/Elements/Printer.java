@@ -9,6 +9,9 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Prints virtual model data
+ */
 public class Printer implements VirtualModelObserver {
 
     static HashMap<Color, String> colorMap;
@@ -17,7 +20,7 @@ public class Printer implements VirtualModelObserver {
 
     /**
      * Creates a new Printer instance and registers
-     * it to all needded Observables
+     * it to all needed Observables
      */
     private Printer() {
         BoardRepresentation.getInstance().registerObserver(this);
@@ -37,7 +40,7 @@ public class Printer implements VirtualModelObserver {
     /**
      * Changes the color map
      *
-     * @param isColored a booleas indicating whether the CLI has to be colored or not
+     * @param isColored a boolean indicating whether the CLI has to be colored or not
      */
     public static void enableCLIColors(boolean isColored) {
         colorMap = new HashMap<>();
@@ -106,8 +109,8 @@ public class Printer implements VirtualModelObserver {
     }
 
     /**
-     * Uses ANSI escape code to move the cursore to the top of the screen,
-     * makeing it look like the console has been cleared
+     * Uses ANSI escape code to move the cursor to the top of the screen,
+     * making it look like the console has been cleared
      */
     public static void clearConsole() {
         System.out.print("\033[H\033[2J");
@@ -157,8 +160,8 @@ public class Printer implements VirtualModelObserver {
             commands.add("          │ - insert -> to insert the tiles you picked up in your personal shelf                                     │");
         }
 
-        commands.add("          │ - chat -> to comunicate with all other players                                                           │");
-        commands.add("          │ - pchat -> to comunicate privately with one player                                                       │");
+        commands.add("          │ - chat -> to communicate with all other players                                                           │");
+        commands.add("          │ - pchat -> to communicate privately with one player                                                       │");
         commands.add("          │ - disconnect -> to leave the game ☹                                                                      │");
         commands.add("          │ - refresh -> to print an updated version of the home screen                                              │");
         commands.add("          │ - colors -> to choose whether to use colors or letters to show item tiles                                │");

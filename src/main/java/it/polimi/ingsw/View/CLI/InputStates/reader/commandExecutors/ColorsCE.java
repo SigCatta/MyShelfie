@@ -3,6 +3,9 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 
+/**
+ * Lets the user decide whether to use colors or not
+ */
 public class ColorsCE implements CommandExecutor {
 
     /**

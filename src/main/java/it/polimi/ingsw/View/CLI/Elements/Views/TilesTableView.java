@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Provides the necessary tools to print a drawing of the tiles that are to be inserted
+ */
 public class TilesTableView extends ViewElement {
 
     private static TilesTableView instance;

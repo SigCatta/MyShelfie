@@ -11,6 +11,9 @@ import java.util.concurrent.ExecutionException;
 
 import static it.polimi.ingsw.InputReader.readLine;
 
+/**
+ * Reads user input
+ */
 public class Reader implements Runnable, VirtualModelObserver {
     String input;
     boolean isReading;
@@ -25,7 +28,7 @@ public class Reader implements Runnable, VirtualModelObserver {
     }
 
     /**
-     * waits for user imputs and use {@link CommandExecutorFactory} to run it
+     * waits for user inputs and use {@link CommandExecutorFactory} to run it
      */
     @SuppressWarnings("InfiniteLoopStatement")
     @Override
@@ -75,6 +78,9 @@ public class Reader implements Runnable, VirtualModelObserver {
         }
     }
 
+    /**
+     * Deals with telling the user an input is not valid
+     */
     @Override
     public void update() {
         while (isReading()) { // if the user is using a command the view does not update

@@ -9,6 +9,9 @@ import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
+/**
+ * Asks the player whether to start a new game or join an existing one
+ */
 public class StartOrJoinState extends InputState implements VirtualModelObserver {
 
     private boolean triedToCreateAGame;
@@ -66,7 +69,7 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
     }
 
     /**
-     * ASks for the game's number of players and starts the game if the number is valid
+     * Asks for the game's number of players and starts the game if the number is valid
      */
     private void createNewGame() {
         System.out.println("Insert number of players (between 2 and 4): ");
@@ -88,6 +91,9 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
         socketClient.sendCommand(new NewGameMTS(numOfPlayers));
     }
 
+    /**
+     * Notifies the user if the game is successfully created
+     */
     @Override
     public void update() {
         GameMTC gameMessage = GameRepresentation.getInstance().getGameMessage();

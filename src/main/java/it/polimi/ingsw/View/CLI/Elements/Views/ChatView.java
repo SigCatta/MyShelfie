@@ -5,9 +5,12 @@ import it.polimi.ingsw.VirtualView.Messages.ChatMTC;
 
 import java.util.ArrayList;
 
+/**
+ * Provides the necessary tools to print a drawing of the game's chat
+ */
 public class ChatView extends ViewElement {
     private final int chatWidth = 118;
-    private final int chatHeigth = 15; // has to be at least 5
+    private final int chatHeight = 15; // has to be at least 5
 
     private static ChatView instance;
 
@@ -39,7 +42,7 @@ public class ChatView extends ViewElement {
     }
 
     /**
-     * @return an ArrayList containing the chat box, returns an enpty ArrayList
+     * @return an ArrayList containing the chat box, returns an empty ArrayList
      * if there are no messages to show
      */
     private ArrayList<String> getChatPrint() {
@@ -49,7 +52,7 @@ public class ChatView extends ViewElement {
         drawing.add(("          ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────┐"));
         drawing.add(("          │                                                   CHAT                                                   │"));
         drawing.add(("          ├──────────────────────────────────────────────────────────────────────────────────────────────────────────┤"));
-        for (int i = 0; i < Math.min(chatHeigth - 4, messages.size()); i++) {
+        for (int i = 0; i < Math.min(chatHeight - 4, messages.size()); i++) {
             ChatMTC message = messages.get(messages.size() - (i + 1));
             String string = "          │ " +
                     (!message.isBroadcast() ? ("\033[3m" + message.getSender() + "\033[0m") : message.getSender()) + // writes in italics if the message is private
@@ -60,7 +63,7 @@ public class ChatView extends ViewElement {
             drawing.add(string);
         }
 
-        for (int i = 0; i < chatHeigth - drawing.size() - 1; i++) {
+        for (int i = 0; i < chatHeight - drawing.size() - 1; i++) {
             drawing.add("          │                                                                                                          │");
         }
 

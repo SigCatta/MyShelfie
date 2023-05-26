@@ -4,6 +4,9 @@ import it.polimi.ingsw.Controller.Client.ByeMTS;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 import it.polimi.ingsw.network.client.SocketClient;
 
+/**
+ * Disconnects the player from the game (this will result in the program terminating)
+ */
 public class DisconnectCE implements CommandExecutor {
 
     /**

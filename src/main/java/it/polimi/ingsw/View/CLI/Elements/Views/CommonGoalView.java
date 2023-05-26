@@ -6,6 +6,9 @@ import it.polimi.ingsw.VirtualModel.CommonGoalsRepresentation;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Provides the necessary tools to print a drawing of the game's common goal cards
+ */
 public class CommonGoalView extends ViewElement {
     private final CommonGoalReader reader = new CommonGoalReader();
     private static CommonGoalView instance;

@@ -5,10 +5,13 @@ import it.polimi.ingsw.View.CLI.Elements.Views.CommonGoalView;
 
 import java.util.ArrayList;
 
+/**
+ * Prints the game's common goal cards with a description on what to do to complete them
+ */
 public class CommonGoalCE implements CommandExecutor {
 
     /**
-     * Prints the common goals with a brief desciption next to them
+     * Prints the common goals with a brief description next to them
      */
     @Override
     public void execute() {
