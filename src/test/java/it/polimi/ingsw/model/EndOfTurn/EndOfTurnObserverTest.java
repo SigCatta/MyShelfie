@@ -22,6 +22,7 @@ public class EndOfTurnObserverTest {
         game.addPlayer(new Player("player1"));
         game.addPlayer(new Player("player2"));
         boardSize = game.getBoard().getSize();
+        game.turnHandlerInitializer();
     }
 
     @Test
