@@ -4,6 +4,9 @@ import it.polimi.ingsw.Controller.Server.Executor.HandshakeExecutor;
 
 import java.io.Serializable;
 
+/**
+ * Connects the client for the first time
+ */
 public class HandshakeMTS extends MessageToServer implements Serializable {
 
     private final String newNickname;

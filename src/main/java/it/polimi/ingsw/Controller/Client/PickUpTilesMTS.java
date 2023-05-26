@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Asks to pick up a list of tiles from the board
+ */
 public class PickUpTilesMTS extends MessageToServer implements Serializable {
 
     private final ArrayList<Point> tilesPosition;

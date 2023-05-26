@@ -5,6 +5,9 @@ import it.polimi.ingsw.network.client.SocketClient;
 
 import java.io.Serializable;
 
+/**
+ * Posts a message to the public chat
+ */
 public class ChatMTS extends MessageToServer implements Serializable {
 
     private final String chatMessage;

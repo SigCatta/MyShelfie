@@ -14,9 +14,8 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Used for anything regarding reading data from a json file
+ * Reads personal goal cards data from json files
  */
-
 public class PersonalGoalReader implements JSONFileReader {
     private final JSONParser jsonParser;
 
@@ -40,9 +39,9 @@ public class PersonalGoalReader implements JSONFileReader {
     public HashMap<Color, Point> getPersonalGoalsData(String fileName) throws IOException, ParseException {
         HashMap<Color, Point> map = new HashMap<>();
 
-        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/" + fileName);
-        assert inputSream != null;
-        InputStreamReader reader = new InputStreamReader(inputSream);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/" + fileName);
+        assert inputStream != null;
+        InputStreamReader reader = new InputStreamReader(inputStream);
         JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
 
         for (Color color : Color.values()) {
@@ -69,9 +68,9 @@ public class PersonalGoalReader implements JSONFileReader {
         Stack<Integer> pointStack = new Stack<>();
 
 
-        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/points.json");
-        assert inputSream != null;
-        InputStreamReader reader = new InputStreamReader(inputSream);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/points.json");
+        assert inputStream != null;
+        InputStreamReader reader = new InputStreamReader(inputStream);
         JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
 
         JSONArray points = (JSONArray) JSONObj.get("POINTS");

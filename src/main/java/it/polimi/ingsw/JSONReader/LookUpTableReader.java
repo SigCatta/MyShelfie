@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Reads look up tables data from json files
+ */
 public class LookUpTableReader implements JSONFileReader {
 
     protected final JSONParser jsonParser;
@@ -32,9 +35,9 @@ public class LookUpTableReader implements JSONFileReader {
         else if (numOfPlayers > 4) numOfPlayers = 4;
 
 
-        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/boards/" + numOfPlayers + ".json");
-        assert inputSream != null;
-        InputStreamReader reader = new InputStreamReader(inputSream);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/boards/" + numOfPlayers + ".json");
+        assert inputStream != null;
+        InputStreamReader reader = new InputStreamReader(inputStream);
         try {
             JSONObject JSONObj = (JSONObject) jsonParser.parse(reader);
             JSONArray rows = (JSONArray) JSONObj.get("lookUpTable");
