@@ -16,4 +16,6 @@ open module proj.ingsw.The.Compiler.Coalition {
     exports it.polimi.ingsw.model.cards.commonGoals;
     exports it.polimi.ingsw.model.player;
     exports it.polimi.ingsw.VirtualView.ModelObservers;
+    exports it.polimi.ingsw.model.board;
+
 }
