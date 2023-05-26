@@ -55,6 +55,7 @@ public class ScoreBoard implements EndOfTurnObserver, ModelObserver {
     public void update() {
 
         List<Player> players = game.getPlayers();
+        if (game.getGameState().equals(GameState.PREGAME)) return;
         Player previousActivePlayer = getPreviousActivePlayer();
 
         scoreCommonGoalCards(previousActivePlayer);
