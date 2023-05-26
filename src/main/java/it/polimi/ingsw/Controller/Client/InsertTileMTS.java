@@ -4,6 +4,9 @@ import it.polimi.ingsw.Controller.Server.Executor.InsertTilesExecutor;
 
 import java.io.Serializable;
 
+/**
+ * Asks to insert a tile in the sender's shelf
+ */
 public class InsertTileMTS extends MessageToServer implements Serializable {
 
     /**

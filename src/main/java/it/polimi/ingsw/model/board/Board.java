@@ -18,7 +18,7 @@ public class Board implements ModelSubject {
         OBSERVERS = new ArrayList<>();
     }
 
-    public Board(ItemTile[][] board) { //TODO only for testing (?)
+    public Board(ItemTile[][] board) { // only for testing
         BOARD_GRID = board;
         OBSERVERS = new ArrayList<>();
     }
@@ -32,7 +32,7 @@ public class Board implements ModelSubject {
         return BOARD_GRID.length;
     }
 
-    public void setItemTile(Color color, int row, int col) { //TODO only for testing (?)
+    public void setItemTile(Color color, int row, int col) { // only for testing
         if (row >= BOARD_GRID.length || col >= BOARD_GRID.length) return;
         BOARD_GRID[row][col] = new ItemTile(color);
         notifyObservers();

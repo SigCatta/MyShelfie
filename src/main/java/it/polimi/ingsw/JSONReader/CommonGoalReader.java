@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Reads common goal data from json files
+ */
 public class CommonGoalReader implements JSONFileReader {
     protected final JSONParser jsonParser;
 
@@ -40,13 +43,13 @@ public class CommonGoalReader implements JSONFileReader {
      * Finds a common_goals's json file given its name
      *
      * @param cardName the common goal card's name
-     * @return the common goal's JSONOBJECT
+     * @return the common goal's {@link JSONObject}
      */
     private JSONObject getCardObject(String cardName) {
         try {
-            InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/common_cards/" + cardName + ".json");
-            assert inputSream != null;
-            InputStreamReader reader = new InputStreamReader(inputSream);
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/common_cards/" + cardName + ".json");
+            assert inputStream != null;
+            InputStreamReader reader = new InputStreamReader(inputStream);
             return (JSONObject) jsonParser.parse(reader);
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);

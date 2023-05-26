@@ -5,6 +5,9 @@ import it.polimi.ingsw.View.CLI.Elements.Views.PersonalGoalView;
 
 import java.util.ArrayList;
 
+/**
+ * Prints the player's personal goal card and a brief description
+ */
 public class PersonalGoalCE implements CommandExecutor {
 
     /**

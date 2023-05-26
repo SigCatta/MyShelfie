@@ -63,8 +63,6 @@ public class Game implements ModelSubject {
     public void start() {
         bag = new Bag();
 
-        turnHandlerInitializer();
-
         gameState = GameState.PICK_UP_TILES;
 
         new BoardRefresher(this).refillBoard();
@@ -88,7 +86,8 @@ public class Game implements ModelSubject {
         this.virtualView = virtualView;
     }
 
-    private void turnHandlerInitializer() {
+    public void turnHandlerInitializer() {
+        if (turnHandler != null) return;
         turnHandler = new TurnHandler(this);
         turnHandler.attachEndOfTurn(new ScoreBoard(this));
         turnHandler.attachEndOfTurn(new BoardRefresher(this));

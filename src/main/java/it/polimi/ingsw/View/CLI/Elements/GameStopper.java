@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 
 /**
- * A class that prints the handles the endgame procedure,
+ * A class that prints and handles the endgame procedure,
  * telling the players if they won or not and closing the game
  */
 public class GameStopper implements VirtualModelObserver {
@@ -22,7 +22,7 @@ public class GameStopper implements VirtualModelObserver {
         GameRepresentation.getInstance().registerObserver(this);
     }
 
-    public static GameStopper getIntance() {
+    public static GameStopper getInstance() {
         if (instance == null) instance = new GameStopper();
         return instance;
     }
@@ -52,7 +52,7 @@ public class GameStopper implements VirtualModelObserver {
     /**
      * prints an ascii art indicating that the player won
      */
-
+    @SuppressWarnings("SpellCheckingInspection")
     private void printWinnerScreen() {
 
         System.out.println("                                                                                                                                                       \n" +
@@ -77,6 +77,7 @@ public class GameStopper implements VirtualModelObserver {
     /**
      * prints an ascii art indicating that the player lost
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private void printLoserScreen() {
 
         System.out.println("                                                                                                                                                                    \n" +

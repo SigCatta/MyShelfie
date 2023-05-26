@@ -4,6 +4,9 @@ import it.polimi.ingsw.Controller.Server.Executor.NewGameExecutor;
 
 import java.io.Serializable;
 
+/**
+ * Creates a new game
+ */
 public class NewGameMTS extends MessageToServer implements Serializable {
     private final int NUMBER_OF_PLAYERS;
 

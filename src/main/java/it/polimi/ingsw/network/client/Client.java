@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 /**
  * Abstract class to communicate with the server. Every type of connection must implement this interface.
  */
-//TODO: client is observed by the clientControllers
 public abstract class Client {
 
     protected String nickname;
@@ -38,7 +37,6 @@ public abstract class Client {
      * @param nickname the nickname chosen by the player
      */
     public void setNickname(String nickname) {
-        //TODO: Method called by the listener of the GUI or CLI when a new player connects and logs in
         this.nickname = nickname;
     }
 }

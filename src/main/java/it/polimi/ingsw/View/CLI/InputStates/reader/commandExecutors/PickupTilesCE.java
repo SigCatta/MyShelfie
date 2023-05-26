@@ -10,6 +10,9 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Allows the user to pick up tiles from the board
+ */
 public class PickupTilesCE implements CommandExecutor {
 
     /**
@@ -41,7 +44,7 @@ public class PickupTilesCE implements CommandExecutor {
 
             tiles.add(new Point(row, column));
             pickedUpTiles++;
-            System.out.println("Tile at loaction " + column + ", " + row + " set for pickup");
+            System.out.println("Tile at location " + column + ", " + row + " set for pickup");
 
             if (pickedUpTiles >= 3) break;
 
@@ -95,7 +98,7 @@ public class PickupTilesCE implements CommandExecutor {
     /**
      * Checks if a given String is between 0 and 8 (board dimension)
      *
-     * @param input the String to valide
+     * @param input the String to validate
      * @return a boolean indicating if the input String is valid
      */
     private boolean isInputValid(String input) {

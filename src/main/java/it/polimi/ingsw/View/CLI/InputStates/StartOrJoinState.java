@@ -9,6 +9,9 @@ import it.polimi.ingsw.VirtualModel.VirtualModelObserver;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.VirtualView.Messages.GameMTC;
 
+/**
+ * Asks the player whether to start a new game or join an existing one
+ */
 public class StartOrJoinState extends InputState implements VirtualModelObserver {
 
     private boolean triedToCreateAGame;
@@ -51,7 +54,11 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
         while (true) {
             System.out.println("Insert gameID: ");
             input = Reader.getInput();
-            if (input.equals(".")) return;
+            if (input.equals(".")) {
+                input = null;
+                play();
+                return;
+            }
 
             GameRepresentation.getInstance().registerObserver(this);
             EchosRepresentation.getInstance().registerObserver(this);
@@ -66,14 +73,18 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
     }
 
     /**
-     * ASks for the game's number of players and starts the game if the number is valid
+     * Asks for the game's number of players and starts the game if the number is valid
      */
     private void createNewGame() {
         System.out.println("Insert number of players (between 2 and 4): ");
         int numOfPlayers = 0;
         do {
             input = Reader.getInput();
-            if (input.equals(".")) return;
+            if (input.equals(".")) {
+                input = null;
+                play();
+                return;
+            }
             try {
                 numOfPlayers = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -88,6 +99,9 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
         socketClient.sendCommand(new NewGameMTS(numOfPlayers));
     }
 
+    /**
+     * Notifies the user if the game is successfully created
+     */
     @Override
     public void update() {
         GameMTC gameMessage = GameRepresentation.getInstance().getGameMessage();
@@ -100,6 +114,7 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
                 EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     System.out.println(message.getOutput());
+                    joinGame();
                     return;
                 } else if (GameRepresentation.getInstance().getGameMessage() != null) {
                     GameRepresentation.getInstance().removeObserver(this);

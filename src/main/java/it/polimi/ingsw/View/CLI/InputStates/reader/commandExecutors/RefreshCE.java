@@ -3,6 +3,9 @@ package it.polimi.ingsw.View.CLI.InputStates.reader.commandExecutors;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
 
+/**
+ * Prints and updated game home screen
+ */
 public class RefreshCE implements CommandExecutor {
 
     /**

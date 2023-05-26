@@ -4,6 +4,9 @@ import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.VirtualView.Messages.BoardMTC;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
+/**
+ * Virtual model representation of the board
+ */
 public class BoardRepresentation extends VirtualModelSubject {
     private ItemTile[][] board;
     private static BoardRepresentation instance;
@@ -17,15 +20,24 @@ public class BoardRepresentation extends VirtualModelSubject {
         return instance;
     }
 
+    /**
+     * Updates the board
+     */
     public void setBoard(BoardMTC board) {
         this.board = board.getColorBoard();
         notifyObservers();
     }
 
+    /**
+     * Returns an item tile matrix containing the board
+     */
     public ItemTile[][] getBoard() {
         return board;
     }
 
+    /**
+     * Returns a color matrix containing the board
+     */
     public Color[][] getBoardColors() {
         Color[][] colorBoard = new Color[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {

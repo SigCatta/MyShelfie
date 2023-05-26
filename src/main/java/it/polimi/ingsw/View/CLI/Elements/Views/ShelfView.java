@@ -8,6 +8,9 @@ import it.polimi.ingsw.network.client.SocketClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Provides the necessary tools to print a drawing of the shelves
+ */
 public class ShelfView extends ViewElement {
 
     private static ShelfView instance;
@@ -34,7 +37,7 @@ public class ShelfView extends ViewElement {
     /**
      * Prints a give player's shelf
      *
-     * @param nickname the plauer's nickname
+     * @param nickname the player's nickname
      * @return an ArrayList containing the given player's shelf
      */
     public ArrayList<String> getOtherShelvesPrint(String nickname) {

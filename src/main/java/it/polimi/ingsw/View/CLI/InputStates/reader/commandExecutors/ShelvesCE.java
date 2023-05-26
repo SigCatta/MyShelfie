@@ -7,6 +7,9 @@ import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 
 import java.util.ArrayList;
 
+/**
+ * Shows the user a player's shelf
+ */
 public class ShelvesCE implements CommandExecutor {
 
     /**

@@ -19,7 +19,7 @@ public class EndGameTest {
     @Test
     @Disabled
     public void endTest() {
-        GameStopper.getIntance();
+        GameStopper.getInstance();
         SocketClient.getInstance().setNickname("TEST");
 
         Player p = new Player("TEST");

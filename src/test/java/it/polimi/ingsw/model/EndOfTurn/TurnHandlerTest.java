@@ -32,6 +32,7 @@ public class TurnHandlerTest {
 
     @Test
     public void changeTurnTest() {
+        game.turnHandlerInitializer();
         TurnHandler turnHandler = game.getTurnHandler();
 
         Assertions.assertEquals(game.getActivePlayer().getNickname(), "a");
@@ -64,9 +65,10 @@ public class TurnHandlerTest {
 
     @Test
     public void finishGameTest() {
-        TurnHandler turnHandler = game.getTurnHandler();
-
         fillShelf(game.getPlayers().get(0).getShelf());
+        game.turnHandlerInitializer();
+
+        TurnHandler turnHandler = game.getTurnHandler();
 
         turnHandler.changeTurn(); //change to b
         turnHandler.changeTurn(); //change to c

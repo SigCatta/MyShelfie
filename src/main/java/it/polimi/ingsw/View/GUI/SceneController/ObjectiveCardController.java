@@ -61,7 +61,6 @@ public class ObjectiveCardController extends GuiController implements Initializa
     private void initPersonalGoals() {
         String nickname = SocketClient.getInstance().getNickname();
         String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
-        System.out.println("My personal goal is " + personalGoalCardNum); //TODO remove
 
         //set the image of the personal goal
         personalGoalImage.setImage(CardImagesManager.getPersonalGoalImage(personalGoalCardNum));
@@ -76,7 +75,6 @@ public class ObjectiveCardController extends GuiController implements Initializa
 
     @Override
     public void updateCommonGoals() {
-        System.out.println("Updated common goal points"); //TODO remove
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
         setPointCG1Text(availablePoints.get(0));
         setPointCG2Text(availablePoints.get(1));

@@ -3,21 +3,19 @@
  
 Implementazione del gioco da tavolo [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
 
-Il progetto consiste nell’implementazione di un sistema composto da un singolo server in grado di gestire più partite contemporaneamente e da 2 a 4 client per partita (uno per giocatore) che possono partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-View-Controller). Il gameplay si può svolgere tramite linea di comando (CLI) o intergaccia grafica (GUI).
+Il progetto consiste nell’implementazione di un sistema composto da un singolo server in grado di gestire più partite contemporaneamente e da 2 a 4 client per partita (uno per giocatore) che possono partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-View-Controller). Il gameplay si può svolgere tramite linea di comando (CLI) o interfaccia grafica (GUI).
 
 ## Documentazione
 
 ### UML
-I seguenti diagrammi delle classi rappresentano rispettivamente il modello iniziale sviluppato durante la fase di progettazione e i diagrammi del prodotto finale nelle parti critiche riscontrate.
-- [UML Iniziali](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/archive/uml/uml_model_initial.jpg)
-- [UML Finali](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/final/uml)
+Di seguito alcuni diagrammi uml descrittivi del progetto
+- [TODO](https://....)
 
 ### JavaDoc
 La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](https://...)
 
 ### Coverage report
 Al seguente link è possibile consultare il report della coverage dei test effettuati con Junit: [TODO](https://...)
-
 
 ### Librerie e Plugins
 | Libreria/Plugin | Descrizione                                        |
@@ -70,6 +68,6 @@ successivamente basterà far partire il container:
 ```
 docker run -p 28888:28888 --name my-shelfie-server 
 ```
-É importante notare che il container utilizza la porta 28888 e i client sono impostati per inviare messaggi alla porta 28888. (il parametro -p 28888:28888 mappa la porta 28888 del computer utilizzato alla 28888  del container)
+É importante notare che il container utilizza la porta 28888 e i client sono impostati per inviare messaggi alla porta 28888. (il parametro -p 28888:28888 mappa la porta 28888 del computer utilizzato alla 28888 del container)
 
 ## Componenti del gruppo

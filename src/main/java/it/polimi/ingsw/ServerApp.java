@@ -10,8 +10,6 @@ public class ServerApp {
     public static void main(String[] args) {
         int serverPort = 28888; // default value
 
-        //TODO : pass controller to server
-
         ServerSocketAccepter serverSocketAccepter = new ServerSocketAccepter(serverPort);
         Thread thread = new Thread(serverSocketAccepter, "socketserver");
         thread.start();

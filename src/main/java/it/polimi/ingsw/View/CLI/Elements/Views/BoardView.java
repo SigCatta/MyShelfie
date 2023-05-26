@@ -9,6 +9,9 @@ import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Provides the necessary tools to print a drawing of the game's board
+ */
 public class BoardView extends ViewElement {
 
     private static BoardView instance;
@@ -28,7 +31,7 @@ public class BoardView extends ViewElement {
     /**
      * Prints a drawing of the game's board
      *
-     * @param output an ArrayList where to add the drowing
+     * @param output an ArrayList where to add the drawing
      * @return the give ArrayList extended with the drawing of the game board
      */
     @Override

@@ -4,6 +4,9 @@ import it.polimi.ingsw.Controller.Server.Executor.CanIPlayExecutor;
 
 import java.io.Serializable;
 
+/**
+ * Asks to join a game
+ */
 public class CanIPlayMTS extends MessageToServer implements Serializable {
 
     private final int newGameID;

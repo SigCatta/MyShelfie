@@ -20,16 +20,25 @@ public class EchosRepresentation extends VirtualModelSubject {
         return instance;
     }
 
+    /**
+     * Adds a new message to the echo stack
+     */
     public void putMessage(EchoMTC message) {
         messages.push(message);
         notifyObservers();
     }
 
+    /**
+     * Removes and returns the last received message from the stack
+     */
     public EchoMTC popMessage() {
         if (messages.isEmpty()) return null;
         return messages.pop();
     }
 
+    /**
+     * Returns the last received message from the stack
+     */
     public EchoMTC peekMessage() {
         if (!messages.isEmpty()) {
             return messages.peek();

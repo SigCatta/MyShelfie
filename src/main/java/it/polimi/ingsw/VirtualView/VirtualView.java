@@ -1,10 +1,7 @@
 package it.polimi.ingsw.VirtualView;
 
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
-import it.polimi.ingsw.VirtualView.ModelObservers.BoardVV;
-import it.polimi.ingsw.VirtualView.ModelObservers.ChosenTilesTableVV;
-import it.polimi.ingsw.VirtualView.ModelObservers.CommonGoalVV;
-import it.polimi.ingsw.VirtualView.ModelObservers.GameVV;
+import it.polimi.ingsw.VirtualView.ModelObservers.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
@@ -47,4 +44,5 @@ public class VirtualView {
     public void updateAllShelves() {
         GAME.getPlayers().forEach(p -> p.getShelf().notifyObservers());
     }
+    public void updateAllCommonGoals(){GAME.getCommonGoals().forEach(ModelSubject::notifyObservers);}
 }

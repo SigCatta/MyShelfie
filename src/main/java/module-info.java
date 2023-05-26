@@ -8,7 +8,6 @@ open module proj.ingsw.The.Compiler.Coalition {
     requires javafx.fxml;
     requires org.controlsfx.controls;
 
-    //opens it.polimi.ingsw.View.GUI to javafx.fxml;
     exports it.polimi.ingsw.View.GUI;
     exports it.polimi.ingsw.View.GUI.SceneController;
     exports it.polimi.ingsw.model.tiles;
@@ -17,5 +16,4 @@ open module proj.ingsw.The.Compiler.Coalition {
     exports it.polimi.ingsw.model.cards.commonGoals;
     exports it.polimi.ingsw.model.player;
     exports it.polimi.ingsw.VirtualView.ModelObservers;
-    //opens it.polimi.ingsw.View.GUI.SceneController to javafx.fxml;
 }
