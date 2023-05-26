@@ -100,7 +100,6 @@ public class EnterGameSceneController extends GuiController {
         errorText.setVisible(true);
         errorText.setWrappingWidth(300);
 
-        System.out.println("There was an error: "); //TODO remove
         if(containsLetters) {
             errorText.setText("The GAME ID must contain only numbers!");
         } else

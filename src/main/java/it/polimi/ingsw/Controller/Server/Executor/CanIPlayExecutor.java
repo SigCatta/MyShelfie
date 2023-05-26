@@ -49,6 +49,7 @@ public class CanIPlayExecutor implements Executor {
 
         game.getVirtualView().updateAllPlayers();
         game.getVirtualView().updateAllShelves();
+        game.getVirtualView().updateAllCommonGoals();
         game.notifyObservers();
         game.getVirtualView().send(new EchoMTC(EchoID.JOINED, false));
     }

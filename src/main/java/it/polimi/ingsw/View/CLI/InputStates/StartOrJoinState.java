@@ -54,7 +54,11 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
         while (true) {
             System.out.println("Insert gameID: ");
             input = Reader.getInput();
-            if (input.equals(".")) return;
+            if (input.equals(".")) {
+                input = null;
+                play();
+                return;
+            }
 
             GameRepresentation.getInstance().registerObserver(this);
             EchosRepresentation.getInstance().registerObserver(this);
@@ -76,7 +80,11 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
         int numOfPlayers = 0;
         do {
             input = Reader.getInput();
-            if (input.equals(".")) return;
+            if (input.equals(".")) {
+                input = null;
+                play();
+                return;
+            }
             try {
                 numOfPlayers = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -106,6 +114,7 @@ public class StartOrJoinState extends InputState implements VirtualModelObserver
                 EchoMTC message = EchosRepresentation.getInstance().popMessage();
                 if (message.isError()) {
                     System.out.println(message.getOutput());
+                    joinGame();
                     return;
                 } else if (GameRepresentation.getInstance().getGameMessage() != null) {
                     GameRepresentation.getInstance().removeObserver(this);

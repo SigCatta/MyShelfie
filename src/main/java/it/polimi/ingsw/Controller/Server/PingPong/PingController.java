@@ -33,8 +33,7 @@ public class PingController extends Thread {
      */
     @Override
     public void run() {
-        Server.LOGGER.info("PingController started"); //TODO remove after testing
-
+        Server.LOGGER.info("PingController started");
         TIMER.scheduleAtFixedRate(new PingRoutine(this), DELAY, PING_TIMEOUT);
     }
 

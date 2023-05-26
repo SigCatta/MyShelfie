@@ -17,6 +17,7 @@ public class NewGameExecutor implements Executor {
     public static void execute(NewGameMTS message) {
 
         Game newGame = new Game(message.getNumberOfPlayers());
+        newGame.turnHandlerInitializer();
 
         int gameID = GamesManager.getInstance().createID();
         newGame.setGameID(gameID);

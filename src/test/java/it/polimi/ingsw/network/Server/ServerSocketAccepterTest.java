@@ -41,6 +41,4 @@ public class ServerSocketAccepterTest {
             System.out.println("Client could not connect to server");
         }
     }
-
-    //TODO: Add more tests for various scenarios.
 }
