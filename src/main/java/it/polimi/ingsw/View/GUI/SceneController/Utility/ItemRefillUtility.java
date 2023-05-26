@@ -1,7 +1,6 @@
 package it.polimi.ingsw.View.GUI.SceneController.Utility;
 
 import it.polimi.ingsw.model.tiles.ItemTile;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,19 +21,6 @@ public class ItemRefillUtility {
         return new Image(tilePath);
     }
 
-
-    public static Node getNodeFromGridPane(GridPane gridPane, int row, int col) {
-        for (Node node : gridPane.getChildren()) {
-            if (node == null) continue;
-            Integer c = GridPane.getColumnIndex(node);
-            Integer r = GridPane.getRowIndex(node);
-            if (c == null || r == null) continue;
-            if (c == col && r == row) {
-                return node;
-            }
-        }
-        return null;
-    }
 
     /**
      * updates the board view with the item tiles given with the reference
@@ -72,10 +58,9 @@ public class ItemRefillUtility {
      * to optimize the update. It checks each column starting from above, and it stops
      * inserting if the tile is already shown in the shelf.
      *
-     * @param shelf     to be updated
      * @param reference the correct shelf to show
      */
-    public static void updateShelfGrid(GridPane shelf, ItemTile[][] reference) {
+    public static void updateShelfGrid(ItemTile[][] reference) {
         for (int col = 0; col < reference[0].length; col++) {
             for (int row = reference.length - 1; row >= 0; row--) {
 
@@ -83,26 +68,29 @@ public class ItemRefillUtility {
 
                 int id = reference[row][col].getId(); //the id of the item tile
 
-                if (ShelfMemory.get(row, col, 0).getImage() != null)
+                if (ShelfMemory.get(row, col).getImage() != null)
                     continue;  //if the tile is memorized this means it is already in the shelf
 
                 Image image = ItemTileMemory.getImage(id);
 
-                ShelfMemory.setImage(image, row, col, 0);
+                ShelfMemory.setImage(image, row, col);
             }
         }
     }
 
-    public static void updateOtherShelfGrid(ItemTile[][] reference) {
+    public static void updateOtherShelfGrid(GridPane shelf, ItemTile[][] reference) {
         for (int col = 0; col < reference[0].length; col++) {
             for (int row = reference.length - 1; row >= 0; row--) {
-                if (reference[row][col] == null) {
-                    ShelfMemory.setImage(null, row, col, 1);
-                } else {
-                    int id = reference[row][col].getId(); //the id of the item tile
-                    Image image = ItemTileMemory.getImage(id);
-                    ShelfMemory.setImage(image, row, col, 1);
-                }
+                if (reference[row][col] == null) break;
+
+                int id = reference[row][col].getId(); //the id of the item tile
+                Image image = ItemTileMemory.getImage(id);
+
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(95);
+                imageView.setFitWidth(95);
+
+                shelf.add(imageView, col, row);
             }
         }
     }

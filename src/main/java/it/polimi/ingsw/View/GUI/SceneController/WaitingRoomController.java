@@ -1,12 +1,10 @@
 package it.polimi.ingsw.View.GUI.SceneController;
 
-import it.polimi.ingsw.Controller.Client.MessageToServer;
 import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.VirtualModel.GameRepresentation;
 import it.polimi.ingsw.VirtualModel.PlayersRepresentation;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.client.SocketClient;
-import it.polimi.ingsw.network.server.SocketClientHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +14,6 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class WaitingRoomController extends GuiController implements Initializable {
     @FXML
@@ -32,19 +28,12 @@ public class WaitingRoomController extends GuiController implements Initializabl
     @FXML
     TextField gameIdText;
 
+    private boolean entered;
+
     @Override
     public synchronized void updateGame() {
 
-        if (GameRepresentation.getInstance().getGameMessage() == null) {
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    StageController.getController().updateGame();
-                }
-            }, 1000);
-            return;
-        }
+        if (GameRepresentation.getInstance().getGameMessage() == null) return;
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
@@ -64,7 +53,7 @@ public class WaitingRoomController extends GuiController implements Initializabl
     }
 
     @Override
-    public void updatePlayers() {
+    public synchronized void updatePlayers() {
         playersNamesText.setText("");
         List<String> players = PlayersRepresentation.getInstance().getPlayersList();
         if (players == null) {
@@ -80,7 +69,10 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
     }
 
-    private void enterGame() {
+    private synchronized void enterGame() {
+        if(entered) return;
+        entered = true;
+
         Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Living room"));
     }
 

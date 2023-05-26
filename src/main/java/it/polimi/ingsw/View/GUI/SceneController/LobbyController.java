@@ -35,11 +35,9 @@ public class LobbyController extends GuiController implements Initializable {
         //create the observer linked to their relative Representation
         new GameObserver();
         new BoardObserver();
-        new ChangeTurnObserver();
         new ChatObserver();
         new CommonGoalsObserver();
         new EchoObserver();
-        new FirstPlayerToFinishObserver();
         new PlayerObserver();
         new ShelfObserver();
         new TilesTableObserver();

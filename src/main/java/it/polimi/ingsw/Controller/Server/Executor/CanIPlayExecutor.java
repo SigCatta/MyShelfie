@@ -48,7 +48,7 @@ public class CanIPlayExecutor implements Executor {
         playerHandler.setGameID(gameID);    //the gameid is also definitive
 
         game.getVirtualView().updateAllPlayers();
-        game.getVirtualView().updateAllShelvs();
+        game.getVirtualView().updateAllShelves();
         game.notifyObservers();
         game.getVirtualView().send(new EchoMTC(EchoID.JOINED, false));
     }

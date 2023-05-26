@@ -108,5 +108,6 @@ public class ObjectiveCardController extends GuiController implements Initializa
     public void initialize(URL var1, ResourceBundle var2) {
         initCommonGoals();
         initPersonalGoals();
+        updateCommonGoals();
     }
 }
