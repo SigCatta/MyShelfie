@@ -1,6 +1,5 @@
 package it.polimi.ingsw.View.CLI.InputStates;
 
-import it.polimi.ingsw.View.CLI.Elements.DisconnectionHandler;
 import it.polimi.ingsw.View.CLI.Elements.GameStopper;
 import it.polimi.ingsw.View.CLI.Elements.Printer;
 import it.polimi.ingsw.View.CLI.InputStates.reader.Reader;
@@ -50,7 +49,6 @@ public class GameStartupState extends InputState implements VirtualModelObserver
         new Thread(reader).start();
 
         GameStopper.getInstance();
-        DisconnectionHandler.getInstance();
 
         //now that the game startup menu is printed, the game can start. Each player gets their state assigned
         if (GameRepresentation.getInstance().getActivePlayerNickname().equals(socketClient.getNickname())) {
