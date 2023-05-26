@@ -6,7 +6,6 @@ import it.polimi.ingsw.Controller.Server.GamesManager;
 import it.polimi.ingsw.Controller.Server.PingPong.PingController;
 import it.polimi.ingsw.Controller.Server.PingPong.PingRoutine;
 import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
-import it.polimi.ingsw.network.client.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -51,16 +50,16 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
         try {
             handleClientMessages();
         } catch (IOException e) {
-            Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped. (socketClientHandler)");//TODO remove after testing
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped. (socketClientHandler)");
             disconnect();
         } catch (ClassNotFoundException classNotFoundException) {
-            Server.LOGGER.severe("Client " + client.getInetAddress() + " class not found"); //TODO remove after testing
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " class not found");
             disconnect();
         } catch (NumberFormatException nfe) {
-            Server.LOGGER.severe("Client " + client.getInetAddress() + " invalid number"); //TODO remove after testing
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " invalid number");
             disconnect();
         } catch (NullPointerException npe) {
-            Server.LOGGER.severe("Client" + client.getInetAddress() + " failed to initalize ObjectInputStream");
+            Server.LOGGER.severe("Client" + client.getInetAddress() + " failed to initialize ObjectInputStream");
             disconnect();
         }
     }
@@ -69,7 +68,7 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
      * gets the messages from the input and forwards them to the GamesManager that handles the traffic
      */
     private void handleClientMessages() throws IOException, ClassNotFoundException {
-        Server.LOGGER.info("Client connected from " + client.getInetAddress()); //TODO remove after testing
+        Server.LOGGER.info("Client connected from " + client.getInetAddress());
 
         while (!stop) {
             Object o = input.readObject();
@@ -127,7 +126,6 @@ public class SocketClientHandler extends ClientHandler implements Runnable {
                 outputStm.writeObject(messageToClient);
                 outputStm.reset();
             } catch (IOException ignored) {
-                Client.LOGGER.severe("Output stream failed");
             }
             Server.LOGGER.severe(e.getMessage());
         }

@@ -26,7 +26,6 @@ public class Printer implements VirtualModelObserver {
         BoardRepresentation.getInstance().registerObserver(this);
         ChatRepresentation.getInstance().registerObserver(this);
         CommonGoalsRepresentation.getInstance().registerObserver(this);
-        PlayersRepresentation.getInstance().registerObserver(this);
         ShelvesRepresentation.getInstance().registerObserver(this);
 
         reader = Reader.getInstance();
@@ -160,8 +159,8 @@ public class Printer implements VirtualModelObserver {
             commands.add("          │ - insert -> to insert the tiles you picked up in your personal shelf                                     │");
         }
 
-        commands.add("          │ - chat -> to communicate with all other players                                                           │");
-        commands.add("          │ - pchat -> to communicate privately with one player                                                       │");
+        commands.add("          │ - chat -> to communicate with all other players                                                          │");
+        commands.add("          │ - pchat -> to communicate privately with one player                                                      │");
         commands.add("          │ - disconnect -> to leave the game ☹                                                                      │");
         commands.add("          │ - refresh -> to print an updated version of the home screen                                              │");
         commands.add("          │ - colors -> to choose whether to use colors or letters to show item tiles                                │");

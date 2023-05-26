@@ -42,7 +42,7 @@ public class SocketClient extends Client {
     }
 
     public static synchronized Client getInstance() {
-        if (clientInstance == null) clientInstance = new SocketClient("localhost", 28888); // can't create a socket without addres and port -- should never happen!!
+        if (clientInstance == null) clientInstance = new SocketClient("localhost", 28888); // can't create a socket without address and port -- should never happen!!
         return clientInstance;
     }
 
@@ -63,10 +63,8 @@ public class SocketClient extends Client {
                     Object o = inputStm.readObject();
                     MessageToClient messageToClient = (MessageToClient) o;
                     messageToClient.update();
-                } catch (IOException | ClassNotFoundException e) {
-                    //TODO request everything to the server
+                } catch (IOException | ClassNotFoundException ignored) {
                 }
-                //TODO: notify InstructionDecoder
             }
         });
     }
@@ -92,7 +90,6 @@ public class SocketClient extends Client {
             } catch (IOException ignored) {
                 Client.LOGGER.severe("Output stream failed");
             }
-            Client.LOGGER.severe("An error occurred while sending the message");
         }
     }
 
