@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class is responsible for controlling the objective card scene in the GUI.
+ */
 public class ObjectiveCardController extends GuiController implements Initializable {
 
     @FXML
@@ -41,6 +44,10 @@ public class ObjectiveCardController extends GuiController implements Initializa
     @FXML
     Text pointCG2Text;
 
+    /**
+     * Initializes the common goals.
+     * Retrieves the common goal card names from CommonGoalsRepresentation and sets the descriptions and images accordingly.
+     */
     private void initCommonGoals() {
         CommonGoalReader reader = new CommonGoalReader();
         ArrayList<String> cardNames = CommonGoalsRepresentation.getInstance().getCardNames();
@@ -58,6 +65,10 @@ public class ObjectiveCardController extends GuiController implements Initializa
         commonGoalCard2.setImage(card2Image);
     }
 
+    /**
+     * Initializes the personal goal.
+     * Retrieves the personal goal card number of the current player from PlayersRepresentation and sets the image accordingly.
+     */
     private void initPersonalGoals() {
         String nickname = SocketClient.getInstance().getNickname();
         String personalGoalCardNum = PlayersRepresentation.getInstance().getPlayerInfoByNickname(nickname).getPERSONAL_GOAL_CARD_NUMBER();
@@ -66,6 +77,10 @@ public class ObjectiveCardController extends GuiController implements Initializa
         personalGoalImage.setImage(CardImagesManager.getPersonalGoalImage(personalGoalCardNum));
     }
 
+    /**
+     * Updates the scene based on the game state.
+     * If the game state is END, navigates to the win scene.
+     */
     @Override
     public void updateGame() {
         if (GameRepresentation.getInstance().getGameState() == GameState.END) {
@@ -73,6 +88,10 @@ public class ObjectiveCardController extends GuiController implements Initializa
         }
     }
 
+    /**
+     * Updates the common goals.
+     * Retrieves the available points from CommonGoalsRepresentation and updates the point texts.
+     */
     @Override
     public void updateCommonGoals() {
         ArrayList<Integer> availablePoints = CommonGoalsRepresentation.getInstance().getAvailablePoints();
@@ -96,14 +115,23 @@ public class ObjectiveCardController extends GuiController implements Initializa
         this.card2Description.setText(description);
     }
 
+    /**
+     * Handles the event when the "Go Back" button is clicked.
+     * Navigates back to the board scene.
+     */
     @FXML
     public void onGoBackClicked() {
         StageController.changeScene("fxml/board.fxml", "Board");
     }
 
-
+    /**
+     * Initializes the objective card scene.
+     * Calls the methods to initialize the common goals, personal goals, and update the common goals.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
-    public void initialize(URL var1, ResourceBundle var2) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         initCommonGoals();
         initPersonalGoals();
         updateCommonGoals();

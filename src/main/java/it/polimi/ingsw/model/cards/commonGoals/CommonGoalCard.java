@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
+/**
+ * The class that represents a common goal card
+ */
 public class CommonGoalCard implements ModelSubject {
 
     private final ArrayList<ModelObserver> observers;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.Enum.Color;
 
 import java.util.HashMap;
 
+/**
+ * A class that represents the object that contains the ItemTiles that still has not been placed on the board
+ */
 public class Bag {
 
     private final int NUMBER_OF_COLORS;

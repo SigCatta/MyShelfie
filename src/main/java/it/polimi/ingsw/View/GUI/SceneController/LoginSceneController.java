@@ -23,6 +23,10 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+/**
+ * The LoginSceneController class is responsible for controlling the login scene in the GUI.
+ */
 public class LoginSceneController extends GuiController implements Initializable {
 
     @FXML
@@ -53,6 +57,10 @@ public class LoginSceneController extends GuiController implements Initializable
     @FXML
     StackPane login_scene;
 
+    /**
+     * Updates the scene based on the received echo message.
+     * @param echoMTC the echo message received from the server
+     */
     @Override
     public void updateEcho(EchoMTC echoMTC) {
         switch (echoMTC.getID()) {
@@ -65,13 +73,21 @@ public class LoginSceneController extends GuiController implements Initializable
         }
     }
 
-
+    /**
+     * Handles the click event of the "Go Back" button.
+     * Returns to the lobby scene.
+     */
     @FXML
     protected void onGoBackButtonClick() {
         //back to the lobby
         Platform.runLater(() -> StageController.changeScene("fxml/lobby.fxml", "Lobby"));
     }
 
+    /**
+     * Handles the click event of the "Continue" button.
+     * Initiates the connection to the server and sends the nickname to the server.
+     * Starts the connection pending timer.
+     */
     @FXML
     protected void onContinueButtonClick() {
         if (ConnectionPendingTimer.isPending()) return;
@@ -95,7 +111,9 @@ public class LoginSceneController extends GuiController implements Initializable
         ConnectionPendingTimer.start(1);
     }
 
-
+    /**
+     * Sets the visibility of the "Continue" button based on the nickname field.
+     */
     @FXML
     public void setContinueButtonVisible() {
         if (nicknameField.getText().length() > 0 && nicknameField.getText().length() < 30) {
@@ -108,6 +126,11 @@ public class LoginSceneController extends GuiController implements Initializable
 
     }
 
+    /**
+     * Handles the key pressed event.
+     * If the Enter key is pressed, initiates the login process.
+     * @param keyEvent the key event
+     */
     public void onKeyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             onContinueButtonClick();
@@ -129,6 +152,10 @@ public class LoginSceneController extends GuiController implements Initializable
         fadeTransition.play();
     }
 
+    /**
+     * Displays an error message indicating that the entered nickname is invalid.
+     * @param message the echo message containing the error information
+     */
     private void badNicknameEffect(EchoMTC message){
         nicknameErrorPane.setVisible(true);
         wrongNicknameText.setWrappingWidth(200);
@@ -140,6 +167,9 @@ public class LoginSceneController extends GuiController implements Initializable
         fadeTransition.play();
     }
 
+    /**
+     * Navigates to the enter game scene.
+     */
     private void goToCreateGame(){
         if(ConnectionPendingTimer.isPending()){
             ConnectionPendingTimer.cancel();
@@ -148,6 +178,11 @@ public class LoginSceneController extends GuiController implements Initializable
         Platform.runLater(() -> StageController.changeScene("fxml/enter_game_scene.fxml", "Set number of players"));
     }
 
+    /**
+     * Initializes the login scene.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_scene.setOnKeyPressed(this::onKeyPressed);

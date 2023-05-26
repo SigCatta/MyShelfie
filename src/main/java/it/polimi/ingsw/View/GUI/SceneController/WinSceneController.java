@@ -10,7 +10,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * This class is responsible for controlling the win scene in the GUI.
+ */
 public class WinSceneController extends GuiController implements Initializable {
     @FXML
     Text player1Nickname, player2Nickname, player3Nickname, player4Nickname;
@@ -25,6 +27,9 @@ public class WinSceneController extends GuiController implements Initializable {
     ImageView player1CrownImage, player2CrownImage, player3CrownImage, player4CrownImage;
     List<ImageView> crowns;
 
+    /**
+     * Sets the crown image for the winner player based on the points.
+     */
     private void setWinner() {
         int highestIndex = 0;
 
@@ -38,6 +43,9 @@ public class WinSceneController extends GuiController implements Initializable {
         crowns.get(highestIndex).setVisible(true);
     }
 
+    /**
+     * Updates the players' nicknames and points in the win scene.
+     */
     @Override
     public void updatePlayers() {
         ArrayList<String> players = PlayersRepresentation.getInstance().getPlayersList();
@@ -59,6 +67,11 @@ public class WinSceneController extends GuiController implements Initializable {
         setWinner();
     }
 
+    /**
+     * Initializes the WinSceneController.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nicknamesText = List.of(player1Nickname, player2Nickname, player3Nickname, player4Nickname);

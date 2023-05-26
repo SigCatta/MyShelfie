@@ -17,6 +17,12 @@ public class StageController {
     private static GuiController controller;
     public static Scene activeScene;
 
+    /**
+     * Sets up the initial stage with the specified FXML scene.
+     * @param stage the stage to be set up
+     * @param FXMLScene the FXML scene to be loaded
+     * @throws IOException if an error occurs while loading the FXML scene
+     */
     public static void setUpStage(Stage stage, String FXMLScene) throws IOException {
 
         //load lobby
@@ -32,10 +38,19 @@ public class StageController {
         stage.setScene(scene);
     }
 
+    /**
+     * Returns the current controller associated with the active scene.
+     * @return the current controller
+     */
     public static GuiController getController() {
         return controller;
     }
 
+    /**
+     * Changes the scene to the specified FXML scene and sets the title of the stage.
+     * @param FXMLScene the FXML scene to be loaded
+     * @param title the title of the stage
+     */
     public static void changeScene(String FXMLScene, String title) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource(FXMLScene));

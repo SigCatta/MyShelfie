@@ -15,9 +15,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+/**
+ * This class class is responsible for controlling the enter game scene in the GUI.
+ */
 public class EnterGameSceneController extends GuiController {
     @FXML
     ImageView wrongGameIdImage;
+
     @FXML
     RadioButton newGameRB;
 
@@ -59,10 +63,12 @@ public class EnterGameSceneController extends GuiController {
         }
     }
 
+    /**
+     * Handles the continue button click event.
+     */
     @FXML
     protected void onContinueButtonClick() {
         if (joinGameRB.isSelected()) {
-
             int gameId;
             try {
                 gameId = Integer.parseInt(gameIdField.getText());
@@ -74,27 +80,39 @@ public class EnterGameSceneController extends GuiController {
             SocketClient.getInstance().sendCommand(new CanIPlayMTS(gameId));
             //activates the possibility of entering a game after the server sends the echo join message
             connectPlayer = true;
-
         } else {
             //player wants to create a new game
             StageController.changeScene("fxml/player_number_scene.fxml", "Set number of players");
         }
     }
 
+    /**
+     * Connects the player to the game by changing the scene to the waiting room.
+     */
     public void connectPlayer() {
         if (!connectPlayer) return;
         Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room"));
     }
 
+    /**
+     * Enters the game by changing the scene to the game board.
+     */
     public void enterGame() {
         Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Board"));
     }
 
+    /**
+     *Handles the connection failure event by resetting the connectPlayer flag and displaying an error message.
+     */
     public void connectionFailed() {
         connectPlayer = false;
         wrongGameIdEffect(false);
     }
 
+    /**
+     * Displays the wrong game ID error message.
+     @param containsLetters true if the error is due to containing letters, false otherwise
+     */
     public void wrongGameIdEffect(boolean containsLetters) {
         wrongGameIdImage.setVisible(true);
         errorText.setVisible(true);
@@ -102,8 +120,9 @@ public class EnterGameSceneController extends GuiController {
 
         if(containsLetters) {
             errorText.setText("The GAME ID must contain only numbers!");
-        } else
+        } else {
             errorText.setText(EchosRepresentation.getInstance().peekMessage().getOutput());
+        }
 
         FadeTransition textFadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
         textFadeTransition.setFromValue(1.0);
@@ -116,6 +135,9 @@ public class EnterGameSceneController extends GuiController {
         fadeTransition.play();
     }
 
+    /**
+     * Handles the join game radio button click event.
+     */
     @FXML
     public void onJoinGameRBClicked() {
         gameIdField.setVisible(true);
@@ -123,6 +145,9 @@ public class EnterGameSceneController extends GuiController {
         setContinueButtonVisible();
     }
 
+    /**
+     * Handles the new game radio button click event.
+     */
     @FXML
     public void onNewGameRBClicked() {
         gameIdField.setVisible(false);
@@ -131,13 +156,21 @@ public class EnterGameSceneController extends GuiController {
         wrongGameIdImage.setVisible(false);
     }
 
+    /**
+     * Sets the visibility of the continue button based on the selected radio button and the game ID field.
+     */
     @FXML
     public void setContinueButtonVisible() {
         if (joinGameRB.isSelected()) {
             continueButton.setVisible(gameIdField.getText().length() > 0);
-        } else continueButton.setVisible(newGameRB.isSelected());
+        } else {
+            continueButton.setVisible(newGameRB.isSelected());
+        }
     }
 
+    /**
+     * Handles the game ID insert event by hiding the wrong game ID image and updating the continue button visibility.
+     */
     @FXML
     public void onGameIdInsert() {
         wrongGameIdImage.setVisible(false);

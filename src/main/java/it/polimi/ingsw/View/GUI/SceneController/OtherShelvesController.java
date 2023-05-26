@@ -14,7 +14,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * The OtherShelvesController class is responsible for controlling the scene displaying the shelves of other players in the GUI.
+ */
 public class OtherShelvesController extends GuiController implements Initializable {
     @FXML
     GridPane shelf;
@@ -25,12 +27,20 @@ public class OtherShelvesController extends GuiController implements Initializab
     private static String currentPlayerNickname = null;
     private static int currentPlayerIndex = 0;
 
+    /**
+     * Initializes the OtherShelvesController.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (currentPlayerNickname == null) getFirstPlayerThatIsNotMe();
         updateShelf();
     }
 
+    /**
+     * Updates the shelf display with the current player's tiles.
+     */
     @Override
     public void updateShelf() {
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(currentPlayerNickname).getShelf();
@@ -52,6 +62,9 @@ public class OtherShelvesController extends GuiController implements Initializab
         playerName.setText(currentPlayerNickname);
     }
 
+    /**
+     * Changes the display to the shelf of the previous player.
+     */
     @FXML
     public void onPrevButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
@@ -71,6 +84,9 @@ public class OtherShelvesController extends GuiController implements Initializab
         updateShelf();
     }
 
+    /**
+     * Changes the display to the shelf of the next player.
+     */
     @FXML
     public void onNextButtonClicked() {
         List<String> playersList = PlayersRepresentation.getInstance().getPlayersList();
@@ -89,6 +105,10 @@ public class OtherShelvesController extends GuiController implements Initializab
         updateShelf();
     }
 
+    /**
+     * Handles the "Back to Board" button click event.
+     * Changes the scene back to the board scene.
+     */
     @FXML
     public void onBackToBoardButtonClicked() {
         StageController.changeScene("fxml/board.fxml", "My shelf");

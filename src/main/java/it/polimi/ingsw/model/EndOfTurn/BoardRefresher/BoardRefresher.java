@@ -8,7 +8,9 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.Bag;
 
-
+/**
+ * This class contains the method called when the board needs to be refilled
+ */
 public class BoardRefresher implements EndOfTurnObserver {
 
     private final Board board;
