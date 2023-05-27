@@ -35,9 +35,9 @@ public class EchoMTC implements MessageToClient, Serializable {
     public String getOutput() {
 
         JSONParser parser = new JSONParser();
-        InputStream inputSream = this.getClass().getClassLoader().getResourceAsStream("data/echo_messages/ID_map.json");
-        assert inputSream != null;
-        InputStreamReader reader = new InputStreamReader(inputSream);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/echo_messages/ID_map.json");
+        assert inputStream != null;
+        InputStreamReader reader = new InputStreamReader(inputStream);
         try {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             return (String) jsonObject.get(id.name());

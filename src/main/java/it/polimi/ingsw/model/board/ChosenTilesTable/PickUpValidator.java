@@ -51,7 +51,7 @@ public class PickUpValidator {
      * Checks if the points in a given ArrayList are on the same line (share a coordinate)
      *
      * @param chosenPositions an ArrayList containing the coordinates of the tiles
-     * @return a boolean indicating wheter the tiles are on the same line or not
+     * @return a boolean indicating whether the tiles are on the same line or not
      */
     private static boolean onSameLine(ArrayList<Point> chosenPositions) {
         if (chosenPositions.size() == 1) return true;

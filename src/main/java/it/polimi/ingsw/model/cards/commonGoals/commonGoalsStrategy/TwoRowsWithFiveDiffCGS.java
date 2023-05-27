@@ -17,7 +17,7 @@ public class TwoRowsWithFiveDiffCGS extends CommonGoalStrategy {
     /**
      * This method checks if a given shelfGrid has at least two rows, each consisting of at least 5 different colors.
      *
-     * @param shelf the sheld to be checked
+     * @param shelf the shelf to be checked
      * @return true if the condition is satisfied, false otherwise
      */
     @Override
