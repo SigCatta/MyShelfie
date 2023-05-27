@@ -4,8 +4,7 @@
 
 Implementazione del gioco da tavolo [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
 
-Il progetto consiste nell’implementazione di un sistema composto da un singolo server in grado di gestire più partite contemporaneamente e da 2 a 4 client per partita (uno per giocatore) che possono
-partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-View-Controller). Il gameplay si può svolgere tramite linea di comando (CLI) o interfaccia grafica (GUI).
+Il progetto consiste nell’implementazione di un sistema composto da un singolo server in grado di gestire più partite contemporaneamente e da 2 a 4 client per partita (uno per giocatore) che possono partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-View-Controller). Il gameplay si può svolgere tramite linea di comando (CLI) o interfaccia grafica (GUI). La documentazione riguardo la realizzazione del network è disponibile al seguente [link](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/NetworkDocumentation/NetworkDocumentation.md).
 
 ## Documentazione
 
@@ -25,8 +24,7 @@ Di seguito alcuni diagrammi uml descrittivi del progetto
 
 ### JavaDoc
 
-La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente
-indirizzo: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
+La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
 
 ### Coverage report
 
@@ -107,3 +105,7 @@ docker run -p 28888:28888 mrcatta/my-shelfie-server
 alla 28888 del container)
 
 ## Componenti del gruppo
+
+- [__Luca Cattani__](https://github.com/SigCatta)
+- [__Simone Lucca__](https://github.com/SimoneLucca2)
+- [__Arianna Zerbini__](https://github.com/azerbini01)
