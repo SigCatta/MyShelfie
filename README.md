@@ -2,15 +2,14 @@
 
 ![alt text](src/main/resources/it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Box%20noshadow%20280x280.png)
 
-Implementazione del gioco da tavolo [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
+Implementation of the board game [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
+The project consists in the implementation of a single-server system capable of simultaneously managing multiple games made up of 2 to 4 clients (one for each player). Each player can choose to play using either the command line interface (later referred to as CLI) or the graphical user interface (later referred to as GUI). The project fully implements the MVC (Model-View-Controller) design pattern, further information about the realization of the network cna be found [here](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/NetworkDocumentation/NetworkDocumentation.md).
 
-Il progetto consiste nell’implementazione di un sistema composto da un singolo server in grado di gestire più partite contemporaneamente e da 2 a 4 client per partita (uno per giocatore) che possono partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-View-Controller). Il gameplay si può svolgere tramite linea di comando (CLI) o interfaccia grafica (GUI). La documentazione riguardo la realizzazione del network è disponibile al seguente [link](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/NetworkDocumentation/NetworkDocumentation.md).
-
-## Documentazione
+## Documentation
 
 ### UML
 
-Di seguito alcuni diagrammi uml descrittivi del progetto
+Below some of the more significant UML diagrams:
 
 - [Model](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/model.jpg)
 - [Controller](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/controller.jpg)
@@ -19,8 +18,6 @@ Di seguito alcuni diagrammi uml descrittivi del progetto
 - [Virtual View](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/virtual_view.jpg)
 - [CLI](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/cli.jpg)
 - [GUI](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/gui.jpg)
-- [Enums](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/enum.jpg)
-- [JSON readers](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/json_reader.jpg)
 
 ### JavaDoc
 
@@ -28,83 +25,67 @@ La seguente documentazione include una descrizione per la maggior parte delle cl
 
 ### Coverage report
 
-Al seguente link è possibile consultare il report della coverage dei test effettuati con Junit: [TODO](https://...)
+The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 38% overall line coverage
 
-### Librerie e Plugins
+### Used tools
 
-| Libreria/Plugin | Descrizione                                              |
-|-----------------|----------------------------------------------------------|
-| __Maven__       | Strumento di automazione della compilazione.             |
-| __JavaFx__      | Libreria grafica per realizzare interfacce utente.       |
-| __JUnit__       | Framework di unit testing.                               |
-| __PlantUML__    | Strumento per la generazione di diagrammi UML.           |
-| __Docker__      | Strumento di creazione ed esecuzione di container linux. |
+| Libreria/Plugin | Descrizione                                      |
+|-----------------|--------------------------------------------------|
+| __Maven__       | Build automation tool.                           |
+| __JavaFx__      | Set of packages used to develop the GUI.         |
+| __JUnit__       | Testing framework.                               |
+| __PlantUML__    | UML generation tool.                             |
+| __Docker__      | Platform used to build and run linux containers. |
 
-## Funzionalità
+## Features
 
-### Funzionalità Sviluppate
+### Developed Features
 
-- Regole Complete
+- Complete Rules
 - CLI
 - GUI
 - Socket
-- 2 FA (Funzionalità Avanzate):
-    - __Chat:__ Client e server devono offrire la possibilità ai giocatori coinvolti in una partita di chattare tra di loro, inviando messaggi (testuali) indirizzati a tutti i giocatori della partita
-      o a un singolo giocatore.
-    - __Partite Multiple:__ Realizzare il server in modo che possa gestire più partite contemporaneamente.
+- 2 FA (Advanced Features):
+    - __Chat:__ Client and server offer the provide the players with the ability to exchange messages to either all players or a single player.
+    - __Multiple Games:__ The server must be able to simultaneously manage multiple games.
 
 ## Client
 
-Di seguito è fornito il [jar precompilato](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) necessario per utilizzare il client. <br />
-Per compilare il jar autonomamente, posizionarsi nella root del progetto e lanciare il comando:
+To run the following [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) cam ne used to run the client application. <br />
+To create a client application jar, execute the following command in the project root:
 
 ```
 mvn clean install assembly:single
 ```
 
-Il jar compilato verrà posizionati all'interno della cartella ```target/``` con il nome ```my-shelfie-client-jar-with-dependencies.jar```. <br />
-Si noti che questo progetto richiede una versione di Java 11 o superiore per essere eseguito correttamente.
+The compiled jar will be found in the ```target/``` under the name ```my-shelfie-client-jar-with-dependencies.jar```. <br />
 
 #### CLI
 
-Per lanciare My Shelfie Client CLI digitare da terminale il comando:
-
-```
-java -jar my-shelfie-client.jar --cli
-```
-
-oppure
-
-```
-java -jar my-shelfie-client.jar -c
-```
+To run the client's CLI for My Shelfie, open the terminal and run either ```java -jar my-shelfie-client.jar --cli``` or ```java -jar my-shelfie-client.jar -c```.
 
 #### GUI
 
-Per poter lanciare la modalità GUI:
-digitare da terminale il comando: ```java -jar my-shelfie-client.jar``` <br />
-oppure
-effettuare doppio click sull'eseguibile ```my-shelfie-client.jar```
+To run the client's GUI for My Shelfie either run the following command ```java -jar my-shelfie-client.jar``` or double click on  ```my-shelfie-client.jar```.
 
 ### Server
 
-Il server è stato realizzato con docker, è quindi necessario scaricare l'immagine dalla repository di [DockerHub](https://hub.docker.com/repository/docker/mrcatta/my-shelfie-server/general), per fare
-ciò è necessario eseguire il comando:
+The server application can be run with docker, the image can be found at the following [DockerHub repository](https://hub.docker.com/repository/docker/mrcatta/my-shelfie-server/general). <br />
+to run the server, open the terminal and pull the image from the repository using:
 
 ```
 docker pull mrcatta/my-shelfie-server:latest
 ```
 
-successivamente basterà far partire il container:
+the start the container:
 
 ```
 docker run -p 28888:28888 mrcatta/my-shelfie-server 
 ```
 
-É importante notare che il container utilizza la porta 28888 e i client sono impostati per inviare messaggi alla porta 28888. (il parametro -p 28888:28888 mappa la porta 28888 del computer utilizzato
-alla 28888 del container)
+Note that the container uses port 28888 and the client application is the to send messages to port 28888 (-p 28888:28888 maps your machine's 28888 port to the container's 28888 port)
 
-## Componenti del gruppo
+## Group members
 
 - [__Luca Cattani__](https://github.com/SigCatta)
 - [__Simone Lucca__](https://github.com/SimoneLucca2)
