@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.concurrent.*;
 
 /**
- * This class is used to read the input stream and making the input kind of interruptible.
+ * This class is used to read the input stream.
  */
 public class InputReader implements Callable<String> {
     private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
