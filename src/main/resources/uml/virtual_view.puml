@@ -125,27 +125,18 @@ class VirtualView.Messages.GameMTC {
 
 
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ChatMTC
-java.io.Serializable <|.. VirtualView.Messages.ChatMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PlayerMTC
-java.io.Serializable <|.. VirtualView.Messages.PlayerMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ChosenTilesTableMTC
-java.io.Serializable <|.. VirtualView.Messages.ChosenTilesTableMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.BoardMTC
-java.io.Serializable <|.. VirtualView.Messages.BoardMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.CommonGoalVV
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.GameVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ShelfMTC
-java.io.Serializable <|.. VirtualView.Messages.ShelfMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.BoardVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.CommonGoalMTC
-java.io.Serializable <|.. VirtualView.Messages.CommonGoalMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PingMTC
-java.io.Serializable <|.. VirtualView.Messages.PingMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.PlayerVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.EchoMTC
-java.io.Serializable <|.. VirtualView.Messages.EchoMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ShelfVV
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ChosenTilesTableVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.GameMTC
-java.io.Serializable <|.. VirtualView.Messages.GameMTC
 @enduml
