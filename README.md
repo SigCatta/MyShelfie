@@ -49,7 +49,7 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 
 ## Client
 
-Di seguito è fornito il [jar precompilato](https://github.com/4faa3798-6b4b-4f8a-9118-c5ddfb0a0572) necessario per utilizzare il client. <br />
+Di seguito è fornito il [jar precompilato](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) necessario per utilizzare il client. <br />
 Per compilare il jar autonomamente, posizionarsi nella root del progetto e lanciare il comando:
 
 ```
