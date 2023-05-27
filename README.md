@@ -3,7 +3,7 @@
 ![alt text](src/main/resources/it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Box%20noshadow%20280x280.png)
 
 Implementation of the board game [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
-The project consists in the implementation of a single-server system capable of simultaneously managing multiple games made up of 2 to 4 clients (one for each player). Each player can choose to play using either the command line interface (later referred to as CLI) or the graphical user interface (later referred to as GUI). The project fully implements the MVC (Model-View-Controller) design pattern, further information about the realization of the network cna be found [here](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/NetworkDocumentation/NetworkDocumentation.md).
+The project consists in the implementation of a single-server system capable of simultaneously managing multiple games made up of 2 to 4 clients (one for each player). Each player can choose to play using either the command line interface (later referred to as CLI) or the graphical user interface (later referred to as GUI). The project fully implements the MVC (Model-View-Controller) design pattern, further information about the realization of the network can be found [here](deliveries/NetworkDocumentation/NetworkDocumentation.md).
 
 ## Documentation
 
