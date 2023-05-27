@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.cards.commonGoals.CommonGoalCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class represents a message to the client containing the information about the common goal cards.
+ */
 public class CommonGoalMTC implements MessageToClient, Serializable {
     private final ArrayList<String> cardNames;
     private final ArrayList<Integer> availablePoints;

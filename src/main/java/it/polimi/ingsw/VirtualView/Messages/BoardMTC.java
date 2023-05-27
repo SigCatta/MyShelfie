@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a message to the client containing the current state of the game board.
+ */
 public class BoardMTC implements MessageToClient, Serializable {
     private final ItemTile[][] BOARD;
 

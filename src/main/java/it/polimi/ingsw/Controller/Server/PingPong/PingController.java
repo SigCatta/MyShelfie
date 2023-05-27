@@ -6,6 +6,10 @@ import it.polimi.ingsw.network.server.SocketClientHandler;
 
 import java.util.Timer;
 
+/**
+ * This class is responsible for managing the ping-pong communication between the server and a client.
+ * It sends periodic ping messages to the client and handles the reception of pong messages.
+ */
 public class PingController extends Thread {
     private final Timer TIMER;
     private final int PING_TIMEOUT = 5000;
