@@ -13,7 +13,15 @@ partecipare ad una sola partita alla volta utilizzando il pattern MVC (Model-Vie
 
 Di seguito alcuni diagrammi uml descrittivi del progetto
 
-- [TODO](https://....)
+- [Model](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/model.jpg)
+- [Controller](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/controller.jpg)
+- [Network](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/network.jpg)
+- [Virtual Model](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/virtual_model.jpg)
+- [Virtual View](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/virtual_view.jpg)
+- [CLI](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/cli.jpg)
+- [GUI](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/gui.jpg)
+- [Enums](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/enum.jpg)
+- [JSON readers](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/UML/json_reader.jpg)
 
 ### JavaDoc
 
