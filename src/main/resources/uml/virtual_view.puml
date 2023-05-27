@@ -133,7 +133,6 @@ java.io.Serializable <|.. VirtualView.Messages.ChosenTilesTableMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.BoardMTC
 java.io.Serializable <|.. VirtualView.Messages.BoardMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.CommonGoalVV
-model.EndOfTurn.EndOfTurnObserver <|.. VirtualView.ModelObservers.CommonGoalVV
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.GameVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ShelfMTC
 java.io.Serializable <|.. VirtualView.Messages.ShelfMTC
@@ -143,13 +142,9 @@ java.io.Serializable <|.. VirtualView.Messages.CommonGoalMTC
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PingMTC
 java.io.Serializable <|.. VirtualView.Messages.PingMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.PlayerVV
-VirtualView.Messages.MessageToClient <|.. VirtualView.ModelObservers.PlayerVV
-java.io.Serializable <|.. VirtualView.ModelObservers.PlayerVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.EchoMTC
 java.io.Serializable <|.. VirtualView.Messages.EchoMTC
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ShelfVV
-VirtualView.Messages.MessageToClient <|.. VirtualView.ModelObservers.ShelfVV
-java.io.Serializable <|.. VirtualView.ModelObservers.ShelfVV
 VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ChosenTilesTableVV
 VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.GameMTC
 java.io.Serializable <|.. VirtualView.Messages.GameMTC

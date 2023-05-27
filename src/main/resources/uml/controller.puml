@@ -2,9 +2,6 @@
 class Controller.Server.Executor.HandshakeExecutor {
 + {static} void execute(HandshakeMTS)
 }
-class Controller.Server.Executor.ConnectionRestoredExecutor {
-+ {static} void execute(Game,String)
-}
 class Controller.Server.Executor.PickupTilesExecutor {
 + {static} void execute(MessageToServer)
 }
