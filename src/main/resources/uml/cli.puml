@@ -140,12 +140,6 @@ class View.CLI.InputStates.WaitingForPlayersState {
 + void play()
 + void update()
 }
-class View.CLI.Elements.DisconnectionHandler {
-- {static} DisconnectionHandler instance
-+ {static} DisconnectionHandler getInstance()
-+ void update()
-- void handleDisconnection()
-}
 class View.CLI.Elements.Views.TilesTableView {
 - {static} TilesTableView instance
 + {static} TilesTableView getInstance()
@@ -195,9 +189,9 @@ VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingPlayerState
 View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingPlayerState
 VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingForPlayersState
 View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingForPlayersState
-VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.DisconnectionHandler
 View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.TilesTableView
 View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.CommonGoalView
 VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.GameStartupState
 View.CLI.InputStates.InputState <|-- View.CLI.InputStates.GameStartupState
+View.CLI.InputStates.reader.CommandExecutorFactory -- View.CLI.InputStates.reader.commandExecutors.CommandExecutor
 @enduml

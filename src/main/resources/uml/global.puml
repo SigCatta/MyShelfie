@@ -1088,12 +1088,6 @@ class Controller.Server.PingPong.PingController {
 interface VirtualView.Messages.MessageToClient {
 ~ void update()
 }
-class View.CLI.Elements.DisconnectionHandler {
-- {static} DisconnectionHandler instance
-+ {static} DisconnectionHandler getInstance()
-+ void update()
-- void handleDisconnection()
-}
 class model.board.ChosenTilesTable.PickUpValidator {
 + {static} boolean isValid(Game,ArrayList<Point>)
 - {static} boolean onSameLine(ArrayList<Point>)
@@ -1308,10 +1302,10 @@ java.io.Serializable <|.. VirtualView.Messages.PingMTC
 model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
 model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
 Controller.Server.PingPong.Thread <|-- Controller.Server.PingPong.PingController
-VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.DisconnectionHandler
 javafx.fxml.Initializable <|.. View.GUI.SceneController.ChatController
 View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.ChatController
 View.CLI.InputStates.VirtualModelObserver <|.. View.CLI.InputStates.GameStartupState
 View.CLI.InputStates.InputState <|-- View.CLI.InputStates.GameStartupState
+View.CLI.InputStates.reader.CommandExecutorFactory -- View.CLI.InputStates.reader.commandExecutors.CommandExecutor
 VirtualModel.VirtualModelSubject <|-- VirtualModel.GameRepresentation
 @enduml
