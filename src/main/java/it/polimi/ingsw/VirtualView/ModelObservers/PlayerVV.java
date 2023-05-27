@@ -1,6 +1,5 @@
 package it.polimi.ingsw.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 import it.polimi.ingsw.VirtualView.Messages.PlayerMTC;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.player.Player;
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * The PlayerVV class is a model observer that listens for changes in the player state
  * and sends an updated player state to the clients.
  */
-public class PlayerVV implements ModelObserver, MessageToClient, Serializable {
+public class PlayerVV implements ModelObserver, Serializable {
 
     private final Player PLAYER;
     private final VirtualView VIRTUAL_VIEW;

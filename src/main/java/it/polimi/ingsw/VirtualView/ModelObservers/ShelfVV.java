@@ -1,6 +1,5 @@
 package it.polimi.ingsw.VirtualView.ModelObservers;
 
-import it.polimi.ingsw.VirtualView.Messages.MessageToClient;
 import it.polimi.ingsw.VirtualView.Messages.ShelfMTC;
 import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.player.Player;
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * The ShelfVV class is a model observer that listens for changes in the player's shelf
  * and sends an updated shelf state to the clients.
  */
-public class ShelfVV implements ModelObserver, MessageToClient, Serializable {
+public class ShelfVV implements ModelObserver, Serializable {
     private final VirtualView VIRTUAL_VIEW;
     private final Player OWNER;
 

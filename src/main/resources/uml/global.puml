@@ -113,9 +113,6 @@ class VirtualView.Messages.ChatMTC {
 class Controller.Server.Executor.PickupTilesExecutor {
 + {static} void execute(MessageToServer)
 }
-class Controller.Server.Executor.ConnectionRestoredExecutor {
-+ {static} void execute(Game,String)
-}
 class VirtualView.Messages.PlayerMTC {
 - String nickname
 - boolean IS_CONNECTED
