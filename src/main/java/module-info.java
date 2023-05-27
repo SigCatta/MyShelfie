@@ -17,5 +17,8 @@ open module proj.ingsw.The.Compiler.Coalition {
     exports it.polimi.ingsw.model.player;
     exports it.polimi.ingsw.VirtualView.ModelObservers;
     exports it.polimi.ingsw.model.board;
+    exports it.polimi.ingsw.VirtualView;
+    exports it.polimi.ingsw.model;
+    exports it.polimi.ingsw.network.server;
 
 }

@@ -87,14 +87,27 @@ instructions and potentially modify the game model accordingly.
 
 To communicate changes in the virtual model to the clients, the server
 employs the Observable-Observer design pattern between the model (observable)
-and the virtual view (observer). The virtual view consists of a logical
+and the virtual view (observer).
+
+**Virtual view:**
+
+The virtual view consists of a logical
 cluster of classes that are responsible for sending messages to the clients
 when the model changes.
+It is initialized upon creation of a new game and assigned to it.
+The VirtualView class creates all the observer classes designed to send
+specific type of messages to the client when notified.
+
+Here is the UML diagram:
+
+![img_4.png](img_4.png)
 
 In order for the server to send messages to the clients, each message must
 implement the MessageToClient interface and implement the update() method.
 The purpose of this method is to update the virtual model, following the
 Model-View-Controller (MVC) design pattern.
+
+![img_5.png](img_5.png)
 
 Let's consider the example of the BoardMTC class:
 
@@ -114,11 +127,14 @@ the changes in the game's state.
 
 **Virtual model:**
 
-In the virtual model of "MyShelfie," a lightweight representation of
-the necessary information from the server's model is utilized.
+The virtual model is located in the controller section of the client,
+and it is responsible for creating a mirror image of the game model,
+so that the client can have the necessary data to view the game.
 The virtual model is designed to be lightweight and only includes
 essential data. To achieve this, each entity in the model is represented
 by a singleton class in the virtual model.
+
+![img_2.png](img_2.png)
 
 Let's consider the example of the BoardRepresentation class:
 
