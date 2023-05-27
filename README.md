@@ -23,6 +23,8 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 | __Maven__       | Strumento di automazione della compilazione.       |
 | __JavaFx__      | Libreria grafica per realizzare interfacce utente. |
 | __JUnit__       | Framework di unit testing.                         |
+| __PlantUML__    | Strumento per la generazione di diagrammi UML.     |
+
 
 ## Funzionalità
 ### Funzionalità Sviluppate
