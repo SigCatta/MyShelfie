@@ -16,7 +16,7 @@ public class ChosenTilesTable implements ModelSubject {
     private final List<ItemTile> chosenTiles = new ArrayList<>();
 
     /**
-     * this attribute is set when the player wants to inseert the first tile of chosenTiles into their shelf
+     * this attribute is set when the player wants to insert the first tile of chosenTiles into their shelf
      */
     private Integer chosenColumn;
 

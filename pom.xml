@@ -90,6 +90,7 @@
     </dependencies>
 
     <build>
+        <finalName>my-shelfie-client</finalName>
         <pluginManagement>
         <plugins>
             <!-- Testing Plugins -->
