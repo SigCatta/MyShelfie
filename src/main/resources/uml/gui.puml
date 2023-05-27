@@ -1,0 +1,327 @@
+@startuml
+class View.GUI.SceneController.VirtualModelObservers.GameObserver {
++ void update()
+}
+class View.GUI.SceneController.WinSceneController {
+~ Text player1Nickname
+~ List<Text> nicknamesText
+~ Text player1Points
+~ List<Text> pointsText
+~ List<Integer> points
+~ ImageView player1CrownImage
+~ List<ImageView> crowns
+- void setWinner()
++ void updatePlayers()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.VirtualModelObservers.ShelfObserver {
++ void update()
+}
+class View.GUI.SceneController.VirtualModelObservers.EchoObserver {
++ void update()
+}
+class View.GUI.SceneController.Utility.CardImagesManager {
+- {static} URL COMMON_GOAL_PACKAGE
+- {static} URL PERSONAL_GOAL_PACKAGE
+- {static} HashMap<String,Image> commonGoals
+- {static} HashMap<String,Image> personalGoals
++ {static} Image getCommonGoalImage(String)
++ {static} Image getPersonalGoalImage(String)
+}
+class View.GUI.SceneController.Utility.ChatMemory {
+- {static} TextField[][] messageInChat
++ {static} TextField getMessage(int,int)
++ {static} void setMessage(TextField,int,int)
++ {static} void setMessage(String,int,int)
++ {static} void clear()
+}
+class View.GUI.SceneController.Utility.ConnectionPendingTimer {
+- {static} Timer connectionPendingTimer
+- {static} boolean connectionPending
++ {static} void start(int)
++ {static} void cancel()
++ {static} boolean isPending()
+}
+class View.GUI.SceneController.OtherShelvesController {
+~ GridPane shelf
+~ Text playerName
+- {static} String currentPlayerNickname
+- {static} int currentPlayerIndex
++ void initialize(URL,ResourceBundle)
++ void updateShelf()
+- void getFirstPlayerThatIsNotMe()
++ void onPrevButtonClicked()
++ void onNextButtonClicked()
++ void onBackToBoardButtonClicked()
+}
+class View.GUI.SceneController.VirtualModelObservers.PlayerObserver {
++ void update()
+}
+class View.GUI.SceneController.LobbyController {
+- {static} boolean initialized
+# void onPlayButtonClick()
+# void onExitButtonClick()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.EnterGameSceneController {
+~ ImageView wrongGameIdImage
+~ RadioButton newGameRB
+~ RadioButton joinGameRB
+~ Text gameIdText
+~ TextField gameIdField
+~ Button continueButton
+~ Text errorText
+~ AnchorPane errorPane
+- boolean connectPlayer
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
++ void connectPlayer()
++ void enterGame()
++ void connectionFailed()
++ void wrongGameIdEffect(boolean)
++ void onJoinGameRBClicked()
++ void onNewGameRBClicked()
++ void setContinueButtonVisible()
++ void onGameIdInsert()
+}
+class View.GUI.SceneController.Utility.ItemTileMemory {
+- {static} Map<Integer,ItemTile> ID_TO_ITEM_TILE
+- {static} Map<Integer,Point> ID_TO_POSITION
+- {static} Map<Integer,Image> TILE_TO_IMAGE
++ {static} void put(int,ItemTile)
++ {static} void put(int,Point)
++ {static} void put(int,Image)
++ {static} void put(int,ItemTile,Point)
++ {static} void put(int,ItemTile,Point,Image)
++ {static} Point getPoint(int)
++ {static} ItemTile getTile(int)
++ {static} Image getImage(int)
++ {static} boolean contains(int)
+}
+class View.GUI.SceneController.VirtualModelObservers.TilesTableObserver {
++ void update()
+}
+class View.GUI.Gui {
++ void start(Stage)
++ {static} void main(String[])
+}
+class View.GUI.SceneController.DisconnectionErrorSceneController {
+# void onExitButtonClick()
+# void onLobbyButtonClick()
+}
+class View.GUI.SceneController.LoginSceneController {
+~ TextField nicknameField
+~ TextField ipField
+~ ImageView continueButton
+~ Label continueText
+~ ImageView wrongNicknameImage
+~ Text wrongNicknameText
+~ AnchorPane nicknameErrorPane
+~ AnchorPane ipErrorPane
+~ ImageView wrongIpImage
+~ Text wrongIpText
+~ StackPane login_scene
++ void updateEcho(EchoMTC)
+# void onGoBackButtonClick()
+# void onContinueButtonClick()
++ void setContinueButtonVisible()
++ void onKeyPressed(KeyEvent)
+- void showCouldNotConnectMessage()
+- void badNicknameEffect(EchoMTC)
+- void goToCreateGame()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.ObjectiveCardController {
+~ ImageView commonGoalCard1
+~ ImageView commonGoalCard2
+~ ImageView personalGoalImage
+~ Text card1Description
+~ Text card2Description
+~ Text pointCG1Text
+~ Text pointCG2Text
+- void initCommonGoals()
+- void initPersonalGoals()
++ void updateGame()
++ void updateCommonGoals()
++ void setPointCG1Text(int)
++ void setPointCG2Text(int)
++ void setCard1Description(String)
++ void setCard2Description(String)
++ void onGoBackClicked()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.StageController {
+- {static} Stage currentStage
+- {static} GuiController controller
++ {static} Scene activeScene
++ {static} void setUpStage(Stage,String)
++ {static} GuiController getController()
++ {static} void changeScene(String,String)
+}
+class View.GUI.SceneController.BoardController {
+- List<Integer> cardsSelectedFromBoard
+- String myNickname
+- int selectedTileToSendToShelf
+~ GridPane board
+~ FlowPane myChosenTilesTable
+~ Circle newMessageIcon
+~ AnchorPane chooseColumnPane
+~ AnchorPane errorPane
+~ ImageView errorImage
+~ Text errorText
+~ ImageView col0InsertButton
+~ ImageView firstScoreToken
+~ FlowPane playersPane
+~ ImageView changeChat
+~ StackPane pointsPane
+~ Text pointNumber
++ void initialize(URL,ResourceBundle)
+- void initInsertButtons()
+- void initPlayersName()
+- void initShelf()
+- void initBoard()
++ void initChangeSceneButtons()
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateEcho(EchoMTC)
++ void updateGame()
+- void updateChangeTurn()
++ void updatePlayers()
+- void updateLastTurn()
+- void showError(EchoMTC)
+- void attachBoardListener(ImageView)
++ void onPickUpDoneClicked()
++ void setUpChosenTilesTable()
+- void attachChosenTileListener(ImageView)
++ void onCol0InserterSelected()
++ void onCol1InserterSelected()
++ void onCol2InserterSelected()
++ void onCol3InserterSelected()
++ void onCol4InserterSelected()
++ void onInsertTileClicked(int)
++ void onObjectivesClicked()
++ void onShelvesClicked()
++ void onChatClicked()
+}
+class View.GUI.SceneController.VirtualModelObservers.ChatObserver {
++ void update()
+}
+class View.GUI.SceneController.Utility.BoardMemory {
+- {static} ImageView[][] imagesInBoard
++ {static} void put(ImageView,int,int)
++ {static} ImageView get(int,int)
++ {static} void removeImage(int,int)
+}
+class View.GUI.SceneController.VirtualModelObservers.BoardObserver {
++ void update()
+}
+class View.GUI.SceneController.WaitingRoomController {
+~ Text playersNamesText
+~ Text maxNumText
+~ int maxNumberOfPlayers
+~ Text currentNumText
+~ TextField gameIdText
+- boolean entered
++ void updateGame()
++ void updateEcho(EchoMTC)
++ void updatePlayers()
+- void enterGame()
+- void addPlayerToString(String)
+- void addPlayerToString(List<String>)
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.Utility.ItemRefillUtility {
+- {static} String ITEM_TILES_PACKAGE
++ {static} Image createImage(ItemTile)
++ {static} void updateBoardGrid(ItemTile[][])
++ {static} void updateShelfGrid(ItemTile[][])
++ {static} void updateOtherShelfGrid(GridPane,ItemTile[][])
+}
+class View.GUI.SceneController.PlayerNumSceneController {
+~ ToggleGroup playerNumToggle
+~ RadioButton twoPlayers
+~ RadioButton threePlayers
+~ RadioButton fourPlayers
+- boolean continueClicked
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
+# void onBackToMenuButtonClick()
++ int getPlayerNum()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.Utility.ShelfMemory {
+- {static} ImageView[][] imagesInMyShelf
++ {static} void put(ImageView,int,int)
++ {static} ImageView get(int,int)
++ {static} void setImage(Image,int,int)
+}
+class View.GUI.SceneController.ChatController {
+~ TextField newMessageField
+~ SplitMenuButton receiverMenu
+~ MenuItem player2MenuItem
+~ MenuItem player3MenuItem
+~ MenuItem player4MenuItem
+~ MenuItem broadcastMenuItem
+~ GridPane chat
+~ StackPane chat_scene
+~ {static} String receiverNickname
+- boolean enterKeyBusy
++ void initChat()
++ void updateGame()
++ void updateChat()
++ void onBackToBoardClicked()
++ void onSendButtonClicked()
++ void onKeyPressed(KeyEvent)
++ void onBroadcastClicked()
++ void onPlayer2Clicked()
++ void onPlayer3Clicked()
++ void onPlayer4Clicked()
+- void initNickname()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver {
++ void update()
+}
+abstract class View.GUI.SceneController.GuiController {
++ void updateGame()
++ void updatePlayers()
++ void updateEcho(EchoMTC)
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateCommonGoals()
+}
+
+
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.GameObserver
+javafx.fxml.Initializable <|.. View.GUI.SceneController.WinSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.WinSceneController
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.ShelfObserver
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.EchoObserver
+javafx.fxml.Initializable <|.. View.GUI.SceneController.OtherShelvesController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.OtherShelvesController
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.PlayerObserver
+javafx.fxml.Initializable <|.. View.GUI.SceneController.LobbyController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.LobbyController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.EnterGameSceneController
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.TilesTableObserver
+javafx.application.Application <|-- View.GUI.Gui
+javafx.fxml.Initializable <|.. View.GUI.SceneController.LoginSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.LoginSceneController
+javafx.fxml.Initializable <|.. View.GUI.SceneController.ObjectiveCardController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.ObjectiveCardController
+javafx.fxml.Initializable <|.. View.GUI.SceneController.BoardController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.BoardController
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.ChatObserver
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.BoardObserver
+javafx.fxml.Initializable <|.. View.GUI.SceneController.WaitingRoomController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.WaitingRoomController
+javafx.fxml.Initializable <|.. View.GUI.SceneController.PlayerNumSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.PlayerNumSceneController
+javafx.fxml.Initializable <|.. View.GUI.SceneController.ChatController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.ChatController
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver
+@enduml

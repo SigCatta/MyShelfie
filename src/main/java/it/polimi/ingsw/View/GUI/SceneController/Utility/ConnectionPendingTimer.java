@@ -3,6 +3,10 @@ package it.polimi.ingsw.View.GUI.SceneController.Utility;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The ConnectionPendingTimer class is used to measure the time taken by the server to respond.
+ * If the response time exceeds a specified threshold, it sends an error message.
+ */
 public class ConnectionPendingTimer {
     /**
      * used to measure the time taken by the server to respond,
@@ -16,8 +20,13 @@ public class ConnectionPendingTimer {
      */
     private static boolean connectionPending;
 
+    /**
+     * Starts the connection pending timer with the specified time threshold.
+     * If the timer is already running, it will be canceled and restarted.
+     *
+     * @param time the time threshold in seconds
+     */
     public static void start(int time) {
-
         if (connectionPending) {
             cancel();
         }
@@ -40,11 +49,19 @@ public class ConnectionPendingTimer {
         connectionPendingTimer.scheduleAtFixedRate(task, 0, 1000);
     }
 
+    /**
+     * Cancels the connection pending timer and resets the connection pending flag.
+     */
     public static void cancel() {
         connectionPendingTimer.cancel();
         connectionPending = false;
     }
 
+    /**
+     * Checks if the connection pending timer is currently running.
+     *
+     * @return true if the connection pending timer is running, false otherwise
+     */
     public static boolean isPending() {
         return connectionPending;
     }

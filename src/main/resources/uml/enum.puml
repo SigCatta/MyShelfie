@@ -1,0 +1,34 @@
+@startuml
+enum Enum.Color {
++  GREEN
++  YELLOW
++  BLUE
++  LIGHTBLUE
++  PINK
++  WHITE
+}
+enum Enum.EchoID {
++  PANIC
++  NOID
++  GAMEFULL
++  BADNICK
++  BADCOLUMN
++  NICKOK
++  JOINED
++  CREATED
++  GAMESTARTED
++  WRONG_CHOSEN_TABLE_INDEX
++  WRONGSTATE
++  NOTACTIVE
++  BADPICKUP
++  COLUMNDIFF
++  NOPLAYER
++  LAST_TURN
+}
+enum Enum.GameState {
++  PREGAME
++  PICK_UP_TILES
++  INSERT_TILES
++  END
+}
+@enduml

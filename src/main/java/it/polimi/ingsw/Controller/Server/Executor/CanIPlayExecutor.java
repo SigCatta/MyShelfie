@@ -11,6 +11,10 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
+/**
+ * This class is responsible for executing the {@link CanIPlayMTS} command received from the client.
+ * It connects a player to an existing game if the game is in the pregame state and has available slots.
+ */
 public class CanIPlayExecutor implements Executor {
     /**
      * connects a player to an existing game

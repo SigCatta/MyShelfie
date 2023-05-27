@@ -8,6 +8,10 @@ import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
+/**
+ * This class is responsible for executing the {@link ChatMTS} command received from the client.
+ * It handles broadcasting messages or sending messages to specific recipients.
+ */
 public class ChatExecutor implements Executor {
 
     public static void execute(MessageToServer message) {

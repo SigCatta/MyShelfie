@@ -10,6 +10,10 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.tiles.ItemTile;
 import it.polimi.ingsw.network.server.SocketClientHandler;
 
+/**
+ * This class is responsible for executing the {@link InsertTileMTS} command received from the client.
+ * It handles the insertion of tiles into the player's shelf based on the chosen tiles from the chosen tiles table.
+ */
 public class InsertTilesExecutor implements Executor {
 
     public static void execute(InsertTileMTS insertTileMessage) {

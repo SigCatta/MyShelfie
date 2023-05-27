@@ -9,10 +9,17 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * this class is responsible for controlling the lobby scene in the GUI.
+ */
 public class LobbyController extends GuiController implements Initializable {
 
     private static boolean initialized;
 
+    /**
+     * Handles the event when the "Play" button is clicked.
+     * Navigates to the login scene where the player can enter their information.
+     */
     @FXML
     protected void onPlayButtonClick() {
         //player must insert his info
@@ -21,6 +28,10 @@ public class LobbyController extends GuiController implements Initializable {
 
     }
 
+    /**
+     * Handles the event when the "Exit" button is clicked.
+     * Exits the application.
+     */
     @FXML
     protected void onExitButtonClick() {
         //end game
@@ -28,6 +39,12 @@ public class LobbyController extends GuiController implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * Initializes the lobby scene.
+     * Creates observers for the virtual model representations if not already initialized.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (initialized) return;

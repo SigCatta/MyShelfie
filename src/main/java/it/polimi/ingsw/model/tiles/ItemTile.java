@@ -4,6 +4,9 @@ import it.polimi.ingsw.Enum.Color;
 
 import java.io.Serializable;
 
+/**
+ * A class representing a tile
+ */
 public class ItemTile implements Serializable {
     private final Color COLOR;
     /**

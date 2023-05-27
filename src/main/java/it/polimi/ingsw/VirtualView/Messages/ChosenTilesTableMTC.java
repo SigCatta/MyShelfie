@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * This class represents a message to the client containing the current chosen tiles on the table.
+ */
 public class ChosenTilesTableMTC implements MessageToClient, Serializable {
     private final List<ItemTile> CHOSEN_TILES;
 

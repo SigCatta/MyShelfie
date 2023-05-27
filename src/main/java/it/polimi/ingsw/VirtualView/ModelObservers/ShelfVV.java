@@ -7,10 +7,21 @@ import it.polimi.ingsw.model.player.Player;
 
 import java.io.Serializable;
 
+/**
+ * The ShelfVV class is a model observer that listens for changes in the player's shelf
+ * and sends an updated shelf state to the clients.
+ */
 public class ShelfVV implements ModelObserver, MessageToClient, Serializable {
     private final VirtualView VIRTUAL_VIEW;
     private final Player OWNER;
 
+    /**
+     * Constructs a ShelfVV object with the specified player and virtual view.
+     * It registers itself as an observer of the player's shelf.
+     *
+     * @param player      the player object representing the player
+     * @param virtualView the virtual view object used to send messages to the clients
+     */
     public ShelfVV(Player player, VirtualView virtualView) {
         this.OWNER = player;
         this.VIRTUAL_VIEW = virtualView;

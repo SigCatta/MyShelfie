@@ -14,6 +14,11 @@ import it.polimi.ingsw.network.server.SocketClientHandler;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for executing the {@link PickUpTilesMTS} command received from the client.
+ * It checks the validity of the positions and removes the corresponding tiles from the board,
+ * placing them in the chosen tiles table.
+ */
 public class PickupTilesExecutor implements Executor {
 
     /**

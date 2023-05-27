@@ -1,0 +1,89 @@
+@startuml
+class VirtualModel.ShelvesRepresentation {
+- Map<String,ShelfMTC> SHELF_MESSAGES
+- {static} ShelvesRepresentation instance
++ {static} ShelvesRepresentation getInstance()
++ void updateShelf(ShelfMTC)
++ ShelfMTC getShelfMessage(String)
+}
+class VirtualModel.ChatRepresentation {
+- ArrayList<ChatMTC> CHAT
+- {static} ChatRepresentation instance
++ {static} ChatRepresentation getInstance()
++ ArrayList<ChatMTC> getMessages()
++ void addMessage(ChatMTC)
+}
+interface VirtualModel.VirtualModelObserver {
+~ void update()
+}
+class VirtualModel.TilesTableRepresentation {
+- {static} TilesTableRepresentation instance
+- ChosenTilesTableMTC tilesTableMessage
++ {static} TilesTableRepresentation getInstance()
++ void updateTable(ChosenTilesTableMTC)
++ List<ItemTile> getTiles()
+}
+abstract class VirtualModel.VirtualModelSubject {
+# List<VirtualModelObserver> observers
++ void registerObserver(VirtualModelObserver)
++ void removeObserver(VirtualModelObserver)
++ void notifyObservers()
+}
+class VirtualModel.BoardRepresentation {
+- ItemTile[][] board
+- {static} BoardRepresentation instance
++ {static} BoardRepresentation getInstance()
++ void setBoard(BoardMTC)
++ ItemTile[][] getBoard()
++ Color[][] getBoardColors()
+}
+class VirtualModel.EchosRepresentation {
+- Stack<EchoMTC> messages
+- {static} EchosRepresentation instance
++ {static} EchosRepresentation getInstance()
++ void putMessage(EchoMTC)
++ EchoMTC popMessage()
++ EchoMTC peekMessage()
++ void clean()
+}
+class VirtualModel.PlayersRepresentation {
+- Map<String,PlayerMTC> PLAYER_MESSAGES
+- {static} PlayersRepresentation instance
++ {static} PlayersRepresentation getInstance()
++ ArrayList<String> getPlayersList()
++ int getPlayerScore(String)
++ PlayerMTC getPlayerInfoByNickname(String)
++ ArrayList<PlayerMTC> getAllPlayerMTC()
++ void updatePlayer(PlayerMTC)
+}
+class VirtualModel.CommonGoalsRepresentation {
+- {static} CommonGoalsRepresentation instance
+- CommonGoalMTC commonGoalMessage
++ {static} CommonGoalsRepresentation getInstance()
++ void updateCommonGoal(CommonGoalMTC)
++ ArrayList<String> getCardNames()
++ CommonGoalMTC getCommonGoalMessage()
++ ArrayList<Integer> getAvailablePoints()
+}
+class VirtualModel.GameRepresentation {
+- GameMTC gameMessage
+- {static} GameRepresentation instance
++ {static} GameRepresentation getInstance()
++ void setGame(GameMTC)
++ int getMAX_PLAYER_NUMBER()
++ int getGameID()
++ GameState getGameState()
++ String getActivePlayerNickname()
++ GameMTC getGameMessage()
+}
+
+
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ShelvesRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ChatRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.TilesTableRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.BoardRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.EchosRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.PlayersRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.CommonGoalsRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.GameRepresentation
+@enduml

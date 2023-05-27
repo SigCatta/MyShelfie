@@ -15,6 +15,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+/**
+ * This class is responsible for controlling the waiting room scene in the GUI.
+ */
 public class WaitingRoomController extends GuiController implements Initializable {
     @FXML
     Text playersNamesText;
@@ -30,6 +34,9 @@ public class WaitingRoomController extends GuiController implements Initializabl
 
     private boolean entered;
 
+    /**
+     * Updates the game information in the waiting room.
+     */
     @Override
     public synchronized void updateGame() {
 
@@ -45,6 +52,10 @@ public class WaitingRoomController extends GuiController implements Initializabl
         updatePlayers();
     }
 
+    /**
+     * Updates the waiting room based on the EchoMTC object received.
+     * @param echoMTC the EchoMTC object containing the update information
+     */
     @Override
     public void updateEcho(EchoMTC echoMTC) {
         if (echoMTC.getID() == EchoID.JOINED) {
@@ -52,6 +63,9 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
     }
 
+    /**
+     * Updates the list of players in the waiting room.
+     */
     @Override
     public synchronized void updatePlayers() {
         playersNamesText.setText("");
@@ -69,6 +83,9 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
     }
 
+    /**
+     * Enters the game if all the players have entered.
+     */
     private synchronized void enterGame() {
         if(entered) return;
         entered = true;
@@ -76,10 +93,18 @@ public class WaitingRoomController extends GuiController implements Initializabl
         Platform.runLater(() -> StageController.changeScene("fxml/board.fxml", "Living room"));
     }
 
+    /**
+     * Adds a player's nickname to the playersNamesText field.
+     * @param nickname the nickname of the player to be added
+     */
     private void addPlayerToString(String nickname) {
         playersNamesText.setText(nickname + ", " + playersNamesText.getText());
     }
 
+    /**
+     * Adds multiple players' nicknames to the playersNamesText field.
+     * @param nicknames the list of nicknames of players to be added
+     */
     private void addPlayerToString(List<String> nicknames) {
         for (String name : nicknames) {
             playersNamesText.setText(name + ", " + playersNamesText.getText());
@@ -89,6 +114,11 @@ public class WaitingRoomController extends GuiController implements Initializabl
         System.out.println(maxNumberOfPlayers);
     }
 
+    /**
+     * Initializes the WaitingRoomController.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateGame();

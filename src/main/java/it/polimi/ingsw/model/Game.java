@@ -24,6 +24,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * A class that represent a single Game
+ * It contains and manages the classes of the model and their observers
+ */
 public class Game implements ModelSubject {
 
     private final ArrayList<ModelObserver> observers;

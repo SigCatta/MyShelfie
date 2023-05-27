@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.Enum.Color;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
+/**
+ * A class that contains helper methods used by CommonGoalStrategy classes
+ */
 public class ShelfUtils {
     /**
      * @param shelfGrid the matrix of colors to check, represented as a 2D array of Color objects

@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * The class that contains the static methods to check whether
+ * the ItemTiles selected by the player can be picked up from the board
+ */
 public class PickUpValidator {
 
     /**

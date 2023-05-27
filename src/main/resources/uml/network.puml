@@ -1,0 +1,61 @@
+@startuml
+class network.server.ServerSocketAccepter {
+- int port
+~ ServerSocket serverSocket
++ void run()
+}
+class network.server.SocketClientHandler {
+- Socket client
+- PingController pingController
+- String nickname
+- int gameID
+- ObjectOutputStream outputStm
+- ObjectInputStream input
+- boolean stop
++ void run()
+- void handleClientMessages()
++ void disconnect()
++ void sendCommand(MessageToClient)
++ String getNickname()
++ void setNickname(String)
++ PingController getPingController()
++ int getGameID()
++ void setGameID(int)
+}
+abstract class network.server.ClientHandler {
++ {abstract}void disconnect()
++ {abstract}void sendCommand(MessageToClient)
+}
+class network.server.Server {
++ {static} Logger LOGGER
+}
+abstract class network.client.Client {
+# String nickname
++ {static} Logger LOGGER
++ {abstract}void sendCommand(MessageToServer)
++ {abstract}void readCommand()
++ {abstract}void disconnect()
++ String getNickname()
++ void setNickname(String)
+}
+class network.client.SocketClient {
+- {static} Client clientInstance
+- Socket socket
+- ObjectOutputStream outputStm
+- ObjectInputStream inputStm
+- ExecutorService readExecutionQueue
+- String nickname
+- {static} int SOCKET_TIMEOUT
++ {static} Client getInstance()
++ {static} Client getInstance(String,int)
++ void readCommand()
++ void sendCommand(MessageToServer)
++ void disconnect()
+}
+
+
+network.server.Runnable <|.. network.server.ServerSocketAccepter
+network.server.Runnable <|.. network.server.SocketClientHandler
+network.server.ClientHandler <|-- network.server.SocketClientHandler
+network.client.Client <|-- network.client.SocketClient
+@enduml

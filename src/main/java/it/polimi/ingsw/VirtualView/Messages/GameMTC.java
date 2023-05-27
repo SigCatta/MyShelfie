@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.Game;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a message to the client containing information about the game state.
+ */
 public class GameMTC implements MessageToClient, Serializable {
 
     private final int GAMEID;

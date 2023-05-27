@@ -1,0 +1,283 @@
+@startuml
+class model.EndOfTurn.BoardRefresher.RefreshTrigger {
++ {static} boolean isBoardRefreshable(Board)
+- {static} boolean isNotNull(ItemTile)
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.EndOfTurn.ScoreCalculation.AdjacencyScoreCalculation {
++ {static} int calculateScore(Player)
+- {static} List<Integer> findClusters(ItemTile[][])
+- {static} List<Integer> dfs(ItemTile[][],int,int,Color,Set<String>)
+}
+class model.cards.commonGoals.commonGoalsStrategy.XShapedCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.personalGoals.PersonalCardDealer {
+- {static} File personalCardsDirectory
++ {static} void getCards(ArrayList<Player>)
+}
+class model.EndOfTurn.BoardRefresher.BoardRefresher {
+- Board board
+- Bag BAG
+- Game GAME
+- boolean[][] lookUpTable
++ void refillBoard()
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.ScaleCGS {
++ boolean isGoalAchieved(Shelf)
++ boolean hasIncreasingColumns(ItemTile[][],boolean)
+}
+class model.cards.commonGoals.CommonGoalCard {
+- ArrayList<ModelObserver> observers
+# Stack<Integer> pointsStack
+- CommonGoalStrategy commonGoalStrategy
+- HashSet<Player> playersWhoCompleted
+- void initStackPoints(int)
++ int calculateScore(Player)
++ boolean hasCompleted(Player)
+- boolean isGoalAchieved(Shelf)
++ int popPoints()
++ int peekPoints()
++ String getCardName()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.Game {
+- ArrayList<ModelObserver> observers
+- int BOARD_DIMENSION
+- int MAX_PLAYER_NUMBER
+- VirtualView virtualView
+- int gameID
+- Bag bag
+- Board board
+- ChosenTilesTable chosenTilesTable
+- GameState gameState
+- ArrayList<CommonGoalCard> commonGoals
+- ArrayList<Player> players
+- Player activePlayer
+- TurnHandler turnHandler
++ ArrayList<CommonGoalCard> getCommonGoals()
++ void start()
++ void setVirtualView(VirtualView)
+- void turnHandlerInitializer()
++ void end()
++ Board getBoard()
++ ArrayList<Player> getPlayers()
++ Player getActivePlayer()
++ void setActivePlayer(Player)
++ Bag getBag()
++ ChosenTilesTable getChosenTilesTable()
++ void addPlayer(Player)
++ TurnHandler getTurnHandler()
++ Player getWinner()
++ int getMAX_PLAYER_NUMBER()
++ void setGameID(int)
++ int getGameID()
++ void setGameState(GameState)
++ Player getPlayer(String)
++ void disconnectPlayer(String)
++ GameState getGameState()
++ VirtualView getVirtualView()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+interface model.EndOfTurn.EndOfTurnSubject {
+~ void attachEndOfTurn(EndOfTurnObserver)
+~ void notifyObservers()
+}
+class model.EndOfTurn.TurnHandler {
++ Game game
+- List<EndOfTurnObserver> observers
+- List<Player> players
+- boolean lastTurn
++ void changeTurn()
++ void startLastTurn()
++ void attachEndOfTurn(EndOfTurnObserver)
++ void notifyObservers()
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS {
++ boolean isGoalAchieved(Shelf)
+- boolean hasLessThanFiveTiles(ItemTile[])
+}
+class model.player.Shelf {
+- ArrayList<ModelObserver> observers
+- int COLUMNS
+- int ROWS
+- ItemTile[][] shelfGrid
++ ItemTile getTileAtLocation(Point)
++ void setTileAtLocation(Point,ItemTile)
++ void setShelfGrid(ItemTile[][])
++ ItemTile[][] getShelfGrid()
++ int getNumOfBoxLeftInCol(int)
++ boolean isColumnFull(int)
++ int getCOLUMNS()
++ int getROWS()
++ boolean insertTile(ItemTile,int)
++ boolean isFull()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.tiles.ItemTile {
+- Color COLOR
+- int id
++ int getId()
++ Color getColor()
+}
+class model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.board.Board {
+- ArrayList<ModelObserver> OBSERVERS
+- ItemTile[][] BOARD_GRID
++ ItemTile[][] getBoardGrid()
++ int getSize()
++ void setItemTile(Color,int,int)
++ ItemTile removeItemTile(Point)
++ ArrayList<ItemTile> removeItemTiles(ArrayList<Point>)
++ void emptyBoard()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.player.ShelfUtils {
++ {static} boolean checkMatrixWithDFS(ItemTile[][],int,int)
+- {static} int dfs(ItemTile[][],boolean[][],int,int,Color)
+}
+interface model.EndOfTurn.EndOfTurnObserver {
+~ void update()
+}
+class model.tiles.Bag {
+- int NUMBER_OF_COLORS
+- int TILES_PER_COLOR
+- int tilesLeft
+- HashMap<Color,Integer> colorNumber
++ ItemTile drawTile()
+~ Color randomColor()
+}
+class model.cards.commonGoals.CommonCardDealer {
++ {static} List<CommonGoalStrategy> possibleCommonGoals
++ {static} List<CommonGoalStrategy> pickCardStrategies(int)
++ {static} List<CommonGoalCard> pickCommonGoalCards(int,int)
+- {static} void initCommonGoals()
+}
+class model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.board.ChosenTilesTable.ChosenTilesTable {
+- List<ModelObserver> observers
+- List<ItemTile> chosenTiles
+- Integer chosenColumn
++ void addTiles(ArrayList<ItemTile>)
++ ItemTile popTile(int)
++ int size()
++ Integer getChosenColumn()
++ void setChosenColumn(Integer)
++ List<ItemTile> getChosenTiles()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+abstract class model.cards.commonGoals.CommonGoalStrategy {
++ {abstract}boolean isGoalAchieved(Shelf)
++ String getCardName()
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.EndOfTurn.ScoreCalculation.ScoreBoard {
+- Game game
+- boolean isFirstPointAssigned
+- ArrayList<CommonGoalCard> commonGoals
+- boolean calculatedEndGame
+- void scoreCommonGoalCards(Player)
++ void update()
+- Player getPreviousActivePlayer()
++ void endGameScoreUpdate()
+- void scoreFirstCompletedShelf(Player)
+- void scorePersonalGoals()
+- void scoreAdjacency()
+}
+class model.player.Player {
+- ArrayList<ModelObserver> observers
+- Shelf shelf
+- PersonalGoal personalGoal
+- String nickname
+- boolean isConnected
+- int score
++ int getScore()
++ Shelf getShelf()
++ PersonalGoal getPersonalGoal()
++ void setPersonalGoal(PersonalGoal)
++ String getNickname()
++ void updateScore(int)
++ void setConnected(boolean)
++ boolean isConnected()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.cards.personalGoals.PersonalGoal {
+- HashMap<Color,Point> achievements
+- Player player
+- Stack<Integer> points
+- String cardNumber
++ int calculateScore()
+- int getPoints()
++ HashMap<Color,Point> getAchievements()
++ Stack<Integer> getPointStack()
++ String getCardNumber()
+}
+class model.board.ChosenTilesTable.PickUpValidator {
++ {static} boolean isValid(Game,ArrayList<Point>)
+- {static} boolean onSameLine(ArrayList<Point>)
+- {static} boolean adjacent(ArrayList<Point>)
+- {static} boolean hasFreeAdjacentNeighbor(ItemTile[][],Point)
+- {static} boolean tooManyTilesChosen(Game,int)
+}
+class model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS {
++ boolean isGoalAchieved(Shelf)
+}
+
+
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.XShapedCGS
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.BoardRefresher.BoardRefresher
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ScaleCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.cards.commonGoals.CommonGoalCard
+VirtualView.ModelObservers.ModelSubject <|.. model.Game
+model.EndOfTurn.EndOfTurnSubject <|.. model.EndOfTurn.TurnHandler
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Shelf
+java.io.Serializable <|.. model.tiles.ItemTile
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.board.Board
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.board.ChosenTilesTable.ChosenTilesTable
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Player
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS
+@enduml

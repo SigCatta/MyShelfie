@@ -1,0 +1,152 @@
+@startuml
+class Controller.Server.Executor.HandshakeExecutor {
++ {static} void execute(HandshakeMTS)
+}
+class Controller.Server.Executor.ConnectionRestoredExecutor {
++ {static} void execute(Game,String)
+}
+class Controller.Server.Executor.PickupTilesExecutor {
++ {static} void execute(MessageToServer)
+}
+class Controller.Server.Executor.NewGameExecutor {
++ {static} void execute(NewGameMTS)
+}
+class Controller.Client.ByeMTS {
++ void update()
+}
+abstract class Controller.Client.MessageToServer {
+- int gameId
+- Game game
+- String nickname
+- SocketClientHandler socketClientHandler
++ {abstract}void update()
++ int getGameID()
++ void setGameId(int)
++ Game getGame()
++ void setGame(Game)
++ String getNickname()
++ void setNickname(String)
++ SocketClientHandler getSocketClientHandler()
++ void setSocketClientHandler(SocketClientHandler)
+}
+class Controller.Server.GamesManager {
+- HashMap<Integer,Game> gamesData
+- Set<String> PLAYERS_NAME
+- {static} GamesManager gamesManagerInstance
++ {static} GamesManager getInstance()
++ void putGame(int,Game)
++ Game getGame(int)
++ boolean addNickname(String)
++ void onCommandReceived(MessageToServer)
++ int createID()
++ void removePlayer(SocketClientHandler)
++ void endGame(int)
++ void onConnectionLost(SocketClientHandler)
++ void onConnectionRestored(SocketClientHandler)
+}
+class Controller.Server.Executor.InsertTilesExecutor {
++ {static} void execute(InsertTileMTS)
+}
+interface Controller.Server.Executor.Executor {
+}
+class Controller.Server.Executor.ByeExecutor {
++ {static} void execute(MessageToServer)
+}
+class Controller.Client.CanIPlayMTS {
+- int newGameID
++ void update()
++ int getNewGameID()
+}
+class Controller.Client.HandshakeMTS {
+- String newNickname
++ void update()
++ String getNewNickname()
+}
+class Controller.Client.ChatMTS {
+- String chatMessage
+- String sender
+- String receiver
++ String getReceiver()
++ void update()
++ String getSender()
++ String getChatMessage()
+}
+class Controller.Client.NewGameMTS {
+- int NUMBER_OF_PLAYERS
++ void update()
++ int getNumberOfPlayers()
+}
+class Controller.Client.InsertTileMTS {
+- int TILE_POSITION
+- int COL
++ void update()
++ int getCol()
++ int getTilePosition()
+}
+class Controller.Server.PingPong.PingController {
+- Timer TIMER
+- int PING_TIMEOUT
+- int DELAY
+- boolean connectionLost
+- int MAX_PING_FAILURES
+- int pingToDisconnect
+- SocketClientHandler SOCKET_HANDLER
++ void run()
++ void onPongReceived()
++ int decrementPingToDisconnect()
++ SocketClientHandler getSocketHandler()
++ void clientConnectionLost()
++ void close()
+}
+class Controller.Server.PingPong.PingRoutine {
+- SocketClientHandler SOCKET_CLIENT_HANDLER
+- PingController pingController
++ void run()
+}
+class Controller.Server.Executor.CanIPlayExecutor {
++ {static} void execute(CanIPlayMTS)
+}
+class Controller.Server.Executor.PongExecutor {
++ {static} void execute(PongMTS)
+}
+class Controller.Server.Executor.ChatExecutor {
++ {static} void execute(MessageToServer)
+}
+class Controller.Client.PickUpTilesMTS {
+- ArrayList<Point> tilesPosition
++ void update()
++ ArrayList<Point> getTilesPosition()
+}
+class Controller.Client.PongMTS {
++ void update()
+}
+
+
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.HandshakeExecutor
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.PickupTilesExecutor
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.NewGameExecutor
+java.io.Serializable <|.. Controller.Client.ByeMTS
+Controller.Client.MessageToServer <|-- Controller.Client.ByeMTS
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.InsertTilesExecutor
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.ByeExecutor
+java.io.Serializable <|.. Controller.Client.CanIPlayMTS
+Controller.Client.MessageToServer <|-- Controller.Client.CanIPlayMTS
+java.io.Serializable <|.. Controller.Client.HandshakeMTS
+Controller.Client.MessageToServer <|-- Controller.Client.HandshakeMTS
+java.io.Serializable <|.. Controller.Client.ChatMTS
+Controller.Client.MessageToServer <|-- Controller.Client.ChatMTS
+java.io.Serializable <|.. Controller.Client.NewGameMTS
+Controller.Client.MessageToServer <|-- Controller.Client.NewGameMTS
+java.io.Serializable <|.. Controller.Client.InsertTileMTS
+Controller.Client.MessageToServer <|-- Controller.Client.InsertTileMTS
+Controller.Server.PingPong.Thread <|-- Controller.Server.PingPong.PingController
+Controller.Server.PingPong.Runnable <|.. Controller.Server.PingPong.PingRoutine
+java.util.TimerTask <|-- Controller.Server.PingPong.PingRoutine
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.CanIPlayExecutor
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.PongExecutor
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.ChatExecutor
+java.io.Serializable <|.. Controller.Client.PickUpTilesMTS
+Controller.Client.MessageToServer <|-- Controller.Client.PickUpTilesMTS
+java.io.Serializable <|.. Controller.Client.PongMTS
+Controller.Client.MessageToServer <|-- Controller.Client.PongMTS
+@enduml
