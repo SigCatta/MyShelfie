@@ -56,7 +56,7 @@ Per compilare il jar autonomamente, posizionarsi nella root del progetto e lanci
 mvn clean install assembly:single
 ```
 
-Il jar compilato verrà posizionati all'interno della cartella ```target/``` con il nome ```my-shelfie-client.jar```. <br />
+Il jar compilato verrà posizionati all'interno della cartella ```target/``` con il nome ```my-shelfie-client-jar-with-dependencies.jar```. <br />
 Si noti che questo progetto richiede una versione di Java 11 o superiore per essere eseguito correttamente.
 
 #### CLI
@@ -86,13 +86,13 @@ Il server è stato realizzato con docker, è quindi necessario scaricare l'immag
 ciò è necessario eseguire il comando:
 
 ```
-docker pull mrcatta/prog-ingsw-the_compiler_coalition:latest
+docker pull mrcatta/my-shelfie-server:latest
 ```
 
 successivamente basterà far partire il container:
 
 ```
-docker run -p 28888:28888 --name my-shelfie-server 
+docker run -p 28888:28888 mrcatta/my-shelfie-server 
 ```
 
 É importante notare che il container utilizza la porta 28888 e i client sono impostati per inviare messaggi alla porta 28888. (il parametro -p 28888:28888 mappa la porta 28888 del computer utilizzato
