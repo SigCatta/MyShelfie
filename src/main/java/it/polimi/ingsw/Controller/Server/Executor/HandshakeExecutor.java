@@ -6,6 +6,11 @@ import it.polimi.ingsw.Enum.EchoID;
 import it.polimi.ingsw.VirtualView.Messages.EchoMTC;
 import it.polimi.ingsw.network.server.Server;
 
+/**
+ * This class is responsible for executing the handshake process when a client connects to the server and receives a {@link HandshakeMTS}.
+ * It checks if the provided nickname is valid and adds it to the GamesManager set.
+ */
+
 public class HandshakeExecutor implements Executor {
     /**
      * checks if the name is a valid one and adds it to the GamesManager set

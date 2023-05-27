@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.EndOfTurn.BoardRefresher;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.tiles.ItemTile;
 
+/**
+ * This class contains helper methods used by the BoardRefresher class
+ */
 public class RefreshTrigger {
 
     /**

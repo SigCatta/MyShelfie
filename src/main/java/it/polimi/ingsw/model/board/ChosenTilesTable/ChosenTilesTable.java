@@ -7,11 +7,17 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class that contains the ItemTiles that have been chosen to be picked up from the board
+ */
 public class ChosenTilesTable implements ModelSubject {
     private final List<ModelObserver> observers = new ArrayList<>();
 
     private final List<ItemTile> chosenTiles = new ArrayList<>();
 
+    /**
+     * this attribute is set when the player wants to inseert the first tile of chosenTiles into their shelf
+     */
     private Integer chosenColumn;
 
     public void addTiles(ArrayList<ItemTile> tiles) {

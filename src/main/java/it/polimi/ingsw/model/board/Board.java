@@ -8,7 +8,9 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * The class that represents the board where the ItemTiles are placed and can be picked up from
+ */
 public class Board implements ModelSubject {
     private final ArrayList<ModelObserver> OBSERVERS;
     private final ItemTile[][] BOARD_GRID;

@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.cards.personalGoals.PersonalGoal;
 import java.util.ArrayList;
 
 /**
- * Represents a player in the game.
+ * A class that represents a player in the game.
  */
 public class Player implements ModelSubject {
     private final ArrayList<ModelObserver> observers;

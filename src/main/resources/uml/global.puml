@@ -1,0 +1,1317 @@
+@startuml
+abstract class Controller.Client.MessageToServer {
+- int gameId
+- Game game
+- String nickname
+- SocketClientHandler socketClientHandler
++ {abstract}void update()
++ int getGameID()
++ void setGameId(int)
++ Game getGame()
++ void setGame(Game)
++ String getNickname()
++ void setNickname(String)
++ SocketClientHandler getSocketClientHandler()
++ void setSocketClientHandler(SocketClientHandler)
+}
+class View.CLI.Elements.Views.BoardView {
+- {static} BoardView instance
+- boolean[][] lookUpTable
++ {static} BoardView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class View.CLI.InputStates.reader.commandExecutors.InsertTilesCE {
++ void execute()
+- int getTileIndex()
+- int getColumn()
+}
+class model.cards.commonGoals.commonGoalsStrategy.ScaleCGS {
++ boolean isGoalAchieved(Shelf)
++ boolean hasIncreasingColumns(ItemTile[][],boolean)
+}
+class network.server.Server {
++ {static} Logger LOGGER
+}
+class network.client.SocketClient {
+- {static} Client clientInstance
+- Socket socket
+- ObjectOutputStream outputStm
+- ObjectInputStream inputStm
+- ExecutorService readExecutionQueue
+- String nickname
+- {static} int SOCKET_TIMEOUT
++ {static} Client getInstance()
++ {static} Client getInstance(String,int)
++ void readCommand()
++ void sendCommand(MessageToServer)
++ void disconnect()
+}
+class View.CLI.InputStates.reader.commandExecutors.PickupTilesCE {
++ void execute()
+- int getColumn()
+- int getRow()
+- boolean isInputValid(String)
+- int stopPickup()
+}
+class View.CLI.InputStates.reader.commandExecutors.ShelvesCE {
++ void execute()
+}
+class model.tiles.ItemTile {
+- Color COLOR
+- int id
++ int getId()
++ Color getColor()
+}
+class VirtualView.ModelObservers.BoardVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class View.GUI.SceneController.OtherShelvesController {
+~ GridPane shelf
+~ Text playerName
+- {static} String currentPlayerNickname
+- {static} int currentPlayerIndex
++ void initialize(URL,ResourceBundle)
++ void updateShelf()
+- void getFirstPlayerThatIsNotMe()
++ void onPrevButtonClicked()
++ void onNextButtonClicked()
++ void onBackToBoardButtonClicked()
+}
+class VirtualView.Messages.EchoMTC {
+- boolean errorFlag
+- EchoID id
++ void update()
++ boolean isError()
++ String getOutput()
++ EchoID getID()
+}
+class View.GUI.SceneController.LobbyController {
+- {static} boolean initialized
+# void onPlayButtonClick()
+# void onExitButtonClick()
++ void initialize(URL,ResourceBundle)
+}
+class View.CLI.InputStates.reader.commandExecutors.ColorsCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.InvalidCE {
++ void execute()
+}
+class VirtualView.Messages.ChatMTC {
+- String CHAT_MESSAGE
+- String SENDER
+- String RECEIVER
+- boolean isBroadcast
++ String getChatMessage()
++ String getSender()
++ String getRECEIVER()
++ boolean isBroadcast()
++ void update()
+}
+class Controller.Server.Executor.PickupTilesExecutor {
++ {static} void execute(MessageToServer)
+}
+class Controller.Server.Executor.ConnectionRestoredExecutor {
++ {static} void execute(Game,String)
+}
+class VirtualView.Messages.PlayerMTC {
+- String nickname
+- boolean IS_CONNECTED
+- int SCORE
+- HashMap<Color,Point> PERSONAL_GOAL
+- String PERSONAL_GOAL_CARD_NUMBER
++ String getNickname()
++ boolean isConnected()
++ int getScore()
++ HashMap<Color,Point> getPersonalGoal()
++ String getPERSONAL_GOAL_CARD_NUMBER()
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class View.GUI.SceneController.BoardController {
+- List<Integer> cardsSelectedFromBoard
+- String myNickname
+- int selectedTileToSendToShelf
+~ GridPane board
+~ FlowPane myChosenTilesTable
+~ Circle newMessageIcon
+~ AnchorPane chooseColumnPane
+~ AnchorPane errorPane
+~ ImageView errorImage
+~ Text errorText
+~ ImageView col0InsertButton
+~ ImageView firstScoreToken
+~ FlowPane playersPane
+~ ImageView changeChat
+~ StackPane pointsPane
+~ Text pointNumber
++ void initialize(URL,ResourceBundle)
+- void initInsertButtons()
+- void initPlayersName()
+- void initShelf()
+- void initBoard()
++ void initChangeSceneButtons()
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateEcho(EchoMTC)
++ void updateGame()
+- void updateChangeTurn()
++ void updatePlayers()
+- void updateLastTurn()
+- void showError(EchoMTC)
+- void attachBoardListener(ImageView)
++ void onPickUpDoneClicked()
++ void setUpChosenTilesTable()
+- void attachChosenTileListener(ImageView)
++ void onCol0InserterSelected()
++ void onCol1InserterSelected()
++ void onCol2InserterSelected()
++ void onCol3InserterSelected()
++ void onCol4InserterSelected()
++ void onInsertTileClicked(int)
++ void onObjectivesClicked()
++ void onShelvesClicked()
++ void onChatClicked()
+}
+interface Controller.Server.Executor.Executor {
+}
+abstract class model.cards.commonGoals.CommonGoalStrategy {
++ {abstract}boolean isGoalAchieved(Shelf)
++ String getCardName()
+}
+class ClientApp {
++ {static} void main(String[])
+- {static} void askForIP()
+}
+class View.GUI.SceneController.WaitingRoomController {
+~ Text playersNamesText
+~ Text maxNumText
+~ int maxNumberOfPlayers
+~ Text currentNumText
+~ TextField gameIdText
+- boolean entered
++ void updateGame()
++ void updateEcho(EchoMTC)
++ void updatePlayers()
+- void enterGame()
+- void addPlayerToString(String)
+- void addPlayerToString(List<String>)
++ void initialize(URL,ResourceBundle)
+}
+enum Enum.Color {
++  GREEN
++  YELLOW
++  BLUE
++  LIGHTBLUE
++  PINK
++  WHITE
+}
+class View.CLI.InputStates.WaitingForPlayersState {
++ void play()
++ void update()
+}
+class model.cards.personalGoals.PersonalGoal {
+- HashMap<Color,Point> achievements
+- Player player
+- Stack<Integer> points
+- String cardNumber
++ int calculateScore()
+- int getPoints()
++ HashMap<Color,Point> getAchievements()
++ Stack<Integer> getPointStack()
++ String getCardNumber()
+}
+class JSONReader.LookUpTableReader {
+# JSONParser jsonParser
++ boolean[][] getLookUpTable(int)
+}
+class View.CLI.Elements.Views.CommonGoalView {
+- CommonGoalReader reader
+- {static} CommonGoalView instance
++ {static} CommonGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawCommonGoals()
++ ArrayList<String> addDescription(ArrayList<String>)
+- ArrayList<String> applyMargin(int,String)
+}
+class Controller.Server.Executor.ChatExecutor {
++ {static} void execute(MessageToServer)
+}
+class View.GUI.SceneController.VirtualModelObservers.GameObserver {
++ void update()
+}
+class View.GUI.SceneController.VirtualModelObservers.ShelfObserver {
++ void update()
+}
+class View.GUI.SceneController.VirtualModelObservers.EchoObserver {
++ void update()
+}
+class Controller.Server.Executor.HandshakeExecutor {
++ {static} void execute(HandshakeMTS)
+}
+class model.EndOfTurn.ScoreCalculation.AdjacencyScoreCalculation {
++ {static} int calculateScore(Player)
+- {static} List<Integer> findClusters(ItemTile[][])
+- {static} List<Integer> dfs(ItemTile[][],int,int,Color,Set<String>)
+}
+class JSONReader.PersonalGoalReader {
+- JSONParser jsonParser
++ HashMap<Color,Point> getPersonalGoalsData(String)
++ Stack<Integer> getPointStack()
+}
+class View.GUI.SceneController.Utility.CardImagesManager {
+- {static} URL COMMON_GOAL_PACKAGE
+- {static} URL PERSONAL_GOAL_PACKAGE
+- {static} HashMap<String,Image> commonGoals
+- {static} HashMap<String,Image> personalGoals
++ {static} Image getCommonGoalImage(String)
++ {static} Image getPersonalGoalImage(String)
+}
+class View.CLI.InputStates.reader.commandExecutors.CommonGoalCE {
++ void execute()
+}
+class model.EndOfTurn.BoardRefresher.BoardRefresher {
+- Board board
+- Bag BAG
+- Game GAME
+- boolean[][] lookUpTable
++ void refillBoard()
++ void update()
+}
+class model.cards.commonGoals.CommonGoalCard {
+- ArrayList<ModelObserver> observers
+# Stack<Integer> pointsStack
+- CommonGoalStrategy commonGoalStrategy
+- HashSet<Player> playersWhoCompleted
+- void initStackPoints(int)
++ int calculateScore(Player)
++ boolean hasCompleted(Player)
+- boolean isGoalAchieved(Shelf)
++ int popPoints()
++ int peekPoints()
++ String getCardName()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.EndOfTurn.TurnHandler {
++ Game game
+- List<EndOfTurnObserver> observers
+- List<Player> players
+- boolean lastTurn
++ void changeTurn()
++ void startLastTurn()
++ void attachEndOfTurn(EndOfTurnObserver)
++ void notifyObservers()
+}
+class View.CLI.Elements.GameStopper {
+- {static} GameStopper instance
++ {static} GameStopper getIntance()
++ void update()
+- void printWinnerScreen()
+- void printLoserScreen()
+- void printScoreBoard()
+}
+class VirtualView.ModelObservers.GameVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS {
++ boolean isGoalAchieved(Shelf)
+- boolean hasLessThanFiveTiles(ItemTile[])
+}
+interface VirtualModel.VirtualModelObserver {
+~ void update()
+}
+class model.player.Shelf {
+- ArrayList<ModelObserver> observers
+- int COLUMNS
+- int ROWS
+- ItemTile[][] shelfGrid
++ ItemTile getTileAtLocation(Point)
++ void setTileAtLocation(Point,ItemTile)
++ void setShelfGrid(ItemTile[][])
++ ItemTile[][] getShelfGrid()
++ int getNumOfBoxLeftInCol(int)
++ boolean isColumnFull(int)
++ int getCOLUMNS()
++ int getROWS()
++ boolean insertTile(ItemTile,int)
++ boolean isFull()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class View.CLI.InputStates.reader.Reader {
+~ String input
+~ boolean isReading
+- {static} Reader instance
++ {static} Reader getInstance()
++ void run()
++ boolean isReading()
++ void setReading(boolean)
+- void chooseCommand()
++ {static} String getInput()
++ void update()
+}
+class VirtualView.ModelObservers.PlayerVV {
+- Player PLAYER
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class View.GUI.SceneController.VirtualModelObservers.PlayerObserver {
++ void update()
+}
+class Controller.Server.Executor.PongExecutor {
++ {static} void execute(PongMTS)
+}
+abstract class network.server.ClientHandler {
++ {abstract}void disconnect()
++ {abstract}void sendCommand(MessageToClient)
+}
+class VirtualModel.BoardRepresentation {
+- ItemTile[][] board
+- {static} BoardRepresentation instance
++ {static} BoardRepresentation getInstance()
++ void setBoard(BoardMTC)
++ ItemTile[][] getBoard()
++ Color[][] getBoardColors()
+}
+interface View.CLI.InputStates.reader.commandExecutors.CommandExecutor {
+~ void execute()
+}
+class View.GUI.SceneController.Utility.ItemTileMemory {
+- {static} Map<Integer,ItemTile> ID_TO_ITEM_TILE
+- {static} Map<Integer,Point> ID_TO_POSITION
+- {static} Map<Integer,Image> TILE_TO_IMAGE
++ {static} void put(int,ItemTile)
++ {static} void put(int,Point)
++ {static} void put(int,Image)
++ {static} void put(int,ItemTile,Point)
++ {static} void put(int,ItemTile,Point,Image)
++ {static} Point getPoint(int)
++ {static} ItemTile getTile(int)
++ {static} Image getImage(int)
++ {static} boolean contains(int)
+}
+class VirtualModel.EchosRepresentation {
+- Stack<EchoMTC> messages
+- {static} EchosRepresentation instance
++ {static} EchosRepresentation getInstance()
++ void putMessage(EchoMTC)
++ EchoMTC popMessage()
++ EchoMTC peekMessage()
++ void clean()
+}
+class VirtualModel.CommonGoalsRepresentation {
+- {static} CommonGoalsRepresentation instance
+- CommonGoalMTC commonGoalMessage
++ {static} CommonGoalsRepresentation getInstance()
++ void updateCommonGoal(CommonGoalMTC)
++ ArrayList<String> getCardNames()
++ CommonGoalMTC getCommonGoalMessage()
++ ArrayList<Integer> getAvailablePoints()
+}
+class View.GUI.SceneController.VirtualModelObservers.TilesTableObserver {
++ void update()
+}
+class View.CLI.Elements.Printer {
+~ {static} HashMap<Color,String> colorMap
+- {static} Printer instance
+- Reader reader
++ {static} Printer getInstance()
++ {static} void enableCLIColors(boolean)
++ {static} HashMap<Color,String> getColorMap()
++ void update()
++ {static} void clearConsole()
++ {static} ArrayList<String> addAvailableCommands(ArrayList<String>)
+- {static} ArrayList<String> getAvailableCommands()
+}
+class View.CLI.Elements.Views.ShelfView {
+- {static} ShelfView instance
++ {static} ShelfView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
++ ArrayList<String> getOtherShelvesPrint(String)
+- ArrayList<String> printShelf(ArrayList<String>,String)
+}
+class View.CLI.InputStates.StartOrJoinState {
+- boolean triedToCreateAGame
+- boolean hasJoined
++ void play()
+- void joinGame()
+- void createNewGame()
++ void update()
+}
+class model.tiles.Bag {
+- int NUMBER_OF_COLORS
+- int TILES_PER_COLOR
+- int tilesLeft
+- HashMap<Color,Integer> colorNumber
++ ItemTile drawTile()
+~ Color randomColor()
+}
+class Controller.Client.ByeMTS {
++ void update()
+}
+class View.GUI.Gui {
++ void start(Stage)
++ {static} void main(String[])
+}
+class VirtualView.Messages.ChosenTilesTableMTC {
+- List<ItemTile> CHOSEN_TILES
++ List<ItemTile> getChosenTiles()
++ void update()
+}
+class View.GUI.SceneController.ObjectiveCardController {
+~ ImageView commonGoalCard1
+~ ImageView commonGoalCard2
+~ ImageView personalGoalImage
+~ Text card1Description
+~ Text card2Description
+~ Text pointCG1Text
+~ Text pointCG2Text
+- void initCommonGoals()
+- void initPersonalGoals()
++ void updateGame()
++ void updateCommonGoals()
++ void setPointCG1Text(int)
++ void setPointCG2Text(int)
++ void setCard1Description(String)
++ void setCard2Description(String)
++ void onGoBackClicked()
++ void initialize(URL,ResourceBundle)
+}
+class VirtualView.VirtualView {
+- List<SocketClientHandler> clientHandlers
+- Game GAME
++ void addClient(SocketClientHandler)
++ SocketClientHandler getSocketHandlerClientByNickname(String)
++ void send(MessageToClient)
++ void updateAllPlayers()
++ void updateAllShelves()
+}
+class VirtualView.ModelObservers.CommonGoalVV {
+- Game game
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class View.CLI.InputStates.NicknameState {
++ void play()
++ void update()
+}
+enum Enum.GameState {
++  PREGAME
++  PICK_UP_TILES
++  INSERT_TILES
++  END
+}
+class View.GUI.SceneController.Utility.BoardMemory {
+- {static} ImageView[][] imagesInBoard
++ {static} void put(ImageView,int,int)
++ {static} ImageView get(int,int)
++ {static} void removeImage(int,int)
+}
+class Controller.Client.CanIPlayMTS {
+- int newGameID
++ void update()
++ int getNewGameID()
+}
+class View.CLI.InputStates.reader.CommandExecutorFactory {
++ {static} CommandExecutor getCommand(String)
+}
+class View.GUI.SceneController.Utility.ItemRefillUtility {
+- {static} String ITEM_TILES_PACKAGE
++ {static} Image createImage(ItemTile)
++ {static} void updateBoardGrid(ItemTile[][])
++ {static} void updateShelfGrid(ItemTile[][])
++ {static} void updateOtherShelfGrid(GridPane,ItemTile[][])
+}
+abstract class VirtualModel.VirtualModelSubject {
+# List<VirtualModelObserver> observers
++ void registerObserver(VirtualModelObserver)
++ void removeObserver(VirtualModelObserver)
++ void notifyObservers()
+}
+class View.GUI.SceneController.PlayerNumSceneController {
+~ ToggleGroup playerNumToggle
+~ RadioButton twoPlayers
+~ RadioButton threePlayers
+~ RadioButton fourPlayers
+- boolean continueClicked
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
+# void onBackToMenuButtonClick()
++ int getPlayerNum()
++ void initialize(URL,ResourceBundle)
+}
+class model.player.Player {
+- ArrayList<ModelObserver> observers
+- Shelf shelf
+- PersonalGoal personalGoal
+- String nickname
+- boolean isConnected
+- int score
++ int getScore()
++ Shelf getShelf()
++ PersonalGoal getPersonalGoal()
++ void setPersonalGoal(PersonalGoal)
++ String getNickname()
++ void updateScore(int)
++ void setConnected(boolean)
++ boolean isConnected()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class VirtualView.ModelObservers.ChosenTilesTableVV {
+- Game GAME
+- VirtualView VIRTUAL_VIEW
++ void update()
+}
+class View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver {
++ void update()
+}
+class VirtualModel.ShelvesRepresentation {
+- Map<String,ShelfMTC> SHELF_MESSAGES
+- {static} ShelvesRepresentation instance
++ {static} ShelvesRepresentation getInstance()
++ void updateShelf(ShelfMTC)
++ ShelfMTC getShelfMessage(String)
+}
+class model.EndOfTurn.BoardRefresher.RefreshTrigger {
++ {static} boolean isBoardRefreshable(Board)
+- {static} boolean isNotNull(ItemTile)
+}
+class View.GUI.SceneController.WinSceneController {
+~ Text player1Nickname
+~ List<Text> nicknamesText
+~ Text player1Points
+~ List<Text> pointsText
+~ List<Integer> points
+~ ImageView player1CrownImage
+~ List<ImageView> crowns
+- void setWinner()
++ void updatePlayers()
++ void initialize(URL,ResourceBundle)
+}
+abstract class View.CLI.Elements.Views.ViewElement {
+~ String NULL
+~ {abstract}ArrayList<String> getPrint(ArrayList<String>)
+}
+class View.CLI.Elements.Views.ChatView {
+- int chatWidth
+- int chatHeigth
+- {static} ChatView instance
++ {static} ChatView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> getChatPrint()
+- String padding(ChatMTC)
+}
+class InputValidator {
++ {static} boolean isValidIpAddress(String)
++ {static} boolean isValidPort(String)
+}
+class View.GUI.SceneController.Utility.ChatMemory {
+- {static} TextField[][] messageInChat
++ {static} TextField getMessage(int,int)
++ {static} void setMessage(TextField,int,int)
++ {static} void setMessage(String,int,int)
++ {static} void clear()
+}
+class Controller.Server.GamesManager {
+- HashMap<Integer,Game> gamesData
+- Set<String> PLAYERS_NAME
+- {static} GamesManager gamesManagerInstance
++ {static} GamesManager getInstance()
++ void putGame(int,Game)
++ Game getGame(int)
++ boolean addNickname(String)
++ void onCommandReceived(MessageToServer)
++ int createID()
++ void removePlayer(SocketClientHandler)
++ void endGame(int)
++ void onConnectionLost(SocketClientHandler)
++ void onConnectionRestored(SocketClientHandler)
+}
+enum Enum.EchoID {
++  PANIC
++  NOID
++  GAMEFULL
++  BADNICK
++  BADCOLUMN
++  NICKOK
++  JOINED
++  CREATED
++  GAMESTARTED
++  WRONG_CHOSEN_TABLE_INDEX
++  WRONGSTATE
++  NOTACTIVE
++  BADPICKUP
++  COLUMNDIFF
++  NOPLAYER
++  LAST_TURN
+}
+abstract class network.client.Client {
+# String nickname
++ {static} Logger LOGGER
++ {abstract}void sendCommand(MessageToServer)
++ {abstract}void readCommand()
++ {abstract}void disconnect()
++ String getNickname()
++ void setNickname(String)
+}
+class VirtualView.Messages.ShelfMTC {
+- ItemTile[][] SHELF
+- String OWNER
++ String getOwner()
++ ItemTile[][] getShelf()
++ Color[][] getShelfForCLI()
++ void update()
+}
+class Controller.Server.PingPong.PingRoutine {
+- SocketClientHandler SOCKET_CLIENT_HANDLER
+- PingController pingController
++ void run()
+}
+class model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class Controller.Client.PongMTS {
++ void update()
+}
+interface JSONReader.JSONFileReader {
+}
+class View.CLI.InputStates.reader.commandExecutors.ChatCE {
++ void execute()
+}
+interface model.EndOfTurn.EndOfTurnObserver {
+~ void update()
+}
+class model.cards.commonGoals.CommonCardDealer {
++ {static} List<CommonGoalStrategy> possibleCommonGoals
++ {static} List<CommonGoalStrategy> pickCardStrategies(int)
++ {static} List<CommonGoalCard> pickCommonGoalCards(int,int)
+- {static} void initCommonGoals()
+}
+class View.GUI.SceneController.DisconnectionErrorSceneController {
+# void onExitButtonClick()
+# void onLobbyButtonClick()
+}
+class VirtualView.Messages.BoardMTC {
+- ItemTile[][] BOARD
++ ItemTile[][] getColorBoard()
++ void update()
+}
+class Controller.Server.Executor.InsertTilesExecutor {
++ {static} void execute(InsertTileMTS)
+}
+class model.board.ChosenTilesTable.ChosenTilesTable {
+- List<ModelObserver> observers
+- List<ItemTile> chosenTiles
+- Integer chosenColumn
++ void addTiles(ArrayList<ItemTile>)
++ ItemTile popTile(int)
++ int size()
++ Integer getChosenColumn()
++ void setChosenColumn(Integer)
++ List<ItemTile> getChosenTiles()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+abstract class View.CLI.InputStates.InputState {
+~ String input
+~ Client socketClient
++ {abstract}void play()
+}
+class JSONReader.CommonGoalReader {
+# JSONParser jsonParser
++ ArrayList<String> getDrawing(String)
+- JSONObject getCardObject(String)
++ String getDescription(String)
+}
+class InputReader {
+- {static} ExecutorService executorService
+- BufferedReader br
++ String call()
++ {static} String readLine()
+}
+class View.GUI.SceneController.VirtualModelObservers.BoardObserver {
++ void update()
+}
+class ServerApp {
++ {static} void main(String[])
+}
+class Controller.Client.ChatMTS {
+- String chatMessage
+- String sender
+- String receiver
++ String getReceiver()
++ void update()
++ String getSender()
++ String getChatMessage()
+}
+class View.CLI.InputStates.ActivePlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class View.CLI.InputStates.WaitingPlayerState {
+- Reader reader
++ void play()
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class VirtualView.Messages.CommonGoalMTC {
+- ArrayList<String> cardNames
+- ArrayList<Integer> availablePoints
++ ArrayList<String> getCardNames()
++ ArrayList<Integer> getAvailablePoints()
++ void update()
+}
+class VirtualModel.TilesTableRepresentation {
+- {static} TilesTableRepresentation instance
+- ChosenTilesTableMTC tilesTableMessage
++ {static} TilesTableRepresentation getInstance()
++ void updateTable(ChosenTilesTableMTC)
++ List<ItemTile> getTiles()
+}
+class View.CLI.Elements.Views.TilesTableView {
+- {static} TilesTableView instance
++ {static} TilesTableView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+}
+class Controller.Client.PickUpTilesMTS {
+- ArrayList<Point> tilesPosition
++ void update()
++ ArrayList<Point> getTilesPosition()
+}
+class VirtualView.ModelObservers.ShelfVV {
+- VirtualView VIRTUAL_VIEW
+- Player OWNER
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class View.GUI.SceneController.Utility.ShelfMemory {
+- {static} ImageView[][] imagesInMyShelf
++ {static} void put(ImageView,int,int)
++ {static} ImageView get(int,int)
++ {static} void setImage(Image,int,int)
+}
+class VirtualView.Messages.GameMTC {
+- int GAMEID
+- int MAX_PLAYER_NUMBER
+- String activePlayerNickname
+- GameState GAME_STATE
+- int numOfPlayers
++ int getGameID()
++ int getMAX_PLAYER_NUMBER()
++ GameState getGameState()
++ String getActivePlayerNickname()
++ int getNumOfPlayers()
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.XShapedCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class View.CLI.InputStates.reader.commandExecutors.RefreshCE {
++ void execute()
+}
+class model.cards.personalGoals.PersonalCardDealer {
+- {static} File personalCardsDirectory
++ {static} void getCards(ArrayList<Player>)
+}
+class View.GUI.SceneController.Utility.ConnectionPendingTimer {
+- {static} Timer connectionPendingTimer
+- {static} boolean connectionPending
++ {static} void start(int)
++ {static} void cancel()
++ {static} boolean isPending()
+}
+interface VirtualView.ModelObservers.ModelObserver {
+~ void update()
+}
+class model.Game {
+- ArrayList<ModelObserver> observers
+- int BOARD_DIMENSION
+- int MAX_PLAYER_NUMBER
+- VirtualView virtualView
+- int gameID
+- Bag bag
+- Board board
+- ChosenTilesTable chosenTilesTable
+- GameState gameState
+- ArrayList<CommonGoalCard> commonGoals
+- ArrayList<Player> players
+- Player activePlayer
+- TurnHandler turnHandler
++ ArrayList<CommonGoalCard> getCommonGoals()
++ void start()
++ void setVirtualView(VirtualView)
+- void turnHandlerInitializer()
++ void end()
++ Board getBoard()
++ ArrayList<Player> getPlayers()
++ Player getActivePlayer()
++ void setActivePlayer(Player)
++ Bag getBag()
++ ChosenTilesTable getChosenTilesTable()
++ void addPlayer(Player)
++ TurnHandler getTurnHandler()
++ Player getWinner()
++ int getMAX_PLAYER_NUMBER()
++ void setGameID(int)
++ int getGameID()
++ void setGameState(GameState)
++ Player getPlayer(String)
++ void disconnectPlayer(String)
++ GameState getGameState()
++ VirtualView getVirtualView()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+interface model.EndOfTurn.EndOfTurnSubject {
+~ void attachEndOfTurn(EndOfTurnObserver)
+~ void notifyObservers()
+}
+class View.CLI.InputStates.reader.commandExecutors.DisconnectCE {
++ void execute()
+}
+class View.CLI.InputStates.reader.commandExecutors.PChatCE {
++ void execute()
+}
+class Controller.Client.NewGameMTS {
+- int NUMBER_OF_PLAYERS
++ void update()
++ int getNumberOfPlayers()
+}
+class View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE {
++ void execute()
+}
+class model.board.Board {
+- ArrayList<ModelObserver> OBSERVERS
+- ItemTile[][] BOARD_GRID
++ ItemTile[][] getBoardGrid()
++ int getSize()
++ void setItemTile(Color,int,int)
++ ItemTile removeItemTile(Point)
++ ArrayList<ItemTile> removeItemTiles(ArrayList<Point>)
++ void emptyBoard()
++ void registerObserver(ModelObserver)
++ void removeObserver(ModelObserver)
++ void notifyObservers()
+}
+class network.server.SocketClientHandler {
+- Socket client
+- PingController pingController
+- String nickname
+- int gameID
+- ObjectOutputStream outputStm
+- ObjectInputStream input
+- boolean stop
++ void run()
+- void handleClientMessages()
++ void disconnect()
++ void sendCommand(MessageToClient)
++ String getNickname()
++ void setNickname(String)
++ PingController getPingController()
++ int getGameID()
++ void setGameID(int)
+}
+class Controller.Server.Executor.CanIPlayExecutor {
++ {static} void execute(CanIPlayMTS)
+}
+class View.GUI.SceneController.EnterGameSceneController {
+~ ImageView wrongGameIdImage
+~ RadioButton newGameRB
+~ RadioButton joinGameRB
+~ Text gameIdText
+~ TextField gameIdField
+~ Button continueButton
+~ Text errorText
+~ AnchorPane errorPane
+- boolean connectPlayer
++ void updateEcho(EchoMTC)
+# void onContinueButtonClick()
++ void connectPlayer()
++ void enterGame()
++ void connectionFailed()
++ void wrongGameIdEffect(boolean)
++ void onJoinGameRBClicked()
++ void onNewGameRBClicked()
++ void setContinueButtonVisible()
++ void onGameIdInsert()
+}
+class VirtualModel.ChatRepresentation {
+- ArrayList<ChatMTC> CHAT
+- {static} ChatRepresentation instance
++ {static} ChatRepresentation getInstance()
++ ArrayList<ChatMTC> getMessages()
++ void addMessage(ChatMTC)
+}
+class model.player.ShelfUtils {
++ {static} boolean checkMatrixWithDFS(ItemTile[][],int,int)
+- {static} int dfs(ItemTile[][],boolean[][],int,int,Color)
+}
+class Controller.Server.Executor.NewGameExecutor {
++ {static} void execute(NewGameMTS)
+}
+class View.GUI.SceneController.LoginSceneController {
+~ TextField nicknameField
+~ TextField ipField
+~ ImageView continueButton
+~ Label continueText
+~ ImageView wrongNicknameImage
+~ Text wrongNicknameText
+~ AnchorPane nicknameErrorPane
+~ AnchorPane ipErrorPane
+~ ImageView wrongIpImage
+~ Text wrongIpText
+~ StackPane login_scene
++ void updateEcho(EchoMTC)
+# void onGoBackButtonClick()
+# void onContinueButtonClick()
++ void setContinueButtonVisible()
++ void onKeyPressed(KeyEvent)
+- void showCouldNotConnectMessage()
+- void badNicknameEffect(EchoMTC)
+- void goToCreateGame()
++ void initialize(URL,ResourceBundle)
+}
+class View.GUI.SceneController.StageController {
+- {static} Stage currentStage
+- {static} GuiController controller
++ {static} Scene activeScene
++ {static} void setUpStage(Stage,String)
++ {static} GuiController getController()
++ {static} void changeScene(String,String)
+}
+class VirtualModel.PlayersRepresentation {
+- Map<String,PlayerMTC> PLAYER_MESSAGES
+- {static} PlayersRepresentation instance
++ {static} PlayersRepresentation getInstance()
++ ArrayList<String> getPlayersList()
++ int getPlayerScore(String)
++ PlayerMTC getPlayerInfoByNickname(String)
++ ArrayList<PlayerMTC> getAllPlayerMTC()
++ void updatePlayer(PlayerMTC)
+}
+class View.GUI.SceneController.VirtualModelObservers.ChatObserver {
++ void update()
+}
+class Controller.Server.Executor.ByeExecutor {
++ {static} void execute(MessageToServer)
+}
+class View.CLI.Elements.Views.PersonalGoalView {
+- {static} PersonalGoalView instance
++ {static} PersonalGoalView getInstance()
++ ArrayList<String> getPrint(ArrayList<String>)
+- ArrayList<String> drawShelf()
++ ArrayList<String> addDescription(ArrayList<String>)
+}
+class network.server.ServerSocketAccepter {
+- int port
+~ ServerSocket serverSocket
++ void run()
+}
+class Controller.Client.HandshakeMTS {
+- String newNickname
++ void update()
++ String getNewNickname()
+}
+class model.EndOfTurn.ScoreCalculation.ScoreBoard {
+- Game game
+- boolean isFirstPointAssigned
+- ArrayList<CommonGoalCard> commonGoals
+- boolean calculatedEndGame
+- void scoreCommonGoalCards(Player)
++ void update()
+- Player getPreviousActivePlayer()
++ void endGameScoreUpdate()
+- void scoreFirstCompletedShelf(Player)
+- void scorePersonalGoals()
+- void scoreAdjacency()
+}
+class Controller.Client.InsertTileMTS {
+- int TILE_POSITION
+- int COL
++ void update()
++ int getCol()
++ int getTilePosition()
+}
+class VirtualView.Messages.PingMTC {
++ void update()
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS {
++ boolean isGoalAchieved(Shelf)
+}
+class Controller.Server.PingPong.PingController {
+- Timer TIMER
+- int PING_TIMEOUT
+- int DELAY
+- boolean connectionLost
+- int MAX_PING_FAILURES
+- int pingToDisconnect
+- SocketClientHandler SOCKET_HANDLER
++ void run()
++ void onPongReceived()
++ int decrementPingToDisconnect()
++ SocketClientHandler getSocketHandler()
++ void clientConnectionLost()
++ void close()
+}
+interface VirtualView.Messages.MessageToClient {
+~ void update()
+}
+class View.CLI.Elements.DisconnectionHandler {
+- {static} DisconnectionHandler instance
++ {static} DisconnectionHandler getInstance()
++ void update()
+- void handleDisconnection()
+}
+class model.board.ChosenTilesTable.PickUpValidator {
++ {static} boolean isValid(Game,ArrayList<Point>)
+- {static} boolean onSameLine(ArrayList<Point>)
+- {static} boolean adjacent(ArrayList<Point>)
+- {static} boolean hasFreeAdjacentNeighbor(ItemTile[][],Point)
+- {static} boolean tooManyTilesChosen(Game,int)
+}
+class View.GUI.SceneController.ChatController {
+~ TextField newMessageField
+~ SplitMenuButton receiverMenu
+~ MenuItem player2MenuItem
+~ MenuItem player3MenuItem
+~ MenuItem player4MenuItem
+~ MenuItem broadcastMenuItem
+~ GridPane chat
+~ StackPane chat_scene
+~ {static} String receiverNickname
+- boolean enterKeyBusy
++ void initChat()
++ void updateGame()
++ void updateChat()
++ void onBackToBoardClicked()
++ void onSendButtonClicked()
++ void onKeyPressed(KeyEvent)
++ void onBroadcastClicked()
++ void onPlayer2Clicked()
++ void onPlayer3Clicked()
++ void onPlayer4Clicked()
+- void initNickname()
++ void initialize(URL,ResourceBundle)
+}
+class View.CLI.InputStates.GameStartupState {
++ void play()
++ void update()
+}
+interface VirtualView.ModelObservers.ModelSubject {
+~ void registerObserver(ModelObserver)
+~ void removeObserver(ModelObserver)
+~ void notifyObservers()
+}
+abstract class View.GUI.SceneController.GuiController {
++ void updateGame()
++ void updatePlayers()
++ void updateEcho(EchoMTC)
++ void updateBoard()
++ void updateShelf()
++ void updateChosenTilesTable()
++ void updateChat()
++ void updateCommonGoals()
+}
+class VirtualModel.GameRepresentation {
+- GameMTC gameMessage
+- {static} GameRepresentation instance
++ {static} GameRepresentation getInstance()
++ void setGame(GameMTC)
++ int getMAX_PLAYER_NUMBER()
++ int getGameID()
++ GameState getGameState()
++ String getActivePlayerNickname()
++ GameMTC getGameMessage()
+}
+
+
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.BoardView
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.InsertTilesCE
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ScaleCGS
+network.client.Client <|-- network.client.SocketClient
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PickupTilesCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ShelvesCE
+java.io.Serializable <|.. model.tiles.ItemTile
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.BoardVV
+javafx.fxml.Initializable <|.. View.GUI.SceneController.OtherShelvesController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.OtherShelvesController
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.EchoMTC
+java.io.Serializable <|.. VirtualView.Messages.EchoMTC
+javafx.fxml.Initializable <|.. View.GUI.SceneController.LobbyController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.LobbyController
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ColorsCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.InvalidCE
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ChatMTC
+java.io.Serializable <|.. VirtualView.Messages.ChatMTC
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.PickupTilesExecutor
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PlayerMTC
+java.io.Serializable <|.. VirtualView.Messages.PlayerMTC
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FiveTilesDiagonalCGS
+javafx.fxml.Initializable <|.. View.GUI.SceneController.BoardController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.BoardController
+javafx.fxml.Initializable <|.. View.GUI.SceneController.WaitingRoomController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.WaitingRoomController
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingForPlayersState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingForPlayersState
+JSONReader.JSONFileReader <|.. JSONReader.LookUpTableReader
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.CommonGoalView
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.ChatExecutor
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.GameObserver
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.ShelfObserver
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.EchoObserver
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.HandshakeExecutor
+JSONReader.JSONFileReader <|.. JSONReader.PersonalGoalReader
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.CommonGoalCE
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.BoardRefresher.BoardRefresher
+VirtualView.ModelObservers.ModelSubject <|.. model.cards.commonGoals.CommonGoalCard
+model.EndOfTurn.EndOfTurnSubject <|.. model.EndOfTurn.TurnHandler
+VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.GameStopper
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.GameVV
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourRowsOfFiveCGS
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Shelf
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.SixGroupsOfTwoCGS
+View.CLI.InputStates.reader.Runnable <|.. View.CLI.InputStates.reader.Reader
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.reader.Reader
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.PlayerVV
+VirtualView.Messages.MessageToClient <|.. VirtualView.ModelObservers.PlayerVV
+java.io.Serializable <|.. VirtualView.ModelObservers.PlayerVV
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.PlayerObserver
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.PongExecutor
+VirtualModel.VirtualModelSubject <|-- VirtualModel.BoardRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.EchosRepresentation
+VirtualModel.VirtualModelSubject <|-- VirtualModel.CommonGoalsRepresentation
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.TilesTableObserver
+View.CLI.Elements.VirtualModelObserver <|.. View.CLI.Elements.Printer
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.ShelfView
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.StartOrJoinState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.StartOrJoinState
+java.io.Serializable <|.. Controller.Client.ByeMTS
+Controller.Client.MessageToServer <|-- Controller.Client.ByeMTS
+javafx.application.Application <|-- View.GUI.Gui
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ChosenTilesTableMTC
+java.io.Serializable <|.. VirtualView.Messages.ChosenTilesTableMTC
+javafx.fxml.Initializable <|.. View.GUI.SceneController.ObjectiveCardController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.ObjectiveCardController
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.CommonGoalVV
+model.EndOfTurn.EndOfTurnObserver <|.. VirtualView.ModelObservers.CommonGoalVV
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.NicknameState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.NicknameState
+java.io.Serializable <|.. Controller.Client.CanIPlayMTS
+Controller.Client.MessageToServer <|-- Controller.Client.CanIPlayMTS
+javafx.fxml.Initializable <|.. View.GUI.SceneController.PlayerNumSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.PlayerNumSceneController
+VirtualView.ModelObservers.ModelSubject <|.. model.player.Player
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ChosenTilesTableVV
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.CommonGoalsObserver
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ShelvesRepresentation
+javafx.fxml.Initializable <|.. View.GUI.SceneController.WinSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.WinSceneController
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.ChatView
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.ShelfMTC
+java.io.Serializable <|.. VirtualView.Messages.ShelfMTC
+Controller.Server.PingPong.Runnable <|.. Controller.Server.PingPong.PingRoutine
+java.util.TimerTask <|-- Controller.Server.PingPong.PingRoutine
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.ThreeMaxThreeDiffCGS
+java.io.Serializable <|.. Controller.Client.PongMTS
+Controller.Client.MessageToServer <|-- Controller.Client.PongMTS
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.ChatCE
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.BoardMTC
+java.io.Serializable <|.. VirtualView.Messages.BoardMTC
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.InsertTilesExecutor
+VirtualView.ModelObservers.ModelSubject <|.. model.board.ChosenTilesTable.ChosenTilesTable
+JSONReader.JSONFileReader <|.. JSONReader.CommonGoalReader
+Callable <|.. InputReader
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.BoardObserver
+java.io.Serializable <|.. Controller.Client.ChatMTS
+Controller.Client.MessageToServer <|-- Controller.Client.ChatMTS
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.ActivePlayerState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.ActivePlayerState
+VirtualModel.VirtualModelObserver <|.. View.CLI.InputStates.WaitingPlayerState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.WaitingPlayerState
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoSquaresCGS
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.CommonGoalMTC
+java.io.Serializable <|.. VirtualView.Messages.CommonGoalMTC
+VirtualModel.VirtualModelSubject <|-- VirtualModel.TilesTableRepresentation
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.TilesTableView
+java.io.Serializable <|.. Controller.Client.PickUpTilesMTS
+Controller.Client.MessageToServer <|-- Controller.Client.PickUpTilesMTS
+VirtualView.ModelObservers.ModelObserver <|.. VirtualView.ModelObservers.ShelfVV
+VirtualView.Messages.MessageToClient <|.. VirtualView.ModelObservers.ShelfVV
+java.io.Serializable <|.. VirtualView.ModelObservers.ShelfVV
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.EightTilesSameColorCGS
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.GameMTC
+java.io.Serializable <|.. VirtualView.Messages.GameMTC
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourAnglesCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.FourGroupsOfFourCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.XShapedCGS
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.RefreshCE
+VirtualView.ModelObservers.ModelSubject <|.. model.Game
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.DisconnectCE
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PChatCE
+java.io.Serializable <|.. Controller.Client.NewGameMTS
+Controller.Client.MessageToServer <|-- Controller.Client.NewGameMTS
+View.CLI.InputStates.reader.commandExecutors.CommandExecutor <|.. View.CLI.InputStates.reader.commandExecutors.PersonalGoalCE
+VirtualView.ModelObservers.ModelSubject <|.. model.board.Board
+network.server.Runnable <|.. network.server.SocketClientHandler
+network.server.ClientHandler <|-- network.server.SocketClientHandler
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.CanIPlayExecutor
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.EnterGameSceneController
+VirtualModel.VirtualModelSubject <|-- VirtualModel.ChatRepresentation
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.NewGameExecutor
+javafx.fxml.Initializable <|.. View.GUI.SceneController.LoginSceneController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.LoginSceneController
+VirtualModel.VirtualModelSubject <|-- VirtualModel.PlayersRepresentation
+VirtualModel.VirtualModelObserver <|.. View.GUI.SceneController.VirtualModelObservers.ChatObserver
+Controller.Server.Executor.Executor <|.. Controller.Server.Executor.ByeExecutor
+View.CLI.Elements.Views.ViewElement <|-- View.CLI.Elements.Views.PersonalGoalView
+network.server.Runnable <|.. network.server.ServerSocketAccepter
+java.io.Serializable <|.. Controller.Client.HandshakeMTS
+Controller.Client.MessageToServer <|-- Controller.Client.HandshakeMTS
+model.EndOfTurn.EndOfTurnObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+VirtualView.ModelObservers.ModelObserver <|.. model.EndOfTurn.ScoreCalculation.ScoreBoard
+java.io.Serializable <|.. Controller.Client.InsertTileMTS
+Controller.Client.MessageToServer <|-- Controller.Client.InsertTileMTS
+VirtualView.Messages.MessageToClient <|.. VirtualView.Messages.PingMTC
+java.io.Serializable <|.. VirtualView.Messages.PingMTC
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoRowsWithFiveDiffCGS
+model.cards.commonGoals.CommonGoalStrategy <|-- model.cards.commonGoals.commonGoalsStrategy.TwoColSixDiffCGS
+Controller.Server.PingPong.Thread <|-- Controller.Server.PingPong.PingController
+VirtualModel.VirtualModelObserver <|.. View.CLI.Elements.DisconnectionHandler
+javafx.fxml.Initializable <|.. View.GUI.SceneController.ChatController
+View.GUI.SceneController.GuiController <|-- View.GUI.SceneController.ChatController
+View.CLI.InputStates.VirtualModelObserver <|.. View.CLI.InputStates.GameStartupState
+View.CLI.InputStates.InputState <|-- View.CLI.InputStates.GameStartupState
+VirtualModel.VirtualModelSubject <|-- VirtualModel.GameRepresentation
+@enduml

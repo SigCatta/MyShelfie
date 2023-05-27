@@ -10,6 +10,11 @@ import it.polimi.ingsw.VirtualView.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Player;
 
+/**
+ * This class is responsible for executing the {@link NewGameMTS} command received from the client.
+ * It creates a new game, assigns a game ID, and initializes the necessary components such as
+ * the turn handler and virtual view.
+ */
 public class NewGameExecutor implements Executor {
     /**
      * Adds a new game to the map and creates a virtual view associated to that game.

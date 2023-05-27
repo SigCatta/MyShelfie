@@ -36,6 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+/**
+ * The {@code BoardController} class is responsible for managing the GUI scene of the game board.
+ * It initializes and updates various elements of the scene such as the game board, player shelves,
+ * chosen tiles table, and other UI components.
+ */
 public class BoardController extends GuiController implements Initializable {
 
     private List<Integer> cardsSelectedFromBoard = new ArrayList<>();
@@ -80,6 +86,12 @@ public class BoardController extends GuiController implements Initializable {
     @FXML
     Text pointNumber;
 
+    /**
+     * Initializes the scene and its components.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -257,7 +269,11 @@ public class BoardController extends GuiController implements Initializable {
         firstScoreToken.setEffect(colorAdjust);
     }
 
-
+    /**
+     * Shows an error message in the GUI.
+     *
+     * @param errorMessage The error message to show.
+     */
     private void showError(EchoMTC errorMessage) {
         errorImage.setVisible(true);
         errorText.setVisible(true);
@@ -306,7 +322,9 @@ public class BoardController extends GuiController implements Initializable {
         imageView.setOnMouseExited(mouseEvent -> imageView.getStyleClass().remove("edge-effect"));
     }
 
-
+    /**
+     * Handles the event when the pick-up done button is clicked.
+     */
     @FXML
     public void onPickUpDoneClicked() {
         System.out.println("clicked the tick"); //TODO remove
@@ -330,6 +348,9 @@ public class BoardController extends GuiController implements Initializable {
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
     }
 
+    /**
+     * Sets up the action listener for the chosen tiles table.
+     */
     @FXML
     public void setUpChosenTilesTable() {
 
@@ -343,6 +364,11 @@ public class BoardController extends GuiController implements Initializable {
         }
     }
 
+    /**
+     * Action listener for chosen tiles in the table.
+     *
+     * @param imageView The image view associated with the chosen tile.
+     */
     private void attachChosenTileListener(ImageView imageView) {
         imageView.setOnMouseClicked(event -> {
 
@@ -395,6 +421,11 @@ public class BoardController extends GuiController implements Initializable {
         onInsertTileClicked(4);
     }
 
+    /**
+     * Handles the event when an insert tile button is clicked.
+     *
+     * @param column The column of the insert button clicked.
+     */
     @FXML
     public synchronized void onInsertTileClicked(int column) {
         if (!GameRepresentation.getInstance().getGameState().equals(GameState.INSERT_TILES)) return;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.VirtualModel.ChatRepresentation;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a message to the client containing a chat message.
+ */
 public class ChatMTC implements MessageToClient, Serializable {
 
     private final String CHAT_MESSAGE;

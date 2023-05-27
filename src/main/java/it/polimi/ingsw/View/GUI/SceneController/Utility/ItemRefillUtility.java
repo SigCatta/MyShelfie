@@ -7,11 +7,19 @@ import javafx.scene.layout.GridPane;
 
 import java.awt.*;
 
+/**
+ * The ItemRefillUtility class provides utility methods for managing item tiles in the GUI.
+ */
 public class ItemRefillUtility {
 
     private static final String ITEM_TILES_PACKAGE = ItemRefillUtility.class.getClassLoader().getResource("it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/item_tiles/").toString();
 
-
+    /**
+     * Creates an image for the given item tile.
+     *
+     * @param tile the item tile
+     * @return the created image
+     */
     public static Image createImage(ItemTile tile) {
 
         int imageNumber = (int) (Math.random() * 3) + 1;
@@ -78,6 +86,13 @@ public class ItemRefillUtility {
         }
     }
 
+    /**
+     * Updates the shelf of a player that is not the one currently connected to the Client
+     * with the item tiles given by the reference.
+     *
+     * @param shelf     the GridPane representing the other player's shelf
+     * @param reference the item tile reference for the other player's shelf
+     */
     public static void updateOtherShelfGrid(GridPane shelf, ItemTile[][] reference) {
         for (int col = 0; col < reference[0].length; col++) {
             for (int row = reference.length - 1; row >= 0; row--) {

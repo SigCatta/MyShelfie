@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * A class with static methods that manage the random choice of the common goal cards of the game
+ */
 public class CommonCardDealer {
 
     /**

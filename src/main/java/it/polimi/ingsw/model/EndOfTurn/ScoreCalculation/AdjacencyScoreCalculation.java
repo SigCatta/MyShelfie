@@ -12,6 +12,10 @@ import java.util.Set;
 
 import static java.lang.Math.min;
 
+/**
+ * A class that contains the static methods used to calculate
+ * the points gained from the adjacency of tiles in the shelf
+ */
 public class AdjacencyScoreCalculation {
 
     /**

@@ -8,6 +8,11 @@ import it.polimi.ingsw.model.tiles.ItemTile;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * This class represents a message to the client containing information about a player's shelf in the game.
+ * It provides details such as the owner's nickname, the item tiles present in the shelf,
+ * and a representation of the shelf for the CLI.
+ */
 public class ShelfMTC implements MessageToClient, Serializable {
     private final ItemTile[][] SHELF;
     private final String OWNER;

@@ -12,6 +12,10 @@ import javafx.scene.control.ToggleGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+/**
+ * This class is responsible for controlling the player number selection scene in the GUI.
+ */
 public class PlayerNumSceneController extends GuiController implements Initializable {
     @FXML
     ToggleGroup playerNumToggle;
@@ -36,6 +40,10 @@ public class PlayerNumSceneController extends GuiController implements Initializ
      */
     private boolean continueClicked;
 
+    /**
+     * Updates the scene based on the received EchoMTC object.
+     * @param echoMTC the EchoMTC object containing the update information
+     */
     @Override
     public void updateEcho(EchoMTC echoMTC) {
         switch (echoMTC.getID()) {
@@ -48,6 +56,10 @@ public class PlayerNumSceneController extends GuiController implements Initializ
         }
     }
 
+    /**
+     * Handles the "Continue" button click event.
+     * Sends a NewGameMTS command to the server with the selected number of players.
+     */
     @FXML
     protected void onContinueButtonClick() {
         if (continueClicked) return;
@@ -57,11 +69,18 @@ public class PlayerNumSceneController extends GuiController implements Initializ
         continueClicked = true;
     }
 
+    /**
+     * Handles the "Back to Menu" button click event.
+     * Changes the scene back to the login scene.
+     */
     @FXML
     protected void onBackToMenuButtonClick() {
         Platform.runLater(() -> StageController.changeScene("fxml/enter_game_scene.fxml", "Login"));
     }
 
+    /**
+     * @return the selected number of players
+     */
     public int getPlayerNum() {
         if (twoPlayers.isSelected()) {
             return 2;
@@ -71,6 +90,11 @@ public class PlayerNumSceneController extends GuiController implements Initializ
             return 4;
     }
 
+    /**
+     * Initializes the PlayerNumSceneController.
+     * @param url the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         continueClicked = false;

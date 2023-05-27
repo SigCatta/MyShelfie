@@ -11,6 +11,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 
+/**
+ * The EchoMTC class represents a message to the client containing an echo message of type {@link EchoID} {@code id}.
+ */
 public class EchoMTC implements MessageToClient, Serializable {
     private final boolean errorFlag;
     private final EchoID id;

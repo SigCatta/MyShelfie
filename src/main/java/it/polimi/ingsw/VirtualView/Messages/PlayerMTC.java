@@ -8,6 +8,11 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * This class represents a message to the client containing information about a player in the game.
+ * It provides details such as the player's nickname, connection status, score,
+ * personal goal, and personal goal card number.
+ */
 public class PlayerMTC implements MessageToClient, Serializable {
     private final String nickname;
     private final boolean IS_CONNECTED;
