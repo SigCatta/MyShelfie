@@ -312,7 +312,7 @@ class model.EndOfTurn.TurnHandler {
 }
 class View.CLI.Elements.GameStopper {
 - {static} GameStopper instance
-+ {static} GameStopper getIntance()
++ {static} GameStopper getInstance()
 + void update()
 - void printWinnerScreen()
 - void printLoserScreen()
@@ -610,7 +610,7 @@ abstract class View.CLI.Elements.Views.ViewElement {
 }
 class View.CLI.Elements.Views.ChatView {
 - int chatWidth
-- int chatHeigth
+- int chatHeight
 - {static} ChatView instance
 + {static} ChatView getInstance()
 + ArrayList<String> getPrint(ArrayList<String>)

@@ -18,7 +18,7 @@ Di seguito alcuni diagrammi uml descrittivi del progetto
 ### JavaDoc
 
 La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente
-indirizzo: [Javadoc](https://)
+indirizzo: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
 
 ### Coverage report
 
