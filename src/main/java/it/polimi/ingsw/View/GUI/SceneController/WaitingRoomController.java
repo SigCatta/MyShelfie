@@ -24,8 +24,6 @@ public class WaitingRoomController extends GuiController implements Initializabl
     Text playersNamesText;
     @FXML
     Text maxNumText;
-    final int maxNumberOfPlayers = -1;
-
     @FXML
     Text currentNumText;
 
@@ -111,7 +109,6 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
         int numberOfPlayers = PlayersRepresentation.getInstance().getPlayersList().size();
         currentNumText.setText(String.valueOf(numberOfPlayers));
-        System.out.println(maxNumberOfPlayers);
     }
 
     /**
