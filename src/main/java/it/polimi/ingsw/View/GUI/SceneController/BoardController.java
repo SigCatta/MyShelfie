@@ -184,7 +184,6 @@ public class BoardController extends GuiController implements Initializable {
     @Override
     public void updateShelf() {
         ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
-        System.out.println("Updating the shelf...");//TODO remove
         ItemRefillUtility.updateShelfGrid(shelfModel);
     }
 
@@ -279,7 +278,6 @@ public class BoardController extends GuiController implements Initializable {
         errorText.setVisible(true);
         errorText.setWrappingWidth(300);
 
-        System.out.println("There was an error: "); //TODO remove
         errorText.setText(errorMessage.getOutput());
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), errorPane);
         fadeTransition.setFromValue(1.0);
@@ -327,7 +325,6 @@ public class BoardController extends GuiController implements Initializable {
      */
     @FXML
     public void onPickUpDoneClicked() {
-        System.out.println("clicked the tick"); //TODO remove
 
         if (cardsSelectedFromBoard.size() == 0) return;
         if (!GameRepresentation.getInstance().getGameState().equals(GameState.PICK_UP_TILES)) return;
@@ -344,7 +341,6 @@ public class BoardController extends GuiController implements Initializable {
 
         cardsSelectedFromBoard = new ArrayList<>();
 
-        System.out.println("sending the tiles!"); //TODO remove
         SocketClient.getInstance().sendCommand(new PickUpTilesMTS(tilesPosition));
     }
 
@@ -388,7 +384,6 @@ public class BoardController extends GuiController implements Initializable {
             selectedTileToSendToShelf = (int) imageView.getUserData();
             imageView.getStyleClass().add("edge-effect2");
 
-            System.out.println("the selected tile has id: " + selectedTileToSendToShelf); //TODO remove
         });
 
         imageView.setOnMouseEntered(mouseEvent -> imageView.getStyleClass().add("edge-effect"));
@@ -447,7 +442,6 @@ public class BoardController extends GuiController implements Initializable {
                 break;
             }
         }
-        System.out.println("the index sent was: " + indexInTheTable); //TODO remove
 
         SocketClient.getInstance().sendCommand(new InsertTileMTS(indexInTheTable, column));
 
