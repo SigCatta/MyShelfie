@@ -25,7 +25,7 @@ The following documentation includes a description of most of the classes and me
 
 ### Line coverage report
 
-The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 38% overall line coverage
+The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 39% overall line coverage
 
 ### Used tools
 
