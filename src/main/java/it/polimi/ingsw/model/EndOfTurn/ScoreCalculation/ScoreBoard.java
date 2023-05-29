@@ -81,7 +81,7 @@ public class ScoreBoard implements EndOfTurnObserver, ModelObserver {
         else previousActivePlayerIndex = activePlayerIndex - 1;
         try {
             return players.get(previousActivePlayerIndex);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }
