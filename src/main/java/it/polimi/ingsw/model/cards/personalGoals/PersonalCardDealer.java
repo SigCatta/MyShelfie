@@ -36,8 +36,8 @@ public class PersonalCardDealer {
         } while (cards.size() < players.size());
 
         PersonalGoalReader JSONReader = new PersonalGoalReader();
-        Stack<Integer> points = JSONReader.getPointStack();
         for (Player player : players) {
+            Stack<Integer> points = JSONReader.getPointStack();
             String cardNumber = cards.pop();
             PersonalGoal personalGoal = new PersonalGoal(player, JSONReader.getPersonalGoalsData(cardNumber + ".json"), points, cardNumber);
             player.setPersonalGoal(personalGoal);

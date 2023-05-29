@@ -67,7 +67,6 @@ public class PersonalGoalReader implements JSONFileReader {
     public Stack<Integer> getPointStack() throws IOException, ParseException {
         Stack<Integer> pointStack = new Stack<>();
 
-
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("data/personal_cards/points.json");
         assert inputStream != null;
         InputStreamReader reader = new InputStreamReader(inputStream);

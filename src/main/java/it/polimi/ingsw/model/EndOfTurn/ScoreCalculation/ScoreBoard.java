@@ -58,7 +58,8 @@ public class ScoreBoard implements EndOfTurnObserver, ModelObserver {
         if (game.getGameState().equals(GameState.PREGAME)) return;
         Player previousActivePlayer = getPreviousActivePlayer();
 
-        scoreCommonGoalCards(previousActivePlayer);
+        if (previousActivePlayer == null) return;
+        else scoreCommonGoalCards(previousActivePlayer);
 
         if (previousActivePlayer.getShelf().isFull() && !isFirstPointAssigned) {
             scoreFirstCompletedShelf(previousActivePlayer);
@@ -78,8 +79,11 @@ public class ScoreBoard implements EndOfTurnObserver, ModelObserver {
         int previousActivePlayerIndex;
         if (activePlayerIndex == 0) previousActivePlayerIndex = players.size() - 1;
         else previousActivePlayerIndex = activePlayerIndex - 1;
-
-        return players.get(previousActivePlayerIndex);
+        try {
+            return players.get(previousActivePlayerIndex);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void endGameScoreUpdate() {
