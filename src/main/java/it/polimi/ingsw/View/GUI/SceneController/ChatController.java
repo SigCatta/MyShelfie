@@ -150,7 +150,7 @@ public class ChatController extends GuiController implements Initializable {
                     enterKeyBusy = false;
                     timer.cancel();
                 }
-            }, 400, 400);
+            }, 400, 700);
 
             onSendButtonClicked();
             enterKeyBusy = true;
