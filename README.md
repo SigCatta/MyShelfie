@@ -53,7 +53,7 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 ## Client
 
 The [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) can be used to run the client application. <br />
-To indipendently create a client application jar, execute the following command in the project root:
+To independently create a client application jar, execute the following command in the project root:
 
 ```
 mvn clean install assembly:single
