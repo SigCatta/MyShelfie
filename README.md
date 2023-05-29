@@ -21,9 +21,9 @@ Below some of the more significant UML diagrams:
 
 ### JavaDoc
 
-La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
+The following documentation includes a description of most of the classes and methods: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
 
-### Coverage report
+### Line coverage report
 
 The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 38% overall line coverage
 
@@ -51,8 +51,8 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 
 ## Client
 
-To run the following [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) cam ne used to run the client application. <br />
-To create a client application jar, execute the following command in the project root:
+The [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) can be used to run the client application. <br />
+To indipendently create a client application jar, execute the following command in the project root:
 
 ```
 mvn clean install assembly:single
