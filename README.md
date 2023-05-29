@@ -25,7 +25,7 @@ The following documentation includes a description of most of the classes and me
 
 ### Line coverage report
 
-The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 38% overall line coverage
+The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 39% overall line coverage
 
 ### Used tools
 
@@ -45,6 +45,7 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 - CLI
 - GUI
 - Socket
+- Docker
 - 2 FA (Advanced Features):
     - __Chat:__ Client and server offer the provide the players with the ability to exchange messages to either all players or a single player.
     - __Multiple Games:__ The server must be able to simultaneously manage multiple games.
@@ -52,7 +53,7 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 ## Client
 
 The [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) can be used to run the client application. <br />
-To indipendently create a client application jar, execute the following command in the project root:
+To independently create a client application jar, execute the following command in the project root:
 
 ```
 mvn clean install assembly:single

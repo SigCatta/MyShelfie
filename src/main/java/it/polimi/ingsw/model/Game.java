@@ -35,7 +35,7 @@ public class Game implements ModelSubject {
     private final int MAX_PLAYER_NUMBER;
     private VirtualView virtualView;
     private int gameID;
-    private Bag bag;
+    private final Bag bag;
     private final Board board;
     private final ChosenTilesTable chosenTilesTable;
     private GameState gameState;
@@ -59,14 +59,13 @@ public class Game implements ModelSubject {
         players = new ArrayList<>();
         board = new Board(BOARD_DIMENSION);
         chosenTilesTable = new ChosenTilesTable();
+        bag = new Bag();
     }
 
     /**
      * Starts the actual game (no more players can connect)
      */
     public void start() {
-        bag = new Bag();
-
         gameState = GameState.PICK_UP_TILES;
 
         new BoardRefresher(this).refillBoard();

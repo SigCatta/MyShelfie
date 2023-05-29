@@ -2,7 +2,7 @@
   "GREEN": [4, 2],
   "YELLOW": [0, 4],
   "BLUE": [2, 2],
-  "LIGHTBLUE": [0, 2],
+  "LIGHTBLUE": [2, 0],
   "PINK": [3, 3],
   "WHITE": [4, 1]
 }

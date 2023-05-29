@@ -183,8 +183,11 @@ public class BoardController extends GuiController implements Initializable {
 
     @Override
     public void updateShelf() {
-        ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
-        ItemRefillUtility.updateShelfGrid(shelfModel);
+        try{
+            ItemTile[][] shelfModel = ShelvesRepresentation.getInstance().getShelfMessage(SocketClient.getInstance().getNickname()).getShelf();
+            ItemRefillUtility.updateShelfGrid(shelfModel);
+        } catch (NullPointerException ignored){
+        }
     }
 
     @Override
