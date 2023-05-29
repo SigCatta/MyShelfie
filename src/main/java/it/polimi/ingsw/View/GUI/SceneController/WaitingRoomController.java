@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -24,8 +26,6 @@ public class WaitingRoomController extends GuiController implements Initializabl
     Text playersNamesText;
     @FXML
     Text maxNumText;
-    final int maxNumberOfPlayers = -1;
-
     @FXML
     Text currentNumText;
 
@@ -40,7 +40,10 @@ public class WaitingRoomController extends GuiController implements Initializabl
     @Override
     public synchronized void updateGame() {
 
-        if (GameRepresentation.getInstance().getGameMessage() == null) return;
+        if (GameRepresentation.getInstance().getGameMessage() == null) {
+            activateTryAgainRoutine();
+            return;
+        }
 
         //set the max number of players field
         maxNumText.setText(String.valueOf(GameRepresentation.getInstance().getMAX_PLAYER_NUMBER()));
@@ -111,12 +114,26 @@ public class WaitingRoomController extends GuiController implements Initializabl
         }
         int numberOfPlayers = PlayersRepresentation.getInstance().getPlayersList().size();
         currentNumText.setText(String.valueOf(numberOfPlayers));
-        System.out.println(maxNumberOfPlayers);
+    }
+
+    /**
+     * when a player enters the waiting room, sometimes it is not able to see the game information,
+     * this was solved by reloading the screen
+     */
+    private void activateTryAgainRoutine() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> StageController.changeScene("fxml/waiting_room.fxml", "Waiting room"));
+            }
+        }, 1000);
     }
 
     /**
      * Initializes the WaitingRoomController.
-     * @param url the location used to resolve relative paths for the root object
+     *
+     * @param url            the location used to resolve relative paths for the root object
      * @param resourceBundle the resources used to localize the root object
      */
     @Override

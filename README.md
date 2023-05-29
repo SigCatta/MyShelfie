@@ -3,7 +3,7 @@
 ![alt text](src/main/resources/it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Box%20noshadow%20280x280.png)
 
 Implementation of the board game [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
-The project consists in the implementation of a single-server system capable of simultaneously managing multiple games made up of 2 to 4 clients (one for each player). Each player can choose to play using either the command line interface (later referred to as CLI) or the graphical user interface (later referred to as GUI). The project fully implements the MVC (Model-View-Controller) design pattern, further information about the realization of the network cna be found [here](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/NetworkDocumentation/NetworkDocumentation.md).
+The project consists in the implementation of a single-server system capable of simultaneously managing multiple games made up of 2 to 4 clients (one for each player). Each player can choose to play using either the command line interface (later referred to as CLI) or the graphical user interface (later referred to as GUI). The project fully implements the MVC (Model-View-Controller) design pattern, further information about the realization of the network can be found [here](deliveries/NetworkDocumentation/NetworkDocumentation.md).
 
 ## Documentation
 
@@ -21,9 +21,9 @@ Below some of the more significant UML diagrams:
 
 ### JavaDoc
 
-La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
+The following documentation includes a description of most of the classes and methods: [Javadoc](https://sigcatta.github.io/prog-ingsw-The_Compiler_Coalition/)
 
-### Coverage report
+### Line coverage report
 
 The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/tree/main/src/test/java/it/polimi/ingsw) directory provide a model line coverage of 92% and 38% overall line coverage
 
@@ -51,8 +51,8 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 
 ## Client
 
-To run the following [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) cam ne used to run the client application. <br />
-To create a client application jar, execute the following command in the project root:
+The [precompiled jar](https://github.com/SigCatta/prog-ingsw-The_Compiler_Coalition/blob/main/deliveries/my-shelfie-client.jar) can be used to run the client application. <br />
+To indipendently create a client application jar, execute the following command in the project root:
 
 ```
 mvn clean install assembly:single
