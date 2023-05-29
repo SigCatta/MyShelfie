@@ -45,6 +45,7 @@ The unit test present in the [test](https://github.com/SigCatta/prog-ingsw-The_C
 - CLI
 - GUI
 - Socket
+- Docker
 - 2 FA (Advanced Features):
     - __Chat:__ Client and server offer the provide the players with the ability to exchange messages to either all players or a single player.
     - __Multiple Games:__ The server must be able to simultaneously manage multiple games.
