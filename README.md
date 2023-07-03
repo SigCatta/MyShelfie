@@ -1,5 +1,5 @@
 # Prova Finale di Ingegneria del Software - AA 2022-2023
-
+Grade 30L / 30 <br>
 ![alt text](src/main/resources/it/polimi/ingsw/View/GUI/17_MyShelfie_BGA/Publisher_material/Box%20noshadow%20280x280.png)
 
 Implementation of the board game [My Shelfie](http://www.craniocreations.it/prodotto/my-shelfie/).
